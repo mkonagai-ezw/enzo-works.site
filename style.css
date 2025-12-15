@@ -296,4 +296,86 @@ body {
         text-align: center; /* スマホでは文字も中央揃え */
         gap: 30px;
     }
+}/* --- 7. スマホ対応（レスポンシブヘッダー） --- */
+
+/* ハンバーガーメニューのボタン（PCでは隠す） */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    z-index: 200; /* メニューより手前に表示 */
+}
+
+/* 三本線のデザイン */
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #fff; /* 線の色 */
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+/* 線の位置 */
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.hamburger span:nth-child(3) { bottom: 0; }
+
+/* スマホサイズの時だけの特別ルール */
+@media (max-width: 768px) {
+    /* ハンバーガーを表示 */
+    .hamburger {
+        display: block;
+    }
+
+    /* メニュー全体を画面いっぱいのオーバーレイにする */
+    .nav {
+        display: block; /* 消していたのを復活 */
+        position: fixed;
+        top: 0;
+        right: -100%; /* 最初は画面の外（右側）に隠しておく */
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.95); /* 背景は濃い黒 */
+        backdrop-filter: blur(10px);
+        transition: all 0.4s ease;
+        z-index: 150;
+        
+        /* 中身を中央揃えに */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* クラス "active" がついたら画面に出てくる */
+    .nav.active {
+        right: 0;
+    }
+
+    /* メニューリストを縦並びにする */
+    .nav ul {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .nav a {
+        font-size: 20px; /* 文字を大きく */
+    }
+
+    /* --- 開いた時のバツ印アニメーション --- */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg);
+        top: 50%;
+    }
+    .hamburger.active span:nth-child(2) {
+        opacity: 0; /* 真ん中の線を消す */
+    }
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg);
+        bottom: auto;
+        top: 50%;
+    }
 }

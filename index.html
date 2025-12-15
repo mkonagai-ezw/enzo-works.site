@@ -13,6 +13,11 @@
         <div class="logo">
             <img src="images/logo.png" alt="ENZO WORKS" class="logo-img">
         </div>
+        <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
         <nav class="nav">
             <ul>
                 <li><a href="#about">About</a></li>
@@ -99,8 +104,25 @@
 </section>
 
     <footer style="text-align: center; padding: 20px; font-size: 12px; color: #666;">
-        &copy; 2024 ENZO WORKS. All Rights Reserved.
+        &copy; 2025 ENZO WORKS. All Rights Reserved.
     </footer>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('.nav');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // メニューのリンクをクリックしたら自動で閉じる
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+    </script>
 
 </body>
 </html>
