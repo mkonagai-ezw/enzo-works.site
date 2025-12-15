@@ -77,7 +77,7 @@ body {
     height: 100vh; /* 画面いっぱいの高さ */
     width: 100%;
     /* 背景画像の設定 */
-    background-image: url('images/hero.jpg'); 
+    background-image: url('images/topimage.png'); 
     background-size: cover;
     background-position: center;
     
