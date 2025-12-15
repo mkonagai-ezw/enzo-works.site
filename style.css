@@ -1,5 +1,4 @@
 /* --- 1. Google Fonts（プロ用フォント）の読み込み --- */
-/* 必ずファイルの先頭に記述してください */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Noto+Sans+JP:wght@400;700&display=swap');
 
 /* --- 2. 全体の基本設定 --- */
@@ -10,7 +9,6 @@
 }
 
 body {
-    /* 日本語フォント設定 */
     font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
     color: #333;
     line-height: 1.6;
@@ -21,23 +19,21 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px; /* 少しスリムに */
-    background-color: rgba(255, 255, 255, 0.95); /* 少しだけ透けさせる */
+    padding: 15px 40px;
+    background-color: rgba(255, 255, 255, 0.95);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* 上品な影 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* ロゴ画像の調整 */
 .logo-img {
-    height: 35px; /* 高さを指定（横幅は自動） */
+    height: 35px;
     width: auto;
     display: block;
 }
 
-/* ナビゲーションメニュー */
 .nav ul {
     display: flex;
     list-style: none;
@@ -48,7 +44,7 @@ body {
 .nav a {
     text-decoration: none;
     color: #333;
-    font-weight: 700; /* 太文字 */
+    font-weight: 700;
     font-size: 14px;
     letter-spacing: 0.05em;
     transition: color 0.3s;
@@ -58,45 +54,39 @@ body {
     color: #007bff;
 }
 
-/* お問い合わせボタン（黒背景で引き締める） */
 .btn-contact {
     background-color: #111;
     color: #fff !important;
     padding: 10px 24px;
     border-radius: 4px;
-    font-family: 'Montserrat', sans-serif; /* 英語フォント */
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
 }
 
 .btn-contact:hover {
-    background-color: #007bff; /* ホバー時は青に */
+    background-color: #007bff;
 }
 
 /* --- 4. ヒーローセクション（メインビジュアル） --- */
 .hero {
-    height: 100vh; /* 画面いっぱいの高さ */
+    height: 100vh;
     width: 100%;
-    /* 背景画像の設定 */
     background-image: url('images/topimage.png'); 
     background-size: cover;
     background-position: center;
-    
-    /* 中身を上下左右中央に */
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
 }
 
-/* 画像の上に黒いフィルターをかけて文字を読みやすくする */
 .hero::before {
     content: '';
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* 黒の40%透明 */
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* 文字コンテンツ（フィルターの上に表示） */
 .hero-content {
     position: relative;
     z-index: 1;
@@ -106,51 +96,28 @@ body {
     max-width: 900px;
 }
 
-/* メインキャッチコピー（Think freely...） */
 .main-title {
-    font-family: 'Montserrat', sans-serif; /* 英語専用フォント */
-    font-weight: 900; /* 極太 */
-    font-size: 64px;  /* PCでは大きく */
-    line-height: 1.1; /* 行間を詰める */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 1.1;
     letter-spacing: -0.02em;
     margin-bottom: 24px;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.4); /* 立体感を出す影 */
+    text-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
-/* サブテキスト（日本語） */
 .sub-text {
     font-size: 16px;
     line-height: 2.0;
     margin-bottom: 40px;
     font-weight: 400;
     opacity: 0.95;
-    letter-spacing: 0.08em; /* 日本語は少し間隔を空ける */
+    letter-spacing: 0.08em;
 }
 
-/* CTAボタン（Contact Us） */
-.hero-btn {
-    display: inline-block;
-    padding: 18px 50px;
-    background-color: #007bff; /* アクセントカラーの青 */
-    color: #fff;
-    text-decoration: none;
-    border-radius: 50px; /* 丸いボタン */
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,123,255,0.4); /* 光るような影 */
-}
-
-.hero-btn:hover {
-    transform: translateY(-3px); /* 少し浮き上がる */
-    box-shadow: 0 6px 20px rgba(0,123,255,0.6);
-}
-
-/* --- 5. その他のセクション --- */
+/* --- 5. About Me セクション --- */
 .section {
     padding: 100px 20px;
-    text-align: center;
 }
 
 .section h2 {
@@ -158,32 +125,12 @@ body {
     font-size: 32px;
     margin-bottom: 20px;
     color: #111;
-}
-
-/* --- 6. スマホ対応（レスポンシブ） --- */
-@media (max-width: 768px) {
-    .main-title {
-        font-size: 42px; /* スマホでは文字サイズを抑える */
-    }
-    
-    .sub-text {
-        font-size: 14px;
-        text-align: left; /* スマホなら左揃えの方が読みやすい場合も */
-        display: inline-block; /* 中央配置の中で左揃えにするテクニック */
-    }
-    
-    .header {
-        padding: 15px 20px;
-    }
-}/* --- 5. Serviceセクションのデザイン --- */
-.section {
-    padding: 100px 20px;
-    background-color: #f9f9f9; /* 背景を少しグレーにして白カードを目立たせる */
+    text-align: center;
 }
 
 .container {
     max-width: 1200px;
-    margin: 0 auto; /* 中央揃え */
+    margin: 0 auto;
 }
 
 .section-title {
@@ -196,6 +143,50 @@ body {
     color: #111;
 }
 
+.about-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.about-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border: 4px solid #fff;
+}
+
+.about-text h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.about-text .role {
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.about-text .description {
+    line-height: 1.8;
+    color: #555;
+}
+
+/* --- 6. Serviceセクション --- */
+#service {
+    background-color: #f9f9f9;
+}
+
 .section-desc {
     text-align: center;
     margin-bottom: 60px;
@@ -203,35 +194,29 @@ body {
     font-size: 16px;
 }
 
-/* 4つのカードを並べるグリッド設定 */
 .service-grid {
     display: grid;
-    /* ↓ 画面幅に合わせて自動で列数を調整（最低280px幅を確保） */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px; /* カード同士の隙間 */
+    gap: 30px;
 }
 
-/* 個別のカードデザイン */
 .service-card {
     background-color: #fff;
     padding: 40px 30px;
-    border-radius: 12px; /* 角丸 */
+    border-radius: 12px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
-    /* うっすらとした影をつけて浮き上がらせる */
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-/* ホバー時に浮き上がる演出 */
 .service-card:hover {
-    transform: translateY(-10px); /* 上にスッと動く */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* 影を濃くする */
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
 }
 
-/* アイコンのデザイン */
 .icon-box {
     font-size: 40px;
-    color: #007bff; /* ブランドカラー */
+    color: #007bff;
     margin-bottom: 20px;
 }
 
@@ -245,184 +230,17 @@ body {
     font-size: 14px;
     color: #666;
     line-height: 1.8;
-}/* --- 6. About Me セクションのレイアウト --- */
-
-/* 画像とテキストを包む箱 */
-.about-wrapper {
-    display: flex; /* 横並びにする */
-    align-items: center; /* 上下中央揃え */
-    justify-content: center; /* 左右中央寄せ */
-    gap: 50px; /* 画像と文字の間隔 */
-    max-width: 900px;
-    margin: 0 auto; /* 画面中央に配置 */
-    text-align: left; /* PCでは文字を左揃えに */
 }
 
-/* プロフィール画像のデザイン */
-.about-image img {
-    width: 200px; /* 画像のサイズ */
-    height: 200px;
-    border-radius: 50%; /* 綺麗な正円にする */
-    object-fit: cover; /* 歪まずに切り抜く */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* ふんわり影をつける */
-    border: 4px solid #fff; /* 白いフチをつける */
-}
-
-/* テキスト周りのデザイン */
-.about-text h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.about-text .role {
-    color: #007bff; /* 職種名を青色に */
-    font-weight: bold;
-    margin-bottom: 20px;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.05em;
-}
-
-.about-text .description {
-    line-height: 1.8;
-    color: #555;
-}
-
-/* --- スマホ対応（重要！） --- */
-@media (max-width: 768px) {
-    .about-wrapper {
-        flex-direction: column; /* スマホでは縦並びにする */
-        text-align: center; /* スマホでは文字も中央揃え */
-        gap: 30px;
-    }
-}/* --- 7. スマホ対応（レスポンシブヘッダー） --- */
-
-/* ハンバーガーメニューのボタン（PCでは隠す） */
-.hamburger {
-    display: none;
-    cursor: pointer;
-    width: 30px;
-    height: 20px;
-    position: relative;
-    z-index: 200; /* メニューより手前に表示 */
-}
-
-/* 三本線のデザイン */
-.hamburger span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #333; /* 線の色 */
-    position: absolute;
-    transition: all 0.3s ease;
-}
-
-/* 線の位置 */
-.hamburger span:nth-child(1) { top: 0; }
-.hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
-.hamburger span:nth-child(3) { bottom: 0; }
-
-/* スマホサイズの時だけの特別ルール */
-@media (max-width: 768px) {
-    /* ハンバーガーを表示 */
-    .hamburger {
-        display: block;
-    }
-
-    /* メニュー全体を画面いっぱいのオーバーレイにする */
-    .nav {
-        display: block; /* 消していたのを復活 */
-        position: fixed;
-        top: 0;
-        right: -100%; /* 最初は画面の外（右側）に隠しておく */
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.95); /* 背景は濃い黒 */
-        backdrop-filter: blur(10px);
-        transition: all 0.4s ease;
-        z-index: 150;
-        
-        /* 中身を中央揃えに */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* クラス "active" がついたら画面に出てくる */
-    .nav.active {
-        right: 0;
-    }
-
-    /* メニューリストを縦並びにする */
-    .nav ul {
-        flex-direction: column;
-        gap: 40px;
-        text-align: center;
-    }
-
-    .nav a {
-        font-size: 20px; /* 文字を大きく */
-    }
-
-    /* --- 開いた時のバツ印アニメーション --- */
-    .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg);
-        top: 50%;
-    }
-    .hamburger.active span:nth-child(2) {
-        opacity: 0; /* 真ん中の線を消す */
-    }
-    .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg);
-        bottom: auto;
-        top: 50%;
-    }
-}/* --- 8. Contactセクション（Googleフォーム調整） --- */
-
-/* フォームを囲む箱 */
-.contact-wrapper {
-    background-color: #fff;
-    padding: 20px; /* PCでの余白 */
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* ほんのり影をつける */
-    max-width: 800px; /* PCでは横幅が広がりすぎないように制限 */
-    margin: 0 auto;   /* 中央寄せ */
-    overflow: hidden; /* はみ出し防止 */
-}
-
-/* Googleフォーム本体（iframe） */
-.contact-wrapper iframe {
-    /* ↓↓↓ これが超重要！ 幅を親要素に合わせて100%にする ↓↓↓ */
-    width: 100% !important; 
-    height: 800px; /* PCでの高さ */
-    border: none;
-    display: block; /* 余計な隙間を消す */
-}
-
-/* スマホサイズの時だけの特別ルール（メディアクエリ） */
-@media (max-width: 768px) {
-    /* スマホでは箱の余白を少し狭くして画面を広く使う */
-    .contact-wrapper {
-        padding: 10px;
-        width: 95%; /* 画面幅の95%を使う */
-    }
-
-    /* スマホではフォームが縦長になるので、高さを増やす */
-    .contact-wrapper iframe {
-        height: 1100px; /* 中身が切れないように高さを調整 */
-    }
-}/* --- 9. お問い合わせボタンとモーダル --- */
-
-/* ボタンのデザイン */
+/* --- 7. Contactセクション & ボタン --- */
 .contact-btn-wrapper {
     text-align: center;
     margin-top: 30px;
 }
 
 .main-btn {
-    background-color: #000; /* 背景を黒に */
-    color: #fff;            /* 文字を白に */
+    background-color: #000;
+    color: #fff;
     font-size: 18px;
     font-weight: bold;
     padding: 15px 40px;
@@ -430,11 +248,11 @@ body {
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* 影も黒っぽく調整 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .main-btn:hover {
-    background-color: #333; /* ホバー時は少しグレーに */
+    background-color: #333;
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.4);
 }
@@ -443,27 +261,26 @@ body {
     margin-right: 10px;
 }
 
-/* モーダル（背景の黒い部分） */
+/* --- 8. モーダル（お問い合わせフォーム） --- */
 .modal {
-    display: none; /* 最初は隠す */
+    display: none;
     position: fixed;
-    z-index: 1000; /* 最前面に */
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.6); /* 半透明の黒 */
-    backdrop-filter: blur(5px); /* 背景を少しぼかす */
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
     align-items: center;
     justify-content: center;
 }
 
-/* モーダルの中身（白い箱） */
 .modal-content {
     background-color: #fff;
     width: 90%;
     max-width: 700px;
-    height: 85vh; /* 画面の高さの85% */
+    height: 85vh;
     border-radius: 12px;
     padding: 20px;
     position: relative;
@@ -479,19 +296,17 @@ body {
     color: #333;
 }
 
-/* フォームエリア（スクロールできるようにする） */
 .form-wrapper {
     flex: 1;
-    overflow-y: auto; /* 縦スクロール有効 */
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
 .form-wrapper iframe {
     width: 100%;
-    height: 1000px; /* 十分な高さを確保 */
+    height: 1000px;
 }
 
-/* 閉じるボタン（×） */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -506,3 +321,169 @@ body {
 .close-btn:hover {
     color: #000;
 }
+
+/* --- 9. フローティング音楽プレイヤー（リッチ版） --- */
+.music-player {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 999;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.player-content {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 10px;
+    padding-right: 20px;
+    border-radius: 60px;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    gap: 15px;
+    transition: all 0.3s ease;
+    max-width: 350px;
+}
+
+.player-content:hover {
+    transform: translateY(-2px);
+    background-color: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+
+.art-wrapper {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.music-art {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #333;
+    transition: transform 0.5s;
+}
+
+/* 再生中に画像を回すアニメーション */
+.playing .music-art {
+    animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+.text-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    min-width: 120px;
+}
+
+.track-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-desc {
+    font-size: 10px;
+    color: #aaa;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.control-btn {
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-btn {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+.play-btn:hover {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.1);
+}
+
+.next-btn {
+    font-size: 14px;
+    color: #888;
+}
+
+.next-btn:hover {
+    color: #fff;
+}
+
+/* --- 10. スマホ対応（レスポンシブ共通設定） --- */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    z-index: 200;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #333; /* 濃いグレー */
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.hamburger span:nth-child(3) { bottom: 0; }
+
+@media (max-width: 768px) {
+    /* 共通 */
+    .section { padding: 60px 20px; }
+    
+    /* ヒーロー */
+    .main-title { font-size: 42px; }
+    .sub-text { font-size: 14px; text-align: left; display: inline-block; }
+    .header { padding: 15px 20px; }
+
+    /* About Me */
+    .about-wrapper { flex-direction: column; text-align: center; gap: 30px; }
+    
+    /* ナビゲーションメニュー */
+    .hamburger { display: block; }
+    .nav {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0,
