@@ -50,8 +50,9 @@ body {
     transition: color 0.3s;
 }
 
+/* ★変更：ホバー色を濃いグレーに */
 .nav a:hover {
-    color: #007bff;
+    color: #555;
 }
 
 .btn-contact {
@@ -63,11 +64,12 @@ body {
     font-weight: 700;
 }
 
+/* ★変更：ホバー色を濃いグレー（少し明るい黒）に */
 .btn-contact:hover {
-    background-color: #007bff;
+    background-color: #333;
 }
 
-/* --- 4. ヒーローセクション（メインビジュアル） --- */
+/* --- 4. ヒーローセクション --- */
 .hero {
     height: 100vh;
     width: 100%;
@@ -169,8 +171,9 @@ body {
     margin-bottom: 5px;
 }
 
+/* ★変更：役職名の色を濃いグレーに */
 .about-text .role {
-    color: #007bff;
+    color: #333;
     font-weight: bold;
     margin-bottom: 20px;
     font-family: 'Montserrat', sans-serif;
@@ -214,9 +217,10 @@ body {
     box-shadow: 0 15px 30px rgba(0,0,0,0.1);
 }
 
+/* ★変更：アイコンの色を濃いグレーに */
 .icon-box {
     font-size: 40px;
-    color: #007bff;
+    color: #333;
     margin-bottom: 20px;
 }
 
@@ -322,7 +326,7 @@ body {
     color: #000;
 }
 
-/* --- 9. フローティング音楽プレイヤー（機能フル装備版） --- */
+/* --- 9. フローティング音楽プレイヤー --- */
 .music-player {
     position: fixed;
     bottom: 30px;
@@ -331,7 +335,6 @@ body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* プレイヤー見出し */
 .player-header {
     font-size: 10px;
     color: rgba(255, 255, 255, 0.9);
@@ -365,7 +368,7 @@ body {
     box-shadow: 0 12px 40px rgba(0,0,0,0.5);
 }
 
-/* --- プレイリストポップアップ --- */
+/* --- プレイリストポップアップ（×ボタン付き） --- */
 .playlist-popup {
     position: absolute;
     bottom: 110%;
@@ -377,8 +380,6 @@ body {
     padding: 15px;
     border: 1px solid rgba(255,255,255,0.1);
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    
-    /* アニメーション */
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
@@ -391,15 +392,35 @@ body {
     transform: translateY(0);
 }
 
+/* ヘッダー（横並び） */
 .playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.header-text {
     font-size: 12px;
     color: #888;
-    margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
-    border-bottom: 1px solid #333;
-    padding-bottom: 5px;
+}
+
+/* ×ボタンのデザイン */
+.close-playlist {
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-playlist:hover {
+    color: #fff;
 }
 
 .playlist-items {
@@ -421,9 +442,10 @@ body {
     background-color: rgba(255,255,255,0.1);
 }
 
+/* ★変更：再生中の曲の強調色をグレー系に */
 .playlist-item.active {
-    background-color: rgba(0, 123, 255, 0.3);
-    border: 1px solid rgba(0, 123, 255, 0.5);
+    background-color: rgba(100, 100, 100, 0.3);
+    border: 1px solid rgba(100, 100, 100, 0.5);
 }
 
 .list-thumb {
@@ -491,12 +513,10 @@ body {
     text-overflow: ellipsis;
 }
 
-/* スクロール用の枠 */
 .marquee-container {
     overflow: hidden;
     white-space: nowrap;
     position: relative;
-    /* 左右を少しぼかしてフェードアウトさせる */
     mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
@@ -637,7 +657,7 @@ body {
         transform: translateX(-50%) translateY(20px); 
         bottom: 120%; 
     }
-    /* .showがついたの時の上書き */
+    /* .showがついた時の上書き */
     .playlist-popup.show { 
         transform: translateX(-50%) translateY(0); 
     }

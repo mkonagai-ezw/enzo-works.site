@@ -64,7 +64,7 @@
     <section id="service" class="section">
         <div class="container">
             <h2 class="section-title">Service</h2>
-            <p class="section-desc">ENZO WORKSがご提供する4つの価値。</p>
+            <p class="section-desc">ENZO WORKSがご提供する8つの価値。</p>
             
             <div class="service-grid">
                 <div class="service-card">
@@ -106,7 +106,32 @@
                     <h3>楽曲制作</h3>
                     <p>動画BGMからブランドイメージソングまで。<br>世界観を音で表現し、コンテンツの魅力を最大化します。</p>
                 </div>
+
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-film"></i>
+                    </div>
+                    <h3>動画制作</h3>
+                    <p>プロモーション映像からSNS用動画編集まで。<br>視覚と聴覚に訴えるコンテンツで、魅力を強力に発信します。</p>
                 </div>
+
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+                    <h3>セミナー登壇</h3>
+                    <p>ITトレンド、AI活用、キャリア形成など。<br>実体験に基づいたナレッジを、初心者にも分かりやすく解説します。</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3>漠然としたご相談</h3>
+                    <p>「何から手をつければいいかわからない」<br>そんな段階からの壁打ちも大歓迎。一緒に課題を整理しましょう。</p>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -143,7 +168,10 @@
         <audio id="audio"></audio>
 
         <div id="playlistPopup" class="playlist-popup">
-            <div class="playlist-header">ENZO WORKS ORIGINAL TRACKS</div>
+            <div class="playlist-header">
+                <span class="header-text">PLAYLIST</span>
+                <span id="closePlaylistBtn" class="close-playlist">&times;</span>
+            </div>
             <div id="playlistItems" class="playlist-items">
                 </div>
         </div>
@@ -168,8 +196,9 @@
             </div>
         </div>
     </div>
+
     <script>
-        // --- ハンバーガーメニューの動作 ---
+        // --- ハンバーガーメニュー ---
         const hamburger = document.querySelector('.hamburger');
         const nav = document.querySelector('.nav');
 
@@ -178,7 +207,6 @@
             nav.classList.toggle('active');
         });
 
-        // メニューのリンクをクリックしたら自動で閉じる
         document.querySelectorAll('.nav a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -186,7 +214,7 @@
             });
         });
 
-        // --- モーダルの動作 ---
+        // --- モーダル ---
         const modal = document.getElementById('contactModal');
         const openBtn = document.getElementById('openModalBtn');
         const closeBtn = document.querySelector('.close-btn');
@@ -205,9 +233,7 @@
             }
         });
 
-        // --- 音楽プレイヤー（完全版：プレイリスト・戻るボタン対応） ---
-        
-        // 1. ノスタルジー 2. 亡霊 3. カクサン 4. レイジ の順
+        // --- 音楽プレイヤー ---
         const playlist = [
             { 
                 src: 'audio/audio02.mp3', 
@@ -238,26 +264,23 @@
         let currentTrackIndex = 0;
         let isPlaying = false;
 
-        // 要素の取得
         const audio = document.getElementById('audio');
         const playBtn = document.getElementById('playBtn');
         const playIcon = document.getElementById('playIcon');
         const nextBtn = document.getElementById('nextBtn');
-        const prevBtn = document.getElementById('prevBtn'); // 戻るボタン
-        const listBtn = document.getElementById('listBtn'); // リストボタン
+        const prevBtn = document.getElementById('prevBtn');
+        const listBtn = document.getElementById('listBtn');
+        const closePlaylistBtn = document.getElementById('closePlaylistBtn'); // ×ボタン
         
         const musicTitle = document.getElementById('musicTitle');
         const musicDesc = document.getElementById('musicDesc');
         const musicArt = document.getElementById('musicArt');
         const playerContent = document.querySelector('.player-content');
-        
-        // プレイリスト表示用
         const playlistPopup = document.getElementById('playlistPopup');
         const playlistItems = document.getElementById('playlistItems');
-        const artWrapper = document.getElementById('artWrapper'); // 開閉トリガー
-        const textInfoArea = document.getElementById('textInfoArea'); // 開閉トリガー
+        const artWrapper = document.getElementById('artWrapper');
+        const textInfoArea = document.getElementById('textInfoArea');
 
-        // 曲をロードする関数
         function loadTrack(index) {
             const track = playlist[index];
             audio.src = track.src;
@@ -265,14 +288,11 @@
             musicDesc.textContent = track.desc;
             musicArt.src = track.art;
             audio.load();
-            
-            // ポップアップ内の選択状態を更新
             updateActivePlaylistItem(index);
         }
 
-        // プレイリストのHTMLを生成する関数
         function createPlaylistHTML() {
-            playlistItems.innerHTML = ''; // クリア
+            playlistItems.innerHTML = '';
             playlist.forEach((track, index) => {
                 const item = document.createElement('div');
                 item.classList.add('playlist-item');
@@ -285,7 +305,6 @@
                     </div>
                 `;
                 
-                // クリックでその曲を再生
                 item.addEventListener('click', () => {
                     currentTrackIndex = index;
                     loadTrack(currentTrackIndex);
@@ -296,7 +315,6 @@
             });
         }
 
-        // リストの選択状態（色）を更新
         function updateActivePlaylistItem(index) {
             const items = document.querySelectorAll('.playlist-item');
             items.forEach((item, i) => {
@@ -305,7 +323,6 @@
             });
         }
 
-        // 再生処理
         function playMusic() {
             audio.play();
             isPlaying = true;
@@ -314,7 +331,6 @@
             playerContent.classList.add('playing');
         }
 
-        // 停止処理
         function pauseMusic() {
             audio.pause();
             isPlaying = false;
@@ -323,55 +339,41 @@
             playerContent.classList.remove('playing');
         }
 
-        // 再生・停止切り替え
         function togglePlay() {
-            if (isPlaying) {
-                pauseMusic();
-            } else {
-                playMusic();
-            }
+            if (isPlaying) pauseMusic();
+            else playMusic();
         }
 
-        // 次へ
         function nextTrack() {
             currentTrackIndex++;
-            if (currentTrackIndex >= playlist.length) {
-                currentTrackIndex = 0;
-            }
+            if (currentTrackIndex >= playlist.length) currentTrackIndex = 0;
             loadTrack(currentTrackIndex);
             if (isPlaying) playMusic();
         }
 
-        // 前へ
         function prevTrack() {
             currentTrackIndex--;
-            if (currentTrackIndex < 0) {
-                currentTrackIndex = playlist.length - 1; // 最後の曲に戻る
-            }
+            if (currentTrackIndex < 0) currentTrackIndex = playlist.length - 1;
             loadTrack(currentTrackIndex);
             if (isPlaying) playMusic();
         }
         
-        // プレイリストの表示切り替え
         function togglePlaylist() {
             playlistPopup.classList.toggle('show');
         }
 
-        // 初期設定
-        createPlaylistHTML(); // リスト生成
+        createPlaylistHTML();
         loadTrack(currentTrackIndex);
         audio.volume = 0.3;
 
-        // イベント設定
         playBtn.addEventListener('click', togglePlay);
         nextBtn.addEventListener('click', nextTrack);
         prevBtn.addEventListener('click', prevTrack);
         audio.addEventListener('ended', nextTrack);
-        
-        // リストボタン、アートワーク、テキストエリアをクリックでリスト開閉
         listBtn.addEventListener('click', togglePlaylist);
         artWrapper.addEventListener('click', togglePlaylist);
         textInfoArea.addEventListener('click', togglePlaylist);
+        closePlaylistBtn.addEventListener('click', togglePlaylist); // ×ボタンの動作
     </script>
 
 </body>
