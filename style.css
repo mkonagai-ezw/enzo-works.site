@@ -412,4 +412,97 @@ body {
     .contact-wrapper iframe {
         height: 1100px; /* 中身が切れないように高さを調整 */
     }
+}/* --- 9. お問い合わせボタンとモーダル --- */
+
+/* ボタンのデザイン */
+.contact-btn-wrapper {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.main-btn {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+}
+
+.main-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,123,255,0.4);
+}
+
+.main-btn i {
+    margin-right: 10px;
+}
+
+/* モーダル（背景の黒い部分） */
+.modal {
+    display: none; /* 最初は隠す */
+    position: fixed;
+    z-index: 1000; /* 最前面に */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* 半透明の黒 */
+    backdrop-filter: blur(5px); /* 背景を少しぼかす */
+    align-items: center;
+    justify-content: center;
+}
+
+/* モーダルの中身（白い箱） */
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 700px;
+    height: 85vh; /* 画面の高さの85% */
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-content h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+}
+
+/* フォームエリア（スクロールできるようにする） */
+.form-wrapper {
+    flex: 1;
+    overflow-y: auto; /* 縦スクロール有効 */
+    -webkit-overflow-scrolling: touch;
+}
+
+.form-wrapper iframe {
+    width: 100%;
+    height: 1000px; /* 十分な高さを確保 */
+}
+
+/* 閉じるボタン（×） */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close-btn:hover {
+    color: #000;
 }
