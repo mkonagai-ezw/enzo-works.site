@@ -322,7 +322,7 @@ body {
     color: #000;
 }
 
-/* --- 9. フローティング音楽プレイヤー（リッチ版） --- */
+/* --- 9. フローティング音楽プレイヤー（機能フル装備版） --- */
 .music-player {
     position: fixed;
     bottom: 30px;
@@ -331,20 +331,32 @@ body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
+/* プレイヤー見出し */
+.player-header {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 8px;
+    padding-left: 15px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    font-family: 'Montserrat', sans-serif;
+}
+
 .player-content {
     display: flex;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px);
-    padding: 10px;
-    padding-right: 20px;
+    padding: 10px 15px 10px 10px;
     border-radius: 60px;
     color: #fff;
     box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     border: 1px solid rgba(255,255,255,0.1);
     gap: 15px;
     transition: all 0.3s ease;
-    max-width: 350px;
+    max-width: 380px;
 }
 
 .player-content:hover {
@@ -353,11 +365,96 @@ body {
     box-shadow: 0 12px 40px rgba(0,0,0,0.5);
 }
 
+/* --- プレイリストポップアップ --- */
+.playlist-popup {
+    position: absolute;
+    bottom: 110%;
+    left: 0;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    
+    /* アニメーション */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.playlist-popup.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.playlist-header {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+.playlist-items {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 5px;
+}
+
+.playlist-item:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.playlist-item.active {
+    background-color: rgba(0, 123, 255, 0.3);
+    border: 1px solid rgba(0, 123, 255, 0.5);
+}
+
+.list-thumb {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.list-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.list-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- アートワーク --- */
 .art-wrapper {
     width: 45px;
     height: 45px;
     flex-shrink: 0;
     position: relative;
+    cursor: pointer;
 }
 
 .music-art {
@@ -369,21 +466,20 @@ body {
     transition: transform 0.5s;
 }
 
-/* 再生中に画像を回すアニメーション */
 .playing .music-art {
     animation: spin 4s linear infinite;
 }
 
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
+@keyframes spin { 100% { transform: rotate(360deg); } }
 
+/* --- テキスト情報（スクロール対応） --- */
 .text-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
-    min-width: 120px;
+    width: 130px;
+    cursor: pointer;
 }
 
 .track-title {
@@ -395,51 +491,68 @@ body {
     text-overflow: ellipsis;
 }
 
+/* スクロール用の枠 */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    /* 左右を少しぼかしてフェードアウトさせる */
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
 .track-desc {
     font-size: 10px;
     color: #aaa;
-    margin-top: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
 }
 
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+/* --- ボタン類 --- */
 .controls {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .control-btn {
     cursor: pointer;
-    color: #fff;
+    color: #ccc;
     transition: color 0.2s, transform 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 14px;
+}
+
+.control-btn:hover {
+    color: #fff;
 }
 
 .play-btn {
-    width: 30px;
-    height: 30px;
-    background-color: rgba(255,255,255,0.1);
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    color: #000;
     border-radius: 50%;
     font-size: 12px;
 }
 
 .play-btn:hover {
-    background-color: #fff;
+    background-color: #eee;
     color: #000;
     transform: scale(1.1);
 }
 
-.next-btn {
-    font-size: 14px;
+.list-btn {
+    margin-left: 5px;
     color: #888;
-}
-
-.next-btn:hover {
-    color: #fff;
 }
 
 /* --- 10. スマホ対応（レスポンシブ共通設定） --- */
@@ -456,7 +569,7 @@ body {
     display: block;
     width: 100%;
     height: 2px;
-    background-color: #333; /* 濃いグレー */
+    background-color: #333;
     position: absolute;
     transition: all 0.3s ease;
 }
@@ -496,16 +609,36 @@ body {
     }
     .nav.active { right: 0; }
     .nav ul { flex-direction: column; gap: 40px; text-align: center; }
-    .nav a { font-size: 20px; color: #fff; } /* スマホメニューは白文字 */
+    .nav a { font-size: 20px; color: #fff; }
 
     /* ハンバーガーアニメーション */
-    .hamburger.active span { background-color: #fff; } /* 開いた時は白にする */
+    .hamburger.active span { background-color: #fff; }
     .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 50%; }
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg); bottom: auto; top: 50%; }
 
     /* ミュージックプレイヤー（スマホ版） */
-    .music-player { bottom: 20px; left: 20px; right: 20px; }
-    .player-content { width: auto; max-width: none; }
-    .text-info { flex: 1; }
+    .music-player { 
+        bottom: 20px; 
+        left: 10px; 
+        right: 10px; 
+        width: auto; 
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+    }
+    .player-content { width: 100%; max-width: 350px; }
+    .text-info { flex: 1; width: auto; }
+    
+    /* スマホでのポップアップ位置調整 */
+    .playlist-popup { 
+        width: 300px; 
+        left: 50%; 
+        transform: translateX(-50%) translateY(20px); 
+        bottom: 120%; 
+    }
+    /* .showがついた時の上書き */
+    .playlist-popup.show { 
+        transform: translateX(-50%) translateY(0); 
+    }
 }
