@@ -36,7 +36,7 @@
                 自由な発想と確かな技術で、ビジネスを加速させる。
             </p>
             
-            </div>
+        </div>
     </section>
 
     <section id="about" class="section">
@@ -128,6 +128,30 @@
             </div>
         </div>
     </div>
+
+    <div class="music-player">
+        <audio id="audio"></audio>
+        
+        <div class="player-content">
+            <div class="art-wrapper">
+                <img src="" id="musicArt" alt="Art" class="music-art">
+            </div>
+
+            <div class="text-info">
+                <span id="musicTitle" class="track-title">Loading...</span>
+                <span id="musicDesc" class="track-desc">Loading...</span>
+            </div>
+
+            <div class="controls">
+                <div id="playBtn" class="control-btn play-btn">
+                    <i id="playIcon" class="fa-solid fa-play"></i>
+                </div>
+                <div id="nextBtn" class="control-btn next-btn">
+                    <i class="fa-solid fa-forward-step"></i>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         // --- ハンバーガーメニューの動作 ---
         const hamburger = document.querySelector('.hamburger');
@@ -146,27 +170,113 @@
             });
         });
 
-        // --- ↓↓↓ ここに追加しました：モーダルの動作 ↓↓↓ ---
+        // --- モーダルの動作 ---
         const modal = document.getElementById('contactModal');
         const openBtn = document.getElementById('openModalBtn');
         const closeBtn = document.querySelector('.close-btn');
 
-        // ボタンを押したら開く
         openBtn.addEventListener('click', () => {
             modal.style.display = 'flex';
         });
 
-        // ×ボタンを押したら閉じる
         closeBtn.addEventListener('click', () => {
             modal.style.display = 'none';
         });
 
-        // 黒い背景をクリックしても閉じる
         window.addEventListener('click', (e) => {
             if (e.target == modal) {
                 modal.style.display = 'none';
             }
         });
+
+        // --- ↓↓↓ ここに追加：音楽プレイヤーの動作（楽曲情報入り） ↓↓↓ ---
+        const playlist = [
+            { 
+                src: 'audio/audio01.mp3', 
+                art: 'audio/01audio.png', 
+                title: 'レイジモード', 
+                desc: '我が家の3歳末っ子の怒りを表現した楽曲' 
+            },
+            { 
+                src: 'audio/audio02.mp3', 
+                art: 'audio/02audio.png', 
+                title: 'ノスタルジーイズオトナリ', 
+                desc: '少子化をテーマにしたブリンバンボンな曲。' 
+            },
+            { 
+                src: 'audio/audio03.mp3', 
+                art: 'audio/03audio.png', 
+                title: '亡霊', 
+                desc: '某映画PJの主題歌候補に作成、たぶんボツになる。' 
+            },
+            { 
+                src: 'audio/audio04.mp3', 
+                art: 'audio/04audio.png', 
+                title: 'カクサンキボウ', 
+                desc: '最近っぽいナウい曲を作りたくて制作' 
+            }
+        ];
+
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+
+        const audio = document.getElementById('audio');
+        const playBtn = document.getElementById('playBtn');
+        const playIcon = document.getElementById('playIcon');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        // 表示を変える要素を取得
+        const musicTitle = document.getElementById('musicTitle');
+        const musicDesc = document.getElementById('musicDesc');
+        const musicArt = document.getElementById('musicArt');
+        const playerContent = document.querySelector('.player-content');
+
+        // 曲をロードする関数
+        function loadTrack(index) {
+            const track = playlist[index];
+            audio.src = track.src;
+            musicTitle.textContent = track.title;
+            musicDesc.textContent = track.desc;
+            musicArt.src = track.art;
+            audio.load();
+        }
+
+        // 再生・停止
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+                playerContent.classList.remove('playing');
+            } else {
+                audio.play();
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+                playerContent.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // 次へ
+        function nextTrack() {
+            currentTrackIndex++;
+            if (currentTrackIndex >= playlist.length) {
+                currentTrackIndex = 0;
+            }
+            loadTrack(currentTrackIndex);
+            if (isPlaying) {
+                audio.play();
+            }
+        }
+
+        // 初期設定
+        loadTrack(currentTrackIndex);
+        audio.volume = 0.3;
+
+        // イベント設定
+        playBtn.addEventListener('click', togglePlay);
+        nextBtn.addEventListener('click', nextTrack);
+        audio.addEventListener('ended', nextTrack);
     </script>
 
 </body>
