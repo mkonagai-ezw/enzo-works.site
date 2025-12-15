@@ -175,4 +175,74 @@ body {
     .header {
         padding: 15px 20px;
     }
+}/* --- 5. Serviceセクションのデザイン --- */
+.section {
+    padding: 100px 20px;
+    background-color: #f9f9f9; /* 背景を少しグレーにして白カードを目立たせる */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto; /* 中央揃え */
+}
+
+.section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+    color: #111;
+}
+
+.section-desc {
+    text-align: center;
+    margin-bottom: 60px;
+    color: #666;
+    font-size: 16px;
+}
+
+/* 4つのカードを並べるグリッド設定 */
+.service-grid {
+    display: grid;
+    /* ↓ 画面幅に合わせて自動で列数を調整（最低280px幅を確保） */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px; /* カード同士の隙間 */
+}
+
+/* 個別のカードデザイン */
+.service-card {
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 12px; /* 角丸 */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    /* うっすらとした影をつけて浮き上がらせる */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* ホバー時に浮き上がる演出 */
+.service-card:hover {
+    transform: translateY(-10px); /* 上にスッと動く */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* 影を濃くする */
+}
+
+/* アイコンのデザイン */
+.icon-box {
+    font-size: 40px;
+    color: #007bff; /* ブランドカラー */
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.service-card p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.8;
 }
