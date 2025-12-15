@@ -378,4 +378,38 @@ body {
         bottom: auto;
         top: 50%;
     }
+}/* --- 8. Contactセクション（Googleフォーム調整） --- */
+
+/* フォームを囲む箱 */
+.contact-wrapper {
+    background-color: #fff;
+    padding: 20px; /* PCでの余白 */
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* ほんのり影をつける */
+    max-width: 800px; /* PCでは横幅が広がりすぎないように制限 */
+    margin: 0 auto;   /* 中央寄せ */
+    overflow: hidden; /* はみ出し防止 */
+}
+
+/* Googleフォーム本体（iframe） */
+.contact-wrapper iframe {
+    /* ↓↓↓ これが超重要！ 幅を親要素に合わせて100%にする ↓↓↓ */
+    width: 100% !important; 
+    height: 800px; /* PCでの高さ */
+    border: none;
+    display: block; /* 余計な隙間を消す */
+}
+
+/* スマホサイズの時だけの特別ルール（メディアクエリ） */
+@media (max-width: 768px) {
+    /* スマホでは箱の余白を少し狭くして画面を広く使う */
+    .contact-wrapper {
+        padding: 10px;
+        width: 95%; /* 画面幅の95%を使う */
+    }
+
+    /* スマホではフォームが縦長になるので、高さを増やす */
+    .contact-wrapper iframe {
+        height: 1100px; /* 中身が切れないように高さを調整 */
+    }
 }
