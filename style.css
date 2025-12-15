@@ -245,4 +245,55 @@ body {
     font-size: 14px;
     color: #666;
     line-height: 1.8;
+}/* --- 6. About Me セクションのレイアウト --- */
+
+/* 画像とテキストを包む箱 */
+.about-wrapper {
+    display: flex; /* 横並びにする */
+    align-items: center; /* 上下中央揃え */
+    justify-content: center; /* 左右中央寄せ */
+    gap: 50px; /* 画像と文字の間隔 */
+    max-width: 900px;
+    margin: 0 auto; /* 画面中央に配置 */
+    text-align: left; /* PCでは文字を左揃えに */
+}
+
+/* プロフィール画像のデザイン */
+.about-image img {
+    width: 200px; /* 画像のサイズ */
+    height: 200px;
+    border-radius: 50%; /* 綺麗な正円にする */
+    object-fit: cover; /* 歪まずに切り抜く */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* ふんわり影をつける */
+    border: 4px solid #fff; /* 白いフチをつける */
+}
+
+/* テキスト周りのデザイン */
+.about-text h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.about-text .role {
+    color: #007bff; /* 職種名を青色に */
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.about-text .description {
+    line-height: 1.8;
+    color: #555;
+}
+
+/* --- スマホ対応（重要！） --- */
+@media (max-width: 768px) {
+    .about-wrapper {
+        flex-direction: column; /* スマホでは縦並びにする */
+        text-align: center; /* スマホでは文字も中央揃え */
+        gap: 30px;
+    }
 }
