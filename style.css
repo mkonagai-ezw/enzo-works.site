@@ -486,4 +486,26 @@ body {
         right: -100%;
         width: 100%;
         height: 100vh;
-        background-color: rgba(0, 0, 0,
+        background-color: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        transition: all 0.4s ease;
+        z-index: 150;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .nav.active { right: 0; }
+    .nav ul { flex-direction: column; gap: 40px; text-align: center; }
+    .nav a { font-size: 20px; color: #fff; } /* スマホメニューは白文字 */
+
+    /* ハンバーガーアニメーション */
+    .hamburger.active span { background-color: #fff; } /* 開いた時は白にする */
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 50%; }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg); bottom: auto; top: 50%; }
+
+    /* ミュージックプレイヤー（スマホ版） */
+    .music-player { bottom: 20px; left: 20px; right: 20px; }
+    .player-content { width: auto; max-width: none; }
+    .text-info { flex: 1; }
+}
