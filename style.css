@@ -637,7 +637,7 @@ body {
         transform: translateX(-50%) translateY(20px); 
         bottom: 120%; 
     }
-    /* .showがついた時の上書き */
+    /* .showがついたの時の上書き */
     .playlist-popup.show { 
         transform: translateX(-50%) translateY(0); 
     }
