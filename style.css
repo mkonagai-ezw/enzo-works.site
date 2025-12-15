@@ -1,0 +1,178 @@
+/* --- 1. Google Fonts（プロ用フォント）の読み込み --- */
+/* 必ずファイルの先頭に記述してください */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Noto+Sans+JP:wght@400;700&display=swap');
+
+/* --- 2. 全体の基本設定 --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* 日本語フォント設定 */
+    font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- 3. ヘッダーのデザイン --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px; /* 少しスリムに */
+    background-color: rgba(255, 255, 255, 0.95); /* 少しだけ透けさせる */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* 上品な影 */
+}
+
+/* ロゴ画像の調整 */
+.logo-img {
+    height: 35px; /* 高さを指定（横幅は自動） */
+    width: auto;
+    display: block;
+}
+
+/* ナビゲーションメニュー */
+.nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 700; /* 太文字 */
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+}
+
+.nav a:hover {
+    color: #007bff;
+}
+
+/* お問い合わせボタン（黒背景で引き締める） */
+.btn-contact {
+    background-color: #111;
+    color: #fff !important;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif; /* 英語フォント */
+    font-weight: 700;
+}
+
+.btn-contact:hover {
+    background-color: #007bff; /* ホバー時は青に */
+}
+
+/* --- 4. ヒーローセクション（メインビジュアル） --- */
+.hero {
+    height: 100vh; /* 画面いっぱいの高さ */
+    width: 100%;
+    /* 背景画像の設定 */
+    background-image: url('images/hero.jpg'); 
+    background-size: cover;
+    background-position: center;
+    
+    /* 中身を上下左右中央に */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* 画像の上に黒いフィルターをかけて文字を読みやすくする */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 黒の40%透明 */
+}
+
+/* 文字コンテンツ（フィルターの上に表示） */
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #fff;
+    padding: 0 20px;
+    max-width: 900px;
+}
+
+/* メインキャッチコピー（Think freely...） */
+.main-title {
+    font-family: 'Montserrat', sans-serif; /* 英語専用フォント */
+    font-weight: 900; /* 極太 */
+    font-size: 64px;  /* PCでは大きく */
+    line-height: 1.1; /* 行間を詰める */
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.4); /* 立体感を出す影 */
+}
+
+/* サブテキスト（日本語） */
+.sub-text {
+    font-size: 16px;
+    line-height: 2.0;
+    margin-bottom: 40px;
+    font-weight: 400;
+    opacity: 0.95;
+    letter-spacing: 0.08em; /* 日本語は少し間隔を空ける */
+}
+
+/* CTAボタン（Contact Us） */
+.hero-btn {
+    display: inline-block;
+    padding: 18px 50px;
+    background-color: #007bff; /* アクセントカラーの青 */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px; /* 丸いボタン */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,123,255,0.4); /* 光るような影 */
+}
+
+.hero-btn:hover {
+    transform: translateY(-3px); /* 少し浮き上がる */
+    box-shadow: 0 6px 20px rgba(0,123,255,0.6);
+}
+
+/* --- 5. その他のセクション --- */
+.section {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+/* --- 6. スマホ対応（レスポンシブ） --- */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 42px; /* スマホでは文字サイズを抑える */
+    }
+    
+    .sub-text {
+        font-size: 14px;
+        text-align: left; /* スマホなら左揃えの方が読みやすい場合も */
+        display: inline-block; /* 中央配置の中で左揃えにするテクニック */
+    }
+    
+    .header {
+        padding: 15px 20px;
+    }
+}

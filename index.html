@@ -1,164 +1,52 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>ENZO WORKS | Web・クリエイティブ制作テスト</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-      line-height: 1.6;
-      color: #222;
-      background: #f5f5f5;
-    }
-    header {
-      background: #111;
-      color: #fff;
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header .logo {
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      font-size: 18px;
-    }
-    header nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 16px;
-      font-size: 14px;
-    }
-    .hero {
-      padding: 80px 24px 64px;
-      text-align: center;
-      background: #079ee5;
-      color: #fff;
-    }
-    .hero h1 {
-      font-size: 32px;
-      margin-bottom: 12px;
-      letter-spacing: 0.08em;
-    }
-    .hero p {
-      max-width: 640px;
-      margin: 0 auto 24px;
-      font-size: 15px;
-    }
-    .hero .btn {
-      display: inline-block;
-      padding: 12px 28px;
-      border-radius: 999px;
-      background: #fff;
-      color: #079ee5;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .section {
-      max-width: 960px;
-      margin: 40px auto;
-      padding: 0 16px;
-    }
-    .section h2 {
-      font-size: 22px;
-      margin-bottom: 16px;
-      border-left: 4px solid #079ee5;
-      padding-left: 8px;
-    }
-    .cards {
-      display: grid;
-      gap: 16px;
-    }
-    @media (min-width: 768px) {
-      .cards {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-      font-size: 14px;
-    }
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-    footer {
-      text-align: center;
-      font-size: 12px;
-      color: #777;
-      padding: 32px 16px 24px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENZO WORKS</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div class="logo">ENZO WORKS</div>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#service">Service</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <h1>地方発、現場に強いクリエイティブパートナーですぞ</h1>
-    <p>
-      ENZO WORKSは、愛媛・西条を拠点にした小さな制作ユニット。<br>
-      Webサイト制作・デザイン・AI活用を通じて、地域のビジネスと暮らしをアップデートします。
-    </p>
-    <a href="#contact" class="btn">制作・相談はこちらから</a>
-  </section>
+    <header class="header">
+        <div class="logo">
+            <img src="images/logo.png" alt="ENZO WORKS" class="logo-img">
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#service">Service</a></li>
+                <li><a href="#contact" class="btn-contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <section class="section" id="about">
-    <h2>ENZO WORKSについて</h2>
-    <p>
-      「ちゃんと伝わるものを、ちゃんと届ける」をコンセプトに、<br>
-      地域の商店街、飲食店、個人事業主さんを中心にサポートしています。<br>
-      単なる“かっこいいサイト”ではなく、運用しやすさやコスパも含めて一緒に考えます。
-    </p>
-  </section>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="main-title">Think freely,<br>Build smart.</h1>
+            
+            <p class="sub-text">
+                愛媛・西条を拠点に。<br>
+                自由な発想と確かな技術で、ビジネスを加速させる。
+            </p>
+            
+            <a href="#contact" class="hero-btn">Contact Us</a>
+        </div>
+    </section>
 
-  <section class="section" id="service">
-    <h2>サービス</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Webサイト制作</h3>
-        <p>WordPressや静的サイトでのコーポレートサイト・お店のサイト制作。スマホ最適化・表示速度も意識した設計を行います。</p>
-      </div>
-      <div class="card">
-        <h3>デザイン・ブランディング</h3>
-        <p>ロゴ、ショップカード、簡易パンフレットなど、Webと紙の両方をトーンを揃えてデザインします。</p>
-      </div>
-      <div class="card">
-        <h3>AI活用・業務効率化</h3>
-        <p>ChatGPTや各種AIツールを使った文章作成支援、簡単な自動化フローの設計などもご相談いただけます。</p>
-      </div>
-    </div>
-  </section>
+    <section id="about" class="section">
+        <h2>About Us</h2>
+        <p>ENZO WORKSは、現場の課題をクリエイティブで解決する制作ユニットです。</p>
+    </section>
 
-  <section class="section" id="contact">
-    <h2>お問い合わせ</h2>
-    <p>
-      制作のご相談、ざっくりしたアイデア段階でもお気軽にご連絡ください。<br>
-      ※このページは準備中のため、正式な問い合わせフォームは現在構築中です。
-    </p>
-    <p>
-      仮窓口：<br>
-      Mail：info@example.com<br>
-      （実際の連絡先に差し替えてください）
-    </p>
-  </section>
+    <section id="service" class="section" style="background-color: #f9f9f9;">
+        <h2>Service</h2>
+        <p>Web制作 / デザイン / AI活用コンサルティング</p>
+    </section>
 
-  <footer>
-    &copy; 2025 ENZO WORKS
-  </footer>
+    <footer style="text-align: center; padding: 20px; font-size: 12px; color: #666;">
+        &copy; 2024 ENZO WORKS. All Rights Reserved.
+    </footer>
+
 </body>
 </html>
