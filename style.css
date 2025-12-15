@@ -421,8 +421,8 @@ body {
 }
 
 .main-btn {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #000; /* 背景を黒に */
+    color: #fff;            /* 文字を白に */
     font-size: 18px;
     font-weight: bold;
     padding: 15px 40px;
@@ -430,13 +430,13 @@ body {
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* 影も黒っぽく調整 */
 }
 
 .main-btn:hover {
-    background-color: #0056b3;
+    background-color: #333; /* ホバー時は少しグレーに */
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,123,255,0.4);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
 }
 
 .main-btn i {
