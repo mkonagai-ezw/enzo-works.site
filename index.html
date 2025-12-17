@@ -138,22 +138,22 @@
     </section>
 
     <section id="sandbox" class="section">
-        <div class="container">
-            <h2 class="section-title">Sandbox</h2>
-            <p class="section-subtitle">AI Market Prediction System (Beta)</p>
+    <div class="container">
+        <h2 class="section-title">Sandbox</h2>
+        <p class="section-subtitle">AI Market Prediction System (Beta)</p>
 
-            <div class="sandbox-project">
-                <h3 class="project-name">AI市場予測 & 答え合わせシステム</h3>
-                
-                <div id="ai-grid" class="ai-grid">
-                    <div class="loading-msg">Analyzing Market Data...</div>
-                </div>
-                
-                <p class="last-updated">Last Updated: <span id="update-time">--/-- --:--</span></p>
-                <p class="disclaimer">※ AI予測は実験的なものであり、投資助言ではありません。</p>
+        <div class="sandbox-project">
+            <h3 class="project-name">AI市場予測 & 答え合わせシステム</h3>
+            
+            <div id="ai-grid" class="ai-grid">
+                <div class="loading-msg">Analyzing Market Data...</div>
             </div>
+            
+            <p class="last-updated">Last Updated: <span id="update-time">--/-- --:--</span></p>
+            <p class="disclaimer">※ AI予測は実験的なものであり、投資助言ではありません。</p>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="contact" class="section">
         <div class="container">
@@ -398,69 +398,57 @@
 <script>
         // 3銘柄対応版 AIデータ読み込み
         async function loadAI() {
-            try {
-                // キャッシュ回避
-                const res = await fetch('./ai_predictions.json?t=' + new Date().getTime());
-                if (!res.ok) throw new Error('Data fetch failed');
-                
-                const data = await res.json();
-                
-                // 更新日時
-                document.getElementById('update-time').innerText = data.last_updated;
+    try {
+        const res = await fetch('./ai_predictions.json?t=' + new Date().getTime());
+        if (!res.ok) throw new Error('Fetch failed');
+        const data = await res.json();
 
-                // グリッド要素
-                const grid = document.getElementById('ai-grid');
-                grid.innerHTML = ''; // Loadingを消去
+        document.getElementById('update-time').innerText = data.last_updated;
+        const grid = document.getElementById('ai-grid');
+        grid.innerHTML = '';
 
-                // 銘柄ごとにカードを生成
-                // 順番を指定したい場合は配列でキーを定義
-                const order = ["USD/JPY", "Nikkei 225", "S&P 500"];
-                
-                order.forEach(asset => {
-                    if (!data.assets[asset]) return;
-                    
-                    const info = data.assets[asset];
-                    const unit = asset === "S&P 500" ? "$" : "¥"; // 通貨単位
+        // 表示したい銘柄の順番
+        const assets = ["USD/JPY", "Nikkei 225", "S&P 500"];
 
-                    // HTML生成
-                    const card = document.createElement('div');
-                    card.className = 'asset-card';
-                    card.innerHTML = `
-                        <div class="asset-header">
-                            <span class="asset-name">${asset}</span>
-                            <span class="current-price">Current: ${unit}${info.current_price.toLocaleString()}</span>
-                        </div>
+        assets.forEach(asset => {
+            const info = data.assets[asset];
+            if (!info) return;
 
-                        <div class="prediction-row gpt-row">
-                            <div class="ai-label"><i class="fa-solid fa-robot"></i> GPT-3.5</div>
-                            <div class="pred-data">
-                                <span class="pred-val">${unit}${info.gpt_prediction.toLocaleString()}</span>
-                                <span class="pred-change ${info.gpt_change >= 0 ? 'plus' : 'minus'}">
-                                    (${info.gpt_change > 0 ? '+' : ''}${info.gpt_change}%)
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="prediction-row gemini-row">
-                            <div class="ai-label"><i class="fa-solid fa-star"></i> Gemini</div>
-                            <div class="pred-data">
-                                <span class="pred-val">${unit}${info.gemini_prediction.toLocaleString()}</span>
-                                <span class="pred-change ${info.gemini_change >= 0 ? 'plus' : 'minus'}">
-                                    (${info.gemini_change > 0 ? '+' : ''}${info.gemini_change}%)
-                                </span>
-                            </div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-
-            } catch (e) {
-                console.error(e);
-                document.getElementById('ai-grid').innerHTML = '<p style="color:red">Data Load Error</p>';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', loadAI);
+            const unit = asset === "S&P 500" ? "$" : "¥";
+            const card = document.createElement('div');
+            card.className = 'asset-card';
+            card.innerHTML = `
+                <div class="asset-header">
+                    <span class="asset-name">${asset}</span>
+                    <span class="current-price">NOW: ${unit}${info.current_price.toLocaleString()}</span>
+                </div>
+                <div class="prediction-row gpt-row">
+                    <div class="ai-label"><i class="fa-solid fa-robot"></i> GPT-3.5</div>
+                    <div class="pred-data">
+                        <span class="pred-val">${unit}${info.gpt_prediction.toLocaleString()}</span>
+                        <span class="pred-change ${info.gpt_change >= 0 ? 'plus' : 'minus'}">
+                            ${info.gpt_change > 0 ? '+' : ''}${info.gpt_change}%
+                        </span>
+                    </div>
+                </div>
+                <div class="prediction-row gemini-row">
+                    <div class="ai-label"><i class="fa-solid fa-star"></i> Gemini</div>
+                    <div class="pred-data">
+                        <span class="pred-val">${unit}${info.gemini_prediction.toLocaleString()}</span>
+                        <span class="pred-change ${info.gemini_change >= 0 ? 'plus' : 'minus'}">
+                            ${info.gemini_change > 0 ? '+' : ''}${info.gemini_change}%
+                        </span>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    } catch (e) {
+        console.error(e);
+        document.getElementById('ai-grid').innerHTML = '<p class="loading-msg" style="color:#ff4d4d">Data Sync Error</p>';
+    }
+}
+document.addEventListener('DOMContentLoaded', loadAI);
     </script>
 </body>
 </html>
