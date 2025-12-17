@@ -142,7 +142,8 @@ def main():
     print("Asking Gemini...")
     # 少し待機してAPI制限回避
     time.sleep(2)
-    gem_res = ask_ai_batch(gemini_client, "gemini-1.5-flash", prompt)
+    # モデル名を最新の安定版フルネームに修正
+    gem_res = ask_ai_batch(gemini_client, "gemini-1.5-flash-002", prompt)
 
     # 4. 結果保存
     output_data = {"last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "assets": {}}
