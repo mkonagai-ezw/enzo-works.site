@@ -421,6 +421,53 @@
         textInfoArea.addEventListener('click', togglePlaylist);
         closePlaylistBtn.addEventListener('click', togglePlaylist); // ×ボタンの動作
     </script>
+<script>
+        async function loadAI() {
+            console.log("AIデータの読み込みを開始します...");
+            try {
+                // キャッシュを回避するためにタイムスタンプを付与
+                const response = await fetch('./ai_predictions.json?t=' + new Date().getTime());
+                
+                if (!response.ok) {
+                    throw new Error('JSONファイルの取得に失敗しました。パスを確認してください。');
+                }
+                
+                const data = await response.json();
+                console.log("取得データ:", data);
 
+                // 更新時刻
+                document.getElementById('update-time').innerText = data.last_updated || '--/-- --:--';
+                
+                // 乖離率
+                const devElem = document.getElementById('deviation-rate');
+                if (data.deviation_percent !== undefined) {
+                    devElem.innerText = data.deviation_percent + '%';
+                }
+
+                // GPTの表示更新
+                if (data.gpt && data.gpt.prediction !== null) {
+                    document.getElementById('gpt-price').innerText = data.gpt.prediction.toFixed(3);
+                    const gptChange = document.getElementById('gpt-change');
+                    gptChange.innerText = (data.gpt.change_pct > 0 ? '+' : '') + data.gpt.change_pct + '%';
+                    gptChange.className = 'change-rate ' + (data.gpt.change_pct >= 0 ? 'change-plus' : 'change-minus');
+                }
+
+                // Geminiの表示更新
+                if (data.gemini && data.gemini.prediction !== null) {
+                    document.getElementById('gemini-price').innerText = data.gemini.prediction.toFixed(3);
+                    const gemChange = document.getElementById('gemini-change');
+                    gemChange.innerText = (data.gemini.change_pct > 0 ? '+' : '') + data.gemini.change_pct + '%';
+                    gemChange.className = 'change-rate ' + (data.gemini.change_pct >= 0 ? 'change-plus' : 'change-minus');
+                }
+
+            } catch (error) {
+                console.error("AIデータ読み込みエラー:", error);
+                document.getElementById('deviation-rate').innerText = "Data Error";
+            }
+        }
+
+        // ページ読み込み完了時に実行
+        document.addEventListener('DOMContentLoaded', loadAI);
+    </script>
 </body>
 </html>
