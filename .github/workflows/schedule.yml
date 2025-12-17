@@ -48,5 +48,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'AI: 予測結果を自動更新しました'
-          files: 'ai_predictions.json'
+          file_pattern: 'ai_predictions.json'
           branch: main # あなたのブランチ名に合わせてください (通常は main)
