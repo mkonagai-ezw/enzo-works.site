@@ -21,9 +21,10 @@ TARGETS = {
 PREDICT_DAYS = 5
 HISTORY_FILE = "ai_history.json"
 
-# --- Gemini初期化（標準的な書き方） ---
+# --- Gemini初期化 ---
 if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
+    # transport='rest' を追加して、通信の安定性を最大限に高めます
+    genai.configure(api_key=GEMINI_API_KEY, transport='rest')
 
 def get_market_data(ticker):
     """市場データを取得"""
