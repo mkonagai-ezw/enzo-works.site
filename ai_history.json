@@ -1,0 +1,37 @@
+{
+    "records": [
+        {
+            "date": "2025-12-17",
+            "target_date": "2025-12-22",
+            "asset_name": "USD/JPY",
+            "ai_model": "GPT-3.5",
+            "start_price": 155.18899536132812,
+            "predicted_price": 156.42,
+            "actual_price": null,
+            "result": null,
+            "status": "pending"
+        },
+        {
+            "date": "2025-12-17",
+            "target_date": "2025-12-22",
+            "asset_name": "Nikkei 225",
+            "ai_model": "GPT-3.5",
+            "start_price": 49383.2890625,
+            "predicted_price": 52451.08,
+            "actual_price": null,
+            "result": null,
+            "status": "pending"
+        },
+        {
+            "date": "2025-12-17",
+            "target_date": "2025-12-22",
+            "asset_name": "S&P 500",
+            "ai_model": "GPT-3.5",
+            "start_price": 6800.259765625,
+            "predicted_price": 6815.94,
+            "actual_price": null,
+            "result": null,
+            "status": "pending"
+        }
+    ]
+}
