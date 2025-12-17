@@ -942,3 +942,80 @@ body {
     display: flex;
     justify-content: space-between;
 }
+/* --- AI Sandbox: 答え合わせ & 未来予測のハイブリッド表示 --- */
+
+/* 1. 本日の決着（答え合わせ）エリア */
+.judge-section {
+    background: rgba(255, 235, 59, 0.08); /* わずかに黄色い背景 */
+    border: 1px dashed rgba(255, 235, 59, 0.4);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.85em;
+    text-align: center;
+}
+
+.judge-section.empty {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #333;
+    color: #777;
+    font-style: italic;
+}
+
+.judge-title {
+    font-weight: bold;
+    color: #ffeb3b;
+    margin-bottom: 8px;
+    display: block;
+    letter-spacing: 0.05em;
+}
+
+.judge-result {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.judge-result span {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+/* 2. 最新予測（未来）エリア */
+.prediction-box {
+    border-top: 1px solid #333;
+    padding-top: 15px;
+}
+
+.target-label-main {
+    font-size: 11px;
+    color: #aaa;
+    margin-bottom: 12px;
+    text-align: left;
+    border-left: 3px solid #10a37f; /* GPTカラーをアクセントに */
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.trend-indicator {
+    font-size: 11px;
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+.trend-indicator .plus { color: #ff4d4d; } /* 上昇は赤系（日本の慣習） */
+.trend-indicator .minus { color: #4d79ff; } /* 下落は青系 */
+
+/* 3. レイアウトの微調整 */
+.prediction-row {
+    margin-bottom: 12px !important; /* 行間を少し広げる */
+}
+
+.disclaimer {
+    margin-top: 20px;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+}
