@@ -4,72 +4,55 @@ import yfinance as yf
 from openai import OpenAI
 from google import genai
 from datetime import datetime, timedelta
-import pandas as pd
+import re
 
 # --- 環境変数 ---
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 # --- 設定 ---
-# 予測対象リスト
 TARGETS = {
     "USD/JPY": "USDJPY=X",
     "Nikkei 225": "^N225",
     "S&P 500": "^GSPC"
 }
 PREDICT_DAYS = 5
-HISTORY_FILE = "ai_history.json" # 履歴を保存するファイル
+HISTORY_FILE = "ai_history.json"
 
 def get_market_data(ticker):
-    """直近の価格データを取得"""
+    """市場データを取得"""
     end_date = datetime.now()
     start_date = end_date - timedelta(days=60)
-    
-    # データを取得
     df = yf.download(ticker, start=start_date, end=end_date, progress=False)
+    if df.empty: return None, None
     
-    if df.empty:
-        return None, None
-
-    # 最新の終値
     current_price = float(df['Close'].iloc[-1])
-    
-    # AI用の過去データテキスト作成（直近30日分）
     price_str_list = []
-    # indexが日付、rowがデータ
+    # yfinanceの最新仕様に合わせて型変換
     for date, row in df.tail(30).iterrows():
         try:
             val = float(row['Close'])
             price_str_list.append(f"{date.strftime('%Y-%m-%d')}: {val:.2f}")
-        except:
-            continue
-            
+        except: continue
     return "\n".join(price_str_list), current_price
 
-def ask_ai(client, model, prompt):
-    """AIに予測を依頼する共通関数"""
+def ask_ai_batch(client, model, prompt):
+    """一括でAIに予測を依頼し、JSONとして解析する"""
     try:
-        import re
-        prediction_text = ""
-        
         if "gpt" in model:
             response = client.chat.completions.create(
                 model=model,
                 messages=[{"role": "user", "content": prompt}]
             )
-            prediction_text = response.choices[0].message.content
+            content = response.choices[0].message.content
         elif "gemini" in model:
-            response = client.models.generate_content(
-                model=model,
-                contents=prompt
-            )
-            prediction_text = response.text
+            response = client.models.generate_content(model=model, contents=prompt)
+            content = response.text
 
-        # 数値抽出 (カンマ除去して数値を探す)
-        clean_text = prediction_text.replace(",", "")
-        numbers = re.findall(r"[\d\.]+", clean_text)
-        if numbers:
-            return float(numbers[0])
+        # JSON部分を抽出 (AIが余計な文言を添えても大丈夫なように)
+        match = re.search(r'\{.*\}', content, re.DOTALL)
+        if match:
+            return json.loads(match.group())
         return None
     except Exception as e:
         print(f"AI Error ({model}): {e}")
@@ -80,138 +63,81 @@ def main():
         print("Error: API Key missing.")
         return
 
-    # クライアント初期化
     openai_client = OpenAI(api_key=OPENAI_API_KEY)
     gemini_client = genai.Client(api_key=GEMINI_API_KEY)
 
-    # 1. 履歴データの読み込み（なければ新規作成）
-    history_data = {}
+    # 履歴データの読み込み
+    history_data = {"records": []}
     if os.path.exists(HISTORY_FILE):
         with open(HISTORY_FILE, "r", encoding="utf-8") as f:
             history_data = json.load(f)
-    else:
-        history_data = {"records": []}
 
     today_str = datetime.now().strftime("%Y-%m-%d")
-    
-    # 結果データ格納用
-    output_data = {
-        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "assets": {}
-    }
+    target_date = (datetime.now() + timedelta(days=PREDICT_DAYS)).strftime("%Y-%m-%d")
 
-    # --- A. 答え合わせフェーズ (過去の予測 vs 今日の価格) ---
-    # 記録されている予測のうち、判定日が今日以前で、まだ結果が出ていないものをチェック
-    for record in history_data["records"]:
-        if record["status"] == "pending" and record["target_date"] <= today_str:
-            ticker = TARGETS.get(record["asset_name"])
-            if ticker:
-                # その日の実際の価格を取得して答え合わせ
-                try:
-                    df = yf.download(ticker, start=record["target_date"], end=datetime.now() + timedelta(days=1), progress=False)
-                    if not df.empty:
-                        # ターゲット日の終値（なければ直近）
-                        actual_price = float(df['Close'].iloc[0])
-                        record["actual_price"] = actual_price
-                        
-                        # 判定ロジック
-                        # AIが「上がる」と予想し、実際に上がっていればWIN
-                        start_price = record["start_price"]
-                        pred_price = record["predicted_price"]
-                        
-                        predicted_up = pred_price > start_price
-                        actual_up = actual_price > start_price
-                        
-                        if predicted_up == actual_up:
-                            record["result"] = "WIN"
-                        else:
-                            record["result"] = "LOSS"
-                        
-                        # 誤差率
-                        record["diff_percent"] = round(((actual_price - pred_price) / actual_price) * 100, 2)
-                        record["status"] = "settled" # 判定完了
-                        print(f"★答え合わせ完了: {record['asset_name']} ({record['result']})")
-                except Exception as e:
-                    print(f"答え合わせ失敗: {e}")
-
-    # --- B. 新規予測フェーズ ---
+    # 1. 全銘柄のデータを一括で準備
+    all_assets_info = ""
+    current_prices = {}
     for asset_name, ticker in TARGETS.items():
-        print(f"Processing {asset_name}...")
-        
-        hist_str, current_price = get_market_data(ticker)
-        if not current_price:
-            print(f"Data fetch failed for {asset_name}")
-            continue
+        hist_str, price = get_market_data(ticker)
+        if price:
+            current_prices[asset_name] = price
+            all_assets_info += f"\n### {asset_name}\n現在値: {price:.2f}\n過去データ:\n{hist_str}\n"
 
-        # プロンプト作成
-        prompt = f"""
-        あなたはプロの金融アナリストです。
-        以下の過去データに基づき、{PREDICT_DAYS}日後の「{asset_name}」の終値を予測してください。
-        
-        現在の価格: {current_price}
-        
-        条件:
-        1. テクニカル分析（トレンド、ボラティリティ）を重視せよ。
-        2. {PREDICT_DAYS}日後の具体的な数値のみを出力せよ。余計な説明は不要。
-        
-        過去データ:
-        {hist_str}
-        """
+    # 2. 一括プロンプト作成
+    prompt = f"""
+    あなたは凄腕の金融アナリストです。以下の3つの銘柄について{PREDICT_DAYS}日後の終値を予測してください。
+    回答は必ず以下のJSON形式のみで出力し、他の文章は一切含めないでください。
+    {{
+        "USD/JPY": 0.00,
+        "Nikkei 225": 0.00,
+        "S&P 500": 0.00
+    }}
+    --- 銘柄データ ---
+    {all_assets_info}
+    """
 
-        # 各AIに予測させる
-        gpt_val = ask_ai(openai_client, "gpt-3.5-turbo", prompt)
-        gem_val = ask_ai(gemini_client, "gemini-2.0-flash", prompt)
+    # 3. AIに一括依頼 (1回ずつ)
+    print("GPTに一括予測を依頼中...")
+    gpt_res = ask_ai_batch(openai_client, "gpt-3.5-turbo", prompt)
+    
+    print("Geminiに一括予測を依頼中...")
+    gem_res = ask_ai_batch(gemini_client, "gemini-1.5-flash", prompt)
 
-        # 表示用データの構築
-        output_data["assets"][asset_name] = {
-            "current_price": round(current_price, 2),
-            "gpt_prediction": round(gpt_val, 2) if gpt_val else None,
-            "gemini_prediction": round(gem_val, 2) if gem_val else None,
-            "gpt_change": round(((gpt_val - current_price)/current_price)*100, 2) if gpt_val else None,
-            "gemini_change": round(((gem_val - current_price)/current_price)*100, 2) if gem_val else None,
-        }
-
-        # --- 履歴への保存（答え合わせ用） ---
-        target_date = (datetime.now() + timedelta(days=PREDICT_DAYS)).strftime("%Y-%m-%d")
-        
-        # GPTの予測を記録
-        if gpt_val:
-            history_data["records"].append({
-                "date": today_str, # 予測した日
-                "target_date": target_date, # 答え合わせする日
-                "asset_name": asset_name,
-                "ai_model": "GPT-3.5",
-                "start_price": current_price,
-                "predicted_price": gpt_val,
-                "actual_price": None,
-                "result": None, # WIN or LOSS
-                "status": "pending"
-            })
+    # 4. 結果の整理と保存
+    output_data = {"last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "assets": {}}
+    
+    for asset in TARGETS.keys():
+        if asset in current_prices:
+            curr = current_prices[asset]
+            g_pred = gpt_res.get(asset) if gpt_res else None
+            m_pred = gem_res.get(asset) if gem_res else None
             
-        # Geminiの予測を記録
-        if gem_val:
-            history_data["records"].append({
-                "date": today_str,
-                "target_date": target_date,
-                "asset_name": asset_name,
-                "ai_model": "Gemini",
-                "start_price": current_price,
-                "predicted_price": gem_val,
-                "actual_price": None,
-                "result": None,
-                "status": "pending"
-            })
+            output_data["assets"][asset] = {
+                "current_price": round(curr, 2),
+                "gpt_prediction": round(g_pred, 2) if g_pred else None,
+                "gemini_prediction": round(m_pred, 2) if m_pred else None,
+                "gpt_change": round(((g_pred - curr)/curr)*100, 2) if g_pred else None,
+                "gemini_change": round(((m_pred - curr)/curr)*100, 2) if m_pred else None,
+            }
 
-    # --- 保存 ---
-    # 1. 表示用JSON (Webサイトが読み込む)
+            # 履歴に保存（答え合わせ用）
+            for model_name, val in [("GPT-3.5", g_pred), ("Gemini", m_pred)]:
+                if val:
+                    history_data["records"].append({
+                        "date": today_str, "target_date": target_date, "asset_name": asset,
+                        "ai_model": model_name, "start_price": curr, "predicted_price": val,
+                        "actual_price": None, "result": None, "status": "pending"
+                    })
+
+    # 表示用JSON
     with open("ai_predictions.json", "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=4, ensure_ascii=False)
-        
-    # 2. 履歴用JSON (バックエンドで持ち回るデータベース)
+    # 履歴用JSON
     with open(HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(history_data, f, indent=4, ensure_ascii=False)
 
-    print("All tasks completed.")
+    print("一括予測が完了しました。")
 
 if __name__ == "__main__":
     main()
