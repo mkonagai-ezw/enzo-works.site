@@ -669,6 +669,17 @@ body {
     border-top: 1px solid #333;
 }
 
+/* ★変更：見出しを白く、小見出しを中央寄せに */
+#sandbox .section-title {
+    color: #ffffff !important; 
+}
+
+#sandbox .section-subtitle {
+    text-align: center; /* 中央寄せ */
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
 #sandbox .sandbox-project {
     margin-top: 50px;
     padding: 40px 20px;
