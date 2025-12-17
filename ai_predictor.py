@@ -22,9 +22,10 @@ PREDICT_DAYS = 5
 HISTORY_FILE = "ai_history.json"
 
 # --- Gemini初期化 ---
+# --- Gemini初期化 ---
 if GEMINI_API_KEY:
-    # transport='rest' を追加して、通信の安定性を最大限に高めます
-    genai.configure(api_key=GEMINI_API_KEY, transport='rest')
+    # api_version='v1' を指定して、開発版(v1beta)ではなく安定版(v1)を強制的に使います
+    genai.configure(api_key=GEMINI_API_KEY, transport='rest', api_version='v1')
 
 def get_market_data(ticker):
     """市場データを取得"""
@@ -65,12 +66,10 @@ def ask_gpt(client, prompt):
         return None
 
 def ask_gemini(prompt):
-    """Geminiに予測を依頼（フルパス指定版）"""
+    """Geminiに予測を依頼（安定版URL指定）"""
     try:
-        # 'models/' を付けて住所をハッキリさせます
-        # これでもダメなら 'models/gemini-1.5-flash' に戻してもOKですが、
-        # まずは一番歴史のある 'models/gemini-pro' で道を通します。
-        model = genai.GenerativeModel('models/gemini-pro') 
+        # v1を指定していれば、このシンプルな名前が正解です
+        model = genai.GenerativeModel('gemini-1.5-flash') 
         response = model.generate_content(prompt)
         content = response.text
         return parse_json_response(content, "Gemini")
