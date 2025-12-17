@@ -70,7 +70,7 @@ def ask_gemini(prompt):
     """Geminiに予測を依頼（安定版指定）"""
     try:
         # シンプルに 'gemini-1.5-flash' と指定するのが、現在のライブラリでは最も成功率が高いです
-        model = genai.GenerativeModel('gemini-1.5-flash') 
+        model = genai.GenerativeModel('gemini-1.5-flash-latest') 
         response = model.generate_content(prompt)
         content = response.text
         return parse_json_response(content, "Gemini")
