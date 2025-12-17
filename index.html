@@ -138,48 +138,22 @@
     </section>
 
     <section id="sandbox" class="section">
-    <div class="container">
-        <h2 class="section-title">Sandbox</h2>
-        <p class="section-subtitle">ENZOWORKSが思うがままに作ったもの。</p>
+        <div class="container">
+            <h2 class="section-title">Sandbox</h2>
+            <p class="section-subtitle">AI Market Prediction System (Beta)</p>
 
-        <div class="sandbox-project">
-            <h3 class="project-name">AIは株価と為替を予測できるのかシステム</h3>
-            
-            <div class="prediction-dashboard">
-                <div class="deviation-card">
-                    <h3>AI Deviation Rate</h3>
-                    <div class="deviation-value" id="deviation-rate">Loading...</div>
-                    <p class="deviation-desc">Difference between GPT and Gemini views</p>
-                </div>
-
-                <div class="ai-cards">
-                    <div class="ai-card gpt-card">
-                        <div class="ai-icon">🤖</div>
-                        <h3>GPT-3.5</h3>
-                        <div class="price-display">
-                            <span class="currency">¥</span>
-                            <span class="price" id="gpt-price">---.---</span>
-                        </div>
-                        <div class="change-rate" id="gpt-change">--.--%</div>
-                    </div>
-
-                    <div class="ai-card gemini-card">
-                        <div class="ai-icon">✨</div>
-                        <h3>Gemini Flash</h3>
-                        <div class="price-display">
-                            <span class="currency">¥</span>
-                            <span class="price" id="gemini-price">---.---</span>
-                        </div>
-                        <div class="change-rate" id="gemini-change">--.--%</div>
-                    </div>
+            <div class="sandbox-project">
+                <h3 class="project-name">AI市場予測 & 答え合わせシステム</h3>
+                
+                <div id="ai-grid" class="ai-grid">
+                    <div class="loading-msg">Analyzing Market Data...</div>
                 </div>
                 
                 <p class="last-updated">Last Updated: <span id="update-time">--/-- --:--</span></p>
-                <p class="disclaimer">※ AI予測は投資助言ではありません。</p>
+                <p class="disclaimer">※ AI予測は実験的なものであり、投資助言ではありません。</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section id="contact" class="section">
         <div class="container">
@@ -422,51 +396,70 @@
         closePlaylistBtn.addEventListener('click', togglePlaylist); // ×ボタンの動作
     </script>
 <script>
+        // 3銘柄対応版 AIデータ読み込み
         async function loadAI() {
-            console.log("AIデータの読み込みを開始します...");
             try {
-                // キャッシュを回避するためにタイムスタンプを付与
-                const response = await fetch('./ai_predictions.json?t=' + new Date().getTime());
+                // キャッシュ回避
+                const res = await fetch('./ai_predictions.json?t=' + new Date().getTime());
+                if (!res.ok) throw new Error('Data fetch failed');
                 
-                if (!response.ok) {
-                    throw new Error('JSONファイルの取得に失敗しました。パスを確認してください。');
-                }
+                const data = await res.json();
                 
-                const data = await response.json();
-                console.log("取得データ:", data);
+                // 更新日時
+                document.getElementById('update-time').innerText = data.last_updated;
 
-                // 更新時刻
-                document.getElementById('update-time').innerText = data.last_updated || '--/-- --:--';
+                // グリッド要素
+                const grid = document.getElementById('ai-grid');
+                grid.innerHTML = ''; // Loadingを消去
+
+                // 銘柄ごとにカードを生成
+                // 順番を指定したい場合は配列でキーを定義
+                const order = ["USD/JPY", "Nikkei 225", "S&P 500"];
                 
-                // 乖離率
-                const devElem = document.getElementById('deviation-rate');
-                if (data.deviation_percent !== undefined) {
-                    devElem.innerText = data.deviation_percent + '%';
-                }
+                order.forEach(asset => {
+                    if (!data.assets[asset]) return;
+                    
+                    const info = data.assets[asset];
+                    const unit = asset === "S&P 500" ? "$" : "¥"; // 通貨単位
 
-                // GPTの表示更新
-                if (data.gpt && data.gpt.prediction !== null) {
-                    document.getElementById('gpt-price').innerText = data.gpt.prediction.toFixed(3);
-                    const gptChange = document.getElementById('gpt-change');
-                    gptChange.innerText = (data.gpt.change_pct > 0 ? '+' : '') + data.gpt.change_pct + '%';
-                    gptChange.className = 'change-rate ' + (data.gpt.change_pct >= 0 ? 'change-plus' : 'change-minus');
-                }
+                    // HTML生成
+                    const card = document.createElement('div');
+                    card.className = 'asset-card';
+                    card.innerHTML = `
+                        <div class="asset-header">
+                            <span class="asset-name">${asset}</span>
+                            <span class="current-price">Current: ${unit}${info.current_price.toLocaleString()}</span>
+                        </div>
 
-                // Geminiの表示更新
-                if (data.gemini && data.gemini.prediction !== null) {
-                    document.getElementById('gemini-price').innerText = data.gemini.prediction.toFixed(3);
-                    const gemChange = document.getElementById('gemini-change');
-                    gemChange.innerText = (data.gemini.change_pct > 0 ? '+' : '') + data.gemini.change_pct + '%';
-                    gemChange.className = 'change-rate ' + (data.gemini.change_pct >= 0 ? 'change-plus' : 'change-minus');
-                }
+                        <div class="prediction-row gpt-row">
+                            <div class="ai-label"><i class="fa-solid fa-robot"></i> GPT-3.5</div>
+                            <div class="pred-data">
+                                <span class="pred-val">${unit}${info.gpt_prediction.toLocaleString()}</span>
+                                <span class="pred-change ${info.gpt_change >= 0 ? 'plus' : 'minus'}">
+                                    (${info.gpt_change > 0 ? '+' : ''}${info.gpt_change}%)
+                                </span>
+                            </div>
+                        </div>
 
-            } catch (error) {
-                console.error("AIデータ読み込みエラー:", error);
-                document.getElementById('deviation-rate').innerText = "Data Error";
+                        <div class="prediction-row gemini-row">
+                            <div class="ai-label"><i class="fa-solid fa-star"></i> Gemini</div>
+                            <div class="pred-data">
+                                <span class="pred-val">${unit}${info.gemini_prediction.toLocaleString()}</span>
+                                <span class="pred-change ${info.gemini_change >= 0 ? 'plus' : 'minus'}">
+                                    (${info.gemini_change > 0 ? '+' : ''}${info.gemini_change}%)
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+            } catch (e) {
+                console.error(e);
+                document.getElementById('ai-grid').innerHTML = '<p style="color:red">Data Load Error</p>';
             }
         }
 
-        // ページ読み込み完了時に実行
         document.addEventListener('DOMContentLoaded', loadAI);
     </script>
 </body>
