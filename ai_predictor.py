@@ -3,12 +3,11 @@ import json
 import time
 import re
 import yfinance as yf
+import requests  # SDKの代わりに標準のHTTPライブラリを使用
 from openai import OpenAI
-import google.generativeai as genai
 from datetime import datetime, timedelta
 
 # --- 環境変数 ---
-# .strip() を入れることで、GitHub Secrets側の不慮の改行や空白を無効化します
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 
@@ -21,31 +20,22 @@ TARGETS = {
 PREDICT_DAYS = 5
 HISTORY_FILE = "ai_history.json"
 
-# --- Gemini初期化 ---
-if GEMINI_API_KEY:
-    # configureはシンプルにkeyのみ指定。api_versionはModel生成時に指定します。
-    genai.configure(api_key=GEMINI_API_KEY)
+# --- Gemini初期化 (SDKを使用しないため不要になりました) ---
 
 def get_market_data(ticker):
     """市場データを取得"""
     end_date = datetime.now()
     start_date = end_date - timedelta(days=60)
-    
-    # プログレスバー非表示で取得
     df = yf.download(ticker, start=start_date, end=end_date, progress=False)
     
     if df.empty:
         return None, None
     
-    # 最新の終値
     current_price = float(df['Close'].iloc[-1])
-    
-    # AI用の過去データテキスト作成
     price_str_list = []
     for date, row in df.tail(30).iterrows():
         try:
             val = float(row['Close'])
-            # 日付の横に終値を表示
             price_str_list.append(f"{date.strftime('%Y-%m-%d')}: {val:.3f}")
         except:
             continue
@@ -66,27 +56,49 @@ def ask_gpt(client, prompt):
         return None
 
 def ask_gemini(prompt):
-    """Geminiに予測を依頼（404エラー対策版）"""
+    """SDKを介さず、API v1(安定版)を直接叩いて404を回避する"""
+    if not GEMINI_API_KEY:
+        return None
+
+    # URLで直接 v1 を指定。SDKの自動判別バグを完全に回避します。
+    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+    
+    headers = {'Content-Type': 'application/json'}
+    payload = {
+        "contents": [{
+            "parts": [{"text": prompt}]
+        }]
+    }
+
     try:
-        # モデル名を指定
-        # 一部の環境でv1betaに飛ばされて404になるのを防ぐため、明示的に指定
-        model = genai.GenerativeModel('gemini-1.5-flash') 
+        print(f"Connecting to Gemini API (v1) via Direct HTTP...")
+        response = requests.post(url, headers=headers, json=payload, timeout=30)
         
-        # 実行時に api_version='v1' を指定するのが今のライブラリで最も確実です
-        response = model.generate_content(prompt)
-        
-        content = response.text
+        if response.status_code != 200:
+            print(f"Gemini API Error (Status {response.status_code}): {response.text}")
+            # 万が一1.5-flashがv1で未対応の場合はProでリトライ
+            return ask_gemini_pro_fallback(prompt)
+
+        res_json = response.json()
+        content = res_json['candidates'][0]['content']['parts'][0]['text']
         return parse_json_response(content, "Gemini")
+
     except Exception as e:
-        # 404が出る場合はモデルを 'gemini-pro' に落としてリトライ
-        print(f"Gemini (flash) Error: {e}. Retrying with gemini-pro...")
-        try:
-            model = genai.GenerativeModel('gemini-pro')
-            response = model.generate_content(prompt)
-            return parse_json_response(response.text, "Gemini-Pro")
-        except Exception as e2:
-            print(f"Gemini (pro) Error: {e2}")
-            return None
+        print(f"Gemini Direct Connection Error: {e}")
+        return None
+
+def ask_gemini_pro_fallback(prompt):
+    """Gemini-Proでのバックアップ接続"""
+    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+    try:
+        response = requests.post(url, headers={'Content-Type': 'application/json'}, 
+                                 json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
+        if response.status_code == 200:
+            res_json = response.json()
+            return parse_json_response(res_json['candidates'][0]['content']['parts'][0]['text'], "Gemini-Pro")
+    except:
+        pass
+    return None
 
 def parse_json_response(content, model_name):
     """共通のJSON解析処理"""
@@ -95,7 +107,6 @@ def parse_json_response(content, model_name):
     print("---------------------------------------")
     
     try:
-        # Markdownの枠を削除
         clean_content = re.sub(r'```json|```', '', content).strip()
         match = re.search(r'(\{.*\})', clean_content, re.DOTALL)
         if match:
@@ -114,7 +125,6 @@ def main():
 
     openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
-    # 履歴データの読み込み
     history_data = {"records": []}
     if os.path.exists(HISTORY_FILE):
         with open(HISTORY_FILE, "r", encoding="utf-8") as f:
@@ -126,7 +136,6 @@ def main():
     today_str = datetime.now().strftime("%Y-%m-%d")
     target_date = (datetime.now() + timedelta(days=PREDICT_DAYS)).strftime("%Y-%m-%d")
 
-    # 1. データ準備
     all_assets_info = ""
     current_prices = {}
     
@@ -138,14 +147,13 @@ def main():
             p_format = ".3f" if "JPY" in asset_name else ".2f"
             all_assets_info += f"\n### {asset_name}\nCurrent: {price:{p_format}}\nHistory:\n{hist_str}\n"
 
-    # 2. プロンプト作成
     prompt = f"""
     あなたは凄腕の金融アナリストです。以下のデータに基づき、{PREDICT_DAYS}日後の終値を予測してください。
     
     【ルール】
-    1. 現在価格と同じ数値は禁止。必ず変動を予測してください。
+    1. 現在価格と同じ数値は禁止。
     2. USD/JPYは小数点第3位まで、他は第2位まで。
-    3. JSON形式のみ出力してください。
+    3. JSON形式のみ出力。解説不要。
 
     {{
         "USD/JPY": 0.000,
@@ -157,7 +165,6 @@ def main():
     {all_assets_info}
     """
 
-    # 3. AIに予測依頼
     print("Asking GPT...")
     gpt_res = ask_gpt(openai_client, prompt)
     
@@ -165,19 +172,16 @@ def main():
     time.sleep(2) 
     gem_res = ask_gemini(prompt)
 
-    # 4. 結果保存
     output_data = {"last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "assets": {}}
     
     for asset in TARGETS.keys():
         if asset in current_prices:
             curr = current_prices[asset]
             
-            try:
-                g_pred = float(gpt_res.get(asset)) if (gpt_res and asset in gpt_res) else None
+            try: g_pred = float(gpt_res.get(asset)) if (gpt_res and asset in gpt_res) else None
             except: g_pred = None
             
-            try:
-                m_pred = float(gem_res.get(asset)) if (gem_res and asset in gem_res) else None
+            try: m_pred = float(gem_res.get(asset)) if (gem_res and asset in gem_res) else None
             except: m_pred = None
             
             output_data["assets"][asset] = {
@@ -188,7 +192,6 @@ def main():
                 "gemini_change": round(((m_pred - curr)/curr)*100, 3) if m_pred is not None else None,
             }
 
-            # 履歴保存
             for model_name, val in [("GPT-3.5", g_pred), ("Gemini", m_pred)]:
                 if val is not None:
                     history_data["records"].append({
