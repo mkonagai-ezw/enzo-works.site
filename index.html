@@ -137,6 +137,50 @@
         </div>
     </section>
 
+    <section id="sandbox" class="section">
+    <div class="container">
+        <h2 class="section-title">Sandbox</h2>
+        <p class="section-subtitle">ENZOWORKSが思うがままに作ったもの。</p>
+
+        <div class="sandbox-project">
+            <h3 class="project-name">AIは株価と為替を予測できるのかシステム</h3>
+            
+            <div class="prediction-dashboard">
+                <div class="deviation-card">
+                    <h3>AI Deviation Rate</h3>
+                    <div class="deviation-value" id="deviation-rate">Loading...</div>
+                    <p class="deviation-desc">Difference between GPT and Gemini views</p>
+                </div>
+
+                <div class="ai-cards">
+                    <div class="ai-card gpt-card">
+                        <div class="ai-icon">🤖</div>
+                        <h3>GPT-3.5</h3>
+                        <div class="price-display">
+                            <span class="currency">¥</span>
+                            <span class="price" id="gpt-price">---.---</span>
+                        </div>
+                        <div class="change-rate" id="gpt-change">--.--%</div>
+                    </div>
+
+                    <div class="ai-card gemini-card">
+                        <div class="ai-icon">✨</div>
+                        <h3>Gemini Flash</h3>
+                        <div class="price-display">
+                            <span class="currency">¥</span>
+                            <span class="price" id="gemini-price">---.---</span>
+                        </div>
+                        <div class="change-rate" id="gemini-change">--.--%</div>
+                    </div>
+                </div>
+                
+                <p class="last-updated">Last Updated: <span id="update-time">--/-- --:--</span></p>
+                <p class="disclaimer">※ AI予測は投資助言ではありません。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
     <section id="contact" class="section">
         <div class="container">
             <h2 class="section-title">Contact</h2>
