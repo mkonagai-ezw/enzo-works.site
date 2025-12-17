@@ -67,7 +67,7 @@ def ask_gemini(prompt):
     """Geminiに予測を依頼（標準ライブラリ版）"""
     try:
         # ★ここでモデルを指定（この書き方ならflashが確実に動きます）
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-1.5-flash-001')
         response = model.generate_content(prompt)
         content = response.text
         return parse_json_response(content, "Gemini")
