@@ -746,3 +746,89 @@ body {
 .change-minus { color: #ff4d4d; }
 
 .last-updated { font-size: 0.8rem; color: #666; margin-top: 20px; }
+/* --- AI Sandbox 3銘柄対応版 --- */
+.ai-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.asset-card {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.asset-card:hover {
+    transform: translateY(-5px);
+    border-color: #555;
+}
+
+/* 銘柄ヘッダー */
+.asset-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.asset-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.current-price {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* AIごとの予測行 */
+.prediction-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.ai-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.gpt-row .ai-label { color: #10a37f; }   /* OpenAI Green */
+.gemini-row .ai-label { color: #4285f4; } /* Google Blue */
+
+.pred-val {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #eee;
+}
+
+.pred-change {
+    font-size: 0.8rem;
+    margin-left: 8px;
+}
+.plus { color: #00ff88; }
+.minus { color: #ff4d4d; }
+
+.loading-msg {
+    color: #ffcc00;
+    font-size: 1.2rem;
+    padding: 20px;
+}
