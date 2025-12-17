@@ -1,0 +1,52 @@
+# GitHub Actions の設定ファイル
+
+name: AI Prediction Scheduler
+
+on:
+  # 1. 手動で実行できるようにする設定
+  workflow_dispatch:
+  
+  # 2. 定期実行スケジュール設定 (日本時間 JST)
+  schedule:
+    # 毎日 09:00 JST に実行
+    - cron: '0 0 * * *' 
+    # 毎週月曜日 09:00 JST に実行 (月曜日の 00:00 UTC は月曜日の 09:00 JST)
+    - cron: '0 0 * * 1' 
+    # 毎月1日 09:00 JST に実行
+    - cron: '0 0 1 * *'
+
+jobs:
+  run_ai_prediction:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      # Python環境をセットアップ
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      # 必要なライブラリをインストール
+      - name: Install dependencies
+        run: |
+          pip install yfinance openai google-genai
+          
+      # Pythonスクリプトを実行
+      - name: Run AI Predictor
+        run: python ai_predictor.py
+        env:
+          # GitHub SecretsからAPIキーを読み込む
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          
+      # 生成されたJSONファイルをリポジトリにコミット＆プッシュ
+      - name: Commit and Push results
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'AI: 予測結果を自動更新しました'
+          files: 'ai_predictions.json'
+          branch: main # あなたのブランチ名に合わせてください (通常は main)
