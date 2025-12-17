@@ -1,6 +1,5 @@
 /**
- * ENZO WORKS - AI Sandbox Battle (Final Version)
- * 「過去の答え合わせ」と「未来の予測」をダブルで表示します。
+ * ENZO WORKS - AI Sandbox Battle (Refined Version)
  */
 async function loadAIBattle() {
     const grid = document.getElementById('ai-grid');
@@ -9,20 +8,17 @@ async function loadAIBattle() {
         if (!res.ok) throw new Error('Fetch failed');
         const data = await res.json();
 
-        // 1. メタ情報の更新
-        document.getElementById('update-time').innerText = data.metadata.last_updated;
-        document.getElementById('target-date').innerText = data.metadata.target_date;
+        // 1. 全体の更新情報（ここだけに集約）
+        const lastUpdated = document.getElementById('update-time');
+        if (lastUpdated) lastUpdated.innerText = data.metadata.last_updated;
 
-        // 2. 累計戦績（方向性的中率）の更新
+        // 2. 的中率の反映
         const stats = data.overall_stats;
         document.getElementById('gpt-win-rate').innerText = stats["GPT-3.5"].win_rate;
-        document.getElementById('gpt-avg-error').innerText = stats["GPT-3.5"].avg_error;
         document.getElementById('gemini-win-rate').innerText = stats["Gemini"].win_rate;
-        document.getElementById('gemini-avg-error').innerText = stats["Gemini"].avg_error;
 
-        // 3. メイングリッドの生成
+        // 3. バトルカード生成
         grid.innerHTML = '';
-
         const currentPrices = data.latest_forecast.current_prices;
         const gptForecast = data.latest_forecast.GPT;
         const geminiForecast = data.latest_forecast.Gemini;
@@ -31,25 +27,25 @@ async function loadAIBattle() {
         for (const [asset, current] of Object.entries(currentPrices)) {
             const unit = asset === "S&P 500" ? "$" : "¥";
             const fractionDigits = asset === "USD/JPY" ? 3 : 2;
+            const myJudge = judgments.find(j => j.asset === asset);
 
             const card = document.createElement('div');
             card.className = 'asset-card';
             
-            // --- セクション1: 本日の決着 (判定があれば表示) ---
-            let judgeHTML = `<div class="judge-section empty">決着判定：データ蓄積中</div>`;
-            const myJudge = judgments.find(j => j.asset === asset);
+            // --- 過去：本日の決着判定 ---
+            let judgeHTML = `<div class="judge-section empty">本日決着：データ蓄積中</div>`;
             if (myJudge) {
                 judgeHTML = `
                     <div class="judge-section">
-                        <div class="judge-title">🏆 5日前からの予言・本日の結果</div>
+                        <div class="judge-title">⚔️ 5日前AI予想 vs 本日価格</div>
                         <div class="judge-result">
                             <span>GPT: ${myJudge.gpt_result}</span> / <span>Gemini: ${myJudge.gemini_result}</span>
                         </div>
                     </div>`;
             }
 
-            // --- セクション2: 最新予測 (未来) ---
-            const getTrendIcon = (pred, cur) => pred > cur ? '<span class="plus">▲ 上昇予想</span>' : '<span class="minus">▼ 下落予想</span>';
+            // --- 未来：最新AI予想 ---
+            const trend = (val) => val > current ? '<span class="plus">▲ 上昇</span>' : '<span class="minus">▼ 下落</span>';
 
             card.innerHTML = `
                 <div class="asset-header">
@@ -60,21 +56,21 @@ async function loadAIBattle() {
                 ${judgeHTML}
 
                 <div class="prediction-box">
-                    <div class="target-label-main">${data.metadata.target_date} の終値予言</div>
+                    <div class="target-label-main">🤖 最新AI予想（5営業日後の終値）</div>
                     
                     <div class="prediction-row gpt-row">
-                        <div class="ai-label"><i class="fa-solid fa-robot"></i> GPT-3.5</div>
+                        <div class="ai-label">GPT-3.5</div>
                         <div class="pred-data">
                             <span class="pred-val">${unit}${gptForecast[asset].toLocaleString(undefined, { minimumFractionDigits: fractionDigits })}</span>
-                            <div class="trend-indicator">${getTrendIcon(gptForecast[asset], current)}</div>
+                            <div class="trend-indicator">${trend(gptForecast[asset])}</div>
                         </div>
                     </div>
                     
                     <div class="prediction-row gemini-row">
-                        <div class="ai-label"><i class="fa-solid fa-star"></i> Gemini</div>
+                        <div class="ai-label">Gemini</div>
                         <div class="pred-data">
                             <span class="pred-val">${unit}${geminiForecast[asset].toLocaleString(undefined, { minimumFractionDigits: fractionDigits })}</span>
-                            <div class="trend-indicator">${getTrendIcon(geminiForecast[asset], current)}</div>
+                            <div class="trend-indicator">${trend(geminiForecast[asset])}</div>
                         </div>
                     </div>
                 </div>
@@ -86,5 +82,4 @@ async function loadAIBattle() {
         grid.innerHTML = '<p class="loading-msg">データ同期中...</p>';
     }
 }
-
 document.addEventListener('DOMContentLoaded', loadAIBattle);

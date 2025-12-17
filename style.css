@@ -1012,10 +1012,19 @@ body {
 .prediction-row {
     margin-bottom: 12px !important; /* 行間を少し広げる */
 }
+.sandbox-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    text-align: left;
+}
 
 .disclaimer {
-    margin-top: 20px;
     font-size: 11px;
-    color: #666;
-    line-height: 1.5;
+    color: #888;
+    line-height: 1.6;
+}
+
+.disclaimer strong {
+    color: #bbb;
 }
