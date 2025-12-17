@@ -1,25 +1,25 @@
 {
-    "last_updated": "2025-12-17 07:07:01",
+    "last_updated": "2025-12-17 07:22:51",
     "assets": {
         "USD/JPY": {
-            "current_price": 155.01,
-            "gpt_prediction": 155.1,
+            "current_price": 155.47900390625,
+            "gpt_prediction": 155.97,
             "gemini_prediction": null,
-            "gpt_change": 0.05,
+            "gpt_change": 0.316,
             "gemini_change": null
         },
         "Nikkei 225": {
-            "current_price": 49383.29,
-            "gpt_prediction": 49200.0,
+            "current_price": 49383.2890625,
+            "gpt_prediction": 49612.5,
             "gemini_prediction": null,
-            "gpt_change": -0.37,
+            "gpt_change": 0.464,
             "gemini_change": null
         },
         "S&P 500": {
-            "current_price": 6800.26,
-            "gpt_prediction": 6805.5,
+            "current_price": 6800.259765625,
+            "gpt_prediction": 6775.8,
             "gemini_prediction": null,
-            "gpt_change": 0.08,
+            "gpt_change": -0.36,
             "gemini_change": null
         }
     }
