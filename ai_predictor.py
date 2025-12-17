@@ -4,11 +4,11 @@ import time
 import re
 import yfinance as yf
 from openai import OpenAI
-import google.generativeai as genai  # ★ここを変更（標準ライブラリ）
+import google.generativeai as genai
 from datetime import datetime, timedelta
 
 # --- 環境変数 ---
-# キーの前後に余計な改行や空白があったら削除する (.strip)
+# .strip() を入れることで、GitHub Secrets側の不慮の改行や空白を無効化します
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 
@@ -21,11 +21,11 @@ TARGETS = {
 PREDICT_DAYS = 5
 HISTORY_FILE = "ai_history.json"
 
-# --- Gemini初期化 ---
-# --- Gemini初期化 ---
+# --- Gemini初期化（最も安定する構成） ---
 if GEMINI_API_KEY:
-    # api_version='v1' を指定して、開発版(v1beta)ではなく安定版(v1)を強制的に使います
-    genai.configure(api_key=GEMINI_API_KEY, transport='rest', api_version='v1')
+    # 404エラーを回避するため、余計な api_version や transport 指定を削り
+    # ライブラリの標準設定に任せる形に戻しました
+    genai.configure(api_key=GEMINI_API_KEY)
 
 def get_market_data(ticker):
     """市場データを取得"""
@@ -46,7 +46,8 @@ def get_market_data(ticker):
     for date, row in df.tail(30).iterrows():
         try:
             val = float(row['Close'])
-            price_str_list.append(f"{date.strftime('%Y-%m-%d')}: {val:.2f}")
+            # 業界標準に合わせ、日付の横に終値を2桁〜3桁で表示
+            price_str_list.append(f"{date.strftime('%Y-%m-%d')}: {val:.3f}")
         except:
             continue
             
@@ -66,9 +67,9 @@ def ask_gpt(client, prompt):
         return None
 
 def ask_gemini(prompt):
-    """Geminiに予測を依頼（安定版URL指定）"""
+    """Geminiに予測を依頼（安定版指定）"""
     try:
-        # v1を指定していれば、このシンプルな名前が正解です
+        # シンプルに 'gemini-1.5-flash' と指定するのが、現在のライブラリでは最も成功率が高いです
         model = genai.GenerativeModel('gemini-1.5-flash') 
         response = model.generate_content(prompt)
         content = response.text
@@ -78,15 +79,14 @@ def ask_gemini(prompt):
         return None
 
 def parse_json_response(content, model_name):
-    """共通のJSON解析処理（デバッグ機能付き）"""
+    """共通のJSON解析処理（解析力を強化）"""
     print(f"--- DEBUG [{model_name}] Raw Response ---")
     print(content)
     print("---------------------------------------")
     
     try:
-        # Markdown削除
+        # Markdownの枠だけでなく、前後の余計な文章を徹底的に排除
         clean_content = re.sub(r'```json|```', '', content).strip()
-        # { } 抽出
         match = re.search(r'(\{.*\})', clean_content, re.DOTALL)
         if match:
             return json.loads(match.group(1))
@@ -125,25 +125,28 @@ def main():
         hist_str, price = get_market_data(ticker)
         if price:
             current_prices[asset_name] = price
-            all_assets_info += f"\n### {asset_name}\nCurrent: {price:.3f}\nHistory:\n{hist_str}\n"
+            # 通貨ペアのみ小数点第3位まで表示し、AIに精度を意識させる
+            p_format = ".3f" if "JPY" in asset_name else ".2f"
+            all_assets_info += f"\n### {asset_name}\nCurrent: {price:{p_format}}\nHistory:\n{hist_str}\n"
 
-    # 2. プロンプト作成
+    # 2. プロンプト作成（金融プロ仕様：桁数指定を厳格化）
     prompt = f"""
-    あなたは金融アナリストです。以下の3つの銘柄について、{PREDICT_DAYS}日後の終値を予測してください。
+    あなたは凄腕の金融アナリストです。以下のデータに基づき、{PREDICT_DAYS}日後の終値を論理的に予測してください。
     
     【重要ルール】
-    1. 現在価格と同じ数値を答えることは禁止です。必ず変動を予測してください。
-    2. USD/JPYは小数点第3位まで、株価指数は小数点第2位まで予測してください。
-    3. JSON形式以外は絶対に出力しないでください。
+    1. 現在の価格と全く同じ数値を答えることは「厳禁」です。市場のボラティリティを考慮してください。
+    2. 精度について:
+       - USD/JPY: 小数点第3位（0.001円単位）まで。
+       - Nikkei 225 / S&P 500: 小数点第2位まで。
+    3. 出力は必ず以下のJSON形式のみとし、解説文は一切含めないでください。
 
-    Output JSON Format:
     {{
         "USD/JPY": 0.000,
         "Nikkei 225": 0.00,
         "S&P 500": 0.00
     }}
 
-    Data:
+    --- データ ---
     {all_assets_info}
     """
 
@@ -152,7 +155,7 @@ def main():
     gpt_res = ask_gpt(openai_client, prompt)
     
     print("Asking Gemini...")
-    time.sleep(2) # 休憩
+    time.sleep(2) # レートリミット回避
     gem_res = ask_gemini(prompt)
 
     # 4. 結果保存
@@ -162,13 +165,19 @@ def main():
         if asset in current_prices:
             curr = current_prices[asset]
             
-            g_pred = gpt_res.get(asset) if (gpt_res and asset in gpt_res) else None
-            m_pred = gem_res.get(asset) if (gem_res and asset in gem_res) else None
+            # 安全に数値を取得（辞書が壊れていても落ちないようにする）
+            try:
+                g_pred = float(gpt_res.get(asset)) if (gpt_res and asset in gpt_res) else None
+            except: g_pred = None
+            
+            try:
+                m_pred = float(gem_res.get(asset)) if (gem_res and asset in gem_res) else None
+            except: m_pred = None
             
             output_data["assets"][asset] = {
                 "current_price": float(curr),
-                "gpt_prediction": float(g_pred) if g_pred is not None else None,
-                "gemini_prediction": float(m_pred) if m_pred is not None else None,
+                "gpt_prediction": g_pred,
+                "gemini_prediction": m_pred,
                 "gpt_change": round(((g_pred - curr)/curr)*100, 3) if g_pred is not None else None,
                 "gemini_change": round(((m_pred - curr)/curr)*100, 3) if m_pred is not None else None,
             }
@@ -188,6 +197,7 @@ def main():
                         "status": "pending"
                     })
 
+    # ファイル書き込み
     with open("ai_predictions.json", "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=4, ensure_ascii=False)
         
