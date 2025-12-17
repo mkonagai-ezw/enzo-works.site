@@ -55,15 +55,14 @@ def ask_gpt(client, prompt):
 
 def ask_gemini(prompt):
     """
-    あなたのAI Studio(画像3枚目)のサンプルに記載されていた 
-    'gemini-3-pro-preview' を直接叩きます。
-    最新モデルは v1beta 窓口に存在するため、パスも修正しました。
+    接続に成功した v1beta 窓口を使用し、
+    無料枠が確実に割り当てられている gemini-1.5-flash を呼び出します。
     """
     if not GEMINI_API_KEY:
         return None
 
-    # URLを v1beta に変更し、モデル名を gemini-3-pro-preview に固定
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-preview:generateContent?key={GEMINI_API_KEY}"
+    # モデル名を 1.5-flash に変更（窓口は v1beta のまま）
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
     
     headers = {'Content-Type': 'application/json'}
     payload = {
@@ -73,35 +72,26 @@ def ask_gemini(prompt):
     }
 
     try:
-        print(f"Connecting to Gemini API (v1beta) [Model: gemini-3-pro-preview]...")
+        print(f"Connecting to Gemini API (v1beta) [Model: gemini-1.5-flash]...")
         response = requests.post(url, headers=headers, json=payload, timeout=30)
         
+        # もし 1.5-flash が混雑(429)している場合は、超軽量版の 8b でリトライ
+        if response.status_code == 429:
+            print("Gemini 1.5 Flash quota exceeded. Retrying with gemini-1.5-flash-8b...")
+            url_8b = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key={GEMINI_API_KEY}"
+            response = requests.post(url_8b, headers=headers, json=payload, timeout=30)
+
         if response.status_code != 200:
             print(f"Gemini API Error (Status {response.status_code}): {response.text}")
-            # それでもダメなら gemini-pro (旧版) で最終試行
-            return ask_gemini_pro_fallback(prompt)
+            return None
 
         res_json = response.json()
         content = res_json['candidates'][0]['content']['parts'][0]['text']
         return parse_json_response(content, "Gemini")
 
     except Exception as e:
-        print(f"Gemini Direct Connection Error: {e}")
+        print(f"Gemini Connection Error: {e}")
         return None
-
-def ask_gemini_pro_fallback(prompt):
-    """Gemini-Proでのバックアップ接続"""
-    # 旧モデルは v1 でも v1beta でも通るはずですが、安全のため v1beta を試します
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
-    try:
-        response = requests.post(url, headers={'Content-Type': 'application/json'}, 
-                                 json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
-        if response.status_code == 200:
-            res_json = response.json()
-            return parse_json_response(res_json['candidates'][0]['content']['parts'][0]['text'], "Gemini-Pro")
-    except:
-        pass
-    return None
 
 def parse_json_response(content, model_name):
     """共通のJSON解析処理"""
@@ -115,10 +105,8 @@ def parse_json_response(content, model_name):
         if match:
             return json.loads(match.group(1))
         else:
-            print(f"[{model_name}] JSON format not found.")
             return None
     except json.JSONDecodeError:
-        print(f"[{model_name}] JSON Parse Error.")
         return None
 
 def main():
