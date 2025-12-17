@@ -20,8 +20,6 @@ TARGETS = {
 PREDICT_DAYS = 5
 HISTORY_FILE = "ai_history.json"
 
-# --- Gemini初期化 (SDKを使用しないため不要になりました) ---
-
 def get_market_data(ticker):
     """市場データを取得"""
     end_date = datetime.now()
@@ -56,12 +54,12 @@ def ask_gpt(client, prompt):
         return None
 
 def ask_gemini(prompt):
-    """SDKを介さず、API v1(安定版)を直接叩いて404を回避する"""
+    """SDKを介さず、画像で確認した最新モデル名(gemini-flash-latest)を直接叩く"""
     if not GEMINI_API_KEY:
         return None
 
-    # URLで直接 v1 を指定。SDKの自動判別バグを完全に回避します。
-    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+    # 画像4枚目で確認された「gemini-flash-latest」をURLに指定
+    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-flash-latest:generateContent?key={GEMINI_API_KEY}"
     
     headers = {'Content-Type': 'application/json'}
     payload = {
@@ -71,15 +69,16 @@ def ask_gemini(prompt):
     }
 
     try:
-        print(f"Connecting to Gemini API (v1) via Direct HTTP...")
+        print(f"Connecting to Gemini API (v1) [Model: gemini-flash-latest] via Direct HTTP...")
         response = requests.post(url, headers=headers, json=payload, timeout=30)
         
         if response.status_code != 200:
             print(f"Gemini API Error (Status {response.status_code}): {response.text}")
-            # 万が一1.5-flashがv1で未対応の場合はProでリトライ
+            # エラーが出た場合は旧Proモデルでリトライ
             return ask_gemini_pro_fallback(prompt)
 
         res_json = response.json()
+        # レスポンスからテキストを抽出
         content = res_json['candidates'][0]['content']['parts'][0]['text']
         return parse_json_response(content, "Gemini")
 
