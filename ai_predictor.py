@@ -4,7 +4,7 @@ import time
 import re
 import yfinance as yf
 from openai import OpenAI
-from google import genai
+import google.generativeai as genai  # ★ここを変更（標準ライブラリ）
 from datetime import datetime, timedelta
 
 # --- 環境変数 ---
@@ -19,6 +19,10 @@ TARGETS = {
 }
 PREDICT_DAYS = 5
 HISTORY_FILE = "ai_history.json"
+
+# --- Gemini初期化（標準的な書き方） ---
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
 
 def get_market_data(ticker):
     """市場データを取得"""
@@ -45,43 +49,49 @@ def get_market_data(ticker):
             
     return "\n".join(price_str_list), current_price
 
-def ask_ai_batch(client, model, prompt):
-    """一括でAIに予測を依頼し、JSONとして解析する（デバッグ強化版）"""
-    content = ""
+def ask_gpt(client, prompt):
+    """GPTに予測を依頼"""
     try:
-        if "gpt" in model:
-            response = client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": prompt}]
-            )
-            content = response.choices[0].message.content
-        elif "gemini" in model:
-            response = client.models.generate_content(model=model, contents=prompt)
-            content = response.text
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        content = response.choices[0].message.content
+        return parse_json_response(content, "GPT-3.5")
+    except Exception as e:
+        print(f"GPT Error: {e}")
+        return None
 
-        # ★デバッグ用：AIの生の返答をログに出す
-        print(f"--- DEBUG [{model}] Raw Response ---")
-        print(content)
-        print("------------------------------------")
+def ask_gemini(prompt):
+    """Geminiに予測を依頼（標準ライブラリ版）"""
+    try:
+        # ★ここでモデルを指定（この書き方ならflashが確実に動きます）
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(prompt)
+        content = response.text
+        return parse_json_response(content, "Gemini")
+    except Exception as e:
+        print(f"Gemini Error: {e}")
+        return None
 
-        # 1. Markdownのコードブロック（```json ... ```）を削除
+def parse_json_response(content, model_name):
+    """共通のJSON解析処理（デバッグ機能付き）"""
+    print(f"--- DEBUG [{model_name}] Raw Response ---")
+    print(content)
+    print("---------------------------------------")
+    
+    try:
+        # Markdown削除
         clean_content = re.sub(r'```json|```', '', content).strip()
-        
-        # 2. { } の中身だけを抽出
+        # { } 抽出
         match = re.search(r'(\{.*\})', clean_content, re.DOTALL)
         if match:
-            json_str = match.group(1)
-            return json.loads(json_str)
+            return json.loads(match.group(1))
         else:
-            # ★修正箇所：f文字列の中で { } を使うために {{ }} にエスケープしました
-            print(f"[{model}] Error: JSON format not found.")
+            print(f"[{model_name}] JSON format not found.")
             return None
-
-    except json.JSONDecodeError as je:
-        print(f"[{model}] JSON Parse Error: {je}")
-        return None
-    except Exception as e:
-        print(f"AI Error ({model}): {e}")
+    except json.JSONDecodeError:
+        print(f"[{model_name}] JSON Parse Error.")
         return None
 
 def main():
@@ -90,7 +100,6 @@ def main():
         return
 
     openai_client = OpenAI(api_key=OPENAI_API_KEY)
-    gemini_client = genai.Client(api_key=GEMINI_API_KEY)
 
     # 履歴データの読み込み
     history_data = {"records": []}
@@ -104,7 +113,7 @@ def main():
     today_str = datetime.now().strftime("%Y-%m-%d")
     target_date = (datetime.now() + timedelta(days=PREDICT_DAYS)).strftime("%Y-%m-%d")
 
-    # 1. 全銘柄のデータを一括で準備
+    # 1. データ準備
     all_assets_info = ""
     current_prices = {}
     
@@ -115,7 +124,7 @@ def main():
             current_prices[asset_name] = price
             all_assets_info += f"\n### {asset_name}\nCurrent: {price:.3f}\nHistory:\n{hist_str}\n"
 
-    # 2. プロンプト作成（厳格モード）
+    # 2. プロンプト作成
     prompt = f"""
     あなたは金融アナリストです。以下の3つの銘柄について、{PREDICT_DAYS}日後の終値を予測してください。
     
@@ -137,13 +146,11 @@ def main():
 
     # 3. AIに予測依頼
     print("Asking GPT...")
-    gpt_res = ask_ai_batch(openai_client, "gpt-3.5-turbo", prompt)
+    gpt_res = ask_gpt(openai_client, prompt)
     
     print("Asking Gemini...")
-    # 少し待機してAPI制限回避
-    time.sleep(2)
-    # モデル名を最新の安定版フルネームに修正
-    gem_res = ask_ai_batch(gemini_client, "gemini-1.5-flash-002", prompt)
+    time.sleep(2) # 休憩
+    gem_res = ask_gemini(prompt)
 
     # 4. 結果保存
     output_data = {"last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "assets": {}}
@@ -152,11 +159,9 @@ def main():
         if asset in current_prices:
             curr = current_prices[asset]
             
-            # Noneチェックしつつ値を取得
             g_pred = gpt_res.get(asset) if (gpt_res and asset in gpt_res) else None
             m_pred = gem_res.get(asset) if (gem_res and asset in gem_res) else None
             
-            # 計算と格納
             output_data["assets"][asset] = {
                 "current_price": float(curr),
                 "gpt_prediction": float(g_pred) if g_pred is not None else None,
@@ -180,7 +185,6 @@ def main():
                         "status": "pending"
                     })
 
-    # ファイル書き込み
     with open("ai_predictions.json", "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=4, ensure_ascii=False)
         
