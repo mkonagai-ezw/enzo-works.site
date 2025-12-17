@@ -1,26 +1,36 @@
 {
-    "last_updated": "2025-12-17 10:58:49",
-    "assets": {
-        "USD/JPY": {
-            "current_price": 155.46499633789062,
-            "gpt_prediction": 155.7,
-            "gemini_prediction": 155.281,
-            "gpt_change": 0.151,
-            "gemini_change": -0.118
+    "metadata": {
+        "last_updated": "2025-12-17 12:42:59",
+        "target_date": "2025-12-24"
+    },
+    "overall_stats": {
+        "GPT-3.5": {
+            "win_rate": 0,
+            "avg_error": 0,
+            "count": 0
         },
-        "Nikkei 225": {
-            "current_price": 49383.2890625,
-            "gpt_prediction": 49550.0,
-            "gemini_prediction": 49512.75,
-            "gpt_change": 0.338,
-            "gemini_change": 0.262
-        },
-        "S&P 500": {
-            "current_price": 6800.259765625,
-            "gpt_prediction": 6785.5,
-            "gemini_prediction": 6835.45,
-            "gpt_change": -0.217,
-            "gemini_change": 0.517
+        "Gemini": {
+            "win_rate": 0,
+            "avg_error": 0,
+            "count": 0
         }
-    }
+    },
+    "latest_forecast": {
+        "GPT": {
+            "USD/JPY": 155.567,
+            "Nikkei 225": 50836.551,
+            "S&P 500": 6827.41
+        },
+        "Gemini": {
+            "USD/JPY": 154.85,
+            "Nikkei 225": 49550.0,
+            "S&P 500": 6785.0
+        },
+        "current_prices": {
+            "USD/JPY": 155.01499938964844,
+            "Nikkei 225": 49383.2890625,
+            "S&P 500": 6800.259765625
+        }
+    },
+    "today_judgement": []
 }
