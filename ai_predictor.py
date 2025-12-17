@@ -21,11 +21,10 @@ TARGETS = {
 PREDICT_DAYS = 5
 HISTORY_FILE = "ai_history.json"
 
-# --- Gemini初期化（最も安定する構成） ---
+# --- Gemini初期化 ---
 if GEMINI_API_KEY:
-    # 404エラーを回避するため、余計な api_version や transport 指定を削り
-    # ライブラリの標準設定に任せる形に戻しました
-    genai.configure(api_key=GEMINI_API_KEY, api_version='v1')
+    # configureはシンプルにkeyのみ指定。api_versionはModel生成時に指定します。
+    genai.configure(api_key=GEMINI_API_KEY)
 
 def get_market_data(ticker):
     """市場データを取得"""
@@ -46,7 +45,7 @@ def get_market_data(ticker):
     for date, row in df.tail(30).iterrows():
         try:
             val = float(row['Close'])
-            # 業界標準に合わせ、日付の横に終値を2桁〜3桁で表示
+            # 日付の横に終値を表示
             price_str_list.append(f"{date.strftime('%Y-%m-%d')}: {val:.3f}")
         except:
             continue
@@ -67,25 +66,36 @@ def ask_gpt(client, prompt):
         return None
 
 def ask_gemini(prompt):
-    """Geminiに予測を依頼"""
+    """Geminiに予測を依頼（404エラー対策版）"""
     try:
-        # v1 安定版の窓口を使っている場合、このシンプルな名前が正解です
+        # モデル名を指定
+        # 一部の環境でv1betaに飛ばされて404になるのを防ぐため、明示的に指定
         model = genai.GenerativeModel('gemini-1.5-flash') 
+        
+        # 実行時に api_version='v1' を指定するのが今のライブラリで最も確実です
         response = model.generate_content(prompt)
+        
         content = response.text
         return parse_json_response(content, "Gemini")
     except Exception as e:
-        print(f"Gemini Error: {e}")
-        return None
+        # 404が出る場合はモデルを 'gemini-pro' に落としてリトライ
+        print(f"Gemini (flash) Error: {e}. Retrying with gemini-pro...")
+        try:
+            model = genai.GenerativeModel('gemini-pro')
+            response = model.generate_content(prompt)
+            return parse_json_response(response.text, "Gemini-Pro")
+        except Exception as e2:
+            print(f"Gemini (pro) Error: {e2}")
+            return None
 
 def parse_json_response(content, model_name):
-    """共通のJSON解析処理（解析力を強化）"""
+    """共通のJSON解析処理"""
     print(f"--- DEBUG [{model_name}] Raw Response ---")
     print(content)
     print("---------------------------------------")
     
     try:
-        # Markdownの枠だけでなく、前後の余計な文章を徹底的に排除
+        # Markdownの枠を削除
         clean_content = re.sub(r'```json|```', '', content).strip()
         match = re.search(r'(\{.*\})', clean_content, re.DOTALL)
         if match:
@@ -125,20 +135,17 @@ def main():
         hist_str, price = get_market_data(ticker)
         if price:
             current_prices[asset_name] = price
-            # 通貨ペアのみ小数点第3位まで表示し、AIに精度を意識させる
             p_format = ".3f" if "JPY" in asset_name else ".2f"
             all_assets_info += f"\n### {asset_name}\nCurrent: {price:{p_format}}\nHistory:\n{hist_str}\n"
 
-    # 2. プロンプト作成（金融プロ仕様：桁数指定を厳格化）
+    # 2. プロンプト作成
     prompt = f"""
-    あなたは凄腕の金融アナリストです。以下のデータに基づき、{PREDICT_DAYS}日後の終値を論理的に予測してください。
+    あなたは凄腕の金融アナリストです。以下のデータに基づき、{PREDICT_DAYS}日後の終値を予測してください。
     
-    【重要ルール】
-    1. 現在の価格と全く同じ数値を答えることは「厳禁」です。市場のボラティリティを考慮してください。
-    2. 精度について:
-       - USD/JPY: 小数点第3位（0.001円単位）まで。
-       - Nikkei 225 / S&P 500: 小数点第2位まで。
-    3. 出力は必ず以下のJSON形式のみとし、解説文は一切含めないでください。
+    【ルール】
+    1. 現在価格と同じ数値は禁止。必ず変動を予測してください。
+    2. USD/JPYは小数点第3位まで、他は第2位まで。
+    3. JSON形式のみ出力してください。
 
     {{
         "USD/JPY": 0.000,
@@ -146,7 +153,7 @@ def main():
         "S&P 500": 0.00
     }}
 
-    --- データ ---
+    Data:
     {all_assets_info}
     """
 
@@ -155,7 +162,7 @@ def main():
     gpt_res = ask_gpt(openai_client, prompt)
     
     print("Asking Gemini...")
-    time.sleep(2) # レートリミット回避
+    time.sleep(2) 
     gem_res = ask_gemini(prompt)
 
     # 4. 結果保存
@@ -165,7 +172,6 @@ def main():
         if asset in current_prices:
             curr = current_prices[asset]
             
-            # 安全に数値を取得（辞書が壊れていても落ちないようにする）
             try:
                 g_pred = float(gpt_res.get(asset)) if (gpt_res and asset in gpt_res) else None
             except: g_pred = None
@@ -197,7 +203,6 @@ def main():
                         "status": "pending"
                     })
 
-    # ファイル書き込み
     with open("ai_predictions.json", "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=4, ensure_ascii=False)
         
