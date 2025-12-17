@@ -140,20 +140,39 @@
     <section id="sandbox" class="section">
     <div class="container">
         <h2 class="section-title">Sandbox</h2>
-        <p class="section-subtitle">AI Market Prediction System (Beta)</p>
+        <p class="section-subtitle">AI Market Prediction Battle (Beta)</p>
 
         <div class="sandbox-project">
-            <h3 class="project-name">AI市場予測 & 答え合わせシステム</h3>
+            <h3 class="project-name">AI市場予測：5営業日後の終値バトル</h3>
             
+            <div class="stats-board">
+                <div class="stat-item gpt">
+                    <span class="model-name">GPT-3.5</span>
+                    <span class="main-stat">勝率: <span id="gpt-win-rate">--</span>%</span>
+                    <span class="sub-stat">平均誤差: <span id="gpt-avg-error">--</span>%</span>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="stat-item gemini">
+                    <span class="model-name">Gemini Flash</span>
+                    <span class="main-stat">勝率: <span id="gemini-win-rate">--</span>%</span>
+                    <span class="sub-stat">平均誤差: <span id="gemini-avg-error">--</span>%</span>
+                </div>
+            </div>
+
             <div id="ai-grid" class="ai-grid">
-                <div class="loading-msg">Analyzing Market Data...</div>
+                <div class="loading-msg">Initializing Battle Data...</div>
             </div>
             
-            <p class="last-updated">Last Updated: <span id="update-time">--/-- --:--</span></p>
-            <p class="disclaimer">※ AI予測は実験的なものであり、投資助言ではありません。</p>
+            <div class="battle-meta-footer">
+                <p class="last-updated">予測実行日: <span id="update-time">--</span></p>
+                <p class="target-date">決着予定日: <span id="target-date">--</span></p>
+            </div>
+            <p class="disclaimer">※ 5営業日後の終値を予測。土日祝を除いた市場稼働日で計算しています。</p>
         </div>
     </div>
 </section>
+
+<script src="script.js"></script>
 
     <section id="contact" class="section">
         <div class="container">

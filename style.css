@@ -886,3 +886,59 @@ body {
 .minus { color: #ff4d4d; }
 
 .loading-msg { color: #ffcc00; font-size: 1.1rem; text-align: center; padding: 40px; }
+/* --- Sandbox AI Battle Styles --- */
+.stats-board {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-item .model-name {
+    display: block;
+    font-size: 0.8em;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.stat-item .main-stat {
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stat-item .sub-stat {
+    font-size: 0.7em;
+    color: #666;
+}
+
+.vs-divider {
+    font-style: italic;
+    font-weight: bold;
+    color: #ff4d4d;
+    padding: 0 10px;
+}
+
+/* トレンドアイコンの装飾 */
+.trend-icon.plus { color: #ff4d4d; margin-left: 5px; }
+.trend-icon.minus { color: #4d79ff; margin-left: 5px; }
+
+.battle-meta-footer {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #222;
+    font-size: 0.8em;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+}
