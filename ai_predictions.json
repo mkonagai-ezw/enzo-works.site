@@ -1,0 +1,18 @@
+{
+    "last_updated": "2025-12-17 03:36:33",
+    "ticker": "USDJPY=X",
+    "current_price": 154.896,
+    "prediction_days": 5,
+    "gpt": {
+        "model": "gpt-3.5-turbo",
+        "prediction": null,
+        "change_pct": null
+    },
+    "gemini": {
+        "model": "gemini-2.5-flash",
+        "prediction": 153.278,
+        "change_pct": -1.04
+    },
+    "deviation_percent": null,
+    "disclaimer": "これは投資助言ではありません。AIの予測は参考情報であり、自己責任でご利用ください。"
+}
