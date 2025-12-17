@@ -3,7 +3,7 @@ import json
 import time
 import re
 import yfinance as yf
-import requests  # SDKの代わりに標準のHTTPライブラリを使用
+import requests
 from openai import OpenAI
 from datetime import datetime, timedelta
 
@@ -54,12 +54,16 @@ def ask_gpt(client, prompt):
         return None
 
 def ask_gemini(prompt):
-    """SDKを介さず、画像で確認した最新モデル名(gemini-flash-latest)を直接叩く"""
+    """
+    あなたのAI Studio(画像3枚目)のサンプルに記載されていた 
+    'gemini-3-pro-preview' を直接叩きます。
+    最新モデルは v1beta 窓口に存在するため、パスも修正しました。
+    """
     if not GEMINI_API_KEY:
         return None
 
-    # 画像4枚目で確認された「gemini-flash-latest」をURLに指定
-    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-flash-latest:generateContent?key={GEMINI_API_KEY}"
+    # URLを v1beta に変更し、モデル名を gemini-3-pro-preview に固定
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-preview:generateContent?key={GEMINI_API_KEY}"
     
     headers = {'Content-Type': 'application/json'}
     payload = {
@@ -69,16 +73,15 @@ def ask_gemini(prompt):
     }
 
     try:
-        print(f"Connecting to Gemini API (v1) [Model: gemini-flash-latest] via Direct HTTP...")
+        print(f"Connecting to Gemini API (v1beta) [Model: gemini-3-pro-preview]...")
         response = requests.post(url, headers=headers, json=payload, timeout=30)
         
         if response.status_code != 200:
             print(f"Gemini API Error (Status {response.status_code}): {response.text}")
-            # エラーが出た場合は旧Proモデルでリトライ
+            # それでもダメなら gemini-pro (旧版) で最終試行
             return ask_gemini_pro_fallback(prompt)
 
         res_json = response.json()
-        # レスポンスからテキストを抽出
         content = res_json['candidates'][0]['content']['parts'][0]['text']
         return parse_json_response(content, "Gemini")
 
@@ -88,7 +91,8 @@ def ask_gemini(prompt):
 
 def ask_gemini_pro_fallback(prompt):
     """Gemini-Proでのバックアップ接続"""
-    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+    # 旧モデルは v1 でも v1beta でも通るはずですが、安全のため v1beta を試します
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
     try:
         response = requests.post(url, headers={'Content-Type': 'application/json'}, 
                                  json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
