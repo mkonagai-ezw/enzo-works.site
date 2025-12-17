@@ -37,7 +37,8 @@ def get_market_data(ticker):
     return "\n".join(price_str_list), current_price
 
 def ask_ai_batch(client, model, prompt):
-    """一括でAIに予測を依頼し、JSONとして解析する"""
+    """一括でAIに予測を依頼し、JSONとして解析する（デバッグ強化版）"""
+    content = ""
     try:
         if "gpt" in model:
             response = client.chat.completions.create(
@@ -49,10 +50,25 @@ def ask_ai_batch(client, model, prompt):
             response = client.models.generate_content(model=model, contents=prompt)
             content = response.text
 
-        # JSON部分を抽出 (AIが余計な文言を添えても大丈夫なように)
-        match = re.search(r'\{.*\}', content, re.DOTALL)
+        # ★ここが重要：AIの生の返事をログに出力させる（自白剤）
+        print(f"--- DEBUG [{model}] Raw Response ---\n{content}\n-----------------------------")
+
+        # 1. Markdownのコードブロック（```json ... ```）を削除
+        clean_content = re.sub(r'```json|```', '', content).strip()
+        
+        # 2. 余計な前置きがあっても { } の中身だけを無理やり抽出する
+        match = re.search(r'(\{.*\})', clean_content, re.DOTALL)
         if match:
-            return json.loads(match.group())
+            json_str = match.group(1)
+            return json.loads(json_str)
+        else:
+            print(f"[{model}] Error: JSONの { } が見つかりませんでした。")
+            return None
+
+    except json.JSONDecodeError as je:
+        print(f"[{model}] JSON Parse Error: {je}")
+        # パースに失敗した文字列も念のため表示
+        print(f"Failed Content: {content}")
         return None
     except Exception as e:
         print(f"AI Error ({model}): {e}")
