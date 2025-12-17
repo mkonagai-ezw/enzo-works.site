@@ -64,10 +64,12 @@ def ask_gpt(client, prompt):
         return None
 
 def ask_gemini(prompt):
-    """Geminiに予測を依頼（標準ライブラリ版）"""
+    """Geminiに予測を依頼（フルパス指定版）"""
     try:
-        # ★ここでモデルを指定（この書き方ならflashが確実に動きます）
-        model = genai.GenerativeModel('gemini-pro')
+        # 'models/' を付けて住所をハッキリさせます
+        # これでもダメなら 'models/gemini-1.5-flash' に戻してもOKですが、
+        # まずは一番歴史のある 'models/gemini-pro' で道を通します。
+        model = genai.GenerativeModel('models/gemini-pro') 
         response = model.generate_content(prompt)
         content = response.text
         return parse_json_response(content, "Gemini")
