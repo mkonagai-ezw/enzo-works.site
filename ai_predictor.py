@@ -17,188 +17,159 @@ TARGETS = {
     "Nikkei 225": "^N225",
     "S&P 500": "^GSPC"
 }
-PREDICT_DAYS = 5
 HISTORY_FILE = "ai_history.json"
+OUTPUT_FILE = "ai_predictions.json"
 
+# --- 営業日計算関数 ---
+def get_target_date(start_date, business_days=5):
+    """単純な5日後ではなく、土日を考慮した5営業日後(来週の同じ曜日)を計算"""
+    # 実際には祝日の考慮を厳密に行うのは大変なため、週を跨ぐ「+7日」を基本とします
+    target = start_date + timedelta(days=7)
+    # ターゲットが土日になった場合の補正
+    if target.weekday() == 5: target += timedelta(days=2) # 土->月
+    elif target.weekday() == 6: target += timedelta(days=1) # 日->月
+    return target
+
+# --- 市場データ・AI通信関数 ---
 def get_market_data(ticker):
-    """市場データを取得"""
     end_date = datetime.now()
     start_date = end_date - timedelta(days=60)
     df = yf.download(ticker, start=start_date, end=end_date, progress=False)
-    
-    if df.empty:
-        return None, None
-    
+    if df.empty: return None, None
     current_price = float(df['Close'].iloc[-1])
-    price_str_list = []
-    for date, row in df.tail(30).iterrows():
-        try:
-            val = float(row['Close'])
-            price_str_list.append(f"{date.strftime('%Y-%m-%d')}: {val:.3f}")
-        except:
-            continue
-            
+    price_str_list = [f"{d.strftime('%Y-%m-%d')}: {float(r['Close']):.3f}" for d, r in df.tail(30).iterrows()]
     return "\n".join(price_str_list), current_price
 
 def ask_gpt(client, prompt):
-    """GPTに予測を依頼"""
     try:
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}]
         )
-        content = response.choices[0].message.content
-        return parse_json_response(content, "GPT-3.5")
+        return parse_json_response(response.choices[0].message.content, "GPT-3.5")
     except Exception as e:
         print(f"GPT Error: {e}")
         return None
 
 def ask_gemini(prompt):
-    """
-    プレビュー環境専用の識別子 'gemini-flash-latest' を使用。
-    通信実績のある v1beta 窓口を介して直接リクエストを送信します。
-    """
-    if not GEMINI_API_KEY:
-        return None
-
-    # URLを v1beta に設定し、画像で確認した最新識別子を指定
+    if not GEMINI_API_KEY: return None
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={GEMINI_API_KEY}"
-    
-    headers = {'Content-Type': 'application/json'}
-    payload = {
-        "contents": [{
-            "parts": [{"text": prompt}]
-        }]
-    }
-
     try:
-        print(f"Connecting to Gemini API (v1beta) [Model: gemini-flash-latest] via Direct HTTP...")
-        response = requests.post(url, headers=headers, json=payload, timeout=30)
-        
-        # 成功した v1beta 窓口で、あなたの環境の正解名(flash-latest)なら 200 が返るはずです
-        if response.status_code != 200:
-            print(f"Gemini API Error (Status {response.status_code}): {response.text}")
-            return None
-
+        response = requests.post(url, headers={'Content-Type': 'application/json'}, 
+                                 json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
+        if response.status_code != 200: return None
         res_json = response.json()
-        content = res_json['candidates'][0]['content']['parts'][0]['text']
-        return parse_json_response(content, "Gemini")
-
-    except Exception as e:
-        print(f"Gemini Connection Error: {e}")
-        return None
+        return parse_json_response(res_json['candidates'][0]['content']['parts'][0]['text'], "Gemini")
+    except: return None
 
 def parse_json_response(content, model_name):
-    """共通のJSON解析処理"""
-    print(f"--- DEBUG [{model_name}] Raw Response ---")
-    print(content)
-    print("---------------------------------------")
-    
+    print(f"--- DEBUG [{model_name}] Raw Response ---\n{content}\n---")
     try:
         clean_content = re.sub(r'```json|```', '', content).strip()
         match = re.search(r'(\{.*\})', clean_content, re.DOTALL)
-        if match:
-            return json.loads(match.group(1))
-        else:
-            return None
-    except json.JSONDecodeError:
-        return None
+        return json.loads(match.group(1)) if match else None
+    except: return None
 
+# --- 答え合わせ・統計ロジック ---
+def update_history_with_actuals(history):
+    """過去の未確定予測を今日の価格で答え合わせ"""
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    for record in history.get("records", []):
+        if record["status"] == "pending" and record["target_date"] <= today_str:
+            ticker = TARGETS.get(record["asset_name"])
+            _, actual_price = get_market_data(ticker)
+            if actual_price:
+                record["actual_price"] = actual_price
+                # 方向性判定
+                pred_up = record["predicted_price"] > record["start_price"]
+                actual_up = actual_price > record["start_price"]
+                record["direction_correct"] = (pred_up == actual_up)
+                # 乖離率
+                record["error_rate"] = round(abs((record["predicted_price"] - actual_price) / actual_price) * 100, 3)
+                record["status"] = "settled"
+
+def calculate_stats(history):
+    stats = {}
+    for model in ["GPT-3.5", "Gemini"]:
+        recs = [r for r in history.get("records", []) if r["ai_model"] == model and r["status"] == "settled"]
+        if not recs:
+            stats[model] = {"win_rate": 0, "avg_error": 0, "count": 0}
+            continue
+        wins = sum(1 for r in recs if r.get("direction_correct"))
+        avg_err = sum(r.get("error_rate", 0) for r in recs) / len(recs)
+        stats[model] = {"win_rate": round(wins/len(recs)*100, 1), "avg_error": round(avg_err, 2), "count": len(recs)}
+    return stats
+
+# --- メイン処理 ---
 def main():
-    if not OPENAI_API_KEY or not GEMINI_API_KEY:
-        print("Error: API Key missing.")
-        return
-
+    if not OPENAI_API_KEY or not GEMINI_API_KEY: return
     openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
-    history_data = {"records": []}
+    # 履歴読み込み
     if os.path.exists(HISTORY_FILE):
-        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-            try:
-                history_data = json.load(f)
-            except:
-                history_data = {"records": []}
+        with open(HISTORY_FILE, "r", encoding="utf-8") as f: history = json.load(f)
+    else: history = {"records": []}
 
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    target_date = (datetime.now() + timedelta(days=PREDICT_DAYS)).strftime("%Y-%m-%d")
+    # 1. 答え合わせ実行
+    print("Settling past predictions...")
+    update_history_with_actuals(history)
 
+    # 2. 最新データの準備
+    today_dt = datetime.now()
+    target_dt = get_target_date(today_dt)
+    
     all_assets_info = ""
     current_prices = {}
-    
-    print("Market Data Loading...")
-    for asset_name, ticker in TARGETS.items():
-        hist_str, price = get_market_data(ticker)
+    for asset, ticker in TARGETS.items():
+        hist, price = get_market_data(ticker)
         if price:
-            current_prices[asset_name] = price
-            p_format = ".3f" if "JPY" in asset_name else ".2f"
-            all_assets_info += f"\n### {asset_name}\nCurrent: {price:{p_format}}\nHistory:\n{hist_str}\n"
+            current_prices[asset] = price
+            all_assets_info += f"\n### {asset}\nNow: {price}\nHistory:\n{hist}\n"
 
-    prompt = f"""
-    あなたは凄腕の金融アナリストです。以下のデータに基づき、{PREDICT_DAYS}日後の終値を予測してください。
+    # 3. AI予測
+    prompt = f"Date: {today_dt.strftime('%Y-%m-%d')}. Predict prices for {target_dt.strftime('%Y-%m-%d')} (5 business days later). Output ONLY JSON: {{\"USD/JPY\":0.000, \"Nikkei 225\":0.00, \"S&P 500\":0.00}}\nData:\n{all_assets_info}"
     
-    【ルール】
-    1. 現在価格と同じ数値は禁止。
-    2. USD/JPYは小数点第3位まで、他は第2位まで。
-    3. JSON形式のみ出力。解説不要。
-
-    {{
-        "USD/JPY": 0.000,
-        "Nikkei 225": 0.00,
-        "S&P 500": 0.00
-    }}
-
-    Data:
-    {all_assets_info}
-    """
-
-    print("Asking GPT...")
     gpt_res = ask_gpt(openai_client, prompt)
-    
-    print("Asking Gemini...")
-    time.sleep(2) 
     gem_res = ask_gemini(prompt)
 
-    output_data = {"last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "assets": {}}
+    # 4. 履歴への追加
+    for asset, curr in current_prices.items():
+        for model, res in [("GPT-3.5", gpt_res), ("Gemini", gem_res)]:
+            if res and asset in res:
+                history["records"].append({
+                    "date": today_dt.strftime("%Y-%m-%d"),
+                    "target_date": target_dt.strftime("%Y-%m-%d"),
+                    "asset_name": asset,
+                    "ai_model": model,
+                    "start_price": curr,
+                    "predicted_price": float(res[asset]),
+                    "status": "pending"
+                })
+
+    # 5. フロントエンド用JSONの作成
+    stats = calculate_stats(history)
     
-    for asset in TARGETS.keys():
-        if asset in current_prices:
-            curr = current_prices[asset]
-            
-            try: g_pred = float(gpt_res.get(asset)) if (gpt_res and asset in gpt_res) else None
-            except: g_pred = None
-            
-            try: m_pred = float(gem_res.get(asset)) if (gem_res and asset in gem_res) else None
-            except: m_pred = None
-            
-            output_data["assets"][asset] = {
-                "current_price": float(curr),
-                "gpt_prediction": g_pred,
-                "gemini_prediction": m_pred,
-                "gpt_change": round(((g_pred - curr)/curr)*100, 3) if g_pred is not None else None,
-                "gemini_change": round(((m_pred - curr)/curr)*100, 3) if m_pred is not None else None,
-            }
+    # 今日の答え合わせ用（5営業日前に予測され、今日がターゲットのものを抽出）
+    today_check = [r for r in history["records"] if r["target_date"] == today_dt.strftime("%Y-%m-%d")]
 
-            for model_name, val in [("GPT-3.5", g_pred), ("Gemini", m_pred)]:
-                if val is not None:
-                    history_data["records"].append({
-                        "date": today_str,
-                        "target_date": target_date,
-                        "asset_name": asset,
-                        "ai_model": model_name,
-                        "start_price": float(curr),
-                        "predicted_price": float(val),
-                        "actual_price": None,
-                        "result": None,
-                        "status": "pending"
-                    })
+    output_data = {
+        "metadata": {
+            "last_updated": today_dt.strftime("%Y-%m-%d %H:%M:%S"),
+            "target_date": target_dt.strftime("%Y-%m-%d")
+        },
+        "overall_stats": stats,
+        "latest_forecast": {
+            "GPT": gpt_res,
+            "Gemini": gem_res,
+            "current_prices": current_prices
+        },
+        "today_judgement": today_check
+    }
 
-    with open("ai_predictions.json", "w", encoding="utf-8") as f:
-        json.dump(output_data, f, indent=4, ensure_ascii=False)
-        
-    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(history_data, f, indent=4, ensure_ascii=False)
-
-    print("Success! AI Predictions Updated.")
+    # 保存
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f: json.dump(output_data, f, indent=4, ensure_ascii=False)
+    with open(HISTORY_FILE, "w", encoding="utf-8") as f: json.dump(history, f, indent=4, ensure_ascii=False)
+    print("Success! Data Updated.")
 
 if __name__ == "__main__":
     main()
