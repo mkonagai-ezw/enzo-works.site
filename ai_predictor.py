@@ -25,7 +25,7 @@ HISTORY_FILE = "ai_history.json"
 if GEMINI_API_KEY:
     # 404エラーを回避するため、余計な api_version や transport 指定を削り
     # ライブラリの標準設定に任せる形に戻しました
-    genai.configure(api_key=GEMINI_API_KEY)
+    genai.configure(api_key=GEMINI_API_KEY, api_version='v1')
 
 def get_market_data(ticker):
     """市場データを取得"""
@@ -67,9 +67,9 @@ def ask_gpt(client, prompt):
         return None
 
 def ask_gemini(prompt):
-    """Geminiに予測を依頼（安定版指定）"""
+    """Geminiに予測を依頼"""
     try:
-        # シンプルに 'gemini-1.5-flash' と指定するのが、現在のライブラリでは最も成功率が高いです
+        # v1 安定版の窓口を使っている場合、このシンプルな名前が正解です
         model = genai.GenerativeModel('gemini-1.5-flash') 
         response = model.generate_content(prompt)
         content = response.text
