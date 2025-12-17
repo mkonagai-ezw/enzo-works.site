@@ -8,8 +8,9 @@ import google.generativeai as genai  # ★ここを変更（標準ライブラ�
 from datetime import datetime, timedelta
 
 # --- 環境変数 ---
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+# キーの前後に余計な改行や空白があったら削除する (.strip)
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 
 # --- 設定 ---
 TARGETS = {
