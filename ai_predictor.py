@@ -55,14 +55,14 @@ def ask_gpt(client, prompt):
 
 def ask_gemini(prompt):
     """
-    接続に成功した v1beta 窓口を使用し、
-    無料枠が確実に割り当てられている gemini-1.5-flash を呼び出します。
+    プレビュー環境専用の識別子 'gemini-flash-latest' を使用。
+    通信実績のある v1beta 窓口を介して直接リクエストを送信します。
     """
     if not GEMINI_API_KEY:
         return None
 
-    # モデル名を 1.5-flash に変更（窓口は v1beta のまま）
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+    # URLを v1beta に設定し、画像で確認した最新識別子を指定
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={GEMINI_API_KEY}"
     
     headers = {'Content-Type': 'application/json'}
     payload = {
@@ -72,15 +72,10 @@ def ask_gemini(prompt):
     }
 
     try:
-        print(f"Connecting to Gemini API (v1beta) [Model: gemini-1.5-flash]...")
+        print(f"Connecting to Gemini API (v1beta) [Model: gemini-flash-latest] via Direct HTTP...")
         response = requests.post(url, headers=headers, json=payload, timeout=30)
         
-        # もし 1.5-flash が混雑(429)している場合は、超軽量版の 8b でリトライ
-        if response.status_code == 429:
-            print("Gemini 1.5 Flash quota exceeded. Retrying with gemini-1.5-flash-8b...")
-            url_8b = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key={GEMINI_API_KEY}"
-            response = requests.post(url_8b, headers=headers, json=payload, timeout=30)
-
+        # 成功した v1beta 窓口で、あなたの環境の正解名(flash-latest)なら 200 が返るはずです
         if response.status_code != 200:
             print(f"Gemini API Error (Status {response.status_code}): {response.text}")
             return None
