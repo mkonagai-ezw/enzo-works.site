@@ -414,68 +414,7 @@
         textInfoArea.addEventListener('click', togglePlaylist);
         closePlaylistBtn.addEventListener('click', togglePlaylist); // ×ボタンの動作
     </script>
-<script>
-        // 3銘柄対応版 AIデータ読み込み（高精度・桁数調整版）
-        async function loadAI() {
-            try {
-                const res = await fetch('./ai_predictions.json?t=' + new Date().getTime());
-                if (!res.ok) throw new Error('Fetch failed');
-                const data = await res.json();
-
-                document.getElementById('update-time').innerText = data.last_updated;
-                const grid = document.getElementById('ai-grid');
-                grid.innerHTML = '';
-
-                const assets = ["USD/JPY", "Nikkei 225", "S&P 500"];
-
-                assets.forEach(asset => {
-                    const info = data.assets[asset];
-                    if (!info) return;
-
-                    const unit = asset === "S&P 500" ? "$" : "¥";
-                    
-                    // --- ここから追加・変更：銘柄ごとに小数点以下の桁数を変える ---
-                    const fractionDigits = asset === "USD/JPY" ? 3 : 2;
-
-                    // 数値が存在すれば指定桁数で固定、なければ '---'
-                    const gptPrice = info.gpt_prediction ? info.gpt_prediction.toFixed(fractionDigits) : '---';
-                    const gemPrice = info.gemini_prediction ? info.gemini_prediction.toFixed(fractionDigits) : '---';
-                    const currentPrice = info.current_price.toLocaleString(undefined, { minimumFractionDigits: fractionDigits });
-
-                    const card = document.createElement('div');
-                    card.className = 'asset-card';
-                    card.innerHTML = `
-                        <div class="asset-header">
-                            <span class="asset-name">${asset}</span>
-                            <span class="current-price">NOW: ${unit}${currentPrice}</span>
-                        </div>
-                        <div class="prediction-row gpt-row">
-                            <div class="ai-label"><i class="fa-solid fa-robot"></i> GPT-3.5</div>
-                            <div class="pred-data">
-                                <span class="pred-val">${unit}${gptPrice}</span>
-                                <span class="pred-change ${info.gpt_change >= 0 ? 'plus' : 'minus'}">
-                                    ${info.gpt_change > 0 ? '+' : ''}${info.gpt_change.toFixed(2)}%
-                                </span>
-                            </div>
-                        </div>
-                        <div class="prediction-row gemini-row">
-                            <div class="ai-label"><i class="fa-solid fa-star"></i> Gemini</div>
-                            <div class="pred-data">
-                                <span class="pred-val">${unit}${gemPrice}</span>
-                                <span class="pred-change ${info.gemini_change >= 0 ? 'plus' : 'minus'}">
-                                    ${info.gemini_change > 0 ? '+' : ''}${info.gemini_change.toFixed(2)}%
-                                </span>
-                            </div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            } catch (e) {
-                console.error(e);
-                document.getElementById('ai-grid').innerHTML = '<p class="loading-msg" style="color:#ff4d4d">Data Sync Error</p>';
-            }
-        }
-        document.addEventListener('DOMContentLoaded', loadAI);
-    </script>
+<script src="script.js"></script>
+</body>
 </body>
 </html>
