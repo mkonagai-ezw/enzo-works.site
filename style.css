@@ -680,23 +680,78 @@ body {
     margin-bottom: 20px;
 }
 
-#sandbox .sandbox-project {
-    margin-top: 50px;
-    padding: 40px 20px;
+/* --- Sandbox アコーディオン --- */
+.sandbox-accordion {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sandbox-item {
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
     background: rgba(255, 255, 255, 0.02);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sandbox-accordion-header {
+    width: 100%;
+    padding: 16px 20px;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.sandbox-accordion-header:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.sandbox-accordion-header.is-open {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sandbox-accordion-title {
+    text-align: left;
+}
+
+.sandbox-accordion-icon {
+    transition: transform 0.25s ease;
+}
+
+.sandbox-accordion-header.is-open .sandbox-accordion-icon {
+    transform: rotate(180deg);
+}
+
+.sandbox-accordion-body {
+    padding: 20px;
+}
+
+#sandbox .sandbox-project {
+    margin-top: 10px;
+    padding: 20px 10px 10px;
+    background: transparent;
+    border-radius: 16px;
+    border: none;
     text-align: center;
 }
 
 #sandbox .project-name {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+    font-size: 1.3rem;
+    margin-bottom: 24px;
     color: #e0e0e0;
     font-weight: 600;
     display: inline-block;
     border-bottom: 2px solid #555;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
 /* 予測ボードのレイアウト */

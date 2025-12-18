@@ -90,3 +90,31 @@ async function loadAIBattle() {
     }
 }
 document.addEventListener('DOMContentLoaded', loadAIBattle);
+
+// --- Sandbox アコーディオン制御 ---
+document.addEventListener('DOMContentLoaded', () => {
+    const headers = document.querySelectorAll('.sandbox-accordion-header');
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const body = header.nextElementSibling;
+            const isOpen = header.classList.contains('is-open');
+
+            // 単一開閉にしたい場合は、他を閉じる
+            headers.forEach(h => {
+                if (h !== header) {
+                    h.classList.remove('is-open');
+                    const b = h.nextElementSibling;
+                    if (b) b.style.display = 'none';
+                }
+            });
+
+            if (!isOpen) {
+                header.classList.add('is-open');
+                if (body) body.style.display = 'block';
+            } else {
+                header.classList.remove('is-open');
+                if (body) body.style.display = 'none';
+            }
+        });
+    });
+});

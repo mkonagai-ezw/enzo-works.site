@@ -138,41 +138,55 @@
     </section>
 
     <section id="sandbox" class="section">
-    <div class="container">
-        <h2 class="section-title">Sandbox</h2>
-        <p class="section-subtitle">気が向くまま作ったモノたち、ENZO WORKSの砂場です。</p>
+        <div class="container">
+            <h2 class="section-title">Sandbox</h2>
+            <p class="section-subtitle">気が向くまま作ったモノたち、ENZO WORKSの砂場です。</p>
 
-        <div class="sandbox-project">
-            <h3 class="project-name">AIは市場予測できるのか？<br>5営業日後の終値予想バトル</h3>
-            
-            <div class="stats-board">
-                <div class="stat-item gpt">
-                    <span class="model-name">GPT-3.5</span>
-                    <span class="main-stat">勝率: <span id="gpt-win-rate">--</span>%</span>
-                    <span class="sub-stat">平均誤差: <span id="gpt-avg-error">--</span>%</span>
-                </div>
-                <div class="vs-divider">VS</div>
-                <div class="stat-item gemini">
-                    <span class="model-name">Gemini Flash</span>
-                    <span class="main-stat">勝率: <span id="gemini-win-rate">--</span>%</span>
-                    <span class="sub-stat">平均誤差: <span id="gemini-avg-error">--</span>%</span>
-                </div>
-            </div>
+            <!-- アコーディオン全体ラッパー -->
+            <div class="sandbox-accordion">
+                <!-- 1つ目のSANDBOXコンテンツ（AIバトル） -->
+                <div class="sandbox-item">
+                    <button class="sandbox-accordion-header is-open">
+                        <span class="sandbox-accordion-title">AIは市場予測できるのか？ 5営業日後の終値予想バトル</span>
+                        <span class="sandbox-accordion-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="sandbox-accordion-body" style="display: block;">
+                        <div class="sandbox-project">
+                            <h3 class="project-name">AIは市場予測できるのか？<br>5営業日後の終値予想バトル</h3>
+                            
+                            <div class="stats-board">
+                                <div class="stat-item gpt">
+                                    <span class="model-name">GPT-3.5</span>
+                                    <span class="main-stat">勝率: <span id="gpt-win-rate">--</span>%</span>
+                                    <span class="sub-stat">平均誤差: <span id="gpt-avg-error">--</span>%</span>
+                                </div>
+                                <div class="vs-divider">VS</div>
+                                <div class="stat-item gemini">
+                                    <span class="model-name">Gemini Flash</span>
+                                    <span class="main-stat">勝率: <span id="gemini-win-rate">--</span>%</span>
+                                    <span class="sub-stat">平均誤差: <span id="gemini-avg-error">--</span>%</span>
+                                </div>
+                            </div>
 
-            <div id="ai-grid" class="ai-grid">
-                <div class="loading-msg">Initializing Battle Data...</div>
+                            <div id="ai-grid" class="ai-grid">
+                                <div class="loading-msg">Initializing Battle Data...</div>
+                            </div>
+                            
+                            <div class="sandbox-footer">
+                                <p class="disclaimer">
+                                    <strong>免責事項：</strong><br>
+                                    本システムはAIによる学習データに基づいた実験的な予想を表示するものであり、将来の運用成果を示唆・保証するものではありません。情報の正確性には万全を期していますが、本情報に基づいて被ったいかなる損害についても、当サイトは一切の責任を負いません。投資判断は自己責任でお願いいたします。
+                                </p>
+                            </div>
+                            <p class="disclaimer">※ 5営業日後の終値を予測。土日祝を除いた市場稼働日で計算しています。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 今後SANDBOXを増やす場合は、.sandbox-item を複製してタイトルと中身を書き換えてください -->
             </div>
-            
-            <div class="sandbox-footer">
-                <p class="disclaimer">
-        <strong>免責事項：</strong><br>
-        本システムはAIによる学習データに基づいた実験的な予想を表示するものであり、将来の運用成果を示唆・保証するものではありません。情報の正確性には万全を期していますが、本情報に基づいて被ったいかなる損害についても、当サイトは一切の責任を負いません。投資判断は自己責任でお願いいたします。
-    </p>
-            </div>
-            <p class="disclaimer">※ 5営業日後の終値を予測。土日祝を除いた市場稼働日で計算しています。</p>
         </div>
-    </div>
-</section>
+    </section>
 
 <script src="script.js"></script>
 
