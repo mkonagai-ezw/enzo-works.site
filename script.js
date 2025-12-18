@@ -89,10 +89,9 @@ async function loadAIBattle() {
         grid.innerHTML = '<p class="loading-msg">データ同期中...</p>';
     }
 }
-document.addEventListener('DOMContentLoaded', loadAIBattle);
 
 // --- Sandbox アコーディオン制御 ---
-document.addEventListener('DOMContentLoaded', () => {
+function initSandboxAccordion() {
     const headers = document.querySelectorAll('.sandbox-accordion-header');
     headers.forEach(header => {
         header.addEventListener('click', () => {
@@ -117,4 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+}
+
+// DOM準備完了後に一括初期化
+document.addEventListener('DOMContentLoaded', () => {
+    loadAIBattle();
+    initSandboxAccordion();
 });
