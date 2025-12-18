@@ -45,7 +45,14 @@ async function loadAIBattle() {
             }
 
             // --- 未来：最新AI予想 ---
-            const trend = (val) => val > current ? '<span class="plus">▲ 上昇</span>' : '<span class="minus">▼ 下落</span>';
+            const trend = (val) => {
+                const diffRate = ((val - current) / current) * 100;
+                const isUp = diffRate > 0;
+                const sign = isUp ? 'plus' : (diffRate < 0 ? 'minus' : 'flat');
+                const arrowText = isUp ? '▲ 上昇' : (diffRate < 0 ? '▼ 下落' : '― 横ばい');
+                const rateText = `${diffRate >= 0 ? '+' : ''}${diffRate.toFixed(2)}%`;
+                return `<span class="${sign}">${arrowText} (${rateText})</span>`;
+            };
 
             card.innerHTML = `
                 <div class="asset-header">
