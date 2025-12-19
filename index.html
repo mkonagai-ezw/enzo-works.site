@@ -211,19 +211,6 @@
     </div>
 
     <script>
-        // --- アコーディオンの制御ロジックを追加 ---
-        document.querySelectorAll('.sandbox-accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const body = header.nextElementSibling;
-                const isOpen = header.classList.toggle('is-open');
-                if (isOpen) {
-                    body.style.display = 'block';
-                } else {
-                    body.style.display = 'none';
-                }
-            });
-        });
-
         // --- ハンバーガーメニュー ---
         const hamburger = document.querySelector('.hamburger');
         const nav = document.querySelector('.nav');
