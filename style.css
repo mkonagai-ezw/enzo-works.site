@@ -1308,6 +1308,7 @@ body {
     flex-direction: column;
     z-index: 1000;
     overflow: hidden;
+    height: 600px;
 }
 
 .chat-window.chat-open {
@@ -1321,10 +1322,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 10;
     flex-shrink: 0;
+    top: 0;
 }
 
 .chat-header h3 {
@@ -1360,6 +1361,7 @@ body {
     overflow-x: hidden;
     background: #1a1a1a;
     min-height: 0;
+    max-height: calc(600px - 140px);
 }
 
 .chat-message {
