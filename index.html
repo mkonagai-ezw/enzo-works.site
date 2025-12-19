@@ -176,9 +176,14 @@
     </section>
 
     <!-- チャットボタン -->
-    <button id="chatToggleBtn" class="chat-toggle-btn" aria-label="チャットを開く">
-        <img src="images/chatboticon.webp" alt="チャットボット" class="chatbot-icon">
-    </button>
+    <div class="chat-button-wrapper">
+        <div id="chatBubble" class="chat-bubble">
+            <span id="chatBubbleText">えんぞーだよ。</span>
+        </div>
+        <button id="chatToggleBtn" class="chat-toggle-btn" aria-label="チャットを開く">
+            <img src="images/chatboticon.webp" alt="チャットボット" class="chatbot-icon">
+        </button>
+    </div>
 
     <!-- チャット窓 -->
     <div id="chatWindow" class="chat-window">
@@ -188,6 +193,7 @@
         </div>
         <div class="chat-body" id="chatBody">
             <div class="chat-message bot-message">
+                <img src="images/chatboticon.webp" alt="チャットボット" class="bot-avatar">
                 <p>こんにちは！ENZO WORKSです。お気軽にご質問・ご相談ください。</p>
             </div>
         </div>
@@ -443,11 +449,42 @@
             }
         }
 
+        // 吹き出しのメッセージ切り替え
+        const chatBubble = document.getElementById('chatBubble');
+        const chatBubbleText = document.getElementById('chatBubbleText');
+        const messages = ['えんぞーだよ。', '気軽に相談してね。'];
+        let messageIndex = 0;
+        let bubbleInterval = null;
+
+        function updateBubbleMessage() {
+            if (chatBubbleText && !chatToggleBtn.classList.contains('chat-open')) {
+                chatBubbleText.textContent = messages[messageIndex];
+                messageIndex = (messageIndex + 1) % messages.length;
+            }
+        }
+
+        function startBubbleAnimation() {
+            if (bubbleInterval) clearInterval(bubbleInterval);
+            bubbleInterval = setInterval(updateBubbleMessage, 5000);
+        }
+
+        function stopBubbleAnimation() {
+            if (bubbleInterval) {
+                clearInterval(bubbleInterval);
+                bubbleInterval = null;
+            }
+        }
+
+        // 初期化時にアニメーション開始
+        startBubbleAnimation();
+
         // チャット窓を開く
         function openChat() {
             chatWindow.classList.add('chat-open');
             chatToggleBtn.classList.add('chat-open');
             chatToggleBtn.style.display = 'none';
+            if (chatBubble) chatBubble.style.display = 'none';
+            stopBubbleAnimation();
             updateLimitInfo();
         }
 
@@ -456,13 +493,23 @@
             chatWindow.classList.remove('chat-open');
             chatToggleBtn.classList.remove('chat-open');
             chatToggleBtn.style.display = 'flex';
+            if (chatBubble) chatBubble.style.display = 'block';
+            startBubbleAnimation();
+            // チャットを閉じた時に通常アイコンに戻す
+            const chatbotIcon = chatToggleBtn.querySelector('.chatbot-icon');
+            if (chatbotIcon) {
+                chatbotIcon.src = 'images/chatboticon.webp';
+            }
         }
 
         // ボットメッセージを表示するヘルパー関数
         function showBotMessage(text) {
             const botMessageDiv = document.createElement('div');
             botMessageDiv.className = 'chat-message bot-message';
-            botMessageDiv.innerHTML = `<p>${text}</p>`;
+            botMessageDiv.innerHTML = `
+                <img src="images/chatboticon.webp" alt="チャットボット" class="bot-avatar">
+                <p>${text}</p>
+            `;
             chatBody.appendChild(botMessageDiv);
             chatBody.scrollTop = chatBody.scrollHeight;
         }
