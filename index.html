@@ -194,7 +194,15 @@
         <div class="chat-body" id="chatBody">
             <div class="chat-message bot-message">
                 <img src="images/chatboticon.webp" alt="チャットボット" class="bot-avatar">
-                <p>こんにちは！ENZO WORKSです。お気軽にご質問・ご相談ください。</p>
+                <div class="bot-message-content">
+                    <p>こんにちは！ENZO WORKSチャットボット"えんぞー"です。今日はどんなお手伝いをしましょうか？</p>
+                    <div class="chat-quick-buttons" id="chatQuickButtons">
+                        <button class="quick-btn" data-action="web">Web制作の相談</button>
+                        <button class="quick-btn" data-action="ai">AI導入・自動化</button>
+                        <button class="quick-btn" data-action="media">楽曲・動画制作</button>
+                        <button class="quick-btn" data-action="other">その他</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="chat-footer">
@@ -553,9 +561,42 @@
             botMessageDiv.className = 'chat-message bot-message';
             botMessageDiv.innerHTML = `
                 <img src="images/chatboticon.webp" alt="チャットボット" class="bot-avatar">
-                <p>${text}</p>
+                <div class="bot-message-content">
+                    <p>${text}</p>
+                </div>
             `;
             chatBody.appendChild(botMessageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // ボタンクリック時の返答メッセージ
+        const buttonResponses = {
+            'web': 'Web制作でビジネスを加速させましょう！どのようなWebサイトやサービスをお考えですか？',
+            'ai': 'AIで業務をスマートにしましょう！具体的にどんな作業を自動化したいですか？',
+            'media': '楽曲・動画制作でコンテンツの魅力を最大化しましょう！どのような用途でお使いになりますか？',
+            'other': 'その他のご相談もお気軽にどうぞ！どのようなお手伝いができますか？'
+        };
+
+        // クイックボタンのクリック処理
+        function handleQuickButtonClick(buttonText, action) {
+            // ユーザーメッセージを表示
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'chat-message user-message';
+            userMessageDiv.innerHTML = `<p>${buttonText}</p>`;
+            chatBody.appendChild(userMessageDiv);
+
+            // クイックボタンを非表示にする
+            const quickButtons = document.getElementById('chatQuickButtons');
+            if (quickButtons) {
+                quickButtons.style.display = 'none';
+            }
+
+            // ボットの返答を表示
+            setTimeout(() => {
+                showBotMessage(buttonResponses[action] || 'ご相談ありがとうございます。詳細を教えていただけますか？');
+            }, 500);
+
+            // スクロール
             chatBody.scrollTop = chatBody.scrollHeight;
         }
 
@@ -668,6 +709,15 @@
         chatToggleBtn.addEventListener('touchend', (e) => {
             e.preventDefault();
             showNormalIcon();
+        });
+
+        // クイックボタンのイベントリスナー
+        document.querySelectorAll('.quick-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const buttonText = button.textContent;
+                const action = button.getAttribute('data-action');
+                handleQuickButtonClick(buttonText, action);
+            });
         });
 
         // イベントリスナー
