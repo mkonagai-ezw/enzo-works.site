@@ -175,6 +175,36 @@
         </div>
     </section>
 
+    <!-- チャットボタン -->
+    <button id="chatToggleBtn" class="chat-toggle-btn" aria-label="チャットを開く">
+        <div class="chat-icon-placeholder"></div>
+    </button>
+
+    <!-- チャット窓 -->
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <h3>お問い合わせチャット</h3>
+            <button id="chatCloseBtn" class="chat-close-btn" aria-label="チャットを閉じる">&times;</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot-message">
+                <p>こんにちは！ENZO WORKSです。お気軽にご質問・ご相談ください。</p>
+            </div>
+        </div>
+        <div class="chat-footer">
+            <div class="chat-limit-info" id="chatLimitInfo"></div>
+            <div class="chat-input-wrapper">
+                <textarea id="chatInput" class="chat-input" placeholder="メッセージを入力（5文字以上）" rows="2"></textarea>
+                <button id="chatSendBtn" class="chat-send-btn" aria-label="送信">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+            <button id="chatContactBtn" class="chat-contact-btn">
+                <i class="fa-solid fa-envelope"></i> 直接お問い合わせする
+            </button>
+        </div>
+    </div>
+
     <footer style="text-align: center; padding: 20px; font-size: 12px; color: #666;">
         &copy; 2025 ENZO WORKS. All Rights Reserved.
     </footer>
@@ -346,6 +376,154 @@
         artWrapper.addEventListener('click', togglePlaylist);
         textInfoArea.addEventListener('click', togglePlaylist);
         closePlaylistBtn.addEventListener('click', togglePlaylist);
+    </script>
+
+    <!-- チャット機能のJavaScript -->
+    <script>
+        // チャット関連の要素取得
+        const chatToggleBtn = document.getElementById('chatToggleBtn');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatCloseBtn = document.getElementById('chatCloseBtn');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+        const chatBody = document.getElementById('chatBody');
+        const chatLimitInfo = document.getElementById('chatLimitInfo');
+        const chatContactBtn = document.getElementById('chatContactBtn');
+        const contactModal = document.getElementById('contactModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+
+        // LocalStorageキー
+        const CHAT_LIMIT_KEY = 'chat_send_count';
+        const CHAT_DATE_KEY = 'chat_last_date';
+        const MAX_SENDS_PER_DAY = 5;
+
+        // 日付を取得（YYYY-MM-DD形式）
+        function getTodayString() {
+            const today = new Date();
+            return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        }
+
+        // 今日の送信回数を取得
+        function getTodaySendCount() {
+            const lastDate = localStorage.getItem(CHAT_DATE_KEY);
+            const today = getTodayString();
+            
+            if (lastDate !== today) {
+                // 日付が変わったらリセット
+                localStorage.setItem(CHAT_DATE_KEY, today);
+                localStorage.setItem(CHAT_LIMIT_KEY, '0');
+                return 0;
+            }
+            
+            return parseInt(localStorage.getItem(CHAT_LIMIT_KEY) || '0', 10);
+        }
+
+        // 送信回数を増やす
+        function incrementSendCount() {
+            const count = getTodaySendCount() + 1;
+            localStorage.setItem(CHAT_LIMIT_KEY, String(count));
+            return count;
+        }
+
+        // 送信制限情報を表示
+        function updateLimitInfo() {
+            const count = getTodaySendCount();
+            const remaining = MAX_SENDS_PER_DAY - count;
+            
+            if (remaining <= 0) {
+                chatLimitInfo.textContent = '本日の送信回数上限に達しました。明日またお試しください。';
+                chatLimitInfo.style.color = '#ff4d4d';
+                chatSendBtn.disabled = true;
+                chatInput.disabled = true;
+            } else {
+                chatLimitInfo.textContent = `本日の残り送信回数: ${remaining}回`;
+                chatLimitInfo.style.color = '#aaa';
+                chatSendBtn.disabled = false;
+                chatInput.disabled = false;
+            }
+        }
+
+        // チャット窓を開く
+        function openChat() {
+            chatWindow.classList.add('chat-open');
+            chatToggleBtn.style.display = 'none';
+            updateLimitInfo();
+        }
+
+        // チャット窓を閉じる
+        function closeChat() {
+            chatWindow.classList.remove('chat-open');
+            chatToggleBtn.style.display = 'flex';
+        }
+
+        // メッセージを送信
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            
+            // 5文字未満チェック
+            if (message.length < 5) {
+                alert('メッセージは5文字以上入力してください。');
+                return;
+            }
+
+            // 送信回数チェック
+            const count = getTodaySendCount();
+            if (count >= MAX_SENDS_PER_DAY) {
+                alert('本日の送信回数上限に達しました。明日またお試しください。');
+                return;
+            }
+
+            // ユーザーメッセージを表示
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'chat-message user-message';
+            userMessageDiv.innerHTML = `<p>${message}</p>`;
+            chatBody.appendChild(userMessageDiv);
+
+            // 送信回数を増やす
+            incrementSendCount();
+            updateLimitInfo();
+
+            // 入力欄をクリア
+            chatInput.value = '';
+
+            // ボットの返信（簡易版）
+            setTimeout(() => {
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'chat-message bot-message';
+                botMessageDiv.innerHTML = '<p>メッセージありがとうございます。内容を確認し、後日ご返信いたします。</p>';
+                chatBody.appendChild(botMessageDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 500);
+
+            // スクロール
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // GA4イベント送信
+            if (typeof gtag === 'function') {
+                gtag('event', 'chat_send', {
+                    'event_category': 'engagement',
+                    'event_label': 'Chat Message Sent'
+                });
+            }
+        }
+
+        // イベントリスナー
+        chatToggleBtn.addEventListener('click', openChat);
+        chatCloseBtn.addEventListener('click', closeChat);
+        chatSendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        chatContactBtn.addEventListener('click', () => {
+            contactModal.style.display = 'flex';
+            closeChat();
+        });
+
+        // 初期化
+        updateLimitInfo();
     </script>
     <script src="script.js"></script>
 </body>
