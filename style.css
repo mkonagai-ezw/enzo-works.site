@@ -1158,50 +1158,62 @@ body {
     right: 30px;
     width: 60px;
     height: 60px;
-    border-radius: 50%;
     border: none;
-    background: linear-gradient(135deg, #4285f4, #1a73e8);
-    box-shadow: 0 4px 20px rgba(66, 133, 244, 0.4), 0 0 30px rgba(66, 133, 244, 0.3);
+    background: transparent;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 999;
-    transition: transform 0.3s, box-shadow 0.3s;
-    animation: floatAnimation 3s ease-in-out infinite;
+    padding: 0;
+    animation: floatAnimation 4s ease-in-out infinite;
 }
 
-.chat-icon-placeholder {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+.chat-toggle-btn.chat-open {
+    animation: none;
 }
 
-/* ふわふわ浮遊アニメーション */
+.chatbot-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.2s ease-out;
+}
+
+/* ふわふわ浮遊アニメーション（5px〜8px） */
 @keyframes floatAnimation {
     0%, 100% {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-5px);
+        transform: translateY(-8px);
     }
 }
 
-/* スピンアニメーション（ホバー時） */
-@keyframes spinAnimation {
-    from {
-        transform: translateY(-5px) rotate(0deg) scale(1.1);
+/* ホバー時のピョコッと跳ねるアニメーション */
+@keyframes bounceAnimation {
+    0%, 100% {
+        transform: translateY(-8px) scale(1);
     }
-    to {
-        transform: translateY(-5px) rotate(360deg) scale(1.1);
+    25% {
+        transform: translateY(-12px) scale(1.1);
     }
+    50% {
+        transform: translateY(-8px) scale(1.05);
+    }
+    75% {
+        transform: translateY(-10px) scale(1.08);
+    }
+}
+
+.chat-toggle-btn:hover .chatbot-icon {
+    animation: bounceAnimation 0.6s ease-in-out;
+    transform: scale(1.1);
 }
 
 .chat-toggle-btn:hover {
-    animation: floatAnimation 3s ease-in-out infinite, spinAnimation 0.6s ease-in-out;
-    box-shadow: 0 6px 25px rgba(66, 133, 244, 0.6), 0 0 40px rgba(66, 133, 244, 0.5);
+    animation: floatAnimation 4s ease-in-out infinite;
 }
 
 /* チャット窓 */
@@ -1392,9 +1404,9 @@ body {
         height: 56px;
     }
 
-    .chat-icon-placeholder {
-        width: 36px;
-        height: 36px;
+    .chatbot-icon {
+        width: 56px;
+        height: 56px;
     }
 
     .chat-window {

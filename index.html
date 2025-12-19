@@ -177,7 +177,7 @@
 
     <!-- チャットボタン -->
     <button id="chatToggleBtn" class="chat-toggle-btn" aria-label="チャットを開く">
-        <div class="chat-icon-placeholder"></div>
+        <img src="images/chatboticon.webp" alt="チャットボット" class="chatbot-icon">
     </button>
 
     <!-- チャット窓 -->
@@ -446,6 +446,7 @@
         // チャット窓を開く
         function openChat() {
             chatWindow.classList.add('chat-open');
+            chatToggleBtn.classList.add('chat-open');
             chatToggleBtn.style.display = 'none';
             updateLimitInfo();
         }
@@ -453,6 +454,7 @@
         // チャット窓を閉じる
         function closeChat() {
             chatWindow.classList.remove('chat-open');
+            chatToggleBtn.classList.remove('chat-open');
             chatToggleBtn.style.display = 'flex';
         }
 
