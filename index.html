@@ -529,6 +529,38 @@
             }
         }
 
+        // チャットボタンの画像要素を取得
+        const chatbotIcon = chatToggleBtn.querySelector('.chatbot-icon');
+        const NORMAL_ICON = 'images/chatboticon.webp';
+        const HAPPY_ICON = 'images/chatboticon_happy.webp';
+
+        // ホバー/タップ時に画像を切り替え
+        function showHappyIcon() {
+            if (chatbotIcon && !chatToggleBtn.classList.contains('chat-open')) {
+                chatbotIcon.src = HAPPY_ICON;
+            }
+        }
+
+        function showNormalIcon() {
+            if (chatbotIcon && !chatToggleBtn.classList.contains('chat-open')) {
+                chatbotIcon.src = NORMAL_ICON;
+            }
+        }
+
+        // マウスイベント
+        chatToggleBtn.addEventListener('mouseenter', showHappyIcon);
+        chatToggleBtn.addEventListener('mouseleave', showNormalIcon);
+
+        // タッチイベント（モバイル対応）
+        chatToggleBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            showHappyIcon();
+        });
+        chatToggleBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            showNormalIcon();
+        });
+
         // イベントリスナー
         chatToggleBtn.addEventListener('click', openChat);
         chatCloseBtn.addEventListener('click', closeChat);
