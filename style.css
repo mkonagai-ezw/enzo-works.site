@@ -1321,6 +1321,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
 }
 
 .chat-header h3 {
@@ -1353,8 +1357,9 @@ body {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    max-height: 400px;
+    overflow-x: hidden;
     background: #1a1a1a;
+    min-height: 0;
 }
 
 .chat-message {
@@ -1436,13 +1441,14 @@ body {
     background: linear-gradient(135deg, #4285f4, #1a73e8);
     color: #fff;
     margin-left: auto;
-    text-align: right;
+    text-align: left;
 }
 
 .chat-footer {
     padding: 16px;
     background: #0d0d0d;
     border-top: 1px solid #333;
+    flex-shrink: 0;
 }
 
 .chat-limit-info {
