@@ -91,6 +91,7 @@ async function loadAIBattle() {
 }
 
 // --- Sandbox アコーディオン制御 ---
+// script.js の initSandboxAccordion 関数を以下に書き換え
 function initSandboxAccordion() {
     const headers = document.querySelectorAll('.sandbox-accordion-header');
     headers.forEach(header => {
@@ -98,7 +99,7 @@ function initSandboxAccordion() {
             const body = header.nextElementSibling;
             const isOpen = header.classList.contains('is-open');
 
-            // 単一開閉にしたい場合は、他を閉じる
+            // 他を閉じる処理
             headers.forEach(h => {
                 if (h !== header) {
                     h.classList.remove('is-open');
@@ -110,6 +111,14 @@ function initSandboxAccordion() {
             if (!isOpen) {
                 header.classList.add('is-open');
                 if (body) body.style.display = 'block';
+
+                // ★GA4 イベント送信: アコーディオンが開いた時
+                if (typeof gtag === 'function') {
+                    gtag('event', 'ai_battle_open', {
+                        'event_category': 'engagement',
+                        'event_label': 'AI Market Prediction Battle'
+                    });
+                }
             } else {
                 header.classList.remove('is-open');
                 if (body) body.style.display = 'none';
@@ -117,7 +126,6 @@ function initSandboxAccordion() {
         });
     });
 }
-
 // DOM準備完了後に一括初期化
 document.addEventListener('DOMContentLoaded', () => {
     loadAIBattle();

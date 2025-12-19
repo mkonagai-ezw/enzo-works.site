@@ -290,6 +290,11 @@
                     currentTrackIndex = index;
                     loadTrack(currentTrackIndex);
                     playMusic();
+                    
+                    // ★GA4: プレイリスト選択イベント
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'music_select_list', { 'track_title': track.title });
+                    }
                 });
                 playlistItems.appendChild(item);
             });
@@ -309,6 +314,11 @@
             playIcon.classList.remove('fa-play');
             playIcon.classList.add('fa-pause');
             playerContent.classList.add('playing');
+
+            // ★GA4: 再生イベント
+            if (typeof gtag === 'function') {
+                gtag('event', 'music_play', { 'track_title': playlist[currentTrackIndex].title });
+            }
         }
 
         function pauseMusic() {
