@@ -456,13 +456,37 @@
             chatToggleBtn.style.display = 'flex';
         }
 
+        // ボットメッセージを表示するヘルパー関数
+        function showBotMessage(text) {
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.className = 'chat-message bot-message';
+            botMessageDiv.innerHTML = `<p>${text}</p>`;
+            chatBody.appendChild(botMessageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
         // メッセージを送信
         function sendMessage() {
             const message = chatInput.value.trim();
             
             // 5文字未満チェック
             if (message.length < 5) {
-                alert('メッセージは5文字以上入力してください。');
+                // ユーザーメッセージを表示（送信回数は消費しない）
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.className = 'chat-message user-message';
+                userMessageDiv.innerHTML = `<p>${message}</p>`;
+                chatBody.appendChild(userMessageDiv);
+                
+                // 入力欄をクリア
+                chatInput.value = '';
+                
+                // AIエージェントからの警告メッセージを表示（送信回数は消費しない）
+                setTimeout(() => {
+                    showBotMessage('もう少し具体的（5文字以上）に教えていただけますか？');
+                }, 300);
+                
+                // スクロール
+                chatBody.scrollTop = chatBody.scrollHeight;
                 return;
             }
 
@@ -488,11 +512,7 @@
 
             // ボットの返信（簡易版）
             setTimeout(() => {
-                const botMessageDiv = document.createElement('div');
-                botMessageDiv.className = 'chat-message bot-message';
-                botMessageDiv.innerHTML = '<p>メッセージありがとうございます。内容を確認し、後日ご返信いたします。</p>';
-                chatBody.appendChild(botMessageDiv);
-                chatBody.scrollTop = chatBody.scrollHeight;
+                showBotMessage('メッセージありがとうございます。内容を確認し、後日ご返信いたします。');
             }, 500);
 
             // スクロール
