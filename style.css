@@ -1037,7 +1037,74 @@ body {
     border-radius: 4px;
     font-family: 'Courier New', monospace;
 }
+/* --- 11. 画像高速化のための微調整 --- */
+.hero {
+    /* 読み込みを速くするため、背景画像の描画を安定させる */
+    background-color: #000; 
+    will-change: transform;
+}
 
+/* --- 12. Sandbox アコーディオンの最新デザイン --- */
+
+/* ヘッダーボタンの初期スタイル */
+.sandbox-accordion-header {
+    width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.sandbox-accordion-header:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 開いている（is-openクラスがある）時のヘッダー */
+.sandbox-accordion-header.is-open {
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* アイコンの回転アニメーション */
+.sandbox-accordion-icon {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sandbox-accordion-header.is-open .sandbox-accordion-icon {
+    transform: rotate(180deg);
+}
+
+/* コンテンツエリア（初期はJSまたはHTMLのinline styleで非表示） */
+.sandbox-accordion-body {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 30px 20px;
+    /* transitionを入れる場合は高さの制御が必要ですが、まずはdisplay:none対応 */
+}
+
+/* スマホ表示の調整 */
+@media (max-width: 768px) {
+    .sandbox-accordion-header {
+        font-size: 0.9rem;
+        padding: 15px;
+    }
+}
 /* 2. 最新予測（未来）エリア */
 .prediction-box {
     border-top: 1px solid #333;
