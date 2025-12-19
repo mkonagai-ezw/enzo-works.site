@@ -1191,6 +1191,9 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     position: relative;
     animation: bubbleFadeIn 0.3s ease-out;
+    min-width: 120px;
+    text-align: center;
+    display: inline-block;
 }
 
 .chat-bubble::after {

@@ -452,19 +452,48 @@
         // 吹き出しのメッセージ切り替え
         const chatBubble = document.getElementById('chatBubble');
         const chatBubbleText = document.getElementById('chatBubbleText');
-        const messages = ['えんぞーだよ。', '気軽に相談してね。'];
+        const messages = ['チャットBOTだよ', '相談してね'];
         let messageIndex = 0;
         let bubbleInterval = null;
+        let isBubbleVisible = true;
+        let phase = 'show'; // 'show' or 'hide'
+
+        function showBubble() {
+            if (chatBubble && chatBubbleText && !chatToggleBtn.classList.contains('chat-open')) {
+                chatBubble.style.display = 'block';
+                chatBubbleText.textContent = messages[messageIndex];
+                isBubbleVisible = true;
+                phase = 'show';
+            }
+        }
+
+        function hideBubble() {
+            if (chatBubble && !chatToggleBtn.classList.contains('chat-open')) {
+                chatBubble.style.display = 'none';
+                isBubbleVisible = false;
+                phase = 'hide';
+            }
+        }
 
         function updateBubbleMessage() {
-            if (chatBubbleText && !chatToggleBtn.classList.contains('chat-open')) {
-                chatBubbleText.textContent = messages[messageIndex];
+            if (chatToggleBtn.classList.contains('chat-open')) return;
+            
+            if (phase === 'show') {
+                // メッセージを5秒表示した後、非表示に
+                hideBubble();
+            } else {
+                // 5秒非表示の後、次のメッセージを表示
                 messageIndex = (messageIndex + 1) % messages.length;
+                showBubble();
             }
         }
 
         function startBubbleAnimation() {
             if (bubbleInterval) clearInterval(bubbleInterval);
+            // 最初のメッセージを表示
+            messageIndex = 0;
+            showBubble();
+            // 5秒ごとに切り替え（表示5秒→非表示5秒→次のメッセージ5秒→非表示5秒...）
             bubbleInterval = setInterval(updateBubbleMessage, 5000);
         }
 
@@ -585,12 +614,27 @@
         function showHappyIcon() {
             if (chatbotIcon && !chatToggleBtn.classList.contains('chat-open')) {
                 chatbotIcon.src = HAPPY_ICON;
+                // Happyアイコン時に「おおお！！」を表示
+                if (chatBubble && chatBubbleText) {
+                    chatBubble.style.display = 'block';
+                    chatBubbleText.textContent = 'おおお！！';
+                }
             }
         }
 
         function showNormalIcon() {
             if (chatbotIcon && !chatToggleBtn.classList.contains('chat-open')) {
                 chatbotIcon.src = NORMAL_ICON;
+                // 通常アイコンに戻したら、通常のメッセージ表示に戻す
+                if (chatBubble && chatBubbleText) {
+                    if (phase === 'show' && isBubbleVisible) {
+                        // 表示中なら、現在のメッセージを表示
+                        chatBubbleText.textContent = messages[messageIndex];
+                    } else if (phase === 'hide' || !isBubbleVisible) {
+                        // 非表示中なら非表示のまま
+                        chatBubble.style.display = 'none';
+                    }
+                }
             }
         }
 
