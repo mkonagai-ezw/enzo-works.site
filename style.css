@@ -1537,7 +1537,7 @@ body {
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .chat-button-wrapper {
-        bottom: 20px;
+        bottom: 100px;
         right: 20px;
     }
 
@@ -1559,8 +1559,8 @@ body {
     .chat-window {
         width: calc(100vw - 40px);
         max-width: 380px;
-        bottom: 20px;
+        bottom: 100px;
         right: 20px;
-        max-height: calc(100vh - 100px);
+        max-height: calc(100vh - 120px);
     }
 }
