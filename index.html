@@ -117,9 +117,9 @@
     </section>
 
     <section id="sandbox" class="section">
-        <div class="container">
-            <h2 class="section-title">Sandbox</h2>
-            <p class="section-subtitle">気が向くまま作ったモノたち、ENZO WORKSの砂場です。</p>
+    <div class="container">
+        <h2 class="section-title">Sandbox</h2>
+        <p class="section-subtitle">気が向くまま作ったモノたち、ENZO WORKSの砂場です。</p>
 
             <div class="sandbox-accordion">
                 <div class="sandbox-item">
@@ -128,40 +128,40 @@
                         <span class="sandbox-accordion-icon"><i class="fa-solid fa-chevron-down"></i></span>
                     </button>
                     <div class="sandbox-accordion-body" style="display: none;">
-                        <div class="sandbox-project">
-                            <h3 class="project-name">AIは市場予測できるのか？<br>5営業日後の終値予想バトル</h3>
-                            
-                            <div class="stats-board">
-                                <div class="stat-item gpt">
-                                    <span class="model-name">GPT-3.5</span>
-                                    <span class="main-stat">勝率: <span id="gpt-win-rate">--</span>%</span>
-                                    <span class="sub-stat">平均誤差: <span id="gpt-avg-error">--</span>%</span>
-                                </div>
-                                <div class="vs-divider">VS</div>
-                                <div class="stat-item gemini">
-                                    <span class="model-name">Gemini Flash</span>
-                                    <span class="main-stat">勝率: <span id="gemini-win-rate">--</span>%</span>
-                                    <span class="sub-stat">平均誤差: <span id="gemini-avg-error">--</span>%</span>
-                                </div>
-                            </div>
+        <div class="sandbox-project">
+            <h3 class="project-name">AIは市場予測できるのか？<br>5営業日後の終値予想バトル</h3>
+            
+            <div class="stats-board">
+                <div class="stat-item gpt">
+                    <span class="model-name">GPT-3.5</span>
+                    <span class="main-stat">勝率: <span id="gpt-win-rate">--</span>%</span>
+                    <span class="sub-stat">平均誤差: <span id="gpt-avg-error">--</span>%</span>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="stat-item gemini">
+                    <span class="model-name">Gemini Flash</span>
+                    <span class="main-stat">勝率: <span id="gemini-win-rate">--</span>%</span>
+                    <span class="sub-stat">平均誤差: <span id="gemini-avg-error">--</span>%</span>
+                </div>
+            </div>
 
-                            <div id="ai-grid" class="ai-grid">
-                                <div class="loading-msg">Initializing Battle Data...</div>
-                            </div>
-                            
-                            <div class="sandbox-footer">
-                                <p class="disclaimer">
-                                    <strong>免責事項：</strong><br>
-                                    本システムはAIによる学習データに基づいた実験的な予想を表示するものであり、将来の運用成果を示唆・保証するものではありません。情報の正確性には万全を期していますが、本情報に基づいて被ったいかなる損害についても、当サイトは一切の責任を負いません。投資判断は自己責任でお願いいたします。
-                                </p>
-                            </div>
-                            <p class="disclaimer">※ 5営業日後の終値を予測。土日祝を除いた市場稼働日で計算しています。</p>
+            <div id="ai-grid" class="ai-grid">
+                <div class="loading-msg">Initializing Battle Data...</div>
+            </div>
+            
+            <div class="sandbox-footer">
+                <p class="disclaimer">
+        <strong>免責事項：</strong><br>
+        本システムはAIによる学習データに基づいた実験的な予想を表示するものであり、将来の運用成果を示唆・保証するものではありません。情報の正確性には万全を期していますが、本情報に基づいて被ったいかなる損害についても、当サイトは一切の責任を負いません。投資判断は自己責任でお願いいたします。
+    </p>
+            </div>
+            <p class="disclaimer">※ 5営業日後の終値を予測。土日祝を除いた市場稼働日で計算しています。</p>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="contact" class="section">
         <div class="container">
@@ -460,7 +460,8 @@
 
         function showBubble() {
             if (chatBubble && chatBubbleText && !chatToggleBtn.classList.contains('chat-open')) {
-                chatBubble.style.display = 'block';
+                chatBubble.style.visibility = 'visible';
+                chatBubble.style.opacity = '1';
                 chatBubbleText.textContent = messages[messageIndex];
                 isBubbleVisible = true;
                 phase = 'show';
@@ -469,7 +470,8 @@
 
         function hideBubble() {
             if (chatBubble && !chatToggleBtn.classList.contains('chat-open')) {
-                chatBubble.style.display = 'none';
+                chatBubble.style.visibility = 'hidden';
+                chatBubble.style.opacity = '0';
                 isBubbleVisible = false;
                 phase = 'hide';
             }
@@ -512,7 +514,11 @@
             chatWindow.classList.add('chat-open');
             chatToggleBtn.classList.add('chat-open');
             chatToggleBtn.style.display = 'none';
-            if (chatBubble) chatBubble.style.display = 'none';
+            if (chatBubble) {
+                chatBubble.style.display = 'none';
+                chatBubble.style.visibility = 'hidden';
+                chatBubble.style.opacity = '0';
+            }
             stopBubbleAnimation();
             updateLimitInfo();
         }
@@ -522,7 +528,17 @@
             chatWindow.classList.remove('chat-open');
             chatToggleBtn.classList.remove('chat-open');
             chatToggleBtn.style.display = 'flex';
-            if (chatBubble) chatBubble.style.display = 'block';
+            if (chatBubble) {
+                chatBubble.style.display = 'block';
+                // 表示状態に応じてvisibilityとopacityを設定
+                if (isBubbleVisible) {
+                    chatBubble.style.visibility = 'visible';
+                    chatBubble.style.opacity = '1';
+                } else {
+                    chatBubble.style.visibility = 'hidden';
+                    chatBubble.style.opacity = '0';
+                }
+            }
             startBubbleAnimation();
             // チャットを閉じた時に通常アイコンに戻す
             const chatbotIcon = chatToggleBtn.querySelector('.chatbot-icon');
@@ -617,6 +633,8 @@
                 // Happyアイコン時に「おおお！！」を表示
                 if (chatBubble && chatBubbleText) {
                     chatBubble.style.display = 'block';
+                    chatBubble.style.visibility = 'visible';
+                    chatBubble.style.opacity = '1';
                     chatBubbleText.textContent = 'おおお！！';
                 }
             }
@@ -670,6 +688,6 @@
         // 初期化
         updateLimitInfo();
     </script>
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
