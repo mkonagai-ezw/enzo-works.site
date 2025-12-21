@@ -1,6 +1,6 @@
 {
     "metadata": {
-        "last_updated": "2025-12-20 03:43:28",
+        "last_updated": "2025-12-21 03:57:31",
         "target_date": "2025-12-29"
     },
     "overall_stats": {
@@ -17,17 +17,13 @@
     },
     "latest_forecast": {
         "GPT": {
-            "USD/JPY": 155.24,
-            "Nikkei 225": 49950.0,
-            "S&P 500": 6790.0
+            "USD/JPY": 157.95,
+            "Nikkei 225": 50000.0,
+            "S&P 500": 6900.0
         },
-        "Gemini": {
-            "USD/JPY": 156.35,
-            "Nikkei 225": 50400.0,
-            "S&P 500": 6980.0
-        },
+        "Gemini": null,
         "current_prices": {
-            "USD/JPY": 155.58599853515625,
+            "USD/JPY": 157.75,
             "Nikkei 225": 49507.2109375,
             "S&P 500": 6834.5
         }
