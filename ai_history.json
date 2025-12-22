@@ -7,9 +7,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.18899536132812,
             "predicted_price": 156.42,
-            "actual_price": null,
+            "actual_price": 155.58599853515625,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.536
         },
         {
             "date": "2025-12-17",
@@ -18,9 +20,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 52451.08,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 5.946
         },
         {
             "date": "2025-12-17",
@@ -29,9 +33,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6815.94,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.272
         },
         {
             "date": "2025-12-17",
@@ -40,9 +46,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.343994140625,
             "predicted_price": 155.74,
-            "actual_price": null,
+            "actual_price": 157.35499572753906,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 1.026
         },
         {
             "date": "2025-12-17",
@@ -51,9 +59,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49127.45,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": false,
+            "error_rate": 0.767
         },
         {
             "date": "2025-12-17",
@@ -62,9 +72,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6790.01,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": false,
+            "error_rate": 0.651
         },
         {
             "date": "2025-12-17",
@@ -73,9 +85,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.01499938964844,
             "predicted_price": 155.5,
-            "actual_price": null,
+            "actual_price": 157.35699462890625,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 1.18
         },
         {
             "date": "2025-12-17",
@@ -84,9 +98,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49450.0,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.116
         },
         {
             "date": "2025-12-17",
@@ -95,9 +111,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6890.0,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.812
         },
         {
             "date": "2025-12-17",
@@ -106,9 +124,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.5030059814453,
             "predicted_price": 155.39,
-            "actual_price": null,
+            "actual_price": 157.35699462890625,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": false,
+            "error_rate": 1.25
         },
         {
             "date": "2025-12-17",
@@ -117,9 +137,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49321.46,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": false,
+            "error_rate": 0.375
         },
         {
             "date": "2025-12-17",
@@ -128,9 +150,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6825.75,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.128
         },
         {
             "date": "2025-12-17",
@@ -139,9 +163,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.01499938964844,
             "predicted_price": 155.24,
-            "actual_price": null,
+            "actual_price": 155.58599853515625,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.222
         },
         {
             "date": "2025-12-17",
@@ -150,9 +176,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49512.75,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.011
         },
         {
             "date": "2025-12-17",
@@ -161,9 +189,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6818.7,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.231
         },
         {
             "date": "2025-12-17",
@@ -172,9 +202,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.4739990234375,
             "predicted_price": 155.84,
-            "actual_price": null,
+            "actual_price": 157.3509979248047,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.96
         },
         {
             "date": "2025-12-17",
@@ -183,9 +215,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49430.0,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.156
         },
         {
             "date": "2025-12-17",
@@ -194,9 +228,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6815.0,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.285
         },
         {
             "date": "2025-12-17",
@@ -205,9 +241,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.01499938964844,
             "predicted_price": 155.28,
-            "actual_price": null,
+            "actual_price": 157.3509979248047,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 1.316
         },
         {
             "date": "2025-12-17",
@@ -216,9 +254,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49206.88,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": false,
+            "error_rate": 0.607
         },
         {
             "date": "2025-12-17",
@@ -227,9 +267,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6830.0,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.066
         },
         {
             "date": "2025-12-17",
@@ -238,9 +280,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.51600646972656,
             "predicted_price": 155.663,
-            "actual_price": null,
+            "actual_price": 157.3509979248047,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 1.073
         },
         {
             "date": "2025-12-17",
@@ -249,9 +293,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49987.73,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.971
         },
         {
             "date": "2025-12-17",
@@ -260,9 +306,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6855.22,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.303
         },
         {
             "date": "2025-12-17",
@@ -271,9 +319,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.5399932861328,
             "predicted_price": 155.63,
-            "actual_price": null,
+            "actual_price": 157.3509979248047,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 1.094
         },
         {
             "date": "2025-12-17",
@@ -282,9 +332,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49850.2,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.693
         },
         {
             "date": "2025-12-17",
@@ -293,9 +345,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6825.5,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.132
         },
         {
             "date": "2025-12-17",
@@ -304,9 +358,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.01499938964844,
             "predicted_price": 155.295,
-            "actual_price": null,
+            "actual_price": 155.58599853515625,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.187
         },
         {
             "date": "2025-12-17",
@@ -315,9 +371,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 50680.0,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 2.369
         },
         {
             "date": "2025-12-17",
@@ -326,9 +384,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6865.0,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.446
         },
         {
             "date": "2025-12-17",
@@ -337,9 +397,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.50799560546875,
             "predicted_price": 155.59,
-            "actual_price": null,
+            "actual_price": 157.3509979248047,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 1.119
         },
         {
             "date": "2025-12-17",
@@ -348,9 +410,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49500.0,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.015
         },
         {
             "date": "2025-12-17",
@@ -359,9 +423,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6815.5,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.278
         },
         {
             "date": "2025-12-17",
@@ -370,9 +436,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.4949951171875,
             "predicted_price": 156.973,
-            "actual_price": null,
+            "actual_price": 157.3509979248047,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.24
         },
         {
             "date": "2025-12-17",
@@ -381,9 +449,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49823.94,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.64
         },
         {
             "date": "2025-12-17",
@@ -392,9 +462,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6901.0,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.973
         },
         {
             "date": "2025-12-17",
@@ -403,9 +475,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.01499938964844,
             "predicted_price": 157.442,
-            "actual_price": null,
+            "actual_price": 157.35400390625,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.056
         },
         {
             "date": "2025-12-17",
@@ -414,9 +488,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 48625.88,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": false,
+            "error_rate": 1.78
         },
         {
             "date": "2025-12-17",
@@ -425,9 +501,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6901.0,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.973
         },
         {
             "date": "2025-12-17",
@@ -436,9 +514,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.01499938964844,
             "predicted_price": 155.655,
-            "actual_price": null,
+            "actual_price": 157.3509979248047,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 1.078
         },
         {
             "date": "2025-12-17",
@@ -447,9 +527,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49412.23,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.192
         },
         {
             "date": "2025-12-17",
@@ -458,9 +540,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6830.58,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.057
         },
         {
             "date": "2025-12-17",
@@ -469,9 +553,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.01499938964844,
             "predicted_price": 155.273,
-            "actual_price": null,
+            "actual_price": 157.3509979248047,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 1.321
         },
         {
             "date": "2025-12-17",
@@ -480,9 +566,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49559.07,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.105
         },
         {
             "date": "2025-12-17",
@@ -491,9 +579,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6901.0,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.973
         },
         {
             "date": "2025-12-17",
@@ -502,9 +592,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 155.46499633789062,
             "predicted_price": 155.7,
-            "actual_price": null,
+            "actual_price": 157.35400390625,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 1.051
         },
         {
             "date": "2025-12-17",
@@ -513,9 +605,11 @@
             "ai_model": "Gemini",
             "start_price": 155.46499633789062,
             "predicted_price": 155.281,
-            "actual_price": null,
+            "actual_price": 157.3509979248047,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": false,
+            "error_rate": 1.316
         },
         {
             "date": "2025-12-17",
@@ -524,9 +618,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 49383.2890625,
             "predicted_price": 49550.0,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.086
         },
         {
             "date": "2025-12-17",
@@ -535,9 +631,11 @@
             "ai_model": "Gemini",
             "start_price": 49383.2890625,
             "predicted_price": 49512.75,
-            "actual_price": null,
+            "actual_price": 49507.2109375,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.011
         },
         {
             "date": "2025-12-17",
@@ -546,9 +644,11 @@
             "ai_model": "GPT-3.5",
             "start_price": 6800.259765625,
             "predicted_price": 6785.5,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": false,
+            "error_rate": 0.717
         },
         {
             "date": "2025-12-17",
@@ -557,9 +657,11 @@
             "ai_model": "Gemini",
             "start_price": 6800.259765625,
             "predicted_price": 6835.45,
-            "actual_price": null,
+            "actual_price": 6834.5,
             "result": null,
-            "status": "pending"
+            "status": "settled",
+            "direction_correct": true,
+            "error_rate": 0.014
         },
         {
             "date": "2025-12-17",
@@ -910,6 +1012,33 @@
             "ai_model": "GPT-3.5",
             "start_price": 6834.5,
             "predicted_price": 6900.0,
+            "status": "pending"
+        },
+        {
+            "date": "2025-12-22",
+            "target_date": "2025-12-29",
+            "asset_name": "USD/JPY",
+            "ai_model": "GPT-3.5",
+            "start_price": 157.35499572753906,
+            "predicted_price": 157.02,
+            "status": "pending"
+        },
+        {
+            "date": "2025-12-22",
+            "target_date": "2025-12-29",
+            "asset_name": "Nikkei 225",
+            "ai_model": "GPT-3.5",
+            "start_price": 49507.2109375,
+            "predicted_price": 49950.0,
+            "status": "pending"
+        },
+        {
+            "date": "2025-12-22",
+            "target_date": "2025-12-29",
+            "asset_name": "S&P 500",
+            "ai_model": "GPT-3.5",
+            "start_price": 6834.5,
+            "predicted_price": 6790.0,
             "status": "pending"
         }
     ]
