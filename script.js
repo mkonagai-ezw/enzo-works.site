@@ -33,12 +33,16 @@ async function loadAIBattle() {
             if (gptWinRateEl) gptWinRateEl.innerText = stats["GPT-3.5"].win_rate;
             const gptAvgErrorEl = document.getElementById('gpt-avg-error');
             if (gptAvgErrorEl) gptAvgErrorEl.innerText = stats["GPT-3.5"].avg_error;
+            const gptCountEl = document.getElementById('gpt-count');
+            if (gptCountEl) gptCountEl.innerText = stats["GPT-3.5"].count;
         }
         if (stats && stats["Gemini"]) {
             const geminiWinRateEl = document.getElementById('gemini-win-rate');
             if (geminiWinRateEl) geminiWinRateEl.innerText = stats["Gemini"].win_rate;
             const geminiAvgErrorEl = document.getElementById('gemini-avg-error');
             if (geminiAvgErrorEl) geminiAvgErrorEl.innerText = stats["Gemini"].avg_error;
+            const geminiCountEl = document.getElementById('gemini-count');
+            if (geminiCountEl) geminiCountEl.innerText = stats["Gemini"].count;
         }
 
         // 3. バトルカード生成
