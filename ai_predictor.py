@@ -79,25 +79,46 @@ def ask_gemini(prompt):
         return None
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={GEMINI_API_KEY}"
     try:
+        print("Calling Gemini API...")
         response = requests.post(url, headers={'Content-Type': 'application/json'}, 
                                  json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
         if response.status_code != 200: 
             print(f"Gemini API Error: Status {response.status_code}, Response: {response.text}")
             return None
         res_json = response.json()
+        print(f"Gemini API Response structure: {list(res_json.keys())}")
+        
+        # エラーチェック
+        if 'error' in res_json:
+            print(f"Gemini API Error in response: {res_json['error']}")
+            return None
+            
         if 'candidates' not in res_json or len(res_json['candidates']) == 0:
             print(f"Gemini API Error: No candidates in response: {res_json}")
             return None
-        if 'content' not in res_json['candidates'][0] or 'parts' not in res_json['candidates'][0]['content']:
+            
+        candidate = res_json['candidates'][0]
+        print(f"Gemini API Candidate structure: {list(candidate.keys())}")
+        
+        # finishReasonのチェック
+        if 'finishReason' in candidate and candidate['finishReason'] != 'STOP':
+            print(f"Gemini API Warning: finishReason is {candidate.get('finishReason')}, not STOP")
+            
+        if 'content' not in candidate or 'parts' not in candidate['content']:
             print(f"Gemini API Error: Invalid response structure: {res_json}")
             return None
-        text_content = res_json['candidates'][0]['content']['parts'][0]['text']
+            
+        text_content = candidate['content']['parts'][0]['text']
+        print(f"Gemini API Text content length: {len(text_content)} characters")
         return parse_json_response(text_content, "Gemini")
     except KeyError as e:
-        print(f"Gemini API KeyError: {e}, Response: {res_json if 'res_json' in locals() else 'N/A'}")
+        print(f"Gemini API KeyError: {e}")
+        print(f"Gemini API Response: {res_json if 'res_json' in locals() else 'N/A'}")
         return None
     except Exception as e:
         print(f"Gemini API Exception: {type(e).__name__}: {e}")
+        import traceback
+        traceback.print_exc()
         return None
 
 def parse_json_response(content, model_name):
@@ -105,8 +126,19 @@ def parse_json_response(content, model_name):
     try:
         clean_content = re.sub(r'```json|```', '', content).strip()
         match = re.search(r'(\{.*\})', clean_content, re.DOTALL)
-        return json.loads(match.group(1)) if match else None
-    except: return None
+        if not match:
+            print(f"[{model_name}] No JSON match found in response")
+            return None
+        parsed = json.loads(match.group(1))
+        print(f"[{model_name}] Successfully parsed JSON: {parsed}")
+        return parsed
+    except json.JSONDecodeError as e:
+        print(f"[{model_name}] JSON decode error: {e}")
+        print(f"[{model_name}] Attempted to parse: {match.group(1) if 'match' in locals() else 'N/A'}")
+        return None
+    except Exception as e:
+        print(f"[{model_name}] Parse error: {type(e).__name__}: {e}")
+        return None
 
 # --- 市場状況判定関数 ---
 def get_market_status(asset_name):
