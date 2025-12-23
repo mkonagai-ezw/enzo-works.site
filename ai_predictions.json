@@ -1,7 +1,7 @@
 {
     "metadata": {
-        "last_updated": "2025-12-22 04:01:51",
-        "target_date": "2025-12-29"
+        "last_updated": "2025-12-23 02:17:13",
+        "target_date": "2025-12-30"
     },
     "overall_stats": {
         "GPT-3.5": {
@@ -17,15 +17,15 @@
     },
     "latest_forecast": {
         "GPT": {
-            "USD/JPY": 157.02,
-            "Nikkei 225": 49950.0,
-            "S&P 500": 6790.0
+            "USD/JPY": 157.0,
+            "Nikkei 225": 50000.0,
+            "S&P 500": 6900.0
         },
         "Gemini": null,
         "current_prices": {
-            "USD/JPY": 157.35499572753906,
+            "USD/JPY": 156.4530029296875,
             "Nikkei 225": 49507.2109375,
-            "S&P 500": 6834.5
+            "S&P 500": 6878.490234375
         }
     },
     "today_judgement": [
@@ -692,5 +692,19 @@
             "direction_correct": true,
             "error_rate": 0.014
         }
-    ]
+    ],
+    "market_status": {
+        "USD/JPY": {
+            "is_open": true,
+            "message": "市場は開いています"
+        },
+        "Nikkei 225": {
+            "is_open": false,
+            "message": "市場は閉まっています（取引時間: 9:00-15:00 JST）"
+        },
+        "S&P 500": {
+            "is_open": true,
+            "message": "市場は開いています（米国市場時間）"
+        }
+    }
 }
