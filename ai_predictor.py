@@ -2,10 +2,14 @@ import os
 import json
 import time
 import re
+import warnings
 import yfinance as yf
 import requests
 from openai import OpenAI
 from datetime import datetime, timedelta
+
+# FutureWarningを抑制
+warnings.filterwarnings('ignore', category=FutureWarning)
 
 # --- 環境変数 ---
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
@@ -32,10 +36,17 @@ def get_target_date(start_date, business_days=5):
 def get_market_data(ticker):
     end_date = datetime.now()
     start_date = end_date - timedelta(days=60)
-    df = yf.download(ticker, start=start_date, end=end_date, progress=False)
+    df = yf.download(ticker, start=start_date, end=end_date, progress=False, auto_adjust=False)
     if df.empty: return None, None
-    current_price = float(df['Close'].iloc[-1])
-    price_str_list = [f"{d.strftime('%Y-%m-%d')}: {float(r['Close']):.3f}" for d, r in df.tail(30).iterrows()]
+    # FutureWarningを回避: スカラー値を取得
+    last_close = df['Close'].iloc[-1]
+    current_price = float(last_close) if isinstance(last_close, (int, float)) else float(last_close.iloc[0])
+    # 価格履歴の文字列を作成
+    price_str_list = []
+    for d, r in df.tail(30).iterrows():
+        close_val = r['Close']
+        close_float = float(close_val) if isinstance(close_val, (int, float)) else float(close_val.iloc[0])
+        price_str_list.append(f"{d.strftime('%Y-%m-%d')}: {close_float:.3f}")
     return "\n".join(price_str_list), current_price
 
 def get_closing_price_for_date(ticker, target_date_str):
@@ -45,14 +56,15 @@ def get_closing_price_for_date(ticker, target_date_str):
         # 前後1日を含む範囲でデータを取得
         start_date = target_dt - timedelta(days=2)
         end_date = target_dt + timedelta(days=2)
-        df = yf.download(ticker, start=start_date, end=end_date, progress=False)
+        df = yf.download(ticker, start=start_date, end=end_date, progress=False, auto_adjust=False)
         if df.empty:
             return None
         # target_dateの終値を取得
         target_date_only = target_dt.date()
         for date, row in df.iterrows():
             if date.date() == target_date_only:
-                return float(row['Close'])
+                close_val = row['Close']
+                return float(close_val) if isinstance(close_val, (int, float)) else float(close_val.iloc[0])
         return None
     except Exception as e:
         print(f"Error getting closing price for {target_date_str}: {e}")
@@ -74,9 +86,19 @@ def ask_gpt(client, system_msg, user_msg):
         return None
 
 def ask_gemini(prompt):
+    print("=" * 50)
+    print("GEMINI API CALL START")
+    print("=" * 50)
+    
     if not GEMINI_API_KEY: 
-        print("Gemini API Key not found")
+        print("ERROR: Gemini API Key not found")
         return None
+    
+    if not GEMINI_API_KEY.strip():
+        print("ERROR: Gemini API Key is empty after strip")
+        return None
+        
+    print(f"Gemini API Key length: {len(GEMINI_API_KEY)}")
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={GEMINI_API_KEY}"
     try:
         print("Calling Gemini API...")
@@ -216,7 +238,17 @@ def calculate_stats(history):
 
 # --- メイン処理 ---
 def main():
-    if not OPENAI_API_KEY or not GEMINI_API_KEY: return
+    print("=" * 50)
+    print("STARTING AI PREDICTOR")
+    print("=" * 50)
+    print(f"OPENAI_API_KEY present: {bool(OPENAI_API_KEY)}")
+    print(f"GEMINI_API_KEY present: {bool(GEMINI_API_KEY)}")
+    print(f"GEMINI_API_KEY length: {len(GEMINI_API_KEY) if GEMINI_API_KEY else 0}")
+    
+    if not OPENAI_API_KEY or not GEMINI_API_KEY: 
+        print("ERROR: Missing API keys - Exiting")
+        return
+        
     openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
     if os.path.exists(HISTORY_FILE):
@@ -256,8 +288,17 @@ JSONフォーマット: {{"USD/JPY":0.000, "Nikkei 225":0.00, "S&P 500":0.00}}
     # 統合プロンプト（Gemini用）
     gemini_prompt = system_msg + "\n\n" + user_msg
 
+    print("\n" + "=" * 50)
+    print("CALLING GPT-3.5")
+    print("=" * 50)
     gpt_res = ask_gpt(openai_client, system_msg, user_msg)
+    print(f"GPT-3.5 Result: {gpt_res}")
+    
+    print("\n" + "=" * 50)
+    print("CALLING GEMINI")
+    print("=" * 50)
     gem_res = ask_gemini(gemini_prompt)
+    print(f"Gemini Result: {gem_res}")
 
     for asset, curr in current_prices.items():
         for model, res in [("GPT-3.5", gpt_res), ("Gemini", gem_res)]:
