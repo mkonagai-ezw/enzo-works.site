@@ -37,3 +37,4 @@ jobs:
           commit_message: 'AI: 予測結果と履歴を自動更新しました'
           file_pattern: 'ai_predictions.json ai_history.json'
           branch: main
+          skip_fetch: true  # リモートの変更を無視して、ローカルの変更のみをコミット・プッシュ
