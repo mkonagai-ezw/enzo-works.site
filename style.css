@@ -1056,8 +1056,35 @@ body {
 
 .judge-result {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     gap: 10px;
+    margin-top: 10px;
+}
+
+.judge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    text-align: left;
+}
+
+.judge-label {
+    font-weight: bold;
+    color: #ffeb3b;
+    font-size: 0.9em;
+    margin-bottom: 2px;
+}
+
+.judge-detail {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    color: #ddd;
+    line-height: 1.4;
+    word-break: break-word;
 }
 
 .judge-result span {

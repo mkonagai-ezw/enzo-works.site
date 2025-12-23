@@ -72,14 +72,46 @@ async function loadAIBattle() {
                 const geminiJudge = todayJudgments.find(j => j.ai_model === "Gemini");
                 
                 if (gptJudge || geminiJudge) {
-                    const gptResult = gptJudge ? (gptJudge.direction_correct ? '✓ 的中' : '✗ 外れ') : 'データなし';
-                    const geminiResult = geminiJudge ? (geminiJudge.direction_correct ? '✓ 的中' : '✗ 外れ') : 'データなし';
+                    // GPTの結果と誤差を計算
+                    let gptResultText = 'データなし';
+                    if (gptJudge) {
+                        const resultIcon = gptJudge.direction_correct ? '✓ 的中' : '✗ 外れ';
+                        const errorRate = gptJudge.error_rate !== undefined ? gptJudge.error_rate.toFixed(2) : 'N/A';
+                        const predictedPrice = gptJudge.predicted_price !== undefined 
+                            ? gptJudge.predicted_price.toLocaleString(undefined, { minimumFractionDigits: fractionDigits, maximumFractionDigits: fractionDigits })
+                            : 'N/A';
+                        const actualPrice = gptJudge.actual_price !== undefined 
+                            ? gptJudge.actual_price.toLocaleString(undefined, { minimumFractionDigits: fractionDigits, maximumFractionDigits: fractionDigits })
+                            : 'N/A';
+                        gptResultText = `${resultIcon} | 誤差: ${errorRate}% | 予測: ${unit}${predictedPrice} → 実際: ${unit}${actualPrice}`;
+                    }
+                    
+                    // Geminiの結果と誤差を計算
+                    let geminiResultText = 'データなし';
+                    if (geminiJudge) {
+                        const resultIcon = geminiJudge.direction_correct ? '✓ 的中' : '✗ 外れ';
+                        const errorRate = geminiJudge.error_rate !== undefined ? geminiJudge.error_rate.toFixed(2) : 'N/A';
+                        const predictedPrice = geminiJudge.predicted_price !== undefined 
+                            ? geminiJudge.predicted_price.toLocaleString(undefined, { minimumFractionDigits: fractionDigits, maximumFractionDigits: fractionDigits })
+                            : 'N/A';
+                        const actualPrice = geminiJudge.actual_price !== undefined 
+                            ? geminiJudge.actual_price.toLocaleString(undefined, { minimumFractionDigits: fractionDigits, maximumFractionDigits: fractionDigits })
+                            : 'N/A';
+                        geminiResultText = `${resultIcon} | 誤差: ${errorRate}% | 予測: ${unit}${predictedPrice} → 実際: ${unit}${actualPrice}`;
+                    }
                     
                     judgeHTML = `
                         <div class="judge-section">
                             <div class="judge-title">⚔️ 5日前AI予想 vs 本日価格</div>
                             <div class="judge-result">
-                                <span>GPT: ${gptResult}</span> / <span>Gemini: ${geminiResult}</span>
+                                <div class="judge-item">
+                                    <span class="judge-label">GPT-3.5:</span>
+                                    <span class="judge-detail">${gptResultText}</span>
+                                </div>
+                                <div class="judge-item">
+                                    <span class="judge-label">Gemini:</span>
+                                    <span class="judge-detail">${geminiResultText}</span>
+                                </div>
                             </div>
                         </div>`;
                 }
