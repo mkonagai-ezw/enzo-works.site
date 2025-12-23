@@ -1067,6 +1067,33 @@
             "start_price": 6878.490234375,
             "predicted_price": 6900.0,
             "status": "pending"
+        },
+        {
+            "date": "2025-12-23",
+            "target_date": "2025-12-30",
+            "asset_name": "USD/JPY",
+            "ai_model": "GPT-3.5",
+            "start_price": 156.322998046875,
+            "predicted_price": 157.0,
+            "status": "pending"
+        },
+        {
+            "date": "2025-12-23",
+            "target_date": "2025-12-30",
+            "asset_name": "Nikkei 225",
+            "ai_model": "GPT-3.5",
+            "start_price": 50402.390625,
+            "predicted_price": 51000.0,
+            "status": "pending"
+        },
+        {
+            "date": "2025-12-23",
+            "target_date": "2025-12-30",
+            "asset_name": "S&P 500",
+            "ai_model": "GPT-3.5",
+            "start_price": 6878.490234375,
+            "predicted_price": 6900.0,
+            "status": "pending"
         }
     ]
 }
