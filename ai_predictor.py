@@ -74,15 +74,31 @@ def ask_gpt(client, system_msg, user_msg):
         return None
 
 def ask_gemini(prompt):
-    if not GEMINI_API_KEY: return None
+    if not GEMINI_API_KEY: 
+        print("Gemini API Key not found")
+        return None
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={GEMINI_API_KEY}"
     try:
         response = requests.post(url, headers={'Content-Type': 'application/json'}, 
                                  json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
-        if response.status_code != 200: return None
+        if response.status_code != 200: 
+            print(f"Gemini API Error: Status {response.status_code}, Response: {response.text}")
+            return None
         res_json = response.json()
-        return parse_json_response(res_json['candidates'][0]['content']['parts'][0]['text'], "Gemini")
-    except: return None
+        if 'candidates' not in res_json or len(res_json['candidates']) == 0:
+            print(f"Gemini API Error: No candidates in response: {res_json}")
+            return None
+        if 'content' not in res_json['candidates'][0] or 'parts' not in res_json['candidates'][0]['content']:
+            print(f"Gemini API Error: Invalid response structure: {res_json}")
+            return None
+        text_content = res_json['candidates'][0]['content']['parts'][0]['text']
+        return parse_json_response(text_content, "Gemini")
+    except KeyError as e:
+        print(f"Gemini API KeyError: {e}, Response: {res_json if 'res_json' in locals() else 'N/A'}")
+        return None
+    except Exception as e:
+        print(f"Gemini API Exception: {type(e).__name__}: {e}")
+        return None
 
 def parse_json_response(content, model_name):
     print(f"--- DEBUG [{model_name}] Raw Response ---\n{content}\n---")
