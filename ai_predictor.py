@@ -38,6 +38,26 @@ def get_market_data(ticker):
     price_str_list = [f"{d.strftime('%Y-%m-%d')}: {float(r['Close']):.3f}" for d, r in df.tail(30).iterrows()]
     return "\n".join(price_str_list), current_price
 
+def get_closing_price_for_date(ticker, target_date_str):
+    """特定の日付の終値を取得（終値確定後の答え合わせ用）"""
+    try:
+        target_dt = datetime.strptime(target_date_str, "%Y-%m-%d")
+        # 前後1日を含む範囲でデータを取得
+        start_date = target_dt - timedelta(days=2)
+        end_date = target_dt + timedelta(days=2)
+        df = yf.download(ticker, start=start_date, end=end_date, progress=False)
+        if df.empty:
+            return None
+        # target_dateの終値を取得
+        target_date_only = target_dt.date()
+        for date, row in df.iterrows():
+            if date.date() == target_date_only:
+                return float(row['Close'])
+        return None
+    except Exception as e:
+        print(f"Error getting closing price for {target_date_str}: {e}")
+        return None
+
 def ask_gpt(client, system_msg, user_msg):
     try:
         response = client.chat.completions.create(
@@ -72,13 +92,59 @@ def parse_json_response(content, model_name):
         return json.loads(match.group(1)) if match else None
     except: return None
 
+# --- 市場状況判定関数 ---
+def get_market_status(asset_name):
+    """各銘柄の市場が開いているかどうかを判定"""
+    now = datetime.now()
+    weekday = now.weekday()  # 0=月曜日, 6=日曜日
+    hour = now.hour
+    
+    if asset_name == "USD/JPY":
+        # 為替市場: 週末以外は24時間取引
+        if weekday >= 5:  # 土日
+            return {"is_open": False, "message": "週末のため市場は閉まっています"}
+        return {"is_open": True, "message": "市場は開いています"}
+    
+    elif asset_name == "Nikkei 225":
+        # 日本市場: 平日9:00-15:00 JST
+        if weekday >= 5:  # 土日
+            return {"is_open": False, "message": "週末のため市場は閉まっています"}
+        if hour < 9 or hour >= 15:
+            return {"is_open": False, "message": "市場は閉まっています（取引時間: 9:00-15:00 JST）"}
+        return {"is_open": True, "message": "市場は開いています"}
+    
+    elif asset_name == "S&P 500":
+        # 米国市場: 米国東部時間9:30-16:00（日本時間では22:30-5:00、夏時間は23:30-6:00）
+        # 簡易判定: 平日のみ（詳細な時間判定は複雑なため、平日判定のみ）
+        if weekday >= 5:  # 土日
+            return {"is_open": False, "message": "週末のため市場は閉まっています"}
+        # 米国市場の営業時間は日本時間では深夜-朝なので、簡易的に平日は開いていると表示
+        # より正確には米国時間での判定が必要だが、簡易実装として平日判定のみ
+        return {"is_open": True, "message": "市場は開いています（米国市場時間）"}
+    
+    return {"is_open": True, "message": "市場は開いています"}
+
 # --- 答え合わせ・統計ロジック ---
 def update_history_with_actuals(history):
-    today_str = datetime.now().strftime("%Y-%m-%d")
+    """過去の予測を答え合わせ（終値確定後のみ実行）"""
+    today_dt = datetime.now()
+    today_str = today_dt.strftime("%Y-%m-%d")
+    
     for record in history.get("records", []):
-        if record["status"] == "pending" and record["target_date"] <= today_str:
+        # target_dateの翌日以降に答え合わせ（終値確定後）
+        # target_date < today_str により、予測日の翌日以降に答え合わせを実行
+        if record["status"] == "pending" and record["target_date"] < today_str:
             ticker = TARGETS.get(record["asset_name"])
-            _, actual_price = get_market_data(ticker)
+            if not ticker:
+                continue
+            
+            # 特定日付の終値を明示的に取得（終値確定後の値を使用）
+            actual_price = get_closing_price_for_date(ticker, record["target_date"])
+            
+            # 特定日付の終値が取得できない場合は、最新の終値を使用（フォールバック）
+            if actual_price is None:
+                _, actual_price = get_market_data(ticker)
+            
             if actual_price:
                 record["actual_price"] = actual_price
                 pred_up = record["predicted_price"] > record["start_price"]
@@ -86,6 +152,7 @@ def update_history_with_actuals(history):
                 record["direction_correct"] = (pred_up == actual_up)
                 record["error_rate"] = round(abs((record["predicted_price"] - actual_price) / actual_price) * 100, 3)
                 record["status"] = "settled"
+                print(f"Settled: {record['asset_name']} ({record['date']} -> {record['target_date']}) - Predicted: {record['predicted_price']}, Actual: {actual_price}")
 
 def calculate_stats(history):
     stats = {}
@@ -158,7 +225,16 @@ JSONフォーマット: {{"USD/JPY":0.000, "Nikkei 225":0.00, "S&P 500":0.00}}
                 })
 
     stats = calculate_stats(history)
-    today_check = [r for r in history["records"] if r["target_date"] == today_dt.strftime("%Y-%m-%d")]
+    # 昨日が答え合わせ対象日の予測を取得（終値確定後の答え合わせ結果を表示）
+    yesterday_dt = today_dt - timedelta(days=1)
+    today_check = [r for r in history["records"] 
+                   if r["target_date"] == yesterday_dt.strftime("%Y-%m-%d") 
+                   and r["status"] == "settled"]
+
+    # 各銘柄の市場状況を取得
+    market_status = {}
+    for asset in TARGETS.keys():
+        market_status[asset] = get_market_status(asset)
 
     output_data = {
         "metadata": {
@@ -171,7 +247,8 @@ JSONフォーマット: {{"USD/JPY":0.000, "Nikkei 225":0.00, "S&P 500":0.00}}
             "Gemini": gem_res,
             "current_prices": current_prices
         },
-        "today_judgement": today_check
+        "today_judgement": today_check,
+        "market_status": market_status
     }
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f: json.dump(output_data, f, indent=4, ensure_ascii=False)
