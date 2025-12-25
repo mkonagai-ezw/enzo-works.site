@@ -168,6 +168,7 @@ def get_market_status(asset_name):
     now = datetime.now()
     weekday = now.weekday()  # 0=月曜日, 6=日曜日
     hour = now.hour
+    minute = now.minute
     
     if asset_name == "USD/JPY":
         # 為替市場: 週末以外は24時間取引
@@ -176,21 +177,49 @@ def get_market_status(asset_name):
         return {"is_open": True, "message": "市場は開いています"}
     
     elif asset_name == "Nikkei 225":
-        # 日本市場: 平日9:00-15:00 JST
+        # 日本市場: 前場9:00-11:30、後場12:30-15:00 JST
         if weekday >= 5:  # 土日
             return {"is_open": False, "message": "週末のため市場は閉まっています"}
-        if hour < 9 or hour >= 15:
-            return {"is_open": False, "message": "市場は閉まっています（取引時間: 9:00-15:00 JST）"}
-        return {"is_open": True, "message": "市場は開いています"}
+        
+        # 分単位で判定
+        current_time = hour * 60 + minute  # 分単位に変換
+        morning_start = 9 * 60  # 9:00
+        morning_end = 11 * 60 + 30  # 11:30
+        afternoon_start = 12 * 60 + 30  # 12:30
+        afternoon_end = 15 * 60  # 15:00
+        
+        # 前場または後場の取引時間内か判定
+        if (morning_start <= current_time <= morning_end) or (afternoon_start <= current_time <= afternoon_end):
+            return {"is_open": True, "message": "市場は開いています"}
+        else:
+            return {"is_open": False, "message": "市場は閉まっています（取引時間: 前場9:00-11:30、後場12:30-15:00 JST）"}
     
     elif asset_name == "S&P 500":
-        # 米国市場: 米国東部時間9:30-16:00（日本時間では22:30-5:00、夏時間は23:30-6:00）
-        # 簡易判定: 平日のみ（詳細な時間判定は複雑なため、平日判定のみ）
-        if weekday >= 5:  # 土日
+        # 米国市場: 米国東部時間9:30-16:00
+        # 日本時間への変換を簡易的に計算（UTC+9とUTC-5/UTC-4の時差を考慮）
+        # 米国東部時間 = 日本時間 - 14時間（冬時間）または -13時間（夏時間）
+        # 簡易実装: 日本時間から14時間引いて判定（冬時間基準）
+        est_hour = (hour - 14) % 24
+        est_minute = minute
+        
+        # 米国時間での曜日判定（日本時間が翌日の場合は前日として扱う）
+        if hour < 14:
+            est_weekday = (weekday - 1) % 7
+        else:
+            est_weekday = weekday
+        
+        if est_weekday >= 5:  # 土日（米国時間）
             return {"is_open": False, "message": "週末のため市場は閉まっています"}
-        # 米国市場の営業時間は日本時間では深夜-朝なので、簡易的に平日は開いていると表示
-        # より正確には米国時間での判定が必要だが、簡易実装として平日判定のみ
-        return {"is_open": True, "message": "市場は開いています（米国市場時間）"}
+        
+        # 米国東部時間での判定（9:30-16:00）
+        current_time_est = est_hour * 60 + est_minute
+        market_open = 9 * 60 + 30  # 9:30
+        market_close = 16 * 60  # 16:00
+        
+        if market_open <= current_time_est < market_close:
+            return {"is_open": True, "message": "市場は開いています（米国市場時間）"}
+        else:
+            return {"is_open": False, "message": "市場は閉まっています（取引時間: 米国東部時間9:30-16:00）"}
     
     return {"is_open": True, "message": "市場は開いています"}
 
