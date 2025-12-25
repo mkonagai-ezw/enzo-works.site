@@ -5,14 +5,14 @@
     },
     "overall_stats": {
         "GPT-3.5": {
-            "win_rate": 85.2,
-            "avg_error": 0.8,
-            "count": 54
+            "win_rate": 0,
+            "avg_error": 0,
+            "count": 0
         },
         "Gemini": {
-            "win_rate": 66.7,
-            "avg_error": 1.02,
-            "count": 9
+            "win_rate": 0,
+            "avg_error": 0,
+            "count": 0
         }
     },
     "latest_forecast": {
