@@ -201,14 +201,6 @@ function initSandboxAccordion() {
                 // アコーディオンが開いた時にデータを再読み込み
                 loadAIBattle();
 
-                // ゲームアコーディオンが開いた場合、ゲームハンドラーを初期化
-                const title = header.querySelector('.sandbox-accordion-title');
-                if (title && title.textContent.includes('フロントだけで実装したゲーム')) {
-                    setTimeout(() => {
-                        initMarioGameHandlers();
-                    }, 100);
-                }
-
                 // ★GA4 イベント送信: アコーディオンが開いた時
                 if (typeof gtag === 'function') {
                     gtag('event', 'ai_battle_open', {
@@ -227,16 +219,7 @@ function initSandboxAccordion() {
 document.addEventListener('DOMContentLoaded', () => {
     loadAIBattle();
     initSandboxAccordion();
-    // initMarioGameHandlers()はアコーディオンが開いた時に呼ばれる
 });
-
-// --- ゲーム用JavaScript ---
-class MarioGame {
-    constructor(canvasId) {
-        this.canvas = document.getElementById(canvasId);
-        if (!this.canvas) return;
-        this.ctx = this.canvas.getContext('2d');
-        this.setupCanvas();
         
         // ゲーム状態
         this.score = 0;
