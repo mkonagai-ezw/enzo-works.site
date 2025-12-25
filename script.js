@@ -201,6 +201,14 @@ function initSandboxAccordion() {
                 // アコーディオンが開いた時にデータを再読み込み
                 loadAIBattle();
 
+                // ゲームアコーディオンが開いた場合、ゲームハンドラーを初期化
+                const title = header.querySelector('.sandbox-accordion-title');
+                if (title && title.textContent.includes('フロントだけで実装したゲーム')) {
+                    setTimeout(() => {
+                        initMarioGameHandlers();
+                    }, 100);
+                }
+
                 // ★GA4 イベント送信: アコーディオンが開いた時
                 if (typeof gtag === 'function') {
                     gtag('event', 'ai_battle_open', {
@@ -219,7 +227,7 @@ function initSandboxAccordion() {
 document.addEventListener('DOMContentLoaded', () => {
     loadAIBattle();
     initSandboxAccordion();
-    initMarioGameHandlers();
+    // initMarioGameHandlers()はアコーディオンが開いた時に呼ばれる
 });
 
 // --- ゲーム用JavaScript ---
@@ -757,12 +765,25 @@ function initMarioGameHandlers() {
     const startBtn = document.getElementById('game-start-btn');
     const resetBtn = document.getElementById('game-reset-btn');
     
+    // 既存のイベントリスナーを削除するために、ボタンをクローンして置き換え
     if (startBtn) {
-        startBtn.addEventListener('click', () => {
+        // 既存のイベントリスナーを削除
+        const newStartBtn = startBtn.cloneNode(true);
+        startBtn.parentNode.replaceChild(newStartBtn, startBtn);
+        
+        newStartBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('ゲーム開始ボタンがクリックされました');
+            
             const canvas = document.getElementById('game-canvas');
-            if (!canvas) return;
+            if (!canvas) {
+                console.error('キャンバスが見つかりません');
+                return;
+            }
             
             if (!marioGame) {
+                console.log('ゲームを初期化します');
                 marioGame = new MarioGame('game-canvas');
             }
             marioGame.start();
@@ -770,39 +791,34 @@ function initMarioGameHandlers() {
     }
     
     if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
+        const newResetBtn = resetBtn.cloneNode(true);
+        resetBtn.parentNode.replaceChild(newResetBtn, resetBtn);
+        
+        newResetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             if (marioGame) marioGame.reset();
         });
     }
     
-    // アコーディオンが開いた時にゲームを初期化
-    const gameAccordion = document.querySelectorAll('.sandbox-accordion-header');
-    gameAccordion.forEach(header => {
-        header.addEventListener('click', () => {
-            setTimeout(() => {
-                const gameBody = header.nextElementSibling;
-                if (gameBody && gameBody.style.display !== 'none') {
-                    const canvas = gameBody.querySelector('#game-canvas');
-                    if (canvas && !marioGame) {
-                        marioGame = new MarioGame('game-canvas');
-                    }
-                }
-            }, 100);
-        });
-    });
-    
-    // 画面リサイズ対応
-    window.addEventListener('resize', () => {
-        if (marioGame) {
-            marioGame.setupCanvas();
-        }
-    });
-    
-    window.addEventListener('orientationchange', () => {
-        setTimeout(() => {
+    // 画面リサイズ対応（一度だけ登録）
+    if (!window.marioGameResizeHandler) {
+        window.marioGameResizeHandler = () => {
             if (marioGame) {
                 marioGame.setupCanvas();
             }
-        }, 100);
-    });
+        };
+        window.addEventListener('resize', window.marioGameResizeHandler);
+    }
+    
+    if (!window.marioGameOrientationHandler) {
+        window.marioGameOrientationHandler = () => {
+            setTimeout(() => {
+                if (marioGame) {
+                    marioGame.setupCanvas();
+                }
+            }, 100);
+        };
+        window.addEventListener('orientationchange', window.marioGameOrientationHandler);
+    }
 }
