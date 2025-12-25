@@ -161,6 +161,48 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="sandbox-item">
+                    <button class="sandbox-accordion-header">
+                        <span class="sandbox-accordion-title">フロントだけで実装したゲーム</span>
+                        <span class="sandbox-accordion-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="sandbox-accordion-body" style="display: none;">
+                        <div class="sandbox-project">
+                            <h3 class="project-name">フロントだけで実装したゲーム</h3>
+                            
+                            <div class="game-container">
+                                <div class="game-info">
+                                    <div class="game-score">スコア: <span id="game-score">0</span></div>
+                                    <div class="game-lives">残機: <span id="game-lives">3</span></div>
+                                    <button id="game-start-btn" class="game-btn">ゲーム開始</button>
+                                    <button id="game-reset-btn" class="game-btn" style="display: none;">リセット</button>
+                                </div>
+                                <canvas id="game-canvas" width="800" height="400"></canvas>
+                                
+                                <!-- モバイル用操作ボタン -->
+                                <div class="game-mobile-controls">
+                                    <div class="game-control-row">
+                                        <button class="game-control-btn game-btn-left" id="btn-left">
+                                            <i class="fa-solid fa-arrow-left"></i>
+                                        </button>
+                                        <button class="game-control-btn game-btn-jump" id="btn-jump">
+                                            <i class="fa-solid fa-arrow-up"></i>
+                                        </button>
+                                        <button class="game-control-btn game-btn-right" id="btn-right">
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="game-controls">
+                                    <p>PC: ← → キーで移動、スペースキーでジャンプ</p>
+                                    <p>スマホ: 画面下部のボタンで操作</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </section>
