@@ -249,70 +249,76 @@ class MarioGame {
             jump: false
         };
         
-        // プレイヤー
+        // プレイヤー（スケール適用）
         this.player = {
-            x: 50,
-            y: 300,
-            width: 40,
-            height: 40,
+            x: 50 * this.scale,
+            y: 0, // 後で地面に合わせて設定
+            width: 40 * this.scale,
+            height: 40 * this.scale,
             velocityX: 0,
             velocityY: 0,
-            speed: 5,
-            jumpPower: 15,
+            speed: 5 * this.scale,
+            jumpPower: 15 * this.scale,
             onGround: false,
             color: '#FF0000'
         };
         
-        // 地面
+        // 地面（キャンバスの高さに応じて動的に設定）
         this.ground = {
-            y: 340,
+            y: this.height - 60,
             height: 60
         };
         
-        // プラットフォーム
+        // プレイヤーの初期位置を地面に合わせて調整
+        this.player.y = this.ground.y - this.player.height;
+        
+        // プラットフォーム（スケール適用）
+        const platformScale = this.scale;
+        const baseGroundY = 340; // 基準の地面のY座標
         this.platforms = [
-            { x: 200, y: 250, width: 100, height: 20 },
-            { x: 400, y: 200, width: 100, height: 20 },
-            { x: 600, y: 150, width: 100, height: 20 }
+            { x: 200 * platformScale, y: (250 / baseGroundY) * this.ground.y, width: 100 * platformScale, height: 20 * platformScale },
+            { x: 400 * platformScale, y: (200 / baseGroundY) * this.ground.y, width: 100 * platformScale, height: 20 * platformScale },
+            { x: 600 * platformScale, y: (150 / baseGroundY) * this.ground.y, width: 100 * platformScale, height: 20 * platformScale }
         ];
         
-        // コイン
+        // コイン（スケール適用）
         this.coins = [
-            { x: 250, y: 220, width: 20, height: 20, collected: false },
-            { x: 450, y: 170, width: 20, height: 20, collected: false },
-            { x: 650, y: 120, width: 20, height: 20, collected: false }
+            { x: 250 * platformScale, y: (220 / baseGroundY) * this.ground.y, width: 20 * platformScale, height: 20 * platformScale, collected: false },
+            { x: 450 * platformScale, y: (170 / baseGroundY) * this.ground.y, width: 20 * platformScale, height: 20 * platformScale, collected: false },
+            { x: 650 * platformScale, y: (120 / baseGroundY) * this.ground.y, width: 20 * platformScale, height: 20 * platformScale, collected: false }
         ];
         
-        // 5種類の敵
+        // 5種類の敵（地面に合わせて配置）
+        const enemyY = this.ground.y - 30 * platformScale;
         this.enemies = [
             // 種類1: 通常の敵（左右に移動）
             { 
-                x: 300, y: 300, width: 30, height: 30, 
-                velocityX: -2, velocityY: 0,
+                x: 300 * platformScale, y: enemyY, width: 30 * platformScale, height: 30 * platformScale, 
+                velocityX: -2 * platformScale, velocityY: 0,
                 color: '#FF00FF', 
                 type: 'normal', 
                 health: 1 
             },
             // 種類2: 高速の敵（速く移動）
             { 
-                x: 500, y: 300, width: 30, height: 30, 
-                velocityX: -4, velocityY: 0,
+                x: 500 * platformScale, y: enemyY, width: 30 * platformScale, height: 30 * platformScale, 
+                velocityX: -4 * platformScale, velocityY: 0,
                 color: '#FF0000', 
                 type: 'fast', 
                 health: 1 
             },
             // 種類3: 大型の敵（大きい、遅い）
             { 
-                x: 700, y: 280, width: 50, height: 50, 
-                velocityX: -1, velocityY: 0,
+                x: 700 * platformScale, y: this.ground.y - 50 * platformScale, width: 50 * platformScale, height: 50 * platformScale, 
+                velocityX: -1 * platformScale, velocityY: 0,
                 color: '#8B0000', 
                 type: 'big', 
                 health: 2 
             },
             // 種類4: ジャンプする敵
             { 
-                x: 400, y: 300, width: 30, height: 30, 
-                velocityX: -2, velocityY: 0,
+                x: 400 * platformScale, y: enemyY, width: 30 * platformScale, height: 30 * platformScale, 
+                velocityX: -2 * platformScale, velocityY: 0,
                 color: '#00FF00', 
                 type: 'jumper', 
                 health: 1, 
@@ -320,12 +326,12 @@ class MarioGame {
             },
             // 種類5: 追跡する敵（プレイヤーを追いかける）
             { 
-                x: 600, y: 300, width: 30, height: 30, 
+                x: 600 * platformScale, y: enemyY, width: 30 * platformScale, height: 30 * platformScale, 
                 velocityX: 0, velocityY: 0,
                 color: '#FFA500', 
                 type: 'chaser', 
                 health: 1, 
-                speed: 2 
+                speed: 2 * platformScale 
             }
         ];
         
@@ -347,6 +353,12 @@ class MarioGame {
         this.width = this.canvas.width;
         this.height = this.canvas.height;
         this.scale = this.width / 800;
+        
+        // 地面の位置を再計算
+        if (this.ground) {
+            this.ground.y = this.height - 60 * this.scale;
+            this.ground.height = 60 * this.scale;
+        }
     }
     
     init() {
@@ -455,7 +467,7 @@ class MarioGame {
         }
         
         // 重力
-        this.player.velocityY += 0.8;
+        this.player.velocityY += 0.8 * this.scale;
         
         // 位置更新
         this.player.x += this.player.velocityX;
@@ -527,10 +539,10 @@ class MarioGame {
                     // ジャンプする敵
                     enemy.jumpTimer++;
                     if (enemy.jumpTimer > 60) {
-                        enemy.velocityY = -10;
+                        enemy.velocityY = -10 * this.scale;
                         enemy.jumpTimer = 0;
                     }
-                    enemy.velocityY += 0.5;
+                    enemy.velocityY += 0.5 * this.scale;
                     enemy.y += enemy.velocityY;
                     enemy.x += enemy.velocityX;
                     
@@ -547,7 +559,7 @@ class MarioGame {
                 case 'chaser':
                     // プレイヤーを追跡
                     const dx = this.player.x - enemy.x;
-                    if (Math.abs(dx) > 5) {
+                    if (Math.abs(dx) > 5 * this.scale) {
                         enemy.velocityX = dx > 0 ? enemy.speed : -enemy.speed;
                     } else {
                         enemy.velocityX = 0;
@@ -574,7 +586,7 @@ class MarioGame {
                         this.updateScore();
                     } else {
                         // バウンス
-                        this.player.velocityY = -10;
+                        this.player.velocityY = -10 * this.scale;
                     }
                 } else {
                     // 敵に当たった
@@ -596,8 +608,8 @@ class MarioGame {
             this.gameOver();
         } else {
             // リスポーン
-            this.player.x = 50;
-            this.player.y = 300;
+            this.player.x = 50 * this.scale;
+            this.player.y = this.ground.y - this.player.height;
             this.player.velocityX = 0;
             this.player.velocityY = 0;
         }
@@ -736,20 +748,21 @@ class MarioGame {
         if (resetBtn) resetBtn.style.display = 'none';
         
         // リセット
-        this.player.x = 50;
-        this.player.y = 300;
+        this.player.x = 50 * this.scale;
+        this.player.y = this.ground.y - this.player.height;
         this.player.velocityX = 0;
         this.player.velocityY = 0;
         
         this.coins.forEach(coin => coin.collected = false);
         
         // 敵をリセット
+        const enemyY = this.ground.y - 30 * this.scale;
         this.enemies = [
-            { x: 300, y: 300, width: 30, height: 30, velocityX: -2, velocityY: 0, color: '#FF00FF', type: 'normal', health: 1 },
-            { x: 500, y: 300, width: 30, height: 30, velocityX: -4, velocityY: 0, color: '#FF0000', type: 'fast', health: 1 },
-            { x: 700, y: 280, width: 50, height: 50, velocityX: -1, velocityY: 0, color: '#8B0000', type: 'big', health: 2 },
-            { x: 400, y: 300, width: 30, height: 30, velocityX: -2, velocityY: 0, color: '#00FF00', type: 'jumper', health: 1, jumpTimer: 0 },
-            { x: 600, y: 300, width: 30, height: 30, velocityX: 0, velocityY: 0, color: '#FFA500', type: 'chaser', health: 1, speed: 2 }
+            { x: 300 * this.scale, y: enemyY, width: 30 * this.scale, height: 30 * this.scale, velocityX: -2 * this.scale, velocityY: 0, color: '#FF00FF', type: 'normal', health: 1 },
+            { x: 500 * this.scale, y: enemyY, width: 30 * this.scale, height: 30 * this.scale, velocityX: -4 * this.scale, velocityY: 0, color: '#FF0000', type: 'fast', health: 1 },
+            { x: 700 * this.scale, y: this.ground.y - 50 * this.scale, width: 50 * this.scale, height: 50 * this.scale, velocityX: -1 * this.scale, velocityY: 0, color: '#8B0000', type: 'big', health: 2 },
+            { x: 400 * this.scale, y: enemyY, width: 30 * this.scale, height: 30 * this.scale, velocityX: -2 * this.scale, velocityY: 0, color: '#00FF00', type: 'jumper', health: 1, jumpTimer: 0 },
+            { x: 600 * this.scale, y: enemyY, width: 30 * this.scale, height: 30 * this.scale, velocityX: 0, velocityY: 0, color: '#FFA500', type: 'chaser', health: 1, speed: 2 * this.scale }
         ];
     }
     
@@ -764,6 +777,8 @@ let marioGame = null;
 function initMarioGameHandlers() {
     const startBtn = document.getElementById('game-start-btn');
     const resetBtn = document.getElementById('game-reset-btn');
+    
+    console.log('initMarioGameHandlers called, startBtn:', startBtn, 'resetBtn:', resetBtn);
     
     // 既存のイベントリスナーを削除するために、ボタンをクローンして置き換え
     if (startBtn) {
@@ -785,9 +800,23 @@ function initMarioGameHandlers() {
             if (!marioGame) {
                 console.log('ゲームを初期化します');
                 marioGame = new MarioGame('game-canvas');
+                if (!marioGame || !marioGame.canvas) {
+                    console.error('ゲームの初期化に失敗しました');
+                    return;
+                }
             }
+            console.log('ゲームを開始します');
             marioGame.start();
         });
+        
+        // マウスイベントも追加（PC用）
+        newStartBtn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('ゲーム開始ボタンがマウスダウンされました');
+        });
+    } else {
+        console.error('game-start-btn が見つかりません');
     }
     
     if (resetBtn) {
