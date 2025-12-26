@@ -663,7 +663,7 @@ body {
     }
 }/* --- AI Sandbox Section (安全版) --- */
 #sandbox.section {
-    background-color: #ffb75a;
+    background-color: #0d0d0d;
     color: #fff;
     padding: 80px 20px;
     border-top: 1px solid #333;
@@ -924,7 +924,7 @@ body {
 }
 
 .asset-card {
-    background: #f79b4f;
+    background: #1a1a1a;
     border: 1px solid #333;
     border-radius: 16px;
     padding: 24px;
