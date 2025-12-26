@@ -6,7 +6,7 @@ import warnings
 import yfinance as yf
 import requests
 from openai import OpenAI
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # FutureWarningを抑制
 warnings.filterwarnings('ignore', category=FutureWarning)
@@ -165,23 +165,25 @@ def parse_json_response(content, model_name):
 # --- 市場状況判定関数 ---
 def get_market_status(asset_name):
     """各銘柄の市場が開いているかどうかを判定"""
-    now = datetime.now()
+    # JST（UTC+9）で現在時刻を取得
+    jst = timezone(timedelta(hours=9))
+    now = datetime.now(jst)
     weekday = now.weekday()  # 0=月曜日, 6=日曜日
     hour = now.hour
     minute = now.minute
     
     if asset_name == "USD/JPY":
-        # 為替市場: 週末以外は24時間取引
-        if weekday >= 5:  # 土日
+        # 為替市場: 週末以外は24時間取引（JST基準で週末判定）
+        if weekday >= 5:  # 土日（JST）
             return {"is_open": False, "message": "週末のため市場は閉まっています"}
         return {"is_open": True, "message": "市場は開いています"}
     
     elif asset_name == "Nikkei 225":
         # 日本市場: 前場9:00-11:30、後場12:30-15:00 JST
-        if weekday >= 5:  # 土日
+        if weekday >= 5:  # 土日（JST）
             return {"is_open": False, "message": "週末のため市場は閉まっています"}
         
-        # 分単位で判定
+        # 分単位で判定（JST）
         current_time = hour * 60 + minute  # 分単位に変換
         morning_start = 9 * 60  # 9:00
         morning_end = 11 * 60 + 30  # 11:30
@@ -196,13 +198,12 @@ def get_market_status(asset_name):
     
     elif asset_name == "S&P 500":
         # 米国市場: 米国東部時間9:30-16:00
-        # 日本時間への変換を簡易的に計算（UTC+9とUTC-5/UTC-4の時差を考慮）
-        # 米国東部時間 = 日本時間 - 14時間（冬時間）または -13時間（夏時間）
-        # 簡易実装: 日本時間から14時間引いて判定（冬時間基準）
+        # JSTからESTへの変換（JST = EST + 14時間（冬時間）または +13時間（夏時間））
+        # 簡易実装: JSTから14時間引いてESTを計算（冬時間基準）
         est_hour = (hour - 14) % 24
         est_minute = minute
         
-        # 米国時間での曜日判定（日本時間が翌日の場合は前日として扱う）
+        # 米国時間での曜日判定（JSTが翌日の場合は前日として扱う）
         if hour < 14:
             est_weekday = (weekday - 1) % 7
         else:
