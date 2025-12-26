@@ -5,6 +5,10 @@ async function loadAIBattle() {
     const grid = document.getElementById('ai-grid');
     if (!grid) return;
 
+    // 既にロード中の場合は処理をスキップ
+    if (grid.dataset.loading === 'true') return;
+    grid.dataset.loading = 'true';
+
     grid.innerHTML = '<div class="loading-msg">Initializing Battle Data...</div>';
 
     try {
@@ -43,6 +47,9 @@ async function loadAIBattle() {
         // 市場状況を取得
         const marketStatus = data.market_status || {};
 
+        // グリッドをクリア（重複防止）
+        grid.innerHTML = '';
+
         for (const [asset, current] of Object.entries(currentPrices)) {
             const unit = asset === "S&P 500" ? "$" : "¥";
             const fractionDigits = asset === "USD/JPY" ? 3 : 2;
@@ -54,13 +61,23 @@ async function loadAIBattle() {
                 : `<span class="market-status closed">🔴 ${status.message}</span>`;
             
             // 決着判定の検索（asset_nameを使用）
-            const todayJudgments = judgments.filter(j => j.asset_name === asset && j.status === 'settled');
+            // 重複を防ぐため、同じasset_name, ai_model, dateの組み合わせで最新のもののみを表示
+            const todayJudgments = judgments
+                .filter(j => j.asset_name === asset && j.status === 'settled')
+                .reduce((acc, j) => {
+                    const key = `${j.asset_name}_${j.ai_model}_${j.date}`;
+                    if (!acc[key] || new Date(j.date) > new Date(acc[key].date)) {
+                        acc[key] = j;
+                    }
+                    return acc;
+                }, {});
+            const uniqueJudgments = Object.values(todayJudgments);
             
             // --- 過去：本日の決着判定 ---
             let judgeHTML = `<div class="judge-section empty">本日決着：データ蓄積中</div>`;
-            if (todayJudgments.length > 0) {
+            if (uniqueJudgments.length > 0) {
                 judgeHTML = '<div class="judge-section"><div class="judge-title">5日前AI予想 vs 本日価格</div>';
-                for (const j of todayJudgments) {
+                for (const j of uniqueJudgments) {
                     const isHit = j.direction_correct;
                     const errorRate = j.error_rate?.toFixed(2) || '0.00';
                     const predicted = j.predicted_price?.toFixed(fractionDigits) || '0';
@@ -127,6 +144,8 @@ async function loadAIBattle() {
     } catch (e) {
         console.error('AI Battle data loading error:', e);
         grid.innerHTML = `<div class="error-msg">データの読み込みに失敗しました: ${e.message}</div>`;
+    } finally {
+        grid.dataset.loading = 'false';
     }
 }
 
