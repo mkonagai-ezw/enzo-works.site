@@ -18,8 +18,8 @@ async function loadAIBattle() {
 
         const gptForecast = data.latest_forecast.GPT;
         const geminiForecast = data.latest_forecast.Gemini;
-        const currentPrices = data.current_prices || {};
-        const judgments = data.today_judgments || [];
+        const currentPrices = data.latest_forecast.current_prices || {};
+        const judgments = data.today_judgement || [];
 
         // 全体統計を表示
         if (data.overall_stats) {
@@ -31,12 +31,12 @@ async function loadAIBattle() {
             const gptCount = document.getElementById('gpt-count');
             const geminiCount = document.getElementById('gemini-count');
 
-            if (gptWinRate) gptWinRate.textContent = stats.GPT?.win_rate?.toFixed(1) || '--';
-            if (geminiWinRate) geminiWinRate.textContent = stats.Gemini?.win_rate?.toFixed(1) || '--';
-            if (gptAvgError) gptAvgError.textContent = stats.GPT?.avg_error?.toFixed(2) || '--';
-            if (geminiAvgError) geminiAvgError.textContent = stats.Gemini?.avg_error?.toFixed(2) || '--';
-            if (gptCount) gptCount.textContent = stats.GPT?.count || '--';
-            if (geminiCount) geminiCount.textContent = stats.Gemini?.count || '--';
+            if (gptWinRate) gptWinRate.textContent = stats["GPT-3.5"]?.win_rate?.toFixed(1) || '--';
+            if (geminiWinRate) geminiWinRate.textContent = stats["Gemini"]?.win_rate?.toFixed(1) || '--';
+            if (gptAvgError) gptAvgError.textContent = stats["GPT-3.5"]?.avg_error?.toFixed(2) || '--';
+            if (geminiAvgError) geminiAvgError.textContent = stats["Gemini"]?.avg_error?.toFixed(2) || '--';
+            if (gptCount) gptCount.textContent = stats["GPT-3.5"]?.count || '--';
+            if (geminiCount) geminiCount.textContent = stats["Gemini"]?.count || '--';
         }
 
 
@@ -61,7 +61,7 @@ async function loadAIBattle() {
             if (todayJudgments.length > 0) {
                 judgeHTML = '<div class="judge-section"><div class="judge-title">5日前AI予想 vs 本日価格</div>';
                 for (const j of todayJudgments) {
-                    const isHit = j.is_hit;
+                    const isHit = j.direction_correct;
                     const errorRate = j.error_rate?.toFixed(2) || '0.00';
                     const predicted = j.predicted_price?.toFixed(fractionDigits) || '0';
                     const actual = j.actual_price?.toFixed(fractionDigits) || '0';
