@@ -108,9 +108,12 @@ async function loadAIBattle() {
             const trend = (val) => {
                 if (!val || !current) return '';
                 const change = ((val - current) / current) * 100;
-                if (change > 0.2) return `<span class="trend-up">▲ 上昇 +${change.toFixed(2)}%</span>`;
-                if (change < -0.2) return `<span class="trend-down">▼ 下落 ${change.toFixed(2)}%</span>`;
-                return `<span class="trend-neutral">→ 横ばい ${change.toFixed(2)}%</span>`;
+                // 横ばいを排除し、0%以上は上昇、0%未満は下落として表示
+                if (change >= 0) {
+                    return `<span class="trend-up">▲ 上昇 +${change.toFixed(2)}%</span>`;
+                } else {
+                    return `<span class="trend-down">▼ 下落 ${change.toFixed(2)}%</span>`;
+                }
             };
 
             const card = document.createElement('div');
