@@ -74,7 +74,8 @@ async function callGeminiAPI(userMessage, apiKey) {
 回答の最後には必ず「より具体的なご相談や戦略立案は、下記のお問い合わせフォームからお送りください」と伝え、/contact へ誘導してください。`;
 
   // v1 APIエンドポイントを直接使用（models/は含めない）
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // モデル名を gemini-flash-latest に変更（v1 APIで利用可能なモデル）
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-flash-latest:generateContent?key=${apiKey}`;
   
   const requestBody = {
     contents: [{
