@@ -553,7 +553,11 @@
             chatOverlay.classList.add('show');
             chatToggleBtn.classList.add('chat-open');
             chatToggleBtn.style.display = 'none';
-            document.body.style.overflow = 'hidden'; // 背景のスクロールを無効化
+            // 背景のスクロールを無効化（inputフォーカス時も含む）
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.documentElement.style.overflow = 'hidden';
             if (chatBubble) {
                 chatBubble.style.display = 'none';
                 chatBubble.style.visibility = 'hidden';
@@ -573,7 +577,11 @@
             chatOverlay.classList.remove('show');
             chatToggleBtn.classList.remove('chat-open');
             chatToggleBtn.style.display = 'flex';
-            document.body.style.overflow = ''; // 背景のスクロールを有効化
+            // 背景のスクロールを有効化
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.documentElement.style.overflow = '';
             if (chatBubble) {
                 chatBubble.style.display = 'block';
                 // 表示状態に応じてvisibilityとopacityを設定
@@ -604,7 +612,10 @@
                 </div>
             `;
             chatBody.appendChild(botMessageDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
+            // 最新メッセージまでスクロール（少し遅延して確実にスクロール）
+            setTimeout(() => {
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 100);
         }
 
         // ボタンクリック時の返答メッセージ
@@ -634,8 +645,10 @@
                 showBotMessage(buttonResponses[action] || 'ご相談ありがとうございます。詳細を教えていただけますか？');
             }, 500);
 
-            // スクロール
-            chatBody.scrollTop = chatBody.scrollHeight;
+            // 最新メッセージまでスクロール
+            setTimeout(() => {
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 600); // showBotMessageの500ms + 少し余裕を持たせる
         }
 
         // メッセージを送信
@@ -658,8 +671,10 @@
                     showBotMessage('もう少し具体的（5文字以上）に教えていただけますか？');
                 }, 300);
                 
-                // スクロール
-                chatBody.scrollTop = chatBody.scrollHeight;
+                // 最新メッセージまでスクロール
+                setTimeout(() => {
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 100);
                 return;
             }
 
@@ -694,7 +709,10 @@
                 </div>
             `;
             chatBody.appendChild(loadingMessageDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
+            // 最新メッセージまでスクロール
+            setTimeout(() => {
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 100);
 
             // APIにリクエストを送信
             try {
@@ -715,7 +733,7 @@
                 if (!response.ok) {
                     const errorData = await response.json();
                     showBotMessage('申し訳ございません。エラーが発生しました: ' + (errorData.error || '不明なエラー'));
-                    chatBody.scrollTop = chatBody.scrollHeight;
+                    // 最新メッセージまでスクロール（showBotMessage内で処理されるので不要だが念のため）
                     return;
                 }
 
@@ -731,8 +749,10 @@
                 showBotMessage('申し訳ございません。通信エラーが発生しました。しばらくしてから再度お試しください。');
             }
 
-            // スクロール
-            chatBody.scrollTop = chatBody.scrollHeight;
+            // 最新メッセージまでスクロール（showBotMessage内で処理されるので不要だが念のため）
+            setTimeout(() => {
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 100);
 
             // GA4イベント送信
             if (typeof gtag === 'function') {

@@ -1384,6 +1384,8 @@ body {
     flex-direction: column;
     z-index: 9999;
     overflow: hidden;
+    /* safe-area-insetを考慮（iPhone X以降のノッチ対応） */
+    max-height: calc(80vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
 }
 
 .chat-window.chat-open {
@@ -1435,12 +1437,15 @@ body {
 
 .chat-body {
     flex: 1;
+    flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
     overflow-x: hidden;
     background: #1a1a1a;
     min-height: 0;
     scroll-behavior: smooth;
+    /* スクロール時のパフォーマンス向上 */
+    -webkit-overflow-scrolling: touch;
 }
 
 .chat-body::-webkit-scrollbar {
@@ -1570,7 +1575,7 @@ body {
     border-radius: 8px;
     padding: 10px 12px;
     color: #fff;
-    font-size: 0.9rem;
+    font-size: 16px; /* iOSで自動ズームを防ぐため16px以上に設定 */
     font-family: inherit;
     resize: none;
     outline: none;
@@ -1637,6 +1642,14 @@ body {
 .chat-contact-btn:active {
     transform: translateY(0);
     box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+}
+
+/* PCレイアウトの高さ調整 */
+@media (min-width: 769px) {
+    .chat-window {
+        height: 85vh;
+        max-height: 800px;
+    }
 }
 
 /* レスポンシブ対応 */
