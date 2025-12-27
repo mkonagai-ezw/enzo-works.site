@@ -1378,11 +1378,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 10;
     flex-shrink: 0;
     width: 100%;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 }
 
 .chat-header h3 {
