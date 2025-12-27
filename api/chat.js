@@ -73,9 +73,21 @@ async function callGeminiAPI(userMessage, apiKey) {
 
 回答の最後には必ず「より具体的なご相談や戦略立案は、下記のお問い合わせフォームからお送りください」と伝え、/contact へ誘導してください。`;
 
-  // v1 APIエンドポイントを直接使用（models/は含めない）
-  // モデル名を gemini-flash-latest に変更（v1 APIで利用可能なモデル）
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-flash-latest:generateContent?key=${apiKey}`;
+  // まず利用可能なモデル一覧を取得（デバッグ用）
+  try {
+    const listModelsUrl = `https://generativelanguage.googleapis.com/v1/models?key=${apiKey}`;
+    const listResponse = await fetch(listModelsUrl);
+    if (listResponse.ok) {
+      const listData = await listResponse.json();
+      console.log('Available models:', JSON.stringify(listData.models?.map(m => m.name) || []));
+    }
+  } catch (e) {
+    console.error('Failed to list models:', e);
+  }
+
+  // v1 APIエンドポイントを直接使用
+  // まず gemini-pro を試す（v1 APIで一般的に利用可能なモデル）
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`;
   
   const requestBody = {
     contents: [{
