@@ -73,7 +73,8 @@ async function callGeminiAPI(userMessage, apiKey) {
 
 回答の最後には必ず「より具体的なご相談や戦略立案は、下記のお問い合わせフォームからお送りください」と伝え、/contact へ誘導してください。`;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // v1 APIエンドポイントを使用（v1betaから変更）
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
   
   const requestBody = {
     contents: [{
@@ -100,21 +101,45 @@ async function callGeminiAPI(userMessage, apiKey) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Gemini API Error:', response.status, errorText);
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch (e) {
+        errorData = { message: errorText };
+      }
+      console.error('Gemini API Error:', response.status, JSON.stringify(errorData));
+      
+      // モデルが見つからない場合のエラーメッセージを確認
+      if (errorData.error && errorData.error.message) {
+        console.error('Error details:', errorData.error.message);
+      }
+      
       return null;
     }
 
     const data = await response.json();
     
     if (!data.candidates || data.candidates.length === 0) {
-      console.error('Gemini API: No candidates in response');
+      console.error('Gemini API: No candidates in response', JSON.stringify(data));
       return null;
     }
 
-    const textContent = data.candidates[0].content.parts[0].text;
+    const candidate = data.candidates[0];
+    
+    // finishReasonをチェック
+    if (candidate.finishReason && candidate.finishReason !== 'STOP') {
+      console.warn('Gemini API: finishReason is', candidate.finishReason);
+    }
+
+    if (!candidate.content || !candidate.content.parts || candidate.content.parts.length === 0) {
+      console.error('Gemini API: Invalid response structure', JSON.stringify(data));
+      return null;
+    }
+
+    const textContent = candidate.content.parts[0].text;
     return textContent;
   } catch (error) {
-    console.error('Gemini API call failed:', error);
+    console.error('Gemini API call failed:', error.message || error);
     return null;
   }
 }
