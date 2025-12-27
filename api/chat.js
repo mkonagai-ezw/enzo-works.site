@@ -28,8 +28,8 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'APIキーが設定されていません' });
     }
 
-    // GoogleGenerativeAIインスタンスを作成
-    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    // GoogleGenerativeAIインスタンスを作成（apiVersion: "v1"を明示的に指定）
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY, { apiVersion: "v1" });
     
     // モデル名から "models/" を抜き、直接指定する
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
