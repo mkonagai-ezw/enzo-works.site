@@ -1,3 +1,5 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
 export default async function handler(req, res) {
   // CORSヘッダーを設定
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -73,73 +75,35 @@ async function callGeminiAPI(userMessage, apiKey) {
 
 回答の最後には必ず「より具体的なご相談や戦略立案は、下記のお問い合わせフォームからお送りください」と伝え、/contact へ誘導してください。`;
 
-  // v1 APIエンドポイントを使用（v1betaから変更）
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-  
-  const requestBody = {
-    contents: [{
-      parts: [{
-        text: `${systemPrompt}\n\nユーザーのメッセージ: ${userMessage}`
-      }]
-    }],
-    generationConfig: {
-      temperature: 0.7,
-      topK: 40,
-      topP: 0.95,
-      maxOutputTokens: 1024,
-    }
-  };
-
   try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    // GoogleGenerativeAIインスタンスを作成
+    const genAI = new GoogleGenerativeAI(apiKey);
+    
+    // モデルを取得（models/は含めない）
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-1.5-flash',
+      generationConfig: {
+        temperature: 0.7,
+        topK: 40,
+        topP: 0.95,
+        maxOutputTokens: 1024,
       },
-      body: JSON.stringify(requestBody),
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      let errorData;
-      try {
-        errorData = JSON.parse(errorText);
-      } catch (e) {
-        errorData = { message: errorText };
-      }
-      console.error('Gemini API Error:', response.status, JSON.stringify(errorData));
-      
-      // モデルが見つからない場合のエラーメッセージを確認
-      if (errorData.error && errorData.error.message) {
-        console.error('Error details:', errorData.error.message);
-      }
-      
-      return null;
-    }
+    // システムプロンプトとユーザーメッセージを結合
+    const prompt = `${systemPrompt}\n\nユーザーのメッセージ: ${userMessage}`;
 
-    const data = await response.json();
-    
-    if (!data.candidates || data.candidates.length === 0) {
-      console.error('Gemini API: No candidates in response', JSON.stringify(data));
-      return null;
-    }
+    // API呼び出し（直接テキストを渡す形式）
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    const text = response.text();
 
-    const candidate = data.candidates[0];
-    
-    // finishReasonをチェック
-    if (candidate.finishReason && candidate.finishReason !== 'STOP') {
-      console.warn('Gemini API: finishReason is', candidate.finishReason);
-    }
-
-    if (!candidate.content || !candidate.content.parts || candidate.content.parts.length === 0) {
-      console.error('Gemini API: Invalid response structure', JSON.stringify(data));
-      return null;
-    }
-
-    const textContent = candidate.content.parts[0].text;
-    return textContent;
+    return text;
   } catch (error) {
     console.error('Gemini API call failed:', error.message || error);
+    if (error.response) {
+      console.error('API Error Response:', error.response);
+    }
     return null;
   }
 }
