@@ -41,7 +41,7 @@
         <div class="hero-content">
             <h1 class="main-title">Think freely,<br>Build smart.</h1>
             <p class="sub-text">
-                テスト愛媛・西条を拠点に。<br>
+                愛媛県西条市を拠点に。<br>
                 自由な発想と確かな技術で、ビジネスを加速させる。
             </p>
         </div>
@@ -211,6 +211,9 @@
         </button>
     </div>
 
+    <!-- チャットオーバーレイ -->
+    <div id="chatOverlay" class="chat-overlay"></div>
+    
     <!-- チャット窓 -->
     <div id="chatWindow" class="chat-window">
         <div class="chat-header">
@@ -423,6 +426,7 @@
         // チャット関連の要素取得
         const chatToggleBtn = document.getElementById('chatToggleBtn');
         const chatWindow = document.getElementById('chatWindow');
+        const chatOverlay = document.getElementById('chatOverlay');
         const chatCloseBtn = document.getElementById('chatCloseBtn');
         const chatInput = document.getElementById('chatInput');
         const chatSendBtn = document.getElementById('chatSendBtn');
@@ -546,8 +550,10 @@
         // チャット窓を開く
         function openChat() {
             chatWindow.classList.add('chat-open');
+            chatOverlay.classList.add('show');
             chatToggleBtn.classList.add('chat-open');
             chatToggleBtn.style.display = 'none';
+            document.body.style.overflow = 'hidden'; // 背景のスクロールを無効化
             if (chatBubble) {
                 chatBubble.style.display = 'none';
                 chatBubble.style.visibility = 'hidden';
@@ -564,8 +570,10 @@
         // チャット窓を閉じる
         function closeChat() {
             chatWindow.classList.remove('chat-open');
+            chatOverlay.classList.remove('show');
             chatToggleBtn.classList.remove('chat-open');
             chatToggleBtn.style.display = 'flex';
+            document.body.style.overflow = ''; // 背景のスクロールを有効化
             if (chatBubble) {
                 chatBubble.style.display = 'block';
                 // 表示状態に応じてvisibilityとopacityを設定
@@ -807,6 +815,21 @@
         chatContactBtn.addEventListener('click', () => {
             contactModal.style.display = 'flex';
             closeChat();
+        });
+        
+        // オーバーレイクリックで閉じる
+        chatOverlay.addEventListener('click', closeChat);
+        
+        // Escキーで閉じる
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && chatWindow.classList.contains('chat-open')) {
+                closeChat();
+            }
+        });
+        
+        // チャットウィンドウ内のクリックは閉じないようにする
+        chatWindow.addEventListener('click', (e) => {
+            e.stopPropagation();
         });
 
         // 初期化

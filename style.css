@@ -1349,13 +1349,33 @@ body {
     animation: floatAnimation 4s ease-in-out infinite;
 }
 
+/* チャットオーバーレイ */
+.chat-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    display: none;
+    backdrop-filter: blur(4px);
+}
+
+.chat-overlay.show {
+    display: block;
+}
+
 /* チャット窓 */
 .chat-window {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 380px;
-    max-height: 600px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    height: 80vh;
+    max-height: 700px;
     background: #1a1a1a;
     border: 1px solid #333;
     border-radius: 16px;
@@ -1363,8 +1383,7 @@ body {
     display: none;
     flex-direction: column;
     z-index: 9999;
-    overflow: visible;
-    height: 600px;
+    overflow: hidden;
 }
 
 .chat-window.chat-open {
@@ -1397,19 +1416,21 @@ body {
     background: transparent;
     border: none;
     color: #aaa;
-    font-size: 24px;
+    font-size: 32px;
     cursor: pointer;
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.3s;
+    transition: color 0.3s, background 0.3s;
+    border-radius: 50%;
 }
 
 .chat-close-btn:hover {
     color: #fff;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .chat-body {
@@ -1642,9 +1663,11 @@ body {
 
     .chat-window {
         width: calc(100vw - 40px);
-        max-width: 380px;
-        bottom: 100px;
-        right: 20px;
-        max-height: calc(100vh - 120px);
+        max-width: 600px;
+        height: 90vh;
+        max-height: 700px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
