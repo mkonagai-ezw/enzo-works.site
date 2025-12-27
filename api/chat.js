@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default async function handler(req, res) {
   // CORSヘッダーを設定
@@ -28,23 +28,14 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'APIキーが設定されていません' });
     }
 
-    // Gemini APIを呼び出し
-    const aiResponse = await callGeminiAPI(message, GEMINI_API_KEY);
+    // GoogleGenerativeAIインスタンスを作成
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    
+    // モデル名から "models/" を抜き、直接指定する
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    if (!aiResponse) {
-      return res.status(500).json({ error: 'AIからの応答を取得できませんでした' });
-    }
-
-    return res.status(200).json({ response: aiResponse });
-  } catch (error) {
-    console.error('Error in chat API:', error);
-    return res.status(500).json({ error: 'サーバーエラーが発生しました' });
-  }
-}
-
-// Gemini API呼び出し関数
-async function callGeminiAPI(userMessage, apiKey) {
-  const systemPrompt = `あなたはEnzoWorksの公式コンシェルジュです。
+    // システムプロンプト（8つの価値と業務内容、フォーム誘導）
+    const systemPrompt = `あなたはEnzoWorksの公式コンシェルジュです。
 
 お客様の相談や悩みに対して、EnzoWorksの「8つの価値」の視点を交えて、以下の業務内容から最適な提案をしてください。
 
@@ -75,35 +66,17 @@ async function callGeminiAPI(userMessage, apiKey) {
 
 回答の最後には必ず「より具体的なご相談や戦略立案は、下記のお問い合わせフォームからお送りください」と伝え、/contact へ誘導してください。`;
 
-  try {
-    // GoogleGenerativeAIインスタンスを作成
-    const genAI = new GoogleGenerativeAI(apiKey);
-    
-    // モデルを取得（models/は含めない）
-    const model = genAI.getGenerativeModel({ 
-      model: 'gemini-1.5-flash',
-      generationConfig: {
-        temperature: 0.7,
-        topK: 40,
-        topP: 0.95,
-        maxOutputTokens: 1024,
-      },
-    });
-
     // システムプロンプトとユーザーメッセージを結合
-    const prompt = `${systemPrompt}\n\nユーザーのメッセージ: ${userMessage}`;
+    const prompt = `${systemPrompt}\n\nユーザーのメッセージ: ${message}`;
 
-    // API呼び出し（直接テキストを渡す形式）
+    // API呼び出し
     const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
 
-    return text;
+    return res.status(200).json({ response: text });
   } catch (error) {
-    console.error('Gemini API call failed:', error.message || error);
-    if (error.response) {
-      console.error('API Error Response:', error.response);
-    }
-    return null;
+    console.error('Error in chat API:', error);
+    return res.status(500).json({ error: 'サーバーエラーが発生しました' });
   }
 }
