@@ -555,6 +555,10 @@
             }
             stopBubbleAnimation();
             updateLimitInfo();
+            // チャットを開いた時に一番上までスクロール
+            setTimeout(() => {
+                chatBody.scrollTop = 0;
+            }, 100);
         }
 
         // チャット窓を閉じる
