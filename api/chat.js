@@ -71,7 +71,9 @@ async function callGeminiAPI(userMessage, apiKey) {
 8. 漠然としたご相談
    「何から手をつければいいかわからない」そんな段階からの壁打ちも大歓迎。一緒に課題を整理しましょう。
 
-回答の最後には必ず「より具体的なご相談や戦略立案は、下記のお問い合わせフォームからお送りください」と伝え、/contact へ誘導してください。`;
+回答の最後には必ず「より具体的なご相談や戦略立案は、下記のお問い合わせフォームからお送りください」と伝え、/contact へ誘導してください。
+
+重要な注意事項：簡潔かつ過不足なく回答し、1回の発言は長くても500文字程度に収めること。`;
 
   // v1 APIエンドポイントを直接使用
   // 利用可能なモデル: gemini-2.5-flash を使用（models/プレフィックスは含めない）
@@ -87,7 +89,7 @@ async function callGeminiAPI(userMessage, apiKey) {
       temperature: 0.7,
       topK: 40,
       topP: 0.95,
-      maxOutputTokens: 1024,
+      maxOutputTokens: 2000,
     }
   };
 
@@ -121,12 +123,28 @@ async function callGeminiAPI(userMessage, apiKey) {
 
     const candidate = data.candidates[0];
     
+    // finishReasonをチェック（途中で切れていないか確認）
+    if (candidate.finishReason) {
+      if (candidate.finishReason === 'MAX_TOKENS') {
+        console.warn('Gemini API: Response was cut off due to maxOutputTokens limit');
+      } else if (candidate.finishReason !== 'STOP') {
+        console.warn('Gemini API: finishReason is', candidate.finishReason);
+      }
+    }
+    
     if (!candidate.content || !candidate.content.parts || candidate.content.parts.length === 0) {
       console.error('Gemini API: Invalid response structure', JSON.stringify(data));
       return null;
     }
 
     const textContent = candidate.content.parts[0].text;
+    
+    // レスポンスが空でないか確認
+    if (!textContent || textContent.trim().length === 0) {
+      console.error('Gemini API: Empty response text');
+      return null;
+    }
+    
     return textContent;
   } catch (error) {
     console.error('Gemini API call failed:', error.message || error);
