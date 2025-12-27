@@ -603,12 +603,17 @@
 
         // ボットメッセージを表示するヘルパー関数
         function showBotMessage(text) {
+            // 改行を<br>タグに変換（連続する改行は空行として1つの<br>に）
+            const formattedText = text
+                .replace(/\n\n+/g, '\n\n') // 連続する改行を2つに統一
+                .replace(/\n/g, '<br>'); // 改行を<br>に変換
+            
             const botMessageDiv = document.createElement('div');
             botMessageDiv.className = 'chat-message bot-message';
             botMessageDiv.innerHTML = `
                 <img src="images/chatboticon.webp" alt="チャットボット" class="bot-avatar">
                 <div class="bot-message-content">
-                    <p>${text}</p>
+                    <p>${formattedText}</p>
                 </div>
             `;
             chatBody.appendChild(botMessageDiv);
