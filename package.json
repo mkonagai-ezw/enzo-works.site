@@ -1,0 +1,24 @@
+{
+  "name": "enzo-works-site",
+  "version": "1.0.0",
+  "description": "ENZO WORKS official website with chatbot functionality",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'"
+  },
+  "keywords": [
+    "website",
+    "chatbot",
+    "vercel"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.23.0"
+  }
+}
+

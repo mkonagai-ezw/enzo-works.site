@@ -41,7 +41,7 @@
         <div class="hero-content">
             <h1 class="main-title">Think freely,<br>Build smart.</h1>
             <p class="sub-text">
-                愛媛・西条を拠点に。<br>
+                テスト愛媛・西条を拠点に。<br>
                 自由な発想と確かな技術で、ビジネスを加速させる。
             </p>
         </div>
@@ -627,7 +627,7 @@
         }
 
         // メッセージを送信
-        function sendMessage() {
+        async function sendMessage() {
             const message = chatInput.value.trim();
             
             // 5文字未満チェック
@@ -671,10 +671,53 @@
             // 入力欄をクリア
             chatInput.value = '';
 
-            // ボットの返信（簡易版）
-            setTimeout(() => {
-                showBotMessage('メッセージありがとうございます。内容を確認し、後日ご返信いたします。');
-            }, 500);
+            // ローディング表示
+            const loadingMessageDiv = document.createElement('div');
+            loadingMessageDiv.className = 'chat-message bot-message';
+            loadingMessageDiv.id = 'loading-message';
+            loadingMessageDiv.innerHTML = `
+                <img src="images/chatboticon.webp" alt="チャットボット" class="bot-avatar">
+                <div class="bot-message-content">
+                    <p>考え中...</p>
+                </div>
+            `;
+            chatBody.appendChild(loadingMessageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // APIにリクエストを送信
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message }),
+                });
+
+                // ローディングメッセージを削除
+                const loadingMsg = document.getElementById('loading-message');
+                if (loadingMsg) {
+                    loadingMsg.remove();
+                }
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    showBotMessage('申し訳ございません。エラーが発生しました: ' + (errorData.error || '不明なエラー'));
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                    return;
+                }
+
+                const data = await response.json();
+                showBotMessage(data.response || '応答を取得できませんでした。');
+            } catch (error) {
+                // ローディングメッセージを削除
+                const loadingMsg = document.getElementById('loading-message');
+                if (loadingMsg) {
+                    loadingMsg.remove();
+                }
+                console.error('Chat API Error:', error);
+                showBotMessage('申し訳ございません。通信エラーが発生しました。しばらくしてから再度お試しください。');
+            }
 
             // スクロール
             chatBody.scrollTop = chatBody.scrollHeight;

@@ -1212,8 +1212,8 @@ body {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    z-index: 999;
-    display: none !important; /* 調整中のため非表示 */
+    z-index: 9999;
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
@@ -1360,9 +1360,9 @@ body {
     border: 1px solid #333;
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    display: none !important; /* 調整中のため非表示 */
+    display: none;
     flex-direction: column;
-    z-index: 1000;
+    z-index: 9999;
     overflow: visible;
     height: 600px;
 }
