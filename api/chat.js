@@ -1,5 +1,3 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
 export default async function handler(req, res) {
   // CORSヘッダーを設定
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,14 +26,23 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'APIキーが設定されていません' });
     }
 
-    // GoogleGenerativeAIインスタンスを作成（apiVersion: "v1"を明示的に指定）
-    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY, { apiVersion: "v1" });
-    
-    // モデル名から "models/" を抜き、直接指定する
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    // Gemini APIを呼び出し（v1エンドポイントを直接使用）
+    const aiResponse = await callGeminiAPI(message, GEMINI_API_KEY);
 
-    // システムプロンプト（8つの価値と業務内容、フォーム誘導）
-    const systemPrompt = `あなたはEnzoWorksの公式コンシェルジュです。
+    if (!aiResponse) {
+      return res.status(500).json({ error: 'AIからの応答を取得できませんでした' });
+    }
+
+    return res.status(200).json({ response: aiResponse });
+  } catch (error) {
+    console.error('Error in chat API:', error);
+    return res.status(500).json({ error: 'サーバーエラーが発生しました' });
+  }
+}
+
+// Gemini API呼び出し関数（v1エンドポイントを直接使用）
+async function callGeminiAPI(userMessage, apiKey) {
+  const systemPrompt = `あなたはEnzoWorksの公式コンシェルジュです。
 
 お客様の相談や悩みに対して、EnzoWorksの「8つの価値」の視点を交えて、以下の業務内容から最適な提案をしてください。
 
@@ -66,17 +73,62 @@ export default async function handler(req, res) {
 
 回答の最後には必ず「より具体的なご相談や戦略立案は、下記のお問い合わせフォームからお送りください」と伝え、/contact へ誘導してください。`;
 
-    // システムプロンプトとユーザーメッセージを結合
-    const prompt = `${systemPrompt}\n\nユーザーのメッセージ: ${message}`;
+  // v1 APIエンドポイントを直接使用（models/は含めない）
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  
+  const requestBody = {
+    contents: [{
+      parts: [{
+        text: `${systemPrompt}\n\nユーザーのメッセージ: ${userMessage}`
+      }]
+    }],
+    generationConfig: {
+      temperature: 0.7,
+      topK: 40,
+      topP: 0.95,
+      maxOutputTokens: 1024,
+    }
+  };
 
-    // API呼び出し
-    const result = await model.generateContent(prompt);
-    const response = result.response;
-    const text = response.text();
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
 
-    return res.status(200).json({ response: text });
+    if (!response.ok) {
+      const errorText = await response.text();
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch (e) {
+        errorData = { message: errorText };
+      }
+      console.error('Gemini API Error:', response.status, JSON.stringify(errorData));
+      return null;
+    }
+
+    const data = await response.json();
+    
+    if (!data.candidates || data.candidates.length === 0) {
+      console.error('Gemini API: No candidates in response', JSON.stringify(data));
+      return null;
+    }
+
+    const candidate = data.candidates[0];
+    
+    if (!candidate.content || !candidate.content.parts || candidate.content.parts.length === 0) {
+      console.error('Gemini API: Invalid response structure', JSON.stringify(data));
+      return null;
+    }
+
+    const textContent = candidate.content.parts[0].text;
+    return textContent;
   } catch (error) {
-    console.error('Error in chat API:', error);
-    return res.status(500).json({ error: 'サーバーエラーが発生しました' });
+    console.error('Gemini API call failed:', error.message || error);
+    return null;
   }
 }
