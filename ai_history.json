@@ -3967,7 +3967,10 @@
             "ai_model": "GPT-3.5",
             "start_price": 153.75999450683594,
             "predicted_price": 153.43,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": 153.1490020751953,
+            "direction_correct": true,
+            "error_rate": 0.183
         },
         {
             "date": "2026-02-11",
@@ -3976,7 +3979,10 @@
             "ai_model": "Gemini",
             "start_price": 153.75999450683594,
             "predicted_price": 155.125,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": 153.1490020751953,
+            "direction_correct": false,
+            "error_rate": 1.29
         },
         {
             "date": "2026-02-11",
@@ -3985,7 +3991,10 @@
             "ai_model": "GPT-3.5",
             "start_price": 57650.5390625,
             "predicted_price": 58200.0,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": 56566.48828125,
+            "direction_correct": false,
+            "error_rate": 2.888
         },
         {
             "date": "2026-02-11",
@@ -3994,7 +4003,10 @@
             "ai_model": "Gemini",
             "start_price": 57650.5390625,
             "predicted_price": 56385.5,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": 56566.48828125,
+            "direction_correct": true,
+            "error_rate": 0.32
         },
         {
             "date": "2026-02-11",
@@ -4003,7 +4015,10 @@
             "ai_model": "GPT-3.5",
             "start_price": 6941.81005859375,
             "predicted_price": 6980.0,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": 6881.31005859375,
+            "direction_correct": false,
+            "error_rate": 1.434
         },
         {
             "date": "2026-02-11",
@@ -4012,7 +4027,10 @@
             "ai_model": "Gemini",
             "start_price": 6941.81005859375,
             "predicted_price": 7002.45,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": 6881.31005859375,
+            "direction_correct": false,
+            "error_rate": 1.76
         },
         {
             "date": "2026-02-12",
@@ -4390,6 +4408,60 @@
             "ai_model": "Gemini",
             "start_price": 6843.22021484375,
             "predicted_price": 6956.18,
+            "status": "pending"
+        },
+        {
+            "date": "2026-02-19",
+            "target_date": "2026-02-26",
+            "asset_name": "USD/JPY",
+            "ai_model": "GPT-3.5",
+            "start_price": 154.83900451660156,
+            "predicted_price": 154.502,
+            "status": "pending"
+        },
+        {
+            "date": "2026-02-19",
+            "target_date": "2026-02-26",
+            "asset_name": "USD/JPY",
+            "ai_model": "Gemini",
+            "start_price": 154.83900451660156,
+            "predicted_price": 156.245,
+            "status": "pending"
+        },
+        {
+            "date": "2026-02-19",
+            "target_date": "2026-02-26",
+            "asset_name": "Nikkei 225",
+            "ai_model": "GPT-3.5",
+            "start_price": 56566.48828125,
+            "predicted_price": 56300.0,
+            "status": "pending"
+        },
+        {
+            "date": "2026-02-19",
+            "target_date": "2026-02-26",
+            "asset_name": "Nikkei 225",
+            "ai_model": "Gemini",
+            "start_price": 56566.48828125,
+            "predicted_price": 57320.8,
+            "status": "pending"
+        },
+        {
+            "date": "2026-02-19",
+            "target_date": "2026-02-26",
+            "asset_name": "S&P 500",
+            "ai_model": "GPT-3.5",
+            "start_price": 6881.31005859375,
+            "predicted_price": 6840.0,
+            "status": "pending"
+        },
+        {
+            "date": "2026-02-19",
+            "target_date": "2026-02-26",
+            "asset_name": "S&P 500",
+            "ai_model": "Gemini",
+            "start_price": 6881.31005859375,
+            "predicted_price": 6962.4,
             "status": "pending"
         }
     ]
