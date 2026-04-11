@@ -1,119 +1,119 @@
 {
     "metadata": {
-        "last_updated": "2026-04-10 02:42:03",
-        "target_date": "2026-04-17"
+        "last_updated": "2026-04-11 02:27:13",
+        "target_date": "2026-04-20"
     },
     "overall_stats": {
         "GPT-3.5": {
-            "win_rate": 42.8,
+            "win_rate": 43.0,
             "avg_error": NaN,
-            "count": 320
+            "count": 323
         },
         "Gemini": {
-            "win_rate": 56.3,
+            "win_rate": 56.7,
             "avg_error": NaN,
-            "count": 311
+            "count": 314
         }
     },
     "latest_forecast": {
         "GPT": {
-            "USD/JPY": 158.3,
-            "Nikkei 225": 56400.0,
+            "USD/JPY": 159.61,
+            "Nikkei 225": 57250.0,
             "S&P 500": 6850.0
         },
         "Gemini": {
-            "USD/JPY": 159.621,
-            "Nikkei 225": 57124.8,
-            "S&P 500": 6933.95
+            "USD/JPY": 160.81,
+            "Nikkei 225": 58515.75,
+            "S&P 500": 6932.45
         },
         "current_prices": {
-            "USD/JPY": NaN,
-            "Nikkei 225": 55895.3203125,
-            "S&P 500": 6824.66015625
+            "USD/JPY": 159.2449951171875,
+            "Nikkei 225": 56924.109375,
+            "S&P 500": 6816.89013671875
         }
     },
     "today_judgement": [
         {
-            "date": "2026-04-02",
-            "target_date": "2026-04-09",
+            "date": "2026-04-03",
+            "target_date": "2026-04-10",
             "asset_name": "USD/JPY",
             "ai_model": "GPT-3.5",
             "start_price": NaN,
-            "predicted_price": 158.2,
+            "predicted_price": 158.3,
             "status": "settled",
-            "actual_price": 158.64199829101562,
+            "actual_price": 159.2449951171875,
             "direction_correct": true,
-            "error_rate": 0.279
+            "error_rate": 0.593
         },
         {
-            "date": "2026-04-02",
-            "target_date": "2026-04-09",
+            "date": "2026-04-03",
+            "target_date": "2026-04-10",
             "asset_name": "USD/JPY",
             "ai_model": "Gemini",
             "start_price": NaN,
-            "predicted_price": 159.825,
+            "predicted_price": 159.925,
             "status": "settled",
-            "actual_price": 158.64199829101562,
+            "actual_price": 159.2449951171875,
             "direction_correct": true,
-            "error_rate": 0.746
+            "error_rate": 0.427
         },
         {
-            "date": "2026-04-02",
-            "target_date": "2026-04-09",
+            "date": "2026-04-03",
+            "target_date": "2026-04-10",
             "asset_name": "Nikkei 225",
             "ai_model": "GPT-3.5",
-            "start_price": 53739.6796875,
-            "predicted_price": 53200.0,
+            "start_price": 52463.26953125,
+            "predicted_price": 51000.0,
             "status": "settled",
-            "actual_price": 55895.3203125,
+            "actual_price": 56924.109375,
             "direction_correct": false,
-            "error_rate": 4.822
+            "error_rate": 10.407
         },
         {
-            "date": "2026-04-02",
-            "target_date": "2026-04-09",
+            "date": "2026-04-03",
+            "target_date": "2026-04-10",
             "asset_name": "Nikkei 225",
             "ai_model": "Gemini",
-            "start_price": 53739.6796875,
-            "predicted_price": 55480.2,
+            "start_price": 52463.26953125,
+            "predicted_price": 53612.4,
             "status": "settled",
-            "actual_price": 55895.3203125,
+            "actual_price": 56924.109375,
             "direction_correct": true,
-            "error_rate": 0.743
+            "error_rate": 5.818
         },
         {
-            "date": "2026-04-02",
-            "target_date": "2026-04-09",
+            "date": "2026-04-03",
+            "target_date": "2026-04-10",
             "asset_name": "S&P 500",
             "ai_model": "GPT-3.5",
-            "start_price": 6575.31982421875,
-            "predicted_price": 6630.0,
+            "start_price": 6582.68994140625,
+            "predicted_price": 6640.0,
             "status": "settled",
-            "actual_price": 6824.66015625,
+            "actual_price": 6816.89013671875,
             "direction_correct": true,
-            "error_rate": 2.852
+            "error_rate": 2.595
         },
         {
-            "date": "2026-04-02",
-            "target_date": "2026-04-09",
+            "date": "2026-04-03",
+            "target_date": "2026-04-10",
             "asset_name": "S&P 500",
             "ai_model": "Gemini",
-            "start_price": 6575.31982421875,
-            "predicted_price": 6722.65,
+            "start_price": 6582.68994140625,
+            "predicted_price": 6710.15,
             "status": "settled",
-            "actual_price": 6824.66015625,
+            "actual_price": 6816.89013671875,
             "direction_correct": true,
-            "error_rate": 1.495
+            "error_rate": 1.566
         }
     ],
     "market_status": {
         "USD/JPY": {
-            "is_open": true,
-            "message": "市場は開いています"
+            "is_open": false,
+            "message": "週末のため市場は閉まっています"
         },
         "Nikkei 225": {
             "is_open": false,
-            "message": "市場は閉まっています（取引時間: 前場9:00-11:30、後場12:30-15:00 JST）"
+            "message": "週末のため市場は閉まっています"
         },
         "S&P 500": {
             "is_open": false,
