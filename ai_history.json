@@ -11971,7 +11971,10 @@
             "ai_model": "GPT-3.5",
             "start_price": NaN,
             "predicted_price": 159.3,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": 160.38400268554688,
+            "direction_correct": true,
+            "error_rate": 0.676
         },
         {
             "date": "2026-06-03",
@@ -11980,7 +11983,10 @@
             "ai_model": "Gemini",
             "start_price": NaN,
             "predicted_price": 160.45,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": 160.38400268554688,
+            "direction_correct": true,
+            "error_rate": 0.041
         },
         {
             "date": "2026-06-03",
@@ -11989,7 +11995,10 @@
             "ai_model": "GPT-3.5",
             "start_price": 66734.2421875,
             "predicted_price": 67700.0,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": NaN,
+            "direction_correct": false,
+            "error_rate": NaN
         },
         {
             "date": "2026-06-03",
@@ -11998,7 +12007,10 @@
             "ai_model": "Gemini",
             "start_price": 66734.2421875,
             "predicted_price": 67850.0,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": NaN,
+            "direction_correct": false,
+            "error_rate": NaN
         },
         {
             "date": "2026-06-03",
@@ -12007,7 +12019,10 @@
             "ai_model": "GPT-3.5",
             "start_price": 7609.77978515625,
             "predicted_price": 7630.0,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": NaN,
+            "direction_correct": false,
+            "error_rate": NaN
         },
         {
             "date": "2026-06-03",
@@ -12016,7 +12031,10 @@
             "ai_model": "Gemini",
             "start_price": 7609.77978515625,
             "predicted_price": 7715.5,
-            "status": "pending"
+            "status": "settled",
+            "actual_price": NaN,
+            "direction_correct": false,
+            "error_rate": NaN
         },
         {
             "date": "2026-06-04",
@@ -12394,6 +12412,60 @@
             "ai_model": "Gemini",
             "start_price": 7386.64990234375,
             "predicted_price": 7315.5,
+            "status": "pending"
+        },
+        {
+            "date": "2026-06-11",
+            "target_date": "2026-06-18",
+            "asset_name": "USD/JPY",
+            "ai_model": "GPT-3.5",
+            "start_price": NaN,
+            "predicted_price": 160.0,
+            "status": "pending"
+        },
+        {
+            "date": "2026-06-11",
+            "target_date": "2026-06-18",
+            "asset_name": "USD/JPY",
+            "ai_model": "Gemini",
+            "start_price": NaN,
+            "predicted_price": 161.15,
+            "status": "pending"
+        },
+        {
+            "date": "2026-06-11",
+            "target_date": "2026-06-18",
+            "asset_name": "Nikkei 225",
+            "ai_model": "GPT-3.5",
+            "start_price": NaN,
+            "predicted_price": 66000.0,
+            "status": "pending"
+        },
+        {
+            "date": "2026-06-11",
+            "target_date": "2026-06-18",
+            "asset_name": "Nikkei 225",
+            "ai_model": "Gemini",
+            "start_price": NaN,
+            "predicted_price": 66250.0,
+            "status": "pending"
+        },
+        {
+            "date": "2026-06-11",
+            "target_date": "2026-06-18",
+            "asset_name": "S&P 500",
+            "ai_model": "GPT-3.5",
+            "start_price": NaN,
+            "predicted_price": 7480.0,
+            "status": "pending"
+        },
+        {
+            "date": "2026-06-11",
+            "target_date": "2026-06-18",
+            "asset_name": "S&P 500",
+            "ai_model": "Gemini",
+            "start_price": NaN,
+            "predicted_price": 7465.0,
             "status": "pending"
         }
     ]
