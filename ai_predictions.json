@@ -1,6 +1,6 @@
 {
     "metadata": {
-        "last_updated": "2026-07-05 03:32:50",
+        "last_updated": "2026-07-06 03:40:18",
         "target_date": "2026-07-13"
     },
     "overall_stats": {
@@ -17,17 +17,17 @@
     },
     "latest_forecast": {
         "GPT": {
-            "USD/JPY": 161.0,
-            "Nikkei 225": 70500.0,
-            "S&P 500": 7450.0
+            "USD/JPY": 161.13,
+            "Nikkei 225": 71200.0,
+            "S&P 500": 7510.0
         },
         "Gemini": {
-            "USD/JPY": 162.58,
-            "Nikkei 225": 71250.0,
-            "S&P 500": 7565.5
+            "USD/JPY": 162.25,
+            "Nikkei 225": 71150.0,
+            "S&P 500": 7545.5
         },
         "current_prices": {
-            "USD/JPY": 161.33700561523438,
+            "USD/JPY": 161.44900512695312,
             "Nikkei 225": 69744.0703125,
             "S&P 500": 7483.240234375
         }
@@ -35,12 +35,12 @@
     "today_judgement": [],
     "market_status": {
         "USD/JPY": {
-            "is_open": false,
-            "message": "週末のため市場は閉まっています"
+            "is_open": true,
+            "message": "市場は開いています"
         },
         "Nikkei 225": {
-            "is_open": false,
-            "message": "週末のため市場は閉まっています"
+            "is_open": true,
+            "message": "市場は開いています"
         },
         "S&P 500": {
             "is_open": false,
