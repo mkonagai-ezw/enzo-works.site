@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>採用情報｜ひなた珈琲</title>
+<meta name="description" content="ひなた珈琲の採用情報。バリスタ・ホールスタッフ、フード・お菓子担当スタッフを募集しています。未経験歓迎、愛媛県西条市大町での勤務です。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Kaisei+Decol:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: { DEFAULT: '#3A2F23', 50: '#F7F4EF', 100: '#ECE5D8', 200: '#D8CBB4', 300: '#B8A588', 400: '#8C7A5E', 500: '#6B5842', 600: '#4F4130', 700: '#3A2F23', 800: '#2A2118', 900: '#1E1811', 950: '#14100B' },
+          cream: { DEFAULT: '#FBF4E7', 50: '#FFFDF9', 100: '#FBF4E7', 200: '#F3E6CC', 300: '#E9D3A8', 400: '#DCBB7C', 500: '#CBA45A', 600: '#A9813C', 900: '#4A3A1E' },
+          clay: { DEFAULT: '#C96A44', 50: '#FDF3EF', 100: '#FAE3D9', 200: '#F3C4AE', 300: '#E9A17F', 400: '#DD7F58', 500: '#C96A44', 600: '#AD5535', 700: '#8A4228', 900: '#5A2A1A' },
+          mustard: { DEFAULT: '#C68F26', 50: '#FDF8E9', 100: '#FAEDC2', 200: '#F3DA8A', 300: '#E9C158', 400: '#DCA83A', 500: '#C68F26', 600: '#A3721C', 700: '#7D5714', 900: '#4F3610' },
+          sage: { DEFAULT: '#71914E', 50: '#F3F6EE', 100: '#E3EAD5', 200: '#C6D5AC', 300: '#A6BE85', 400: '#8AA968', 500: '#71914E', 600: '#56733A', 700: '#43592D', 900: '#2B3A1D' },
+        },
+        fontFamily: {
+          sans: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+          heading: ['"Yomogi"', '"Zen Kaku Gothic New"', 'sans-serif'],
+          script: ['"Kaisei Decol"', '"Yomogi"', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-cream text-ink-700 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-cream/95 backdrop-blur shadow-sm border-b border-ink-900/10">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-11 h-11 rounded-full bg-clay text-cream-50 font-heading font-bold text-xl border-2 border-dashed border-clay-300">ひ</span>
+        <span class="font-heading font-bold text-xl sm:text-2xl tracking-wide text-ink-900">ひなた珈琲</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7 font-heading text-base font-medium text-ink-700">
+        <a data-nav-link="index.html" href="index.html#story" class="hover:text-clay-600 transition-colors">お店について</a>
+        <a data-nav-link="index.html" href="index.html#menu" class="hover:text-clay-600 transition-colors">メニュー</a>
+        <a data-nav-link="index.html" href="index.html#gallery" class="hover:text-clay-600 transition-colors">ギャラリー</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-clay-600 transition-colors">会社案内</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-clay-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-clay-600 text-cream-50 px-5 py-2.5 rounded-full transition-colors">お問い合わせ</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-ink-900/5 text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-cream-50 shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-medium text-ink-700 text-lg">
+      <a href="index.html#story" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">お店について</a>
+      <a href="index.html#menu" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">メニュー</a>
+      <a href="index.html#gallery" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">ギャラリー</a>
+      <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">会社案内</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-ink-900 text-cream-50 text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HEADER ================= -->
+<section class="relative grain-bg pt-32 sm:pt-40 pb-20">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="sticker-tag" style="transform: rotate(2deg);">RECRUIT</p>
+    <h1 class="font-heading font-bold text-ink-900 text-4xl sm:text-5xl mt-6">採用情報</h1>
+    <p class="text-ink-600 mt-4 max-w-xl leading-relaxed">西条市大町の小さなカフェで、コーヒーと焼き菓子のある暮らしを一緒につくりませんか。</p>
+    <div class="flex items-center gap-2 text-sm text-ink-500 mt-8">
+      <a href="index.html" class="hover:text-clay-600">トップ</a>
+      <span>/</span>
+      <span class="text-ink-800">採用情報</span>
+    </div>
+  </div>
+</section>
+<div class="scallop-divider text-cream" aria-hidden="true"></div>
+
+<!-- ================= なぜひなた珈琲か ================= -->
+<section class="py-24 sm:py-36 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-x-10 gap-y-12 items-center">
+      <div class="lg:col-span-6 reveal order-2 lg:order-1">
+        <p class="eyebrow font-heading text-clay-600 font-bold text-sm tracking-widest">WHY HINATA COFFEE</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3 leading-snug">
+          経験不問。<br />一杯ずつ、丁寧に学べます。
+        </h2>
+        <p class="text-ink-600 leading-loose mt-6 max-w-xl">
+          ひなた珈琲では、コーヒーの経験がない方も歓迎しています。ハンドドリップの淹れ方から、焙煎の基礎、焼き菓子づくりまで、店主が一つひとつ丁寧にお教えします。
+        </p>
+        <p class="text-ink-600 leading-loose mt-4 max-w-xl">
+          小さなお店だからこそ、お客さまの顔が見える距離で働けます。「今日のコーヒー美味しかった」の一言が、なによりのやりがいです。
+        </p>
+
+        <div class="flex flex-wrap gap-3 mt-8">
+          <span class="sticker-tag" style="transform: rotate(-2deg);">未経験歓迎</span>
+          <span class="sticker-tag" style="transform: rotate(2deg);">シフト相談OK</span>
+          <span class="sticker-tag" style="transform: rotate(-1.5deg);">まかない付き</span>
+          <span class="sticker-tag" style="transform: rotate(1.5deg);">アットホームな職場</span>
+        </div>
+      </div>
+      <div class="lg:col-span-6 order-1 lg:order-2 reveal reveal-delay-1 flex justify-center">
+        <figure class="polaroid w-full max-w-sm" style="--rot: 2.5deg;">
+          <span class="tape"></span>
+          <div class="aspect-[4/3] overflow-hidden bg-cream-200">
+            <img src="https://images.unsplash.com/photo-1763272594094-946e5be3ccbe?auto=format&fit=crop&w=900&q=80" alt="カウンターで笑顔のスタッフふたり" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <figcaption class="font-script">開店前のミーティング</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 先輩の声（ピン留めノート） ================= -->
+<section class="py-24 sm:py-36 bg-cream-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-clay-600 font-bold text-sm tracking-widest inline-flex items-center">VOICE</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">スタッフの声</h2>
+    </div>
+
+    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div class="reveal card-lift bg-cream-50 rounded-2xl p-7 shadow-md border border-ink-900/10" style="transform: rotate(-1.5deg);">
+        <span class="tape" style="left: 50%;"></span>
+        <div class="flex items-center gap-4 mb-5">
+          <img src="https://images.unsplash.com/photo-1763272594094-946e5be3ccbe?auto=format&fit=crop&w=200&q=80" alt="バリスタスタッフ" class="w-14 h-14 rounded-full object-cover border-2 border-cream-200" loading="lazy" />
+          <div>
+            <p class="font-heading font-bold text-ink-900">越智 まどか</p>
+            <p class="text-xs text-ink-500">バリスタスタッフ／3年目</p>
+          </div>
+        </div>
+        <p class="font-script text-lg text-clay-700 leading-relaxed">
+          “ 最初はコーヒーの知識ゼロでしたが、今ではお客さまに豆のお話ができるまでに。毎日ちょっとずつ、好きなことが増えています。”
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-cream-50 rounded-2xl p-7 shadow-md border border-ink-900/10" style="transform: rotate(1deg);">
+        <span class="tape tape-sage" style="left: 50%;"></span>
+        <div class="flex items-center gap-4 mb-5">
+          <img src="https://images.unsplash.com/photo-1758575603874-102a10a06dcb?auto=format&fit=crop&w=200&q=80" alt="ホールスタッフ" class="w-14 h-14 rounded-full object-cover border-2 border-cream-200" loading="lazy" />
+          <div>
+            <p class="font-heading font-bold text-ink-900">近藤 大輝</p>
+            <p class="text-xs text-ink-500">ホールスタッフ／1年目</p>
+          </div>
+        </div>
+        <p class="font-script text-lg text-clay-700 leading-relaxed">
+          “ 大学生でシフトも柔軟に組んでもらえて助かっています。常連さんに名前を覚えてもらえた日は、ちょっと嬉しいです。”
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-cream-50 rounded-2xl p-7 shadow-md border border-ink-900/10" style="transform: rotate(-1deg);">
+        <span class="tape" style="left: 50%;"></span>
+        <div class="flex items-center gap-4 mb-5">
+          <img src="https://images.unsplash.com/photo-1496811425508-6d7ebb7ff32c?auto=format&fit=crop&w=200&q=80" alt="フード・お菓子担当スタッフ" class="w-14 h-14 rounded-full object-cover border-2 border-cream-200" loading="lazy" />
+          <div>
+            <p class="font-heading font-bold text-ink-900">重松 ゆかり</p>
+            <p class="text-xs text-ink-500">お菓子担当スタッフ／2年目</p>
+          </div>
+        </div>
+        <p class="font-script text-lg text-clay-700 leading-relaxed">
+          “ 地元の食材を使ったお菓子づくりが楽しいです。季節ごとに味を変える工夫も、店主と相談しながら決めています。”
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 募集要項（貼り紙風） ================= -->
+<section id="jobs" class="py-24 sm:py-36 bg-cream">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-clay-600 font-bold text-sm tracking-widest inline-flex items-center">JOB OPENINGS</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">募集要項</h2>
+      <p class="text-ink-600 mt-4 leading-relaxed">現在、以下のスタッフを募集しています。詳細はお問い合わせフォームよりお気軽にご連絡ください。</p>
+    </div>
+
+    <div class="mt-16 space-y-12">
+      <!-- 職種1 -->
+      <div class="reveal relative bg-cream-50 rounded-2xl shadow-lg border-2 border-dashed border-clay-300 px-6 sm:px-10 pt-8 pb-6" style="transform: rotate(-0.8deg);">
+        <span class="absolute -top-4 left-8 bg-clay-500 text-cream-50 text-xs font-heading font-bold px-4 py-1.5 rounded-full shadow" style="transform: rotate(-4deg);">スタッフ募集</span>
+        <h3 class="font-heading font-bold text-ink-900 text-xl sm:text-2xl">バリスタ・ホールスタッフ</h3>
+        <p class="text-xs text-ink-500 mt-1">パート・アルバイト可</p>
+
+        <table class="w-full text-sm mt-6">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-36 font-heading font-bold text-ink-900 py-2 sm:py-3 align-top">給与</th>
+              <td class="pb-2 sm:py-3 text-ink-700">時給1,050円〜（経験・能力を考慮）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-36 font-heading font-bold text-ink-900 py-2 sm:py-3 align-top">勤務地</th>
+              <td class="pb-2 sm:py-3 text-ink-700">ひなた珈琲（愛媛県西条市大町2丁目5-18）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-36 font-heading font-bold text-ink-900 py-2 sm:py-3 align-top">勤務時間</th>
+              <td class="pb-2 sm:py-3 text-ink-700">8:00〜18:00の間でシフト制、週2日〜応相談</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-36 font-heading font-bold text-ink-900 py-2 sm:py-3 align-top">応募資格</th>
+              <td class="pb-2 sm:py-3 text-ink-700">未経験者歓迎。コーヒーが好きな方、接客が好きな方大歓迎。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種2 -->
+      <div class="reveal reveal-delay-1 relative bg-cream-50 rounded-2xl shadow-lg border-2 border-dashed border-sage-400 px-6 sm:px-10 pt-8 pb-6" style="transform: rotate(0.8deg);">
+        <span class="absolute -top-4 left-8 bg-sage-500 text-cream-50 text-xs font-heading font-bold px-4 py-1.5 rounded-full shadow" style="transform: rotate(4deg);">スタッフ募集</span>
+        <h3 class="font-heading font-bold text-ink-900 text-xl sm:text-2xl">フード・お菓子担当スタッフ</h3>
+        <p class="text-xs text-ink-500 mt-1">パート・アルバイト可</p>
+
+        <table class="w-full text-sm mt-6">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-36 font-heading font-bold text-ink-900 py-2 sm:py-3 align-top">給与</th>
+              <td class="pb-2 sm:py-3 text-ink-700">時給1,000円〜（経験・能力を考慮）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-36 font-heading font-bold text-ink-900 py-2 sm:py-3 align-top">勤務地</th>
+              <td class="pb-2 sm:py-3 text-ink-700">ひなた珈琲（愛媛県西条市大町2丁目5-18）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-36 font-heading font-bold text-ink-900 py-2 sm:py-3 align-top">勤務時間</th>
+              <td class="pb-2 sm:py-3 text-ink-700">9:00〜15:00中心、週2〜3日応相談</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-36 font-heading font-bold text-ink-900 py-2 sm:py-3 align-top">応募資格</th>
+              <td class="pb-2 sm:py-3 text-ink-700">お菓子作り・調理に興味のある方。未経験歓迎、経験者優遇。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2 mt-16 bg-mustard-100 border-2 border-dashed border-mustard-400 rounded-2xl px-8 py-12 sm:px-14 sm:py-14 text-center" style="transform: rotate(-0.4deg);">
+      <h3 class="font-heading font-bold text-ink-900 text-2xl sm:text-3xl">まずはお気軽にご応募・お問い合わせください</h3>
+      <p class="text-ink-600 mt-4 leading-relaxed max-w-xl mx-auto">
+        履歴書は不要です。まずはお問い合わせフォームより、ご興味のある職種をお知らせください。店主より折り返しご連絡いたします。
+      </p>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 bg-clay hover:bg-clay-600 transition-colors text-cream-50 font-heading font-bold px-8 py-4 rounded-full mt-8">
+        募集について問い合わせる
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<div class="scallop-divider text-ink-900 rotate-180" aria-hidden="true"></div>
+<footer class="bg-ink-900 text-cream-100/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-clay text-cream-50 font-heading font-bold">ひ</span>
+          <span class="font-heading font-bold text-cream-50 text-lg">ひなた珈琲</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-cream-100/60">
+          〒793-0030 愛媛県西条市大町2丁目5-18<br />
+          TEL 0897-56-7724 ／ 営業時間 8:00〜18:00（水曜定休）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream-50 mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#story" class="hover:text-clay-400 transition-colors">お店について</a></li>
+          <li><a href="index.html#menu" class="hover:text-clay-400 transition-colors">メニュー</a></li>
+          <li><a href="index.html#gallery" class="hover:text-clay-400 transition-colors">ギャラリー</a></li>
+          <li><a href="company.html" class="hover:text-clay-400 transition-colors">会社案内</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream-50 mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-clay-400 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-clay-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-clay-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-cream-100/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-cream-100/50">
+      <p>&copy; <span data-year></span> Hinata Coffee. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された架空の個人経営カフェのコーポレートサイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

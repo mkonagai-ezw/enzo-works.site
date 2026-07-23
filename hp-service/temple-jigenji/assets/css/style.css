@@ -1,0 +1,201 @@
+/* 石鎚山 慈眼寺 — shared styles beyond Tailwind utilities (静謐・余白・エディトリアル和モダン) */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+
+.font-heading {
+  font-family: "Zen Old Mincho", "Noto Serif JP", serif;
+}
+
+section[id] {
+  scroll-margin-top: 88px;
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+#site-header {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F5EFE1;
+}
+::-webkit-scrollbar-thumb {
+  background: #A94A2E;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #211C17;
+}
+
+#mobile-nav {
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+#mobile-nav.open {
+  max-height: 640px;
+  opacity: 1;
+}
+
+.spinner {
+  border: 2px solid rgba(33, 28, 23, 0.25);
+  border-top-color: #211C17;
+  border-radius: 9999px;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ================================================================
+   縦書きタイポグラフィ — ヒーローの装飾軸
+   ================================================================ */
+.vertical-jp {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.28em;
+}
+
+/* ================================================================
+   行事タイムライン — 縦の線でつながるリスト
+   ================================================================ */
+.timeline {
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(33,28,23,0.05), rgba(33,28,23,0.28) 10%, rgba(33,28,23,0.28) 90%, rgba(33,28,23,0.05));
+}
+.timeline-item {
+  position: relative;
+  padding-left: 2.75rem;
+}
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 0.55rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 9999px;
+  background: #F5EFE1;
+  border: 1.5px solid #A94A2E;
+}
+
+/* ================================================================
+   横スクロールストリップ — 御朱印・授与品
+   ================================================================ */
+.scroll-strip {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #A94A2E33 transparent;
+}
+.scroll-strip::-webkit-scrollbar {
+  height: 8px;
+}
+.scroll-strip::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scroll-strip::-webkit-scrollbar-thumb {
+  background: rgba(169, 74, 46, 0.35);
+  border-radius: 9999px;
+}
+.strip-card {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* ================================================================
+   円相（ensō）— セクション間のミニマルな仕切り
+   ================================================================ */
+.ensō, .enso-divider {
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(169, 74, 46, 0.55);
+  border-top-color: transparent;
+  transform: rotate(-35deg);
+}
+
+/* Hairline single-rule frame around imagery (thinner / quieter than a card shadow) */
+.ink-frame {
+  position: relative;
+}
+.ink-frame::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(245, 239, 225, 0.75);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Thin underline rule used beneath section eyebrows */
+.rule-short {
+  display: inline-block;
+  width: 26px;
+  height: 1px;
+  background-color: #A94A2E;
+  vertical-align: middle;
+}
+
+/* Subtle grain / paper-texture overlay for large washi surfaces */
+.washi-texture {
+  position: relative;
+}
+.washi-texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(rgba(33,28,23,0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Simple fade/scale hover for strip cards & links */
+.soft-lift {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.soft-lift:hover {
+  transform: translateY(-4px);
+}

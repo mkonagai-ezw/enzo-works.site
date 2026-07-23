@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>寺院について｜石鎚山 慈眼寺</title>
+<meta name="description" content="石鎚山 慈眼寺の住職あいさつ、寺院概要、沿革をご紹介します。伝 大同二年(807年)開創と伝わる、愛媛県西条市小松町・石鎚山を望む山あいの祈りの場です。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          sumi: {
+            DEFAULT: '#211C17',
+            50: '#F5F4F1',
+            100: '#E7E4DD',
+            200: '#CFC9BC',
+            300: '#ADA495',
+            400: '#85796A',
+            500: '#635749',
+            600: '#493F34',
+            700: '#362E26',
+            800: '#241F1A',
+            900: '#17130F',
+          },
+          washi: {
+            DEFAULT: '#F5EFE1',
+            50: '#FDFBF7',
+            100: '#F9F5EC',
+            200: '#F1EADA',
+            300: '#E6DAC0',
+            400: '#D8C8A2',
+            500: '#C7B27F',
+            600: '#AB9560',
+            700: '#86753F',
+            800: '#5F5329',
+            900: '#3B3419',
+          },
+          shu: {
+            DEFAULT: '#A94A2E',
+            50: '#FBF0EC',
+            100: '#F5DCD2',
+            200: '#E8B6A2',
+            300: '#D88F6F',
+            400: '#C36847',
+            500: '#A94A2E',
+            600: '#8A3A22',
+            700: '#6C2C19',
+            800: '#4E2012',
+            900: '#33140B',
+          },
+        },
+        fontFamily: {
+          sans: ['"Zen Kaku Gothic New"', 'sans-serif'],
+          heading: ['"Zen Old Mincho"', '"Noto Serif JP"', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-washi text-sumi-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-washi-50/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <svg class="w-9 h-9 shrink-0" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18.5" stroke="currentColor" class="text-sumi-900" stroke-width="1" />
+          <path d="M9 26 L20 11 L31 26" stroke="currentColor" class="text-shu-600" stroke-width="1.3" fill="none" stroke-linejoin="round" />
+          <line x1="9" y1="26" x2="31" y2="26" stroke="currentColor" class="text-sumi-900" stroke-width="1" />
+        </svg>
+        <span class="font-heading font-medium text-base sm:text-lg tracking-wide text-sumi-900 leading-tight">
+          石鎚山 慈眼寺
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7 font-heading text-sm text-sumi-700">
+        <a data-nav-link="index.html" href="index.html#about" class="hover:text-shu-600 transition-colors">ご案内</a>
+        <a data-nav-link="index.html" href="index.html#events" class="hover:text-shu-600 transition-colors">四季の行事</a>
+        <a data-nav-link="index.html" href="index.html#juyohin" class="hover:text-shu-600 transition-colors">御朱印・授与品</a>
+        <a data-nav-link="index.html" href="index.html#taiken" class="hover:text-shu-600 transition-colors">坐禅・写経体験</a>
+        <a data-nav-link="index.html" href="index.html#access" class="hover:text-shu-600 transition-colors">アクセス</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-shu-600 transition-colors">寺院について</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-shu-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 border border-sumi-900 hover:bg-sumi-900 hover:text-washi-50 text-sumi-900 px-5 py-2.5 rounded-sm transition-colors">
+          お問い合わせ
+        </a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-sumi-900/5 text-sumi-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-washi-50 shadow-lg mx-4 rounded-sm border border-sumi-900/10">
+    <nav class="flex flex-col p-3 font-heading text-sumi-700">
+      <a href="index.html#about" class="px-4 py-3 rounded-sm hover:bg-sumi-900/5 hover:text-shu-600">ご案内</a>
+      <a href="index.html#events" class="px-4 py-3 rounded-sm hover:bg-sumi-900/5 hover:text-shu-600">四季の行事</a>
+      <a href="index.html#juyohin" class="px-4 py-3 rounded-sm hover:bg-sumi-900/5 hover:text-shu-600">御朱印・授与品</a>
+      <a href="index.html#taiken" class="px-4 py-3 rounded-sm hover:bg-sumi-900/5 hover:text-shu-600">坐禅・写経体験</a>
+      <a href="index.html#access" class="px-4 py-3 rounded-sm hover:bg-sumi-900/5 hover:text-shu-600">アクセス</a>
+      <a href="company.html" class="px-4 py-3 rounded-sm hover:bg-sumi-900/5 hover:text-shu-600">寺院について</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-sm hover:bg-sumi-900/5 hover:text-shu-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-sm bg-sumi-900 text-washi-50 text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-36 pb-16 sm:pt-44 sm:pb-20 bg-washi-100 washi-texture overflow-hidden">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center gap-2 text-xs text-sumi-500 reveal">
+      <a href="index.html" class="hover:text-shu-600">トップ</a>
+      <span>/</span>
+      <span class="text-sumi-800">寺院について</span>
+    </div>
+    <p class="reveal reveal-delay-1 font-heading text-shu-600 text-xs sm:text-sm tracking-[0.25em] mt-6"><span class="rule-short mr-3"></span>ABOUT THE TEMPLE</p>
+    <h1 class="reveal reveal-delay-2 font-heading font-medium text-sumi-900 text-4xl sm:text-5xl mt-5">寺院について</h1>
+    <p class="reveal reveal-delay-3 text-sumi-700 mt-5 max-w-xl leading-loose">伝 大同二年(807年)の開創伝承から今日まで。住職の想いと、寺院の歩みをご紹介します。</p>
+  </div>
+</section>
+
+<!-- ================= 住職あいさつ ================= -->
+<section class="py-24 sm:py-32 bg-washi">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="reveal font-heading text-shu-600 text-xs sm:text-sm tracking-[0.25em] inline-flex items-center"><span class="rule-short mr-3"></span>住職あいさつ</p>
+
+    <div class="grid lg:grid-cols-12 gap-12 mt-10 items-start">
+      <div class="lg:col-span-5 reveal reveal-delay-1">
+        <div class="ink-frame aspect-[4/5] overflow-hidden rounded-sm shadow-lg">
+          <img
+            src="https://images.unsplash.com/photo-1591597381201-cb6c8788310b?auto=format&fit=crop&w=1200&q=80"
+            alt="苔むした石灯籠が並ぶ境内の参道"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <p class="mt-6 font-heading text-sumi-900 text-lg">石鎚 賢澄</p>
+        <p class="text-sumi-500 text-sm mt-1">石鎚山 慈眼寺 住職</p>
+      </div>
+
+      <div class="lg:col-span-7 reveal reveal-delay-2">
+        <h2 class="font-heading font-medium text-2xl sm:text-3xl text-sumi-900 leading-snug">
+          静けさは、探すものではなく、<br />立ち止まれば、そこにある。
+        </h2>
+        <div class="mt-7 space-y-5 text-sumi-700 leading-loose">
+          <p>
+            当山のウェブサイトをご覧いただき、ありがとうございます。住職の石鎚賢澄と申します。
+          </p>
+          <p>
+            慈眼寺は、特定の本山や巡礼路に属さない、独立した小さな祈りの場です。伝えられるところによれば、大同二年(807年)、諸国を行脚していた空海（弘法大師）がこの山あいで暫くの間、草庵を結んだのが始まりとされています。史実としての確証はございませんが、この土地に生きた人々が大切に語り継いできた物語として、私もまた受け継いでいます。
+          </p>
+          <p>
+            住職を拝命して以来、私が心がけているのはただ一つ、「ここに来れば、少し息がしやすくなる」と感じていただける場所であり続けることです。立派な教えを説くよりも、まずは並んで座り、同じ空気を吸う。それだけで十分だと、日々の坐禅の中で教えられています。
+          </p>
+          <p>
+            坐禅体験や写経体験でお越しくださる方の中には、遠方から、あるいは人生の節目に立たれてこの山あいまで足を運んでくださる方も少なくありません。どうぞ気負わず、ふらりとお立ち寄りください。
+          </p>
+        </div>
+        <p class="mt-8 font-heading text-sumi-900">石鎚山 慈眼寺　住職　石鎚 賢澄</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 寺院概要 ================= -->
+<section class="py-24 sm:py-32 bg-washi-100 washi-texture">
+  <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="reveal font-heading text-shu-600 text-xs sm:text-sm tracking-[0.25em] inline-flex items-center"><span class="rule-short mr-3"></span>寺院概要</p>
+    <h2 class="reveal reveal-delay-1 font-heading font-medium text-3xl sm:text-4xl text-sumi-900 mt-5">TEMPLE PROFILE</h2>
+
+    <div class="reveal reveal-delay-2 mt-12 border-t border-sumi-900/15">
+      <dl class="divide-y divide-sumi-900/15">
+        <div class="py-6 grid sm:grid-cols-[10rem_1fr] gap-1 sm:gap-6">
+          <dt class="font-heading text-sumi-900">寺院名</dt>
+          <dd class="text-sumi-700 leading-relaxed">石鎚山 慈眼寺（いしづちさん じげんじ）</dd>
+        </div>
+        <div class="py-6 grid sm:grid-cols-[10rem_1fr] gap-1 sm:gap-6">
+          <dt class="font-heading text-sumi-900">開創</dt>
+          <dd class="text-sumi-700 leading-relaxed">伝 大同二年（807年）／以来千二百年余りと伝わる</dd>
+        </div>
+        <div class="py-6 grid sm:grid-cols-[10rem_1fr] gap-1 sm:gap-6">
+          <dt class="font-heading text-sumi-900">住職</dt>
+          <dd class="text-sumi-700 leading-relaxed">石鎚 賢澄（いしづち けんちょう）</dd>
+        </div>
+        <div class="py-6 grid sm:grid-cols-[10rem_1fr] gap-1 sm:gap-6">
+          <dt class="font-heading text-sumi-900">所在地</dt>
+          <dd class="text-sumi-700 leading-relaxed">〒791-1102 愛媛県西条市小松町石鎚甲2000番地</dd>
+        </div>
+        <div class="py-6 grid sm:grid-cols-[10rem_1fr] gap-1 sm:gap-6">
+          <dt class="font-heading text-sumi-900">電話</dt>
+          <dd class="text-sumi-700 leading-relaxed">0897-59-8912</dd>
+        </div>
+        <div class="py-6 grid sm:grid-cols-[10rem_1fr] gap-1 sm:gap-6">
+          <dt class="font-heading text-sumi-900">宗旨</dt>
+          <dd class="text-sumi-700 leading-relaxed">禅の教えを基礎とする単立の祈りの道場（特定の本山・巡礼路には属しません）</dd>
+        </div>
+        <div class="py-6 grid sm:grid-cols-[10rem_1fr] gap-1 sm:gap-6">
+          <dt class="font-heading text-sumi-900">主な行事</dt>
+          <dd class="text-sumi-700 leading-relaxed">修正会（1月）・花まつり（4月）・盂蘭盆会（8月）・紅葉ライトアップ（11月）ほか</dd>
+        </div>
+        <div class="py-6 grid sm:grid-cols-[10rem_1fr] gap-1 sm:gap-6">
+          <dt class="font-heading text-sumi-900">体験行事</dt>
+          <dd class="text-sumi-700 leading-relaxed">坐禅体験・写経体験（年間参加者300名以上）</dd>
+        </div>
+        <div class="py-6 grid sm:grid-cols-[10rem_1fr] gap-1 sm:gap-6">
+          <dt class="font-heading text-sumi-900">拝観時間</dt>
+          <dd class="text-sumi-700 leading-relaxed">9:00〜16:30（法要の際は変更あり）</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 沿革 ================= -->
+<section class="py-24 sm:py-32 bg-washi">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center reveal">
+      <p class="font-heading text-shu-600 text-xs sm:text-sm tracking-[0.25em] justify-center inline-flex items-center"><span class="rule-short mr-3"></span>沿革</p>
+      <h2 class="font-heading font-medium text-3xl sm:text-4xl text-sumi-900 mt-5">HISTORY</h2>
+    </div>
+
+    <div class="timeline mt-16 space-y-12">
+      <div class="timeline-item reveal">
+        <p class="font-heading text-shu-600 text-sm tracking-widest">伝 大同二年（807年）</p>
+        <p class="text-sumi-700 mt-2 leading-relaxed">諸国を行脚していた空海（弘法大師）がこの山あいで暫く草庵を結び、これが開創の伝承として今に伝わる。</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-1">
+        <p class="font-heading text-shu-600 text-sm tracking-widest">伝 中世（14世紀頃）</p>
+        <p class="text-sumi-700 mt-2 leading-relaxed">兵火により堂宇の多くを焼失したと伝わるが、地元の人々の支援により再建されたとの記録が残る。</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-2">
+        <p class="font-heading text-shu-600 text-sm tracking-widest">伝 江戸期（18世紀頃）</p>
+        <p class="text-sumi-700 mt-2 leading-relaxed">本堂・山門の改築とあわせ、境内の庭園が整えられたとされる。</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-3">
+        <p class="font-heading text-shu-600 text-sm tracking-widest">明治期</p>
+        <p class="text-sumi-700 mt-2 leading-relaxed">廃仏毀釈の混乱の中でも、地域住民の手により堂宇と法灯が守り継がれる。</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-4">
+        <p class="font-heading text-shu-600 text-sm tracking-widest">昭和後期</p>
+        <p class="text-sumi-700 mt-2 leading-relaxed">台風被害を受けた本堂の大規模な修復を実施。屋根瓦・木組みの一部を今に伝える。</p>
+      </div>
+      <div class="timeline-item reveal">
+        <p class="font-heading text-shu-600 text-sm tracking-widest">平成期</p>
+        <p class="text-sumi-700 mt-2 leading-relaxed">境内の庭園整備を進め、オリジナル御朱印帳「雲海」の授与を開始。</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-1">
+        <p class="font-heading text-shu-600 text-sm tracking-widest">令和期（現在）</p>
+        <p class="text-sumi-700 mt-2 leading-relaxed">坐禅体験・写経体験を本格的に開始。年間300名を超える方々をお迎えしている。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-sumi-900 text-washi-50/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-3 gap-10">
+      <div>
+        <a href="index.html" class="flex items-center gap-3 mb-5">
+          <svg class="w-8 h-8 shrink-0" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="18.5" stroke="currentColor" class="text-washi-50/70" stroke-width="1" />
+            <path d="M9 26 L20 11 L31 26" stroke="currentColor" class="text-shu-400" stroke-width="1.3" fill="none" stroke-linejoin="round" />
+            <line x1="9" y1="26" x2="31" y2="26" stroke="currentColor" class="text-washi-50/70" stroke-width="1" />
+          </svg>
+          <span class="font-heading text-washi-50 text-lg">石鎚山 慈眼寺</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-xs text-washi-50/55">
+          〒791-1102 愛媛県西条市小松町石鎚甲2000番地<br />
+          TEL 0897-59-8912／拝観時間 9:00〜16:30
+        </p>
+      </div>
+      <div>
+        <p class="font-heading text-washi-50 mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#about" class="hover:text-shu-400 transition-colors">ご案内</a></li>
+          <li><a href="index.html#events" class="hover:text-shu-400 transition-colors">四季の行事</a></li>
+          <li><a href="index.html#juyohin" class="hover:text-shu-400 transition-colors">御朱印・授与品</a></li>
+          <li><a href="index.html#taiken" class="hover:text-shu-400 transition-colors">坐禅・写経体験</a></li>
+          <li><a href="index.html#access" class="hover:text-shu-400 transition-colors">アクセス</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading text-washi-50 mb-4 text-sm tracking-wide">寺院について</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="company.html" class="hover:text-shu-400 transition-colors">住職あいさつ・沿革</a></li>
+          <li><a href="recruit.html" class="hover:text-shu-400 transition-colors">採用情報</a></li>
+          <li><a href="index.html#contact" class="hover:text-shu-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-washi-50/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-washi-50/45">
+      <p>&copy; <span data-year></span> 石鎚山 慈眼寺</p>
+      <p>本サイトはデモ用に制作された架空の寺院紹介サイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

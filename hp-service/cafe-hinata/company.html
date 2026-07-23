@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>会社案内｜ひなた珈琲</title>
+<meta name="description" content="ひなた珈琲の店主あいさつ・お店概要・沿革をご紹介します。愛媛県西条市大町で2019年に開業した自家焙煎コーヒーの小さなカフェです。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Kaisei+Decol:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: { DEFAULT: '#3A2F23', 50: '#F7F4EF', 100: '#ECE5D8', 200: '#D8CBB4', 300: '#B8A588', 400: '#8C7A5E', 500: '#6B5842', 600: '#4F4130', 700: '#3A2F23', 800: '#2A2118', 900: '#1E1811', 950: '#14100B' },
+          cream: { DEFAULT: '#FBF4E7', 50: '#FFFDF9', 100: '#FBF4E7', 200: '#F3E6CC', 300: '#E9D3A8', 400: '#DCBB7C', 500: '#CBA45A', 600: '#A9813C', 900: '#4A3A1E' },
+          clay: { DEFAULT: '#C96A44', 50: '#FDF3EF', 100: '#FAE3D9', 200: '#F3C4AE', 300: '#E9A17F', 400: '#DD7F58', 500: '#C96A44', 600: '#AD5535', 700: '#8A4228', 900: '#5A2A1A' },
+          mustard: { DEFAULT: '#C68F26', 50: '#FDF8E9', 100: '#FAEDC2', 200: '#F3DA8A', 300: '#E9C158', 400: '#DCA83A', 500: '#C68F26', 600: '#A3721C', 700: '#7D5714', 900: '#4F3610' },
+          sage: { DEFAULT: '#71914E', 50: '#F3F6EE', 100: '#E3EAD5', 200: '#C6D5AC', 300: '#A6BE85', 400: '#8AA968', 500: '#71914E', 600: '#56733A', 700: '#43592D', 900: '#2B3A1D' },
+        },
+        fontFamily: {
+          sans: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+          heading: ['"Yomogi"', '"Zen Kaku Gothic New"', 'sans-serif'],
+          script: ['"Kaisei Decol"', '"Yomogi"', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-cream text-ink-700 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-cream/95 backdrop-blur shadow-sm border-b border-ink-900/10">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-11 h-11 rounded-full bg-clay text-cream-50 font-heading font-bold text-xl border-2 border-dashed border-clay-300">ひ</span>
+        <span class="font-heading font-bold text-xl sm:text-2xl tracking-wide text-ink-900">ひなた珈琲</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7 font-heading text-base font-medium text-ink-700">
+        <a data-nav-link="index.html" href="index.html#story" class="hover:text-clay-600 transition-colors">お店について</a>
+        <a data-nav-link="index.html" href="index.html#menu" class="hover:text-clay-600 transition-colors">メニュー</a>
+        <a data-nav-link="index.html" href="index.html#gallery" class="hover:text-clay-600 transition-colors">ギャラリー</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-clay-600 transition-colors">会社案内</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-clay-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-clay-600 text-cream-50 px-5 py-2.5 rounded-full transition-colors">お問い合わせ</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-ink-900/5 text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-cream-50 shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-medium text-ink-700 text-lg">
+      <a href="index.html#story" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">お店について</a>
+      <a href="index.html#menu" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">メニュー</a>
+      <a href="index.html#gallery" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">ギャラリー</a>
+      <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">会社案内</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-clay-50 hover:text-clay-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-ink-900 text-cream-50 text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HEADER ================= -->
+<section class="relative grain-bg pt-32 sm:pt-40 pb-20">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="sticker-tag" style="transform: rotate(-2deg);">ABOUT US</p>
+    <h1 class="font-heading font-bold text-ink-900 text-4xl sm:text-5xl mt-6">会社案内</h1>
+    <p class="text-ink-600 mt-4 max-w-xl leading-relaxed">2019年の開業から6年目。ひなた珈琲の店主あいさつと、お店の歩みをご紹介します。</p>
+    <div class="flex items-center gap-2 text-sm text-ink-500 mt-8">
+      <a href="index.html" class="hover:text-clay-600">トップ</a>
+      <span>/</span>
+      <span class="text-ink-800">会社案内</span>
+    </div>
+  </div>
+</section>
+<div class="scallop-divider text-cream" aria-hidden="true"></div>
+
+<!-- ================= 店主あいさつ（非対称レイアウト） ================= -->
+<section class="py-24 sm:py-36 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-x-10 gap-y-14 items-start">
+      <div class="lg:col-span-5 reveal relative">
+        <figure class="polaroid w-full max-w-sm mx-auto lg:mx-0" style="--rot: -3deg;">
+          <span class="tape"></span>
+          <div class="aspect-[4/5] overflow-hidden bg-cream-200">
+            <img src="https://images.unsplash.com/photo-1753351052363-53ce102830eb?auto=format&fit=crop&w=900&q=80" alt="ひなた珈琲 店主 白石ののかの写真" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <figcaption class="font-script">店主　白石 ののか</figcaption>
+        </figure>
+      </div>
+
+      <div class="lg:col-span-7 lg:mt-16 reveal reveal-delay-1">
+        <p class="eyebrow font-heading text-clay-600 font-bold text-sm tracking-widest">MESSAGE</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">店主あいさつ</h2>
+
+        <blockquote class="font-script text-2xl sm:text-3xl text-clay-700 leading-snug mt-8 max-w-xl">
+          “ ふらっと来て、なんとなく長居してしまう。<br class="hidden sm:block" />そんなお店でありたいです。”
+        </blockquote>
+
+        <div class="mt-8 space-y-5 text-ink-600 leading-loose max-w-xl">
+          <p>
+            ひなた珈琲のホームページをご覧いただき、ありがとうございます。店主の白石ののかです。
+          </p>
+          <p>
+            前職は都市部のオフィスで働いていましたが、休日に立ち寄った小さな喫茶店の居心地の良さに惹かれ、コーヒーの世界に飛び込みました。修業を経て、2019年に地元・西条市大町でこのお店を開きました。
+          </p>
+          <p>
+            自家焙煎した豆と、地元の農家さんから届く食材でつくる焼き菓子。「今日はちょっと一息つきたいな」という時に思い出していただけるような、気取らないお店を目指しています。
+          </p>
+          <p>
+            読書でも、お仕事でも、おしゃべりでも。どうぞ好きなだけ、のんびりしていってください。
+          </p>
+        </div>
+        <p class="mt-8 font-script text-xl text-ink-900">店主　白石 ののか</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= お店概要（ノート風テーブル） ================= -->
+<section class="py-24 sm:py-36 bg-cream-100">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-clay-600 font-bold text-sm tracking-widest inline-flex items-center">PROFILE</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">お店概要</h2>
+    </div>
+
+    <div class="reveal reveal-delay-1 mt-14 notebook-card rounded-2xl overflow-hidden" style="transform: rotate(-0.5deg);">
+      <table class="w-full text-sm sm:text-base">
+        <tbody class="divide-y divide-ink-900/10">
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-48 font-heading font-bold text-clay-700 pl-16 sm:pl-20 pr-6 py-4 sm:py-5 align-top">店名</th>
+            <td class="pl-16 sm:pl-0 pr-6 pb-4 sm:py-5 text-ink-700">ひなた珈琲（ひなたコーヒー）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-48 font-heading font-bold text-clay-700 pl-16 sm:pl-20 pr-6 py-4 sm:py-5 align-top">創業</th>
+            <td class="pl-16 sm:pl-0 pr-6 pb-4 sm:py-5 text-ink-700">2019年（現在6年目）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-48 font-heading font-bold text-clay-700 pl-16 sm:pl-20 pr-6 py-4 sm:py-5 align-top">店主</th>
+            <td class="pl-16 sm:pl-0 pr-6 pb-4 sm:py-5 text-ink-700">白石 ののか</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-48 font-heading font-bold text-clay-700 pl-16 sm:pl-20 pr-6 py-4 sm:py-5 align-top">所在地</th>
+            <td class="pl-16 sm:pl-0 pr-6 pb-4 sm:py-5 text-ink-700 leading-relaxed">〒793-0030 愛媛県西条市大町2丁目5-18</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-48 font-heading font-bold text-clay-700 pl-16 sm:pl-20 pr-6 py-4 sm:py-5 align-top">営業時間</th>
+            <td class="pl-16 sm:pl-0 pr-6 pb-4 sm:py-5 text-ink-700">8:00〜18:00（水曜定休）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-48 font-heading font-bold text-clay-700 pl-16 sm:pl-20 pr-6 py-4 sm:py-5 align-top">席数</th>
+            <td class="pl-16 sm:pl-0 pr-6 pb-4 sm:py-5 text-ink-700">18席</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-48 font-heading font-bold text-clay-700 pl-16 sm:pl-20 pr-6 py-4 sm:py-5 align-top">こだわり</th>
+            <td class="pl-16 sm:pl-0 pr-6 pb-4 sm:py-5 text-ink-700 leading-relaxed">自家焙煎豆10種類以上／地元農家と提携した焼き菓子</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-48 font-heading font-bold text-clay-700 pl-16 sm:pl-20 pr-6 py-4 sm:py-5 align-top">連絡先</th>
+            <td class="pl-16 sm:pl-0 pr-6 pb-4 sm:py-5 text-ink-700">TEL 0897-56-7724</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 沿革 -->
+    <div class="mt-24">
+      <div class="text-center reveal">
+        <p class="eyebrow justify-center font-heading text-clay-600 font-bold text-sm tracking-widest inline-flex items-center">HISTORY</p>
+        <h3 class="font-heading font-bold text-2xl sm:text-3xl text-ink-900 mt-3">沿革</h3>
+      </div>
+
+      <div class="journey-line mt-14 max-w-xl mx-auto space-y-10 pl-16">
+        <div class="journey-step reveal" style="transform: rotate(-1deg);">
+          <span class="absolute -left-16 top-0 w-11 h-11 rounded-full bg-clay-500 text-cream-50 font-heading font-bold flex items-center justify-center border-4 border-cream-100">1</span>
+          <div class="bg-cream-50 rounded-xl shadow-md px-5 py-4 border border-ink-900/10">
+            <p class="font-heading font-bold text-ink-900">2019年</p>
+            <p class="text-sm text-ink-600 mt-1">西条市大町にて「ひなた珈琲」開業。座席8席の小さな店からスタート</p>
+          </div>
+        </div>
+        <div class="journey-step reveal reveal-delay-1" style="transform: rotate(1deg);">
+          <span class="absolute -left-16 top-0 w-11 h-11 rounded-full bg-mustard-500 text-cream-50 font-heading font-bold flex items-center justify-center border-4 border-cream-100">2</span>
+          <div class="bg-cream-50 rounded-xl shadow-md px-5 py-4 border border-ink-900/10">
+            <p class="font-heading font-bold text-ink-900">2020年</p>
+            <p class="text-sm text-ink-600 mt-1">店内に自家焙煎機を導入。豆の焙煎から一貫して手がけるように</p>
+          </div>
+        </div>
+        <div class="journey-step reveal reveal-delay-2" style="transform: rotate(-1.5deg);">
+          <span class="absolute -left-16 top-0 w-11 h-11 rounded-full bg-sage-500 text-cream-50 font-heading font-bold flex items-center justify-center border-4 border-cream-100">3</span>
+          <div class="bg-cream-50 rounded-xl shadow-md px-5 py-4 border border-ink-900/10">
+            <p class="font-heading font-bold text-ink-900">2022年</p>
+            <p class="text-sm text-ink-600 mt-1">店舗を改装し、座席数を18席に拡大。読書・作業スペースを充実</p>
+          </div>
+        </div>
+        <div class="journey-step reveal reveal-delay-3" style="transform: rotate(1deg);">
+          <span class="absolute -left-16 top-0 w-11 h-11 rounded-full bg-clay-700 text-cream-50 font-heading font-bold flex items-center justify-center border-4 border-cream-100">4</span>
+          <div class="bg-cream-50 rounded-xl shadow-md px-5 py-4 border border-ink-900/10">
+            <p class="font-heading font-bold text-ink-900">2023年</p>
+            <p class="text-sm text-ink-600 mt-1">地元農家との提携を開始。焼き菓子に地元食材を使用するように</p>
+          </div>
+        </div>
+        <div class="journey-step reveal reveal-delay-4" style="transform: rotate(-1deg);">
+          <span class="absolute -left-16 top-0 w-11 h-11 rounded-full bg-mustard-700 text-cream-50 font-heading font-bold flex items-center justify-center border-4 border-cream-100">5</span>
+          <div class="bg-cream-50 rounded-xl shadow-md px-5 py-4 border border-ink-900/10">
+            <p class="font-heading font-bold text-ink-900">現在</p>
+            <p class="text-sm text-ink-600 mt-1">自家焙煎豆は10種類以上に。創業6年目、地域に愛される一杯を届け続けています</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA（貼り紙風） ================= -->
+<section class="py-20 bg-cream">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="reveal bg-mustard-100 border-2 border-dashed border-mustard-400 rounded-2xl px-8 py-14 sm:px-16 sm:py-16 text-center" style="transform: rotate(-0.5deg);">
+      <h2 class="font-heading font-bold text-2xl sm:text-3xl text-ink-900">貸切のご相談もお気軽に</h2>
+      <p class="text-ink-600 mt-4">少人数の集まりから、店内貸切のご相談まで承ります。</p>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 bg-clay hover:bg-clay-600 transition-colors text-cream-50 font-heading font-bold px-8 py-4 rounded-full mt-8">
+        お問い合わせはこちら
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<div class="scallop-divider text-ink-900 rotate-180" aria-hidden="true"></div>
+<footer class="bg-ink-900 text-cream-100/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-clay text-cream-50 font-heading font-bold">ひ</span>
+          <span class="font-heading font-bold text-cream-50 text-lg">ひなた珈琲</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-cream-100/60">
+          〒793-0030 愛媛県西条市大町2丁目5-18<br />
+          TEL 0897-56-7724 ／ 営業時間 8:00〜18:00（水曜定休）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream-50 mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#story" class="hover:text-clay-400 transition-colors">お店について</a></li>
+          <li><a href="index.html#menu" class="hover:text-clay-400 transition-colors">メニュー</a></li>
+          <li><a href="index.html#gallery" class="hover:text-clay-400 transition-colors">ギャラリー</a></li>
+          <li><a href="company.html" class="hover:text-clay-400 transition-colors">会社案内</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream-50 mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-clay-400 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-clay-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-clay-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-cream-100/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-cream-100/50">
+      <p>&copy; <span data-year></span> Hinata Coffee. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された架空の個人経営カフェのコーポレートサイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
