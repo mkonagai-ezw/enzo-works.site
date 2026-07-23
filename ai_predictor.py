@@ -2,6 +2,7 @@ import os
 import json
 import time
 import re
+import math
 import warnings
 import yfinance as yf
 import requests
@@ -41,11 +42,16 @@ def get_market_data(ticker):
     # FutureWarningを回避: スカラー値を取得
     last_close = df['Close'].iloc[-1]
     current_price = float(last_close) if isinstance(last_close, (int, float)) else float(last_close.iloc[0])
+    # yfinanceがNaNを返すことがあるため、取得失敗として扱う（NaN混入防止）
+    if math.isnan(current_price):
+        return None, None
     # 価格履歴の文字列を作成
     price_str_list = []
     for d, r in df.tail(30).iterrows():
         close_val = r['Close']
         close_float = float(close_val) if isinstance(close_val, (int, float)) else float(close_val.iloc[0])
+        if math.isnan(close_float):
+            continue
         price_str_list.append(f"{d.strftime('%Y-%m-%d')}: {close_float:.3f}")
     return "\n".join(price_str_list), current_price
 
@@ -64,7 +70,11 @@ def get_closing_price_for_date(ticker, target_date_str):
         for date, row in df.iterrows():
             if date.date() == target_date_only:
                 close_val = row['Close']
-                return float(close_val) if isinstance(close_val, (int, float)) else float(close_val.iloc[0])
+                close_float = float(close_val) if isinstance(close_val, (int, float)) else float(close_val.iloc[0])
+                # yfinanceがNaNを返すことがあるため、取得失敗として扱う（NaN混入防止）
+                if math.isnan(close_float):
+                    return None
+                return close_float
         return None
     except Exception as e:
         print(f"Error getting closing price for {target_date_str}: {e}")
@@ -257,7 +267,12 @@ def update_history_with_actuals(history):
 def calculate_stats(history):
     stats = {}
     for model in ["GPT-3.5", "Gemini"]:
-        recs = [r for r in history.get("records", []) if r["ai_model"] == model and r["status"] == "settled"]
+        # error_rateがNaN/Noneの不正レコードは統計から除外（1件でも混入すると合計がNaN化するため）
+        recs = [
+            r for r in history.get("records", [])
+            if r["ai_model"] == model and r["status"] == "settled"
+            and isinstance(r.get("error_rate"), (int, float)) and math.isfinite(r.get("error_rate"))
+        ]
         if not recs:
             stats[model] = {"win_rate": 0, "avg_error": 0, "count": 0}
             continue
@@ -265,6 +280,16 @@ def calculate_stats(history):
         avg_err = sum(r.get("error_rate", 0) for r in recs) / len(recs)
         stats[model] = {"win_rate": round(wins/len(recs)*100, 1), "avg_error": round(avg_err, 2), "count": len(recs)}
     return stats
+
+def sanitize_for_json(obj):
+    """float('nan')/inf をJSON互換のNoneに変換する（json.dumpの標準動作だと不正なNaNトークンを出力してしまうため）"""
+    if isinstance(obj, float):
+        return obj if math.isfinite(obj) else None
+    if isinstance(obj, dict):
+        return {k: sanitize_for_json(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sanitize_for_json(v) for v in obj]
+    return obj
 
 # --- メイン処理 ---
 def main():
@@ -370,8 +395,8 @@ JSONフォーマット: {{"USD/JPY":0.000, "Nikkei 225":0.00, "S&P 500":0.00}}
         "market_status": market_status
     }
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f: json.dump(output_data, f, indent=4, ensure_ascii=False)
-    with open(HISTORY_FILE, "w", encoding="utf-8") as f: json.dump(history, f, indent=4, ensure_ascii=False)
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f: json.dump(sanitize_for_json(output_data), f, indent=4, ensure_ascii=False)
+    with open(HISTORY_FILE, "w", encoding="utf-8") as f: json.dump(sanitize_for_json(history), f, indent=4, ensure_ascii=False)
     print("Success! Data Updated.")
 
 if __name__ == "__main__":
