@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>採用情報｜西条精工株式会社</title>
+<meta name="description" content="西条精工株式会社の採用情報。機械オペレーター（技能職）、設計エンジニア、品質管理スタッフを募集しています。未経験歓迎・資格取得支援あり。愛媛県西条市の精密部品製造企業（本サイトはデモ用に制作された架空企業のサイトです）。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: { DEFAULT: '#1E293B', 50: '#F1F5F9', 100: '#E2E8F0', 200: '#CBD5E1', 300: '#94A3B8', 400: '#64748B', 500: '#475569', 600: '#334155', 700: '#26344A', 800: '#1E293B', 900: '#141C2C', 950: '#0B1120' },
+          paper: { DEFAULT: '#F5F7FA', 100: '#FAFBFC', 200: '#E7EBF0' },
+          accent: { DEFAULT: '#0EA5E9', 50: '#E6F7FE', 100: '#BFEBFC', 200: '#8FDCFA', 300: '#5CCBF7', 400: '#33BAF2', 500: '#0EA5E9', 600: '#0284C7', 700: '#0369A1' },
+          mint: { DEFAULT: '#10B981', 50: '#ECFDF5', 100: '#D1FAE5', 200: '#A7F3D0', 300: '#6EE7B7', 400: '#34D399', 500: '#10B981', 600: '#059669' },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+          heading: ['"Noto Sans JP"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-paper text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-white/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <span class="flex items-center justify-center w-11 h-11 bg-accent-500 text-white font-heading font-black text-lg shadow-md">西</span>
+        <span class="flex flex-col leading-tight">
+          <span class="font-heading font-black text-base sm:text-lg tracking-wide text-ink-900">西条精工株式会社</span>
+          <span class="text-[10px] sm:text-xs tracking-[0.2em] text-ink-400 font-medium">SAIJO SEIKO CO., LTD.</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 font-heading text-sm font-bold text-ink-700">
+        <a data-nav-link="index.html" href="index.html#business" class="hover:text-accent-600 transition-colors">事業内容</a>
+        <a data-nav-link="index.html" href="index.html#facility" class="hover:text-accent-600 transition-colors">設備・実績</a>
+        <a data-nav-link="index.html" href="index.html#achievements" class="hover:text-accent-600 transition-colors">実績ギャラリー</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-accent-600 transition-colors">会社概要</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-accent-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-accent-600 text-white px-5 py-2.5 transition-colors">
+          お問い合わせ
+        </a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 bg-paper-100 shadow text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-white shadow-lg mx-4 border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-bold text-ink-700">
+      <a href="index.html#business" class="px-4 py-3 hover:bg-accent-50 hover:text-accent-600">事業内容</a>
+      <a href="index.html#facility" class="px-4 py-3 hover:bg-accent-50 hover:text-accent-600">設備・実績</a>
+      <a href="index.html#achievements" class="px-4 py-3 hover:bg-accent-50 hover:text-accent-600">実績ギャラリー</a>
+      <a href="company.html" class="px-4 py-3 hover:bg-accent-50 hover:text-accent-600">会社概要</a>
+      <a href="recruit.html" class="px-4 py-3 hover:bg-accent-50 hover:text-accent-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 bg-ink-900 text-white text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 bg-ink-900 overflow-hidden">
+  <div class="absolute inset-0 blueprint-grid-dark" aria-hidden="true"></div>
+  <div class="glow w-72 h-72 bg-accent-500/20 -top-10 -right-10" aria-hidden="true"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-accent-400 font-heading font-bold text-sm tracking-widest">RECRUIT</p>
+    <h1 class="font-heading font-black text-white text-4xl sm:text-5xl mt-4">採用情報</h1>
+    <p class="text-white/70 mt-4 max-w-xl leading-relaxed">図面から形をつくる仕事を、愛媛県西条市で。あなたの手で、ミクロン単位の精度に挑みませんか。</p>
+    <div class="flex items-center gap-2 text-sm text-white/60 mt-8">
+      <a href="index.html" class="hover:text-white font-bold">トップ</a>
+      <span>/</span>
+      <span class="text-white font-bold">採用情報</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= なぜ西条精工か ================= -->
+<section class="py-24 sm:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal order-2 lg:order-1">
+        <p class="eyebrow font-heading text-accent-600 font-bold text-sm tracking-widest">WHY SAIJO SEIKO</p>
+        <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4 leading-snug">
+          未経験から、<br />一生ものの技術を。
+        </h2>
+        <p class="text-ink-600 leading-loose mt-6">
+          西条精工では、工業高校・高専卒の若手から異業種からの転職者まで、多くの社員が未経験からスタートしています。旋盤・フライス盤の基礎からCNC操作、図面の読み方まで、先輩社員がマンツーマンで指導する研修制度を整えています。
+        </p>
+        <p class="text-ink-600 leading-loose mt-4">
+          「地元・愛媛で、手に職をつけたい」「ものづくりで社会を支えたい」——そんな思いを持つ方を、私たちはお待ちしています。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 order-1 lg:order-2 relative">
+        <div class="tick-corners overflow-hidden shadow-xl aspect-[4/3]">
+          <img src="https://images.unsplash.com/photo-1747999461210-a56f72294428?auto=format&fit=crop&w=1200&q=80" alt="研磨作業の様子" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
+      <div class="reveal card-lift bg-paper-100 border border-ink-900/10 p-7">
+        <div class="w-14 h-14 bg-accent-100 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.42A12.02 12.02 0 0122 12c0 4-4.5 7-10 7S2 16 2 12a12.02 12.02 0 013.84-3.42L12 14z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">未経験歓迎の研修制度</p>
+        <p class="text-sm text-ink-600 mt-2 leading-relaxed">入社後3ヶ月は先輩社員がマンツーマンで指導。基礎から着実に技術を身につけられます。</p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-paper-100 border border-ink-900/10 p-7">
+        <div class="w-14 h-14 bg-accent-100 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">資格取得支援</p>
+        <p class="text-sm text-ink-600 mt-2 leading-relaxed">技能検定・CAD利用技術者試験などの受験費用を会社が負担。資格手当も支給します。</p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-paper-100 border border-ink-900/10 p-7">
+        <div class="w-14 h-14 bg-accent-100 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">地元・愛媛で働ける</p>
+        <p class="text-sm text-ink-600 mt-2 leading-relaxed">Uターン・Iターンの方も歓迎。転勤のない地域密着の職場で長く技術を極められます。</p>
+      </div>
+      <div class="reveal reveal-delay-3 card-lift bg-paper-100 border border-ink-900/10 p-7">
+        <div class="w-14 h-14 bg-accent-100 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">45年培った安定基盤</p>
+        <p class="text-sm text-ink-600 mt-2 leading-relaxed">創業から45年以上、主要取引先30社以上との継続取引による安定した経営基盤があります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 先輩の声 ================= -->
+<section class="py-24 sm:py-32 bg-paper-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-accent-600 font-bold text-sm tracking-widest inline-flex items-center">VOICE</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">先輩の声</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+      <div class="reveal card-lift bg-white border border-ink-900/10 p-7">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 bg-accent-100 flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          </span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">白石 拓也</p>
+            <p class="text-xs text-ink-500">機械オペレーター／入社3年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-600 leading-relaxed">
+          工業高校卒業後に入社し、旋盤もCNCも未経験からのスタートでした。今では任される加工の幅も広がり、自分が仕上げた部品が自動車に使われていると思うとやりがいを感じます。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-white border border-ink-900/10 p-7">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 bg-accent-100 flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
+          </span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">近藤 美咲</p>
+            <p class="text-xs text-ink-500">設計エンジニア／入社5年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-600 leading-relaxed">
+          高専の機械科を卒業し、CAD経験を活かして金型設計に携わっています。図面を起こした部品が量産ラインで形になる瞬間は、何度経験しても嬉しいものです。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-white border border-ink-900/10 p-7">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 bg-accent-100 flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">河野 修一</p>
+            <p class="text-xs text-ink-500">品質管理スタッフ／入社8年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-600 leading-relaxed">
+          異業種から転職し、未経験で品質管理の道に進みました。三次元測定機の使い方から丁寧に教わり、今では新人の指導も任されています。数字で成果が見える仕事です。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 募集要項 ================= -->
+<section id="jobs" class="py-24 sm:py-32 bg-white">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-accent-600 font-bold text-sm tracking-widest inline-flex items-center">JOB OPENINGS</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">募集要項</h2>
+      <p class="text-ink-600 mt-4 leading-relaxed">現在、以下の職種で採用を行っています。詳細はお問い合わせフォームよりお気軽にご連絡ください。</p>
+    </div>
+
+    <div class="mt-16 space-y-8">
+      <!-- 職種1 -->
+      <div class="reveal bg-paper-100 border border-ink-900/10 overflow-hidden">
+        <div class="bg-ink-900 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">機械オペレーター（技能職）</h3>
+          <span class="text-xs font-heading font-bold text-ink-900 bg-accent-400 px-3 py-1">未経験歓迎</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">仕事内容</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">CNC旋盤・マシニングセンタの操作、加工品の段取り・検査</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">月給 18万円〜24万円（経験・能力による／賞与年2回）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">本社工場（愛媛県西条市周布1200番地）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">8:30〜17:30（実働8時間、休憩1時間／一部交替勤務あり）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-600">学歴不問・未経験歓迎。工業高校卒の方、普通自動車免許お持ちの方歓迎。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種2 -->
+      <div class="reveal reveal-delay-1 bg-paper-100 border border-ink-900/10 overflow-hidden">
+        <div class="bg-ink-900 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">設計エンジニア</h3>
+          <span class="text-xs font-heading font-bold text-ink-900 bg-accent-400 px-3 py-1">経験者優遇</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">仕事内容</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">CAD/CAMによる金型・治具設計、加工プログラム作成、工程改善提案</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">月給 22万円〜32万円（経験・能力による／賞与年2回）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">本社工場（愛媛県西条市周布1200番地）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">8:30〜17:30（実働8時間、休憩1時間）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-600">機械系専門知識をお持ちの方（CAD実務経験者優遇）。工業高校・高専・大学の機械／生産系学科卒業者歓迎。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種3 -->
+      <div class="reveal reveal-delay-2 bg-paper-100 border border-ink-900/10 overflow-hidden">
+        <div class="bg-ink-900 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">品質管理スタッフ</h3>
+          <span class="text-xs font-heading font-bold text-ink-900 bg-accent-400 px-3 py-1">未経験可</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">仕事内容</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">三次元測定機・各種測定機器による受入・工程内・出荷検査、検査データの記録・分析</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">月給 19万円〜26万円（経験・能力による／賞与年2回）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">本社工場（愛媛県西条市周布1200番地）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-600">8:30〜17:30（実働8時間、休憩1時間）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-600">未経験可。数字を扱う細かい作業が好きな方、QC検定をお持ちの方は優遇。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-3 mt-14 stripe-band bg-ink-900 px-8 py-12 sm:px-14 sm:py-14 text-center shadow-xl">
+      <h3 class="font-heading font-black text-white text-2xl sm:text-3xl">まずはお気軽にご応募・お問い合わせください</h3>
+      <p class="text-white/70 mt-4 leading-relaxed max-w-xl mx-auto">
+        履歴書は応募後のご案内で構いません。まずはお問い合わせフォームより、ご興味のある職種をお知らせください。担当より折り返しご連絡いたします。
+      </p>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 transition-colors text-white font-heading font-bold px-8 py-4 mt-8">
+        採用について問い合わせる
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-950 text-white/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-3 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 bg-accent-500 text-white font-heading font-black">西</span>
+          <span class="font-heading font-black text-white text-lg">西条精工株式会社</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-white/55">
+          〒793-0030 愛媛県西条市周布1200番地<br />
+          TEL 0897-55-1234 ／ 営業時間 8:30〜17:30（土日祝休）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#business" class="hover:text-accent-400 transition-colors">事業内容</a></li>
+          <li><a href="index.html#facility" class="hover:text-accent-400 transition-colors">設備・実績紹介</a></li>
+          <li><a href="index.html#achievements" class="hover:text-accent-400 transition-colors">実績ギャラリー</a></li>
+          <li><a href="company.html" class="hover:text-accent-400 transition-colors">会社概要</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-accent-400 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-accent-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-accent-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/45">
+      <p>&copy; <span data-year></span> Saijo Seiko Co., Ltd. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された精密部品製造業の紹介サイトです。実在する企業・人物とは関係ありません。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

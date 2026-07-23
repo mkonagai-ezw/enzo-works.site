@@ -1691,3 +1691,63 @@ body {
         transform: translate(-50%, -50%);
     }
 }
+
+/* --- 13. HP制作サービス プロモーションセクション --- */
+.hp-promo {
+    background-color: #111;
+    color: #fff;
+}
+
+.hp-promo-inner {
+    max-width: 800px;
+    text-align: center;
+}
+
+.hp-promo-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: #999;
+    margin-bottom: 16px;
+}
+
+h2.hp-promo-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    color: #fff;
+}
+
+.hp-promo-desc {
+    font-size: 15px;
+    line-height: 2.0;
+    color: #ccc;
+    margin-bottom: 36px;
+}
+
+.hp-promo-desc strong {
+    color: #fff;
+    font-size: 17px;
+}
+
+.hp-promo-btn {
+    background-color: #fff;
+    color: #111 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.hp-promo-btn:hover {
+    background-color: #eee;
+}
+
+@media (max-width: 768px) {
+    h2.hp-promo-title { font-size: 24px; }
+    .hp-promo-desc { font-size: 14px; }
+    .hp-promo-br { display: none; }
+}

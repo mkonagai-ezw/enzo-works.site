@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>小春日和農園｜長野県安曇野の米と野菜づくり</title>
+<meta name="description" content="小春日和農園は、長野県安曇野市で三代続く家族農園です。北アルプスの伏流水で育てる特別栽培米と旬の野菜、手作り味噌・漬物、農業体験をお届けしています。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            DEFAULT: '#2A3328',
+            50: '#f4f5ef',
+            100: '#e6e8da',
+            700: '#3a4433',
+            800: '#232b1f',
+            900: '#1c231a',
+            950: '#12160f',
+          },
+          paper: {
+            DEFAULT: '#F6F1E4',
+            100: '#FBF8F0',
+            200: '#EFE6D0',
+          },
+          accent: {
+            DEFAULT: '#A8442E',
+            50: '#fbede9',
+            100: '#f5d6cc',
+            400: '#c15a3e',
+            500: '#A8442E',
+            600: '#8b3624',
+          },
+          moss: {
+            DEFAULT: '#6E7D53',
+            100: '#e7ebdd',
+          },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+          heading: ['"Shippori Mincho"', '"Noto Serif JP"', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-paper text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="true" class="fixed top-0 inset-x-0 z-50 bg-transparent">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-accent text-paper font-heading font-bold text-lg">小</span>
+        <span class="font-heading font-bold text-lg sm:text-xl tracking-wide text-ink-900">
+          小春日和農園
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-9 font-heading text-sm font-medium text-ink-700">
+        <a data-nav-link="index.html" href="index.html#about" class="hover:text-accent transition-colors">農園について</a>
+        <a data-nav-link="index.html" href="index.html#products" class="hover:text-accent transition-colors">こだわり・商品</a>
+        <a data-nav-link="index.html" href="index.html#gallery" class="hover:text-accent transition-colors">収穫ギャラリー</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-accent transition-colors">農園概要</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-accent transition-colors">スタッフ募集</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-accent text-paper px-5 py-2.5 rounded-sm transition-colors">
+          お問い合わせ
+        </a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-ink-900/5 text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-paper-100 shadow-lg mx-4 rounded-sm border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-medium text-ink-700">
+      <a href="index.html#about" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-accent">農園について</a>
+      <a href="index.html#products" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-accent">こだわり・商品</a>
+      <a href="index.html#gallery" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-accent">収穫ギャラリー</a>
+      <a href="company.html" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-accent">農園概要</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-accent">スタッフ募集</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-sm bg-ink-900 text-paper text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative min-h-[100svh] flex items-end hero-bg" style="background-image: linear-gradient(180deg, rgba(28,35,26,0.35) 0%, rgba(28,35,26,0.55) 55%, rgba(20,25,18,0.92) 100%), url('https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=2000&q=80');">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pb-24 pt-40 w-full">
+    <p class="reveal text-paper/90 font-heading tracking-[0.3em] text-sm sm:text-base mb-5">KOHARUBIYORI FARM · 長野県安曇野市</p>
+    <h1 class="reveal reveal-delay-1 font-heading font-bold text-paper text-4xl sm:text-5xl md:text-6xl leading-snug max-w-3xl" style="text-wrap: balance;">
+      自然と手間ひまが、<br />おいしさになる。
+    </h1>
+    <p class="reveal reveal-delay-2 text-paper/85 text-base sm:text-lg mt-6 max-w-xl leading-loose">
+      北アルプスの伏流水と、里山の澄んだ空気。三代続く小さな家族農園から、旬のお米と野菜、手仕事の味をお届けしています。
+    </p>
+    <div class="reveal reveal-delay-3 flex flex-wrap gap-4 mt-10">
+      <a href="#contact" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-600 text-paper font-heading font-bold px-8 py-4 rounded-sm transition-colors">
+        お問い合わせはこちら
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </a>
+      <a href="#products" class="inline-flex items-center gap-2 bg-paper/10 hover:bg-paper/20 text-paper font-heading font-bold px-8 py-4 rounded-sm transition-colors border border-paper/40 backdrop-blur">
+        商品を見る
+      </a>
+    </div>
+
+    <div class="reveal reveal-delay-4 grid grid-cols-3 max-w-lg mt-16 pt-8 border-t border-paper/25 gap-4">
+      <div>
+        <p class="font-heading font-bold text-paper text-3xl stat-number">3<span class="text-lg align-top">代</span></p>
+        <p class="text-paper/70 text-xs mt-1">続く家族農園</p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper text-3xl stat-number">50<span class="text-lg align-top">品目+</span></p>
+        <p class="text-paper/70 text-xs mt-1">年間の栽培野菜</p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper text-3xl stat-number">4.7<span class="text-lg align-top">ha</span></p>
+        <p class="text-paper/70 text-xs mt-1">田畑の総面積</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT / MISSION & VISION ================= -->
+<section id="about" class="py-24 sm:py-32 bg-paper-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal">
+        <p class="eyebrow font-heading text-accent font-bold text-sm tracking-widest">ABOUT US</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4 leading-snug">
+          <span class="brush-underline">土を育てることが、</span><br />いのちを育てること。
+        </h2>
+        <p class="text-ink-700 leading-loose mt-6">
+          小春日和農園は、長野県安曇野市の北アルプスを望む里山で、祖父の代から三代にわたりお米と野菜を育ててきました。化学肥料や農薬にできる限り頼らず、堆肥づくりから土壌診断まで手間を惜しまない栽培を大切にしています。
+        </p>
+        <p class="text-ink-700 leading-loose mt-4">
+          雪解け水がゆっくりと巡る田んぼ、昼夜の寒暖差が甘みを育てる畑。安曇野という土地の力を借りながら、次の世代に豊かな土を引き継いでいくことが私たちの願いです。
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-5 mt-10">
+          <div class="p-6 bg-paper border border-ink-900/10 rounded-sm">
+            <p class="font-heading font-bold text-accent text-xs tracking-widest mb-2">MISSION</p>
+            <p class="font-heading font-bold text-ink-900 text-lg leading-snug">土を育てることが、<br />いのちを育てること。</p>
+          </div>
+          <div class="p-6 bg-paper border border-ink-900/10 rounded-sm">
+            <p class="font-heading font-bold text-accent text-xs tracking-widest mb-2">VISION</p>
+            <p class="font-heading font-bold text-ink-900 text-lg leading-snug">2030年、田畑のすべてを<br />自然栽培へ。里山を、次代へ。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2 relative">
+        <div class="overflow-hidden shadow-xl rounded-sm aspect-[4/5]">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=80" alt="土に触れる農園の手" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="hidden sm:block absolute -bottom-8 -left-8 bg-ink-900 rounded-sm shadow-xl p-6 w-56">
+          <p class="font-heading font-bold text-paper text-4xl stat-number">45<span class="text-lg">年</span></p>
+          <p class="text-paper/70 text-xs mt-1 leading-relaxed">祖父の代からの就農年数</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="h-10 seigaiha bg-paper-100" aria-hidden="true"></div>
+
+<!-- ================= PRODUCTS ================= -->
+<section id="products" class="py-24 sm:py-32 bg-paper">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-accent font-bold text-sm tracking-widest inline-flex items-center">PRODUCTS</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">こだわり・商品</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">
+        田んぼと畑、それぞれの季節に手間をかけて。安曇野の恵みをそのままお届けします。
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+      <!-- card 1 -->
+      <div class="reveal card-lift bg-paper-100 rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=800&q=80" alt="特別栽培米" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <div class="w-11 h-11 rounded-full bg-accent-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M8 7c0 4 8 4 8 8M16 7c0 4-8 4-8 8" /></svg>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-ink-900">特別栽培米<br />「コシヒカリ」</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">北アルプスの雪解け水と寒暖差が育てる、甘みと粘りのあるお米です。</p>
+        </div>
+      </div>
+      <!-- card 2 -->
+      <div class="reveal reveal-delay-1 card-lift bg-paper-100 rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80" alt="季節の野菜" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <div class="w-11 h-11 rounded-full bg-accent-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21c-4-2-7-6-7-10a7 7 0 0114 0c0 4-3 8-7 10z" /></svg>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-ink-900">季節の野菜</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">年間50品目以上。畑で完熟させてから収穫する「朝どれ野菜」です。</p>
+        </div>
+      </div>
+      <!-- card 3 -->
+      <div class="reveal reveal-delay-2 card-lift bg-paper-100 rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?auto=format&fit=crop&w=800&q=80" alt="手作り味噌・漬物" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <div class="w-11 h-11 rounded-full bg-accent-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14l-1.2 10.4A2 2 0 0115.8 20H8.2a2 2 0 01-2-1.6L5 8zM9 8V6a3 3 0 016 0v2" /></svg>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-ink-900">手作り味噌・漬物</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">自家栽培の大豆と米麹で仕込む、無添加の手前味噌と季節の漬物です。</p>
+        </div>
+      </div>
+      <!-- card 4 -->
+      <div class="reveal reveal-delay-3 card-lift bg-paper-100 rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?auto=format&fit=crop&w=800&q=80" alt="農業体験・古民家民泊" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <div class="w-11 h-11 rounded-full bg-accent-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-7 9 7M5 10v9a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1v-9" /></svg>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-ink-900">農業体験・<br />古民家民泊</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">田植え・稲刈り体験や、築100年の古民家に泊まる一棟貸しプランです。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY / 収穫ギャラリー ================= -->
+<section id="gallery" class="py-24 sm:py-32 bg-paper-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex flex-wrap items-end justify-between gap-6 reveal">
+      <div>
+        <p class="eyebrow font-heading text-accent font-bold text-sm tracking-widest inline-flex items-center">GALLERY</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">収穫ギャラリー</h2>
+      </div>
+      <p class="text-ink-700 max-w-md leading-relaxed">田畑に流れる四季の移ろいを、そのままお届けします。</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+      <!-- 1 -->
+      <a href="#contact" class="reveal card-lift group rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80" alt="春の田植え" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-ink-900 text-paper text-xs font-heading font-bold px-3 py-1 rounded-sm">春</span>
+        </div>
+        <div class="p-5 bg-paper">
+          <p class="text-xs text-ink-700/60 font-heading">田植えの季節</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">苗を植える、一年の始まり</h3>
+        </div>
+      </a>
+      <!-- 2 -->
+      <a href="#contact" class="reveal reveal-delay-1 card-lift group rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1447279506476-3faec8071eee?auto=format&fit=crop&w=800&q=80" alt="夏の青田" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-moss text-paper text-xs font-heading font-bold px-3 py-1 rounded-sm">夏</span>
+        </div>
+        <div class="p-5 bg-paper">
+          <p class="text-xs text-ink-700/60 font-heading">青々と茂る季節</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">畑いっぱいの夏野菜</h3>
+        </div>
+      </a>
+      <!-- 3 -->
+      <a href="#contact" class="reveal reveal-delay-2 card-lift group rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=800&q=80" alt="秋の稲刈り" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-accent text-paper text-xs font-heading font-bold px-3 py-1 rounded-sm">秋</span>
+        </div>
+        <div class="p-5 bg-paper">
+          <p class="text-xs text-ink-700/60 font-heading">黄金色に実る季節</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">稲刈りと収穫の喜び</h3>
+        </div>
+      </a>
+      <!-- 4 -->
+      <a href="#contact" class="reveal card-lift group rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?auto=format&fit=crop&w=800&q=80" alt="味噌の仕込み" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-accent text-paper text-xs font-heading font-bold px-3 py-1 rounded-sm">秋</span>
+        </div>
+        <div class="p-5 bg-paper">
+          <p class="text-xs text-ink-700/60 font-heading">仕込みの季節</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">大豆から仕込む手前味噌</h3>
+        </div>
+      </a>
+      <!-- 5 -->
+      <a href="#contact" class="reveal reveal-delay-1 card-lift group rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?auto=format&fit=crop&w=800&q=80" alt="冬の畑と保存野菜" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-ink-900 text-paper text-xs font-heading font-bold px-3 py-1 rounded-sm">冬</span>
+        </div>
+        <div class="p-5 bg-paper">
+          <p class="text-xs text-ink-700/60 font-heading">静かに土を休める季節</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">雪の下で甘みを増す野菜</h3>
+        </div>
+      </a>
+      <!-- 6 -->
+      <a href="#contact" class="reveal reveal-delay-2 card-lift group rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80" alt="直売所の様子" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-moss text-paper text-xs font-heading font-bold px-3 py-1 rounded-sm">通年</span>
+        </div>
+        <div class="p-5 bg-paper">
+          <p class="text-xs text-ink-700/60 font-heading">いつでも立ち寄れる</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">直売所に並ぶ朝どれの恵み</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAP ================= -->
+<section class="py-24 sm:py-32 bg-paper">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-5 gap-10 items-stretch">
+      <div class="lg:col-span-2 reveal bg-ink-900 rounded-sm p-8 sm:p-10 text-paper flex flex-col justify-between">
+        <div>
+          <p class="eyebrow font-heading text-accent font-bold text-sm tracking-widest inline-flex items-center">ACCESS</p>
+          <h2 class="font-heading font-bold text-3xl mt-4">直売所アクセス</h2>
+          <div class="mt-8 space-y-5 text-paper/85 text-sm leading-relaxed">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              <p>〒399-8301<br />長野県安曇野市穂高有明7000番地</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-8.25V15M4 18h16.5a.5.5 0 00.5-.5V6.5a.5.5 0 00-.5-.5H4a.5.5 0 00-.5.5v11a.5.5 0 00.5.5z" /></svg>
+              <p>JR大糸線「有明駅」より徒歩15分／車3分<br />安曇野インターより車で約15分</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <p>直売所営業時間　9:00〜17:00（水曜定休）</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              <p>TEL 0263-12-3456（受付 9:00〜17:00）</p>
+            </div>
+          </div>
+        </div>
+        <a href="#contact" class="mt-10 inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-600 transition-colors text-paper font-heading font-bold px-6 py-3.5 rounded-sm">
+          お問い合わせフォームへ
+        </a>
+      </div>
+      <div class="lg:col-span-3 reveal reveal-delay-1 rounded-sm overflow-hidden shadow-xl min-h-[360px]">
+        <iframe
+          title="小春日和農園 直売所所在地マップ"
+          src="https://www.google.com/maps?q=長野県安曇野市穂高有明&output=embed"
+          class="w-full h-full min-h-[360px] border-0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="py-24 sm:py-32 bg-paper-100">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center reveal">
+      <p class="eyebrow justify-center font-heading text-accent font-bold text-sm tracking-widest inline-flex items-center">CONTACT</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">お問い合わせ</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">
+        商品のご注文、農業体験・古民家民泊のお問い合わせなど、お気軽にご連絡ください。担当より2営業日以内にご返信いたします。
+      </p>
+    </div>
+
+    <form id="contact-form" class="reveal reveal-delay-1 mt-14 bg-paper rounded-sm border border-ink-900/10 p-6 sm:p-10 space-y-6" novalidate>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <label for="name" class="block text-sm font-heading font-bold text-ink-900 mb-2">お名前 <span class="text-accent">必須</span></label>
+          <input type="text" id="name" name="name" required placeholder="山田 太郎" class="w-full rounded-sm border border-ink-900/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-paper-100" />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-heading font-bold text-ink-900 mb-2">メールアドレス <span class="text-accent">必須</span></label>
+          <input type="email" id="email" name="email" required placeholder="example@mail.com" class="w-full rounded-sm border border-ink-900/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-paper-100" />
+        </div>
+      </div>
+      <div>
+        <label for="subject" class="block text-sm font-heading font-bold text-ink-900 mb-2">件名 <span class="text-accent">必須</span></label>
+        <input type="text" id="subject" name="subject" required placeholder="お米のご注文について" class="w-full rounded-sm border border-ink-900/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-paper-100" />
+      </div>
+      <div>
+        <label for="message" class="block text-sm font-heading font-bold text-ink-900 mb-2">メッセージ内容 <span class="text-accent">必須</span></label>
+        <textarea id="message" name="message" required rows="6" placeholder="お問い合わせ内容をご記入ください。" class="w-full rounded-sm border border-ink-900/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-paper-100 resize-none"></textarea>
+      </div>
+
+      <label class="flex items-start gap-3 text-sm text-ink-700">
+        <input type="checkbox" required class="mt-1 w-4 h-4 rounded-sm border-ink-900/30 text-accent focus:ring-accent" />
+        <span>プライバシーポリシーに同意の上、送信します。</span>
+      </label>
+
+      <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-ink-900 hover:bg-accent transition-colors text-paper font-heading font-bold px-10 py-4 rounded-sm">
+        <span class="btn-label">メッセージを送信する</span>
+        <span class="spinner hidden"></span>
+      </button>
+
+      <div id="form-feedback" class="hidden items-center gap-3 bg-moss-100 border border-moss/30 text-ink-900 text-sm rounded-sm px-5 py-4">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+        <span>お問い合わせありがとうございます。担当より折り返しご連絡いたします。（本デモサイトでは実際の送信は行われません）</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-paper/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-accent text-paper font-heading font-bold">小</span>
+          <span class="font-heading font-bold text-paper text-lg">小春日和農園</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-paper/60">
+          〒399-8301 長野県安曇野市穂高有明7000番地<br />
+          TEL 0263-12-3456 ／ 直売所営業時間 9:00〜17:00（水曜定休）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#about" class="hover:text-accent transition-colors">農園について</a></li>
+          <li><a href="index.html#products" class="hover:text-accent transition-colors">こだわり・商品</a></li>
+          <li><a href="index.html#gallery" class="hover:text-accent transition-colors">収穫ギャラリー</a></li>
+          <li><a href="company.html" class="hover:text-accent transition-colors">農園概要</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-accent transition-colors">スタッフ募集トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-accent transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-accent transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-paper/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-paper/50">
+      <p>&copy; <span data-year></span> Koharubiyori Farm. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された農園コーポレートサイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EnzoWorks｜中小企業のためのホームページ制作・運用サービス</title>
+<meta name="description" content="EnzoWorksは中小企業・個人事業主向けのホームページ制作・運用サービスです。制作費用+1年間の管理維持費込みで20万円（税別）。業種別のデモサイトから、あなたのお店・会社にぴったりのデザインをお選びいただけます。" />
+<link rel="icon" type="image/png" href="assets/img/favicon-enzoworks.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cloud: { DEFAULT: '#F7F8FD', 100: '#FFFFFF', 200: '#EEF1FB' },
+          ink: { DEFAULT: '#0F172A', 50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0', 300: '#CBD5E1', 400: '#94A3B8', 500: '#64748B', 600: '#475569', 700: '#334155', 800: '#1E293B', 900: '#0F172A', 950: '#020617' },
+          indigo: { DEFAULT: '#4F46E5', 50: '#EEF2FF', 100: '#E0E7FF', 200: '#C7D2FE', 300: '#A5B4FC', 400: '#818CF8', 500: '#6366F1', 600: '#4F46E5', 700: '#4338CA', 800: '#3730A3', 900: '#312E81' },
+          cyan: { DEFAULT: '#06B6D4', 50: '#ECFEFF', 100: '#CFFAFE', 200: '#A5F3FC', 300: '#67E8F9', 400: '#22D3EE', 500: '#06B6D4', 600: '#0891B2', 700: '#0E7490', 800: '#155E75', 900: '#164E63' },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+          heading: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-cloud text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="true" class="fixed top-0 inset-x-0 z-50 bg-transparent">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center group">
+        <img src="assets/img/logo-enzoworks.png" alt="EnzoWorks" class="h-8 sm:h-9 w-auto" />
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 font-heading text-sm font-bold text-ink-700">
+        <a href="#service" class="hover:text-indigo-600 transition-colors">選ばれる理由</a>
+        <a href="#demos" class="hover:text-indigo-600 transition-colors">デモサイト一覧</a>
+        <a href="#pricing" class="hover:text-indigo-600 transition-colors">料金プラン</a>
+        <a href="#flow" class="hover:text-indigo-600 transition-colors">ご依頼の流れ</a>
+        <a href="#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-indigo-600 text-white px-5 py-2.5 rounded-full shadow-md transition-colors">
+          無料相談・お申込み
+        </a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white/80 shadow text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-white shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-bold text-ink-700">
+      <a href="#service" class="px-4 py-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600">選ばれる理由</a>
+      <a href="#demos" class="px-4 py-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600">デモサイト一覧</a>
+      <a href="#pricing" class="px-4 py-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600">料金プラン</a>
+      <a href="#flow" class="px-4 py-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600">ご依頼の流れ</a>
+      <a href="#contact" class="mt-1 px-4 py-3 rounded-xl bg-ink-900 text-white text-center">無料相談・お申込み</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative min-h-[100svh] flex items-center overflow-hidden pt-28 pb-16 mesh-bg">
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 w-full">
+    <div class="max-w-3xl">
+      <p class="reveal inline-flex items-center gap-2 bg-white shadow-sm font-heading font-bold text-indigo-600 text-sm tracking-wide px-4 py-2 rounded-full">
+        中小企業・個人事業主のための ホームページ制作サービス
+      </p>
+      <h1 class="reveal reveal-delay-1 font-heading font-black text-ink-900 text-4xl sm:text-5xl md:text-6xl leading-tight mt-6" style="text-wrap: balance;">
+        伝わるホームページを、<br />
+        <span class="gradient-text">明朗な料金</span>で。
+      </h1>
+      <p class="reveal reveal-delay-2 text-ink-600 text-base sm:text-lg mt-6 max-w-xl leading-loose">
+        業種別に用意した実例サイトから、イメージに近いデザインをお選びいただくだけ。ヒアリングから公開まで、EnzoWorksが伴走します。追加費用が読めない、更新のたびに困る——そんな不安のない、中小企業のためのホームページづくりです。
+      </p>
+      <div class="reveal reveal-delay-3 flex flex-wrap gap-4 mt-10">
+        <a href="#contact" class="inline-flex items-center gap-2 bg-ink-900 hover:bg-indigo-600 text-white font-heading font-bold px-8 py-4 rounded-full shadow-lg transition-colors">
+          無料相談を申し込む
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+        <a href="#demos" class="inline-flex items-center gap-2 bg-white hover:bg-indigo-50 text-ink-900 font-heading font-bold px-8 py-4 rounded-full shadow-md transition-colors border border-ink-900/10">
+          デモサイトを見る
+        </a>
+      </div>
+
+      <div class="reveal reveal-delay-4 grid grid-cols-3 max-w-xl mt-14 pt-8 border-t border-ink-900/10 gap-4">
+        <div>
+          <p class="font-heading font-black text-indigo-600 text-3xl stat-number">10<span class="text-lg align-top">業種+</span></p>
+          <p class="text-ink-600 text-xs mt-1">デモサイト実例数</p>
+        </div>
+        <div>
+          <p class="font-heading font-black text-ink-900 text-3xl stat-number">20<span class="text-lg align-top">万円〜</span></p>
+          <p class="text-ink-600 text-xs mt-1">制作費+初年度運用費込み（税別）</p>
+        </div>
+        <div>
+          <p class="font-heading font-black text-cyan-600 text-3xl stat-number">月<span class="text-lg align-top">5,000円</span></p>
+          <p class="text-ink-600 text-xs mt-1">2年目以降の保守運用費（税別）</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 選ばれる理由 ================= -->
+<section id="service" class="py-24 sm:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-indigo-600 font-bold text-sm tracking-widest inline-flex items-center">WHY ENZOWORKS</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">EnzoWorksが選ばれる理由</h2>
+      <p class="text-ink-600 mt-4 leading-relaxed">
+        「ホームページが欲しいけれど、何から決めればいいか分からない」——そんな中小企業の皆さまのために、迷わず・分かりやすく進められる仕組みを用意しました。
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+      <div class="reveal card-lift bg-cloud-200 rounded-3xl p-7 border border-ink-900/5">
+        <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-ink-900">実例を見て選べる</h3>
+        <p class="text-sm text-ink-600 mt-2 leading-relaxed">10業種以上のデモサイトを今すぐ閲覧可能。完成イメージが分かった上で依頼できるので、認識のズレが起きません。</p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-cloud-200 rounded-3xl p-7 border border-ink-900/5">
+        <div class="w-12 h-12 rounded-2xl bg-cyan-100 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14l6-6m-5-2h.01M17 16h.01M7 6a4 4 0 118 0 4 4 0 01-8 0zM4 20c0-3 3.5-5 8-5s8 2 8 5" /></svg>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-ink-900">分かりやすい料金</h3>
+        <p class="text-sm text-ink-600 mt-2 leading-relaxed">制作費用と1年目の管理維持費がコミコミで20万円（税別）。追加費用が発生する範囲も事前にご案内します。</p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-cloud-200 rounded-3xl p-7 border border-ink-900/5">
+        <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><circle cx="12" cy="13" r="3.5" /></svg>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-ink-900">写真がなくても安心</h3>
+        <p class="text-sm text-ink-600 mt-2 leading-relaxed">お手持ちの写真がなくても大丈夫。画像制作や出張撮影も別途お見積りにて承ります。</p>
+      </div>
+      <div class="reveal reveal-delay-3 card-lift bg-cloud-200 rounded-3xl p-7 border border-ink-900/5">
+        <div class="w-12 h-12 rounded-2xl bg-cyan-100 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m5-2.13a4 4 0 100-8 4 4 0 000 8zm6 0a4 4 0 10-1.13-7.84" /></svg>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-ink-900">公開後も伴走</h3>
+        <p class="text-sm text-ink-600 mt-2 leading-relaxed">公開して終わりではなく、1年目の運用サポート込み。2年目以降も月5,000円からの管理プランで継続対応します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= デモサイト一覧 ================= -->
+<section id="demos" class="py-24 sm:py-32 bg-cloud-200">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex flex-wrap items-end justify-between gap-6 reveal">
+      <div>
+        <p class="eyebrow font-heading text-indigo-600 font-bold text-sm tracking-widest inline-flex items-center">DEMO SITES</p>
+        <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">業種別デモサイト一覧</h2>
+      </div>
+      <p class="text-ink-600 max-w-md leading-relaxed">実際に公開しているデモサイトです。気になるデザインをクリックして、実物のスマホ・PC表示をご確認いただけます。</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+      <!-- 1 建設業 -->
+      <a href="construction-showa-kensetsu/index.html" target="_blank" rel="noopener" class="reveal card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-construction.jpg" alt="株式会社翔和建設 デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">建設業</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">株式会社翔和建設</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">ネイビー×オレンジ。信頼感を重視したモダンなコーポレートデザイン。</p>
+        </div>
+      </a>
+      <!-- 2 農業 -->
+      <a href="farm-koharubiyori/index.html" target="_blank" rel="noopener" class="reveal reveal-delay-1 card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-farm.jpg" alt="小春日和農園 デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">農業</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">小春日和農園</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">生成り×藍鉄色×弁柄。温かみのある和モダンデザイン。</p>
+        </div>
+      </a>
+      <!-- 3 NPO -->
+      <a href="kodomo-shokudo-nikoniko/index.html" target="_blank" rel="noopener" class="reveal reveal-delay-2 card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-kodomo.jpg" alt="にこにこ子ども食堂 デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">NPO・地域福祉</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">にこにこ子ども食堂</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">コーラル×黄×水色×緑。ポップで親しみやすいデザイン。</p>
+        </div>
+      </a>
+      <!-- 4 製造業 -->
+      <a href="manufacturing-saijo-seiko/index.html" target="_blank" rel="noopener" class="reveal card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-manufacturing.jpg" alt="西条精工株式会社 デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">製造業</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">西条精工株式会社</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">グラファイト×スチールブルー。精密さと技術力を伝えるデザイン。</p>
+        </div>
+      </a>
+      <!-- 5 金属加工 -->
+      <a href="metalwork-setouchi-works/index.html" target="_blank" rel="noopener" class="reveal reveal-delay-1 card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-metalwork.jpg" alt="瀬戸内メタルワークス デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">金属加工業</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">瀬戸内メタルワークス</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">チャコール×アンバー。力強く現場感のある産業デザイン。</p>
+        </div>
+      </a>
+      <!-- 6 工務店 -->
+      <a href="koumuten-ishizuchi/index.html" target="_blank" rel="noopener" class="reveal reveal-delay-2 card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-koumuten.jpg" alt="石鎚工務店 デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">工務店・住宅建築</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">石鎚工務店</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">生成り×ウッドブラウン×深緑。あたたかい木質の和モダンデザイン。</p>
+        </div>
+      </a>
+      <!-- 7 酒造 -->
+      <a href="sake-uchinuki-shuzo/index.html" target="_blank" rel="noopener" class="reveal card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-sake.jpg" alt="うちぬき酒造株式会社 デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">酒造業</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">うちぬき酒造株式会社</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">藍紺×生成り×金。格式高く上品な和デザイン。</p>
+        </div>
+      </a>
+      <!-- 8 6次産業化 -->
+      <a href="agriprocessing-saijo-citrus/index.html" target="_blank" rel="noopener" class="reveal reveal-delay-1 card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-agri.jpg" alt="西条柑橘工房 デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">6次産業化（農業+加工+直売）</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">西条柑橘工房</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">オレンジ×レモン×若葉グリーン。フレッシュで上質なデザイン。</p>
+        </div>
+      </a>
+      <!-- 9 アウトドア -->
+      <a href="outdoor-ishizuchi-base/index.html" target="_blank" rel="noopener" class="reveal reveal-delay-2 card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-outdoor.jpg" alt="石鎚アウトドアベース デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">アウトドア体験事業</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">石鎚アウトドアベース</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">フォレストグリーン×リバーブルー。躍動感あるアウトドアブランドデザイン。</p>
+        </div>
+      </a>
+      <!-- 10 介護 -->
+      <a href="homecare-saijo-hohoemi/index.html" target="_blank" rel="noopener" class="reveal card-lift group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl block border border-ink-900/5">
+        <div class="demo-thumb aspect-[16/10]">
+          <img src="assets/img/thumb-homecare.jpg" alt="西条ほほえみ介護ステーション デモサイト" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">訪問介護・福祉</span>
+          <h3 class="font-heading font-bold text-ink-900 mt-3">西条ほほえみ介護ステーション</h3>
+          <p class="text-sm text-ink-600 mt-1 leading-relaxed">ミント×コーラル。安心感と可読性を重視したデザイン。</p>
+        </div>
+      </a>
+    </div>
+
+    <p class="reveal text-center text-sm text-ink-500 mt-10">上記以外の業種でも制作可能です。お気軽にご相談ください。</p>
+  </div>
+</section>
+
+<!-- ================= 料金プラン ================= -->
+<section id="pricing" class="py-24 sm:py-32 bg-white">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-indigo-600 font-bold text-sm tracking-widest inline-flex items-center">PRICING</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">料金プラン</h2>
+      <p class="text-ink-600 mt-4 leading-relaxed">シンプルな1プランのみ。制作費用と初年度の管理維持費がすべて込みの価格です。</p>
+    </div>
+
+    <div class="reveal reveal-delay-1 mt-14 grid lg:grid-cols-5 rounded-3xl overflow-hidden shadow-xl border border-ink-900/5">
+      <div class="lg:col-span-3 bg-ink-900 text-white p-8 sm:p-12">
+        <p class="font-heading font-bold text-cyan-400 text-sm tracking-widest">STANDARD PLAN</p>
+        <h3 class="font-heading font-black text-2xl sm:text-3xl mt-3">ホームページ制作 + 初年度運用プラン</h3>
+        <div class="flex items-end gap-2 mt-8">
+          <span class="font-heading font-black text-5xl sm:text-6xl stat-number">200,000</span>
+          <span class="text-white/70 text-lg mb-2">円（税別）</span>
+        </div>
+        <p class="text-white/60 text-sm mt-2">制作費用 + 1年間の管理維持費 込み</p>
+
+        <ul class="mt-8 space-y-3 text-sm text-white/85">
+          <li class="flex gap-3"><svg class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>ヒアリング・お打ち合わせ</li>
+          <li class="flex gap-3"><svg class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>デモサイトを元にしたオリジナルサイト制作（トップページ＋下層ページ）</li>
+          <li class="flex gap-3"><svg class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>スマートフォン・タブレット対応（レスポンシブデザイン）</li>
+          <li class="flex gap-3"><svg class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>お問い合わせフォーム設置</li>
+          <li class="flex gap-3"><svg class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>公開後1年間の管理・保守対応</li>
+        </ul>
+      </div>
+      <div class="lg:col-span-2 bg-cloud-200 p-8 sm:p-12 flex flex-col justify-between">
+        <div>
+          <p class="font-heading font-bold text-indigo-600 text-sm tracking-widest">2年目以降</p>
+          <h3 class="font-heading font-black text-xl text-ink-900 mt-3">保守管理運用プラン</h3>
+          <div class="flex items-end gap-2 mt-6">
+            <span class="font-heading font-black text-4xl text-ink-900 stat-number">60,000</span>
+            <span class="text-ink-500 text-sm mb-1">円/年（税別）</span>
+          </div>
+          <p class="text-ink-500 text-xs mt-2">月額5,000円（税別）×12ヶ月</p>
+          <p class="text-sm text-ink-600 mt-6 leading-relaxed">
+            サイトの保守・管理を継続してサポートするプランです。詳細な作業範囲はお打ち合わせにてご案内します。
+          </p>
+        </div>
+        <div class="mt-8 pt-6 border-t border-ink-900/10">
+          <p class="text-xs text-ink-500 leading-relaxed">
+            ※追加ページの制作、写真撮影・画像制作、ロゴ制作、独自機能の実装などは別途お見積りとなります。詳しくはお問い合わせ・お打ち合わせにてご相談ください。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2 mt-6 flex items-start gap-4 bg-indigo-50 border border-indigo-100 rounded-2xl px-6 py-5">
+      <svg class="w-6 h-6 text-indigo-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" /></svg>
+      <p class="text-sm text-ink-700 leading-relaxed">
+        <span class="font-heading font-bold text-ink-900">各種補助金を利用したい方は、ご相談ください。</span><br />
+        IT導入補助金・小規模事業者持続化補助金など、ホームページ制作に活用できる補助金・助成金は多数あります。制度のご案内や申請書類に必要な見積書・資料の準備についてもサポートいたします。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ご依頼の流れ ================= -->
+<section id="flow" class="py-24 sm:py-32 bg-cloud-200">
+  <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-indigo-600 font-bold text-sm tracking-widest inline-flex items-center">FLOW</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">ご依頼の流れ</h2>
+      <p class="text-ink-600 mt-4 leading-relaxed">お申込みから公開まで、6つのステップで進みます。分からないことはいつでもご相談ください。</p>
+    </div>
+
+    <div class="mt-16 space-y-10">
+      <!-- 1 -->
+      <div class="reveal flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <span class="w-12 h-12 rounded-full bg-ink-900 text-white font-heading font-black flex items-center justify-center">1</span>
+          <span class="flex-1 w-0.5 flow-line mt-2"></span>
+        </div>
+        <div class="pb-6">
+          <h3 class="font-heading font-bold text-lg text-ink-900">お申込み・お打ち合わせ</h3>
+          <p class="text-sm text-ink-600 mt-2 leading-relaxed">お申込みフォームよりご依頼後、オンラインまたは対面でお打ち合わせを行います。ご要望や現状のお悩みをお聞かせください。</p>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="reveal reveal-delay-1 flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <span class="w-12 h-12 rounded-full bg-ink-900 text-white font-heading font-black flex items-center justify-center">2</span>
+          <span class="flex-1 w-0.5 flow-line mt-2"></span>
+        </div>
+        <div class="pb-6">
+          <h3 class="font-heading font-bold text-lg text-ink-900">デザインをお選びいただく</h3>
+          <p class="text-sm text-ink-600 mt-2 leading-relaxed">デモサイト一覧をご覧いただき、イメージに合ったデザインをお選びください。業種や雰囲気に合わせて調整もご相談いただけます。</p>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="reveal reveal-delay-2 flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <span class="w-12 h-12 rounded-full bg-ink-900 text-white font-heading font-black flex items-center justify-center">3</span>
+          <span class="flex-1 w-0.5 flow-line mt-2"></span>
+        </div>
+        <div class="pb-6">
+          <h3 class="font-heading font-bold text-lg text-ink-900">必要情報のご準備</h3>
+          <p class="text-sm text-ink-600 mt-2 leading-relaxed">会社概要や事業内容、お問い合わせ先など、掲載に必要な情報とご希望の文言をご準備ください。</p>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="reveal reveal-delay-3 flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <span class="w-12 h-12 rounded-full bg-ink-900 text-white font-heading font-black flex items-center justify-center">4</span>
+          <span class="flex-1 w-0.5 flow-line mt-2"></span>
+        </div>
+        <div class="pb-6">
+          <h3 class="font-heading font-bold text-lg text-ink-900">サイト内写真のご準備</h3>
+          <p class="text-sm text-ink-600 mt-2 leading-relaxed">お手持ちの写真をご準備いただくか、別途お見積りにて画像制作・出張撮影も承ります。写真がない状態でのご相談も可能です。</p>
+        </div>
+      </div>
+      <!-- 5 -->
+      <div class="reveal reveal-delay-4 flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <span class="w-12 h-12 rounded-full bg-ink-900 text-white font-heading font-black flex items-center justify-center">5</span>
+          <span class="flex-1 w-0.5 flow-line mt-2"></span>
+        </div>
+        <div class="pb-6">
+          <h3 class="font-heading font-bold text-lg text-ink-900">追加のご希望をご相談</h3>
+          <p class="text-sm text-ink-600 mt-2 leading-relaxed">その他ご希望のページや機能がございましたら、お気軽にご相談ください。内容によって別途お見積りをご案内します。</p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="text-xs font-heading font-bold text-ink-500 px-1 py-1.5">例：</span>
+            <span class="text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full">SNS連携</span>
+            <span class="text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full">YouTube動画埋め込み</span>
+            <span class="text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full">EC・オンラインショップ機能</span>
+            <span class="text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full">予約・申込フォーム</span>
+            <span class="text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full">多言語対応</span>
+            <span class="text-xs font-heading font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full">ブログ・お知らせ機能</span>
+          </div>
+        </div>
+      </div>
+      <!-- 6 -->
+      <div class="reveal flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <span class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-600 to-cyan-500 text-white font-heading font-black flex items-center justify-center">6</span>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-lg text-ink-900">ご確認・公開</h3>
+          <p class="text-sm text-ink-600 mt-2 leading-relaxed">実装完了後、内容をご確認いただいたうえで公開いたします。公開後1年間はEnzoWorksが運用をサポートします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="relative py-24 sm:py-32 bg-white overflow-hidden">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8 lg:px-10 relative">
+    <div class="text-center reveal">
+      <p class="eyebrow justify-center font-heading text-indigo-600 font-bold text-sm tracking-widest inline-flex items-center">CONTACT</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">無料相談・お申込み</h2>
+      <p class="text-ink-600 mt-4 leading-relaxed">
+        ホームページ制作に関するご相談・お見積りのご依頼は、下記フォームよりお気軽にご連絡ください。担当より2営業日以内にご返信いたします。
+      </p>
+    </div>
+
+    <form id="contact-form" class="reveal reveal-delay-1 mt-14 bg-cloud-200 rounded-3xl border border-ink-900/10 p-6 sm:p-10 space-y-6" novalidate>
+      <!-- Web3Forms設定。https://web3forms.com で取得したアクセスキーに差し替えてください -->
+      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+      <input type="hidden" name="subject" value="【EnzoWorks】ホームページ制作サービス お問い合わせ" />
+      <input type="hidden" name="from_name" value="EnzoWorks サービスサイト" />
+      <!-- ボット対策: ハニーポット（人間には見えない。botが埋めると送信をブロック） -->
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <label for="name" class="block text-sm font-heading font-bold text-ink-900 mb-2">お名前 <span class="text-indigo-600">必須</span></label>
+          <input type="text" id="name" name="name" required placeholder="山田 太郎" class="w-full rounded-xl border border-ink-900/15 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white" />
+        </div>
+        <div>
+          <label for="company" class="block text-sm font-heading font-bold text-ink-900 mb-2">会社名・屋号</label>
+          <input type="text" id="company" name="company" placeholder="株式会社サンプル" class="w-full rounded-xl border border-ink-900/15 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white" />
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <label for="email" class="block text-sm font-heading font-bold text-ink-900 mb-2">メールアドレス <span class="text-indigo-600">必須</span></label>
+          <input type="email" id="email" name="email" required placeholder="example@mail.com" class="w-full rounded-xl border border-ink-900/15 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white" />
+        </div>
+        <div>
+          <label for="tel" class="block text-sm font-heading font-bold text-ink-900 mb-2">電話番号</label>
+          <input type="tel" id="tel" name="tel" placeholder="000-0000-0000" class="w-full rounded-xl border border-ink-900/15 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white" />
+        </div>
+      </div>
+      <div>
+        <label for="interest" class="block text-sm font-heading font-bold text-ink-900 mb-2">気になっているデモサイト</label>
+        <select id="interest" name="interest" class="w-full rounded-xl border border-ink-900/15 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white">
+          <option value="">選択してください（任意）</option>
+          <option value="construction">株式会社翔和建設（建設業）</option>
+          <option value="farm">小春日和農園（農業）</option>
+          <option value="kodomo">にこにこ子ども食堂（NPO・地域福祉）</option>
+          <option value="manufacturing">西条精工株式会社（製造業）</option>
+          <option value="metalwork">瀬戸内メタルワークス（金属加工業）</option>
+          <option value="koumuten">石鎚工務店（工務店・住宅建築）</option>
+          <option value="sake">うちぬき酒造株式会社（酒造業）</option>
+          <option value="agri">西条柑橘工房（6次産業化）</option>
+          <option value="outdoor">石鎚アウトドアベース（アウトドア体験）</option>
+          <option value="homecare">西条ほほえみ介護ステーション（訪問介護・福祉）</option>
+          <option value="other">その他・まだ決めていない</option>
+        </select>
+      </div>
+      <div>
+        <label for="message" class="block text-sm font-heading font-bold text-ink-900 mb-2">お問い合わせ内容 <span class="text-indigo-600">必須</span></label>
+        <textarea id="message" name="message" required rows="6" placeholder="ご相談内容、ご希望の公開時期などをご記入ください。" class="w-full rounded-xl border border-ink-900/15 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white resize-none"></textarea>
+      </div>
+
+      <label class="flex items-start gap-3 text-sm text-ink-600">
+        <input type="checkbox" required class="mt-1 w-4 h-4 rounded border-ink-900/30 text-indigo-600 focus:ring-indigo-400" />
+        <span>プライバシーポリシーに同意の上、送信します。</span>
+      </label>
+
+      <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-ink-900 hover:bg-indigo-600 transition-colors text-white font-heading font-bold px-10 py-4 rounded-full shadow-lg">
+        <span class="btn-label">無料相談・お申込みを送信する</span>
+        <span class="spinner hidden"></span>
+      </button>
+
+      <div id="form-feedback" class="hidden items-center gap-3 bg-cyan-50 border border-cyan-500/30 text-ink-900 text-sm rounded-xl px-5 py-4">
+        <svg class="w-5 h-5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+        <span>お問い合わせありがとうございます。担当より2営業日以内にご連絡いたします。</span>
+      </div>
+      <div id="form-error" class="hidden items-center gap-3 bg-red-50 border border-red-400/40 text-ink-900 text-sm rounded-xl px-5 py-4">
+        <svg class="w-5 h-5 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+        <span>送信に失敗しました。お手数ですが <a href="mailto:m.konagai@enzo-works.com" class="underline font-bold">m.konagai@enzo-works.com</a> まで直接ご連絡ください。</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-white/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center mb-5">
+          <img src="assets/img/logo-enzoworks.png" alt="EnzoWorks" class="h-8 w-auto brightness-0 invert" />
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-white/60">
+          中小企業・個人事業主のためのホームページ制作・運用サービスです。制作費用+1年間の管理維持費込みで20万円（税別）、2年目以降は年額60,000円（税別）で運用をサポートします。
+        </p>
+        <p class="text-sm leading-relaxed mt-4 text-white/60">
+          Email：<a href="mailto:m.konagai@enzo-works.com" class="hover:text-cyan-400 transition-colors">m.konagai@enzo-works.com</a>
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">MENU</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#service" class="hover:text-cyan-400 transition-colors">選ばれる理由</a></li>
+          <li><a href="#demos" class="hover:text-cyan-400 transition-colors">デモサイト一覧</a></li>
+          <li><a href="#pricing" class="hover:text-cyan-400 transition-colors">料金プラン</a></li>
+          <li><a href="#flow" class="hover:text-cyan-400 transition-colors">ご依頼の流れ</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">CONTACT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#contact" class="hover:text-cyan-400 transition-colors">無料相談・お申込み</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
+      <p>&copy; <span data-year></span> EnzoWorks. All Rights Reserved.</p>
+      <p>本ページに掲載のデモサイトはすべて架空の企業・団体です。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>うちぬき酒造株式会社｜愛媛県西条市の日本酒蔵元</title>
+<meta name="description" content="うちぬき酒造株式会社は、愛媛県西条市で1897年創業、五代目蔵元杜氏が守り継ぐ日本酒蔵です。名水「うちぬき」の伏流水と石鎚山系の酒米で仕込む純米大吟醸をはじめ、蔵見学・試飲も承っております。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            DEFAULT: '#1B2A4A',
+            50: '#EEF1F6',
+            100: '#D7DEEA',
+            200: '#AFBFD4',
+            300: '#8398B9',
+            400: '#5A729B',
+            500: '#3C5480',
+            600: '#2A3C60',
+            700: '#1B2A4A',
+            800: '#14203A',
+            900: '#0F1A2C',
+            950: '#080D18',
+          },
+          cream: {
+            DEFAULT: '#F7F4EC',
+            50: '#FFFEFB',
+            100: '#FBF8F0',
+            200: '#F7F4EC',
+            300: '#EFE9D8',
+            400: '#E4DAC0',
+            500: '#D8CBA0',
+          },
+          gold: {
+            DEFAULT: '#C9A24B',
+            50: '#FBF6EA',
+            100: '#F4E8C8',
+            200: '#EAD79C',
+            300: '#DFC575',
+            400: '#D4B25A',
+            500: '#C9A24B',
+            600: '#A9843A',
+            700: '#8A6A2E',
+          },
+          sencha: {
+            DEFAULT: '#6E7D53',
+            50: '#EFF2E9',
+            100: '#E1E6D4',
+            200: '#C3CDAA',
+            500: '#6E7D53',
+            600: '#57623F',
+          },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+          heading: ['"Shippori Mincho"', '"Noto Serif JP"', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-cream text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="true" class="fixed top-0 inset-x-0 z-50 bg-transparent">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-ink-900 border border-gold-500/50 text-gold-400 font-heading font-bold text-lg">酒</span>
+        <span class="font-heading font-bold text-base sm:text-lg tracking-wide text-ink-900 leading-tight">
+          うちぬき酒造<span class="hidden sm:inline">株式会社</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-9 font-heading text-sm font-medium text-ink-700">
+        <a data-nav-link="index.html" href="index.html#about" class="hover:text-gold-600 transition-colors">こだわり</a>
+        <a data-nav-link="index.html" href="index.html#products" class="hover:text-gold-600 transition-colors">商品ラインナップ</a>
+        <a data-nav-link="index.html" href="index.html#tour" class="hover:text-gold-600 transition-colors">蔵見学・試飲</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-gold-600 transition-colors">蔵元について</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-gold-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-gold-600 text-cream px-5 py-2.5 rounded-sm transition-colors">
+          お問い合わせ
+        </a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-ink-900/5 text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-cream-50 shadow-lg mx-4 rounded-sm border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-medium text-ink-700">
+      <a href="index.html#about" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">こだわり</a>
+      <a href="index.html#products" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">商品ラインナップ</a>
+      <a href="index.html#tour" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">蔵見学・試飲</a>
+      <a href="company.html" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">蔵元について</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-sm bg-ink-900 text-cream text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative min-h-[100svh] flex items-end hero-bg" style="background-image: linear-gradient(180deg, rgba(8,13,24,0.45) 0%, rgba(8,13,24,0.62) 55%, rgba(8,13,24,0.94) 100%), url('https://images.unsplash.com/photo-1758470475891-5dae231b01b5?auto=format&fit=crop&w=2000&q=80');">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pb-24 pt-40 w-full">
+    <p class="reveal text-gold-400 font-heading tracking-[0.3em] text-sm sm:text-base mb-5">UCHINUKI SHUZO · 愛媛県西条市</p>
+    <h1 class="reveal reveal-delay-1 font-heading font-bold text-cream text-4xl sm:text-5xl md:text-6xl leading-snug max-w-3xl" style="text-wrap: balance;">
+      西条の名水が、<br />一滴の酒になる。
+    </h1>
+    <p class="reveal reveal-delay-2 text-cream/85 text-base sm:text-lg mt-6 max-w-xl leading-loose">
+      石鎚山系にはぐくまれた西条の名水「うちぬき」を仕込み水に、1897年の創業から五代にわたり酒を醸してきました。手間を惜しまぬ杜氏の技で、一滴一滴に土地の恵みを映します。
+    </p>
+    <div class="reveal reveal-delay-3 flex flex-wrap gap-4 mt-10">
+      <a href="#contact" class="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-ink-900 font-heading font-bold px-8 py-4 rounded-sm transition-colors">
+        お問い合わせはこちら
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </a>
+      <a href="#products" class="inline-flex items-center gap-2 bg-cream/10 hover:bg-cream/20 text-cream font-heading font-bold px-8 py-4 rounded-sm transition-colors border border-cream/40 backdrop-blur">
+        商品を見る
+      </a>
+    </div>
+
+    <div class="reveal reveal-delay-4 grid grid-cols-3 max-w-lg mt-16 pt-8 border-t border-gold-500/25 gap-4">
+      <div>
+        <p class="font-heading font-bold text-cream text-3xl stat-number">130<span class="text-lg align-top">年</span></p>
+        <p class="text-cream/60 text-xs mt-1">創業から近い歴史</p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream text-3xl stat-number">5<span class="text-lg align-top">代目</span></p>
+        <p class="text-cream/60 text-xs mt-1">蔵元杜氏が守る味</p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream text-3xl stat-number">金賞</p>
+        <p class="text-cream/60 text-xs mt-1">全国新酒鑑評会 受賞歴</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT / こだわり ================= -->
+<section id="about" class="py-24 sm:py-32 bg-cream-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal">
+        <p class="eyebrow font-heading text-gold-600 font-bold text-sm tracking-widest">OUR CRAFT</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4 leading-snug">
+          <span class="kinsen">水と米と、人の技が、</span><br />一本の酒になるまで。
+        </h2>
+        <p class="text-ink-700 leading-loose mt-6">
+          うちぬき酒造は、愛媛県西条市に古くから湧く自噴水「うちぬき」の伏流水を仕込み水として使用しています。石鎚山系にろ過された軟らかな水は、雑味のない澄んだ酒質を生み出す、この土地ならではの恵みです。
+        </p>
+        <p class="text-ink-700 leading-loose mt-4">
+          酒米には地元・石鎚山系で育つ山田錦や松山三井を中心に使用し、五代目蔵元杜氏が四季を通じて麹と対話しながら丁寧に醸します。仕込みの規模を追わず、目の届く量を大切に造り続けています。
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-5 mt-10">
+          <div class="p-6 bg-cream border border-ink-900/10 rounded-sm">
+            <p class="font-heading font-bold text-gold-600 text-xs tracking-widest mb-2">MISSION</p>
+            <p class="font-heading font-bold text-ink-900 text-lg leading-snug">西条の水と米で、<br />一期一会の酒を醸す。</p>
+          </div>
+          <div class="p-6 bg-cream border border-ink-900/10 rounded-sm">
+            <p class="font-heading font-bold text-gold-600 text-xs tracking-widest mb-2">VISION</p>
+            <p class="font-heading font-bold text-ink-900 text-lg leading-snug">次の百年へ、<br />西条の酒文化をつなぐ。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2 relative">
+        <div class="gold-frame overflow-hidden shadow-xl rounded-sm aspect-[4/5]">
+          <img src="https://images.unsplash.com/photo-1760985882646-84ff241429b8?auto=format&fit=crop&w=1200&q=80" alt="西条の名水「うちぬき」を思わせる清流" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="hidden sm:block absolute -bottom-8 -left-8 bg-ink-900 rounded-sm shadow-xl p-6 w-56">
+          <p class="font-heading font-bold text-cream text-4xl stat-number">130<span class="text-lg">年</span></p>
+          <p class="text-cream/70 text-xs mt-1 leading-relaxed">1897年創業からの歴史</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6 mt-20">
+      <div class="reveal card-lift bg-cream rounded-sm p-7 border border-ink-900/10">
+        <div class="w-12 h-12 rounded-full bg-gold-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-gold-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c3 4 6 7.5 6 11a6 6 0 11-12 0c0-3.5 3-7 6-11z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900 text-lg">仕込み水「うちぬき」</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">西条の地に古くから湧く自噴水。石鎚山系の伏流水が、雑味のない軟水として仕込みを支えます。</p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-cream rounded-sm p-7 border border-ink-900/10">
+        <div class="w-12 h-12 rounded-full bg-gold-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-gold-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M8 7c0 4 8 4 8 8M16 7c0 4-8 4-8 8" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900 text-lg">石鎚山系の酒米</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">山田錦・松山三井を中心に、地元契約農家と育てる酒米。土地の気候が芯のある味わいを育てます。</p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-cream rounded-sm p-7 border border-ink-900/10">
+        <div class="w-12 h-12 rounded-full bg-gold-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-gold-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900 text-lg">五代目・杜氏の技</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">先代から受け継いだ技術に、五代目蔵元杜氏の探求心を重ねる。全国新酒鑑評会での金賞受賞歴があります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="h-10 seigaiha bg-cream-100" aria-hidden="true"></div>
+
+<!-- ================= PRODUCTS ================= -->
+<section id="products" class="py-24 sm:py-32 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-gold-600 font-bold text-sm tracking-widest inline-flex items-center">PRODUCTS</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">商品ラインナップ</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">
+        普段の晩酌から特別な贈り物まで。うちぬき酒造が誇る4つの味わいをご紹介します。
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+      <!-- 商品1 -->
+      <div class="reveal card-lift bg-cream-100 rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1525974160448-038dacadcc71?auto=format&fit=crop&w=800&q=80" alt="純米大吟醸「うちぬき」" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <p class="text-xs font-heading font-bold text-gold-600 tracking-widest mb-2">FLAGSHIP</p>
+          <h3 class="font-heading font-bold text-lg text-ink-900">純米大吟醸<br />「うちぬき」</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">山田錦を35%まで磨き上げた最高峰の一本。華やかな香りと澄んだ余韻をお楽しみください。</p>
+        </div>
+      </div>
+      <!-- 商品2 -->
+      <div class="reveal reveal-delay-1 card-lift bg-cream-100 rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1571762450239-f0f047321444?auto=format&fit=crop&w=800&q=80" alt="特別純米酒" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <p class="text-xs font-heading font-bold text-gold-600 tracking-widest mb-2">STANDARD</p>
+          <h3 class="font-heading font-bold text-lg text-ink-900">特別純米酒</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">松山三井を使用した、米の旨みとキレを両立させた食中酒。毎日の晩酌にもぴったりです。</p>
+        </div>
+      </div>
+      <!-- 商品3 -->
+      <div class="reveal reveal-delay-2 card-lift bg-cream-100 rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1765008603344-ec98d37d2fc0?auto=format&fit=crop&w=800&q=80" alt="本醸造" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-6">
+          <p class="text-xs font-heading font-bold text-gold-600 tracking-widest mb-2">EVERYDAY</p>
+          <h3 class="font-heading font-bold text-lg text-ink-900">本醸造</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">すっきりとした飲み口で燗酒にも好適。晩酌からお料理との相性まで、幅広くお楽しみいただけます。</p>
+        </div>
+      </div>
+      <!-- 商品4：季節限定 -->
+      <div class="reveal reveal-delay-3 card-lift rounded-sm overflow-hidden border border-ink-900/10 hover:shadow-xl bg-gradient-to-br from-ink-900 via-ink-800 to-ink-900">
+        <div class="aspect-[4/3] flex items-center justify-center relative">
+          <span class="absolute top-4 left-4 bg-gold-500 text-ink-900 text-xs font-heading font-bold px-3 py-1 rounded-sm">季節限定</span>
+          <svg class="w-16 h-16 text-gold-400/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 3h8l1 5a6 6 0 01-3 5.2V19h2a1 1 0 011 1v1H7v-1a1 1 0 011-1h2v-5.8A6 6 0 017 8l1-5z" /></svg>
+        </div>
+        <div class="p-6">
+          <p class="text-xs font-heading font-bold text-gold-400 tracking-widest mb-2">LIMITED EDITION</p>
+          <h3 class="font-heading font-bold text-lg text-cream">季節限定<br />にごり酒</h3>
+          <p class="text-sm text-cream/70 mt-2 leading-relaxed">寒仕込みの時期だけ搾る、とろりと甘い無濾過のにごり酒。数量限定でお届けします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 蔵見学・試飲 ================= -->
+<section id="tour" class="py-24 sm:py-32 bg-cream-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal order-2 lg:order-1 gold-frame overflow-hidden rounded-sm shadow-xl aspect-[4/3]">
+        <img src="https://images.unsplash.com/photo-1664477407933-dd42ed0c6c62?auto=format&fit=crop&w=1200&q=80" alt="蔵での試飲の様子" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div class="reveal reveal-delay-1 order-1 lg:order-2">
+        <p class="eyebrow font-heading text-gold-600 font-bold text-sm tracking-widest">BREWERY TOUR</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4 leading-snug">
+          蔵見学・試飲のご案内
+        </h2>
+        <p class="text-ink-700 leading-loose mt-6">
+          明治期からの木造蔵と、五代にわたり受け継がれてきた道具をご覧いただけます。仕込みの季節（11月〜3月）には、実際に醪（もろみ）の香りを間近に感じていただくことも可能です。
+        </p>
+        <p class="text-ink-700 leading-loose mt-4">
+          見学の最後には、蔵元厳選の3〜4種を利き酒形式でお楽しみいただける試飲付き。日本酒ギフトをお探しの方、飲食店様のご視察にもご好評をいただいております。
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-5 mt-10 text-sm">
+          <div class="flex gap-3">
+            <svg class="w-5 h-5 text-gold-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <div>
+              <p class="font-heading font-bold text-ink-900">見学時間</p>
+              <p class="text-ink-700 mt-1">約45分（試飲含む）／要予約</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <svg class="w-5 h-5 text-gold-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m-7 4h8m-9 4h10M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" /></svg>
+            <div>
+              <p class="font-heading font-bold text-ink-900">料金</p>
+              <p class="text-ink-700 mt-1">お一人様 1,000円（税込・試飲付き）</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="#contact" class="inline-flex items-center gap-2 bg-ink-900 hover:bg-gold-600 hover:text-ink-900 transition-colors text-cream font-heading font-bold px-8 py-4 rounded-sm mt-10">
+          蔵見学を予約する
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAP / ACCESS ================= -->
+<section class="py-24 sm:py-32 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-5 gap-10 items-stretch">
+      <div class="lg:col-span-2 reveal bg-ink-900 rounded-sm p-8 sm:p-10 text-cream flex flex-col justify-between">
+        <div>
+          <p class="eyebrow font-heading text-gold-400 font-bold text-sm tracking-widest inline-flex items-center">ACCESS</p>
+          <h2 class="font-heading font-bold text-3xl mt-4">蔵元アクセス</h2>
+          <div class="mt-8 space-y-5 text-cream/85 text-sm leading-relaxed">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-gold-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              <p>〒793-0025<br />愛媛県西条市大町字新町85番地</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-gold-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-8.25V15M4 18h16.5a.5.5 0 00.5-.5V6.5a.5.5 0 00-.5-.5H4a.5.5 0 00-.5.5v11a.5.5 0 00.5.5z" /></svg>
+              <p>JR「西条駅」より徒歩約15分／車5分<br />松山自動車道「いよ西条IC」より車10分</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-gold-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <p>直売所営業時間　9:00〜17:00（年末年始休業）</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-gold-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              <p>TEL 0897-56-4567（受付 9:00〜17:00）</p>
+            </div>
+          </div>
+        </div>
+        <a href="#contact" class="mt-10 inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 transition-colors text-ink-900 font-heading font-bold px-6 py-3.5 rounded-sm">
+          お問い合わせフォームへ
+        </a>
+      </div>
+      <div class="lg:col-span-3 reveal reveal-delay-1 rounded-sm overflow-hidden shadow-xl min-h-[360px]">
+        <iframe
+          title="うちぬき酒造株式会社 所在地マップ"
+          src="https://www.google.com/maps?q=愛媛県西条市大町字新町85&output=embed"
+          class="w-full h-full min-h-[360px] border-0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="py-24 sm:py-32 bg-cream-100">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center reveal">
+      <p class="eyebrow justify-center font-heading text-gold-600 font-bold text-sm tracking-widest inline-flex items-center">CONTACT</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">お問い合わせ</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">
+        商品のご注文・ギフトのご相談、蔵見学・試飲のご予約など、お気軽にご連絡ください。担当より2営業日以内にご返信いたします。
+      </p>
+    </div>
+
+    <form id="contact-form" class="reveal reveal-delay-1 mt-14 bg-cream rounded-sm border border-ink-900/10 p-6 sm:p-10 space-y-6" novalidate>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <label for="name" class="block text-sm font-heading font-bold text-ink-900 mb-2">お名前 <span class="text-gold-600">必須</span></label>
+          <input type="text" id="name" name="name" required placeholder="山田 太郎" class="w-full rounded-sm border border-ink-900/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-cream-100" />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-heading font-bold text-ink-900 mb-2">メールアドレス <span class="text-gold-600">必須</span></label>
+          <input type="email" id="email" name="email" required placeholder="example@mail.com" class="w-full rounded-sm border border-ink-900/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-cream-100" />
+        </div>
+      </div>
+      <div>
+        <label for="subject" class="block text-sm font-heading font-bold text-ink-900 mb-2">件名 <span class="text-gold-600">必須</span></label>
+        <input type="text" id="subject" name="subject" required placeholder="純米大吟醸「うちぬき」の注文について／蔵見学の予約について" class="w-full rounded-sm border border-ink-900/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-cream-100" />
+      </div>
+      <div>
+        <label for="message" class="block text-sm font-heading font-bold text-ink-900 mb-2">メッセージ内容 <span class="text-gold-600">必須</span></label>
+        <textarea id="message" name="message" required rows="6" placeholder="お問い合わせ内容をご記入ください。" class="w-full rounded-sm border border-ink-900/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-cream-100 resize-none"></textarea>
+      </div>
+
+      <label class="flex items-start gap-3 text-sm text-ink-700">
+        <input type="checkbox" required class="mt-1 w-4 h-4 rounded-sm border-ink-900/30 text-gold-600 focus:ring-gold-500" />
+        <span>プライバシーポリシーに同意の上、送信します。</span>
+      </label>
+
+      <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-ink-900 hover:bg-gold-600 hover:text-ink-900 transition-colors text-cream font-heading font-bold px-10 py-4 rounded-sm">
+        <span class="btn-label">メッセージを送信する</span>
+        <span class="spinner hidden"></span>
+      </button>
+
+      <div id="form-feedback" class="hidden items-center gap-3 bg-sencha-100 border border-sencha/30 text-ink-900 text-sm rounded-sm px-5 py-4">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+        <span>お問い合わせありがとうございます。担当より折り返しご連絡いたします。（本デモサイトでは実際の送信は行われません）</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-cream/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-3 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-cream/10 border border-gold-500/50 text-gold-400 font-heading font-bold">酒</span>
+          <span class="font-heading font-bold text-cream text-lg">うちぬき酒造株式会社</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-cream/60">
+          〒793-0025 愛媛県西条市大町字新町85番地<br />
+          TEL 0897-56-4567 ／ 直売所営業時間 9:00〜17:00（年末年始休業）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#about" class="hover:text-gold-400 transition-colors">こだわり</a></li>
+          <li><a href="index.html#products" class="hover:text-gold-400 transition-colors">商品ラインナップ</a></li>
+          <li><a href="index.html#tour" class="hover:text-gold-400 transition-colors">蔵見学・試飲</a></li>
+          <li><a href="company.html" class="hover:text-gold-400 transition-colors">蔵元について</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-gold-400 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-gold-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-gold-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-cream/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-cream/50">
+      <p>&copy; <span data-year></span> Uchinuki Shuzo Co., Ltd. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された日本酒蔵元の紹介サイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

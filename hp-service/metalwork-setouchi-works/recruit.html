@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>採用情報｜瀬戸内メタルワークス株式会社</title>
+<meta name="description" content="瀬戸内メタルワークス株式会社の採用情報。板金工・溶接工（アーク・TIG）・設計スタッフを募集しています。未経験者研修制度・資格取得支援あり。愛媛県西条市。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          charcoal: { DEFAULT: '#18181B', 50: '#FAFAFA', 100: '#F4F4F5', 200: '#E4E4E7', 300: '#D4D4D8', 400: '#A1A1AA', 500: '#71717A', 600: '#52525B', 700: '#3F3F46', 800: '#27272A', 900: '#18181B', 950: '#09090B' },
+          ember: { DEFAULT: '#F59E0B', 50: '#FFFBEB', 100: '#FEF3C7', 200: '#FDE68A', 300: '#FCD34D', 400: '#FBBF24', 500: '#F59E0B', 600: '#D97706', 700: '#B45309', 800: '#92400E', 900: '#78350F' },
+          flame: { DEFAULT: '#EF4444', 50: '#FEF2F2', 100: '#FEE2E2', 200: '#FECACA', 300: '#FCA5A5', 400: '#F87171', 500: '#EF4444', 600: '#DC2626', 700: '#B91C1C', 800: '#991B1B', 900: '#7F1D1D' },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+          heading: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-charcoal-50 text-charcoal-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-charcoal-950/95 shadow-lg backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <span class="clip-card-sm flex items-center justify-center w-11 h-11 bg-gradient-to-br from-ember-500 to-flame-600 text-white font-heading font-black text-lg shadow-lg">瀬</span>
+        <span class="font-heading font-black text-base sm:text-lg tracking-wide text-charcoal-50 leading-tight">
+          瀬戸内メタルワークス<span class="block text-[10px] sm:text-xs font-bold tracking-[0.2em] text-charcoal-300">SETOUCHI METALWORKS</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 font-heading text-sm font-bold text-charcoal-200">
+        <a data-nav-link="index.html" href="index.html#services" class="hover:text-ember-400 transition-colors">事業内容</a>
+        <a data-nav-link="index.html" href="index.html#materials" class="hover:text-ember-400 transition-colors">対応素材・設備</a>
+        <a data-nav-link="index.html" href="index.html#works" class="hover:text-ember-400 transition-colors">施工事例</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-ember-400 transition-colors">会社概要</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-ember-400 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="clip-btn inline-flex items-center gap-1.5 bg-gradient-to-r from-ember-500 to-flame-600 hover:brightness-110 text-white px-5 py-2.5 shadow-md transition">
+          お見積り相談
+        </a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden clip-card-sm flex items-center justify-center w-11 h-11 bg-charcoal-800/70 text-charcoal-50">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-charcoal-900 shadow-lg mx-4 clip-card border border-charcoal-700/60">
+    <nav class="flex flex-col p-3 font-heading font-bold text-charcoal-200">
+      <a href="index.html#services" class="px-4 py-3 hover:bg-charcoal-800 hover:text-ember-400">事業内容</a>
+      <a href="index.html#materials" class="px-4 py-3 hover:bg-charcoal-800 hover:text-ember-400">対応素材・設備</a>
+      <a href="index.html#works" class="px-4 py-3 hover:bg-charcoal-800 hover:text-ember-400">施工事例</a>
+      <a href="company.html" class="px-4 py-3 hover:bg-charcoal-800 hover:text-ember-400">会社概要</a>
+      <a href="recruit.html" class="px-4 py-3 hover:bg-charcoal-800 hover:text-ember-400">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 clip-btn bg-gradient-to-r from-ember-500 to-flame-600 text-white text-center">お見積り相談</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 hero-bg overflow-hidden" style="background-image: linear-gradient(180deg, rgba(9,9,11,0.7) 0%, rgba(9,9,11,0.92) 100%), url('https://images.unsplash.com/photo-1529479627062-5f1f0b88912a?auto=format&fit=crop&w=2000&q=80');">
+  <div class="absolute inset-0 spark-dots opacity-20" aria-hidden="true"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-ember-400 font-heading font-bold text-sm tracking-widest">RECRUIT</p>
+    <h1 class="font-heading font-black text-white text-4xl sm:text-5xl mt-4">採用情報</h1>
+    <p class="text-charcoal-200 mt-4 max-w-xl leading-relaxed">手に職をつけて、西条のものづくりを支える仕事。板金工・溶接工・設計スタッフを募集しています。</p>
+    <div class="flex items-center gap-2 text-sm text-charcoal-300 mt-8">
+      <a href="index.html" class="hover:text-ember-400 font-bold">トップ</a>
+      <span>/</span>
+      <span class="text-white font-bold">採用情報</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY / 選ばれる理由 ================= -->
+<section class="py-24 sm:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal order-2 lg:order-1">
+        <p class="eyebrow font-heading text-flame-600 font-bold text-sm tracking-widest">WHY SETOUCHI METALWORKS</p>
+        <h2 class="font-heading font-black text-3xl sm:text-4xl text-charcoal-900 mt-4 leading-snug">
+          未経験からでも、<br />一生モノの技術が身につく。
+        </h2>
+        <p class="text-charcoal-700 leading-loose mt-6">
+          瀬戸内メタルワークスでは、板金・溶接・設計それぞれの分野で、先輩職人がマンツーマンで技術を指導します。金属に触れたことがない方も、研修制度を通じて着実にスキルを積み上げられます。
+        </p>
+        <p class="text-charcoal-700 leading-loose mt-4">
+          レーザー切断からプレス、溶接まで多様な工程を社内で一貫して手がけているからこそ、幅広い技術に携われるのも当社の特長です。西条という地元で、長く手に職をつけて働きたい方をお待ちしています。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 order-1 lg:order-2 relative">
+        <div class="clip-card overflow-hidden shadow-xl aspect-[4/3]">
+          <img src="https://images.unsplash.com/photo-1698664683348-f9f35b809821?auto=format&fit=crop&w=1200&q=80" alt="工場で作業する職人" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
+      <div class="reveal card-lift bg-charcoal-950 clip-card p-7 shadow-sm">
+        <div class="w-14 h-14 clip-card-sm bg-gradient-to-br from-ember-500 to-flame-600 flex items-center justify-center mb-4" aria-hidden="true">
+          <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" /><path stroke-linecap="round" stroke-linejoin="round" d="M3 9v6l9 5 9-5V9" /></svg>
+        </div>
+        <p class="font-heading font-bold text-white">未経験者研修制度</p>
+        <p class="text-sm text-charcoal-300 mt-2 leading-relaxed">先輩職人がマンツーマンで指導。工具の使い方から丁寧に教えます。</p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-charcoal-950 clip-card p-7 shadow-sm">
+        <div class="w-14 h-14 clip-card-sm bg-gradient-to-br from-ember-500 to-flame-600 flex items-center justify-center mb-4" aria-hidden="true">
+          <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-white">資格取得支援</p>
+        <p class="text-sm text-charcoal-300 mt-2 leading-relaxed">溶接技能者資格などの受験費用は会社が負担。キャリアアップを後押しします。</p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-charcoal-950 clip-card p-7 shadow-sm">
+        <div class="w-14 h-14 clip-card-sm bg-gradient-to-br from-ember-500 to-flame-600 flex items-center justify-center mb-4" aria-hidden="true">
+          <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h10" /></svg>
+        </div>
+        <p class="font-heading font-bold text-white">多様な加工に携われる</p>
+        <p class="text-sm text-charcoal-300 mt-2 leading-relaxed">レーザー・プレス・溶接まで、幅広い工程と素材を経験できます。</p>
+      </div>
+      <div class="reveal reveal-delay-3 card-lift bg-charcoal-950 clip-card p-7 shadow-sm">
+        <div class="w-14 h-14 clip-card-sm bg-gradient-to-br from-ember-500 to-flame-600 flex items-center justify-center mb-4" aria-hidden="true">
+          <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-white">地元・西条で手に職を</p>
+        <p class="text-sm text-charcoal-300 mt-2 leading-relaxed">地域に根ざした安定経営のもと、腰を据えて長く働けます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 先輩の声 ================= -->
+<section class="py-24 sm:py-32 bg-charcoal-50">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-flame-600 font-bold text-sm tracking-widest inline-flex items-center">VOICE</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-charcoal-900 mt-4">先輩の声</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+      <div class="reveal card-lift bg-white clip-card p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 clip-card-sm bg-gradient-to-br from-ember-500 to-flame-600 flex items-center justify-center text-white font-heading font-black text-lg" aria-hidden="true">高</span>
+          <div>
+            <p class="font-heading font-bold text-charcoal-900">高橋 直樹</p>
+            <p class="text-xs text-charcoal-500">板金工／入社3年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-charcoal-700 leading-relaxed">
+          未経験で入社しましたが、先輩がつきっきりで教えてくれたので少しずつ自信がつきました。今では自分が担当した部品が製品になるのが誇りです。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-white clip-card p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 clip-card-sm bg-gradient-to-br from-ember-500 to-flame-600 flex items-center justify-center text-white font-heading font-black text-lg" aria-hidden="true">山</span>
+          <div>
+            <p class="font-heading font-bold text-charcoal-900">山内 亮</p>
+            <p class="text-xs text-charcoal-500">溶接工（TIG）／入社5年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-charcoal-700 leading-relaxed">
+          資格取得支援のおかげでTIG溶接の技能資格を取得できました。難しい素材の溶接を任されるようになり、やりがいを感じています。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-white clip-card p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 clip-card-sm bg-gradient-to-br from-ember-500 to-flame-600 flex items-center justify-center text-white font-heading font-black text-lg" aria-hidden="true">中</span>
+          <div>
+            <p class="font-heading font-bold text-charcoal-900">中野 彩</p>
+            <p class="text-xs text-charcoal-500">設計スタッフ／入社2年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-charcoal-700 leading-relaxed">
+          CADでの図面作成だけでなく、現場の職人さんと相談しながら加工しやすい設計を学べるのが魅力です。地元で専門性を高められています。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 募集要項 ================= -->
+<section id="jobs" class="py-24 sm:py-32 bg-white">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-flame-600 font-bold text-sm tracking-widest inline-flex items-center">JOB OPENINGS</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-charcoal-900 mt-4">募集要項</h2>
+      <p class="text-charcoal-700 mt-4 leading-relaxed">現在、以下の職種で採用を行っています。詳細はお問い合わせフォームよりお気軽にご連絡ください。</p>
+    </div>
+
+    <div class="mt-16 space-y-8">
+      <!-- 職種1 -->
+      <div class="reveal bg-charcoal-50 clip-card overflow-hidden shadow-sm">
+        <div class="bg-gradient-to-r from-ember-500 to-flame-600 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">板金工</h3>
+          <span class="text-xs font-heading font-bold text-flame-700 bg-white clip-badge px-3 py-1">未経験歓迎</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-charcoal-200">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-charcoal-700">月給22万円〜28万円（経験・能力を考慮の上、当社規定により決定）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-charcoal-700">瀬戸内メタルワークス株式会社 本社工場（愛媛県西条市大町1800番地）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-charcoal-700">8:30〜17:30（実働8時間、休憩60分）土日祝休</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-charcoal-700">未経験者歓迎。学歴・年齢不問。普通自動車免許をお持ちの方歓迎。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種2 -->
+      <div class="reveal reveal-delay-1 bg-charcoal-50 clip-card overflow-hidden shadow-sm">
+        <div class="bg-charcoal-950 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">溶接工（アーク・TIG）</h3>
+          <span class="text-xs font-heading font-bold text-charcoal-900 bg-ember-400 clip-badge px-3 py-1">経験者優遇</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-charcoal-200">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-charcoal-700">月給23万円〜30万円（資格手当含む、経験・能力を考慮）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-charcoal-700">瀬戸内メタルワークス株式会社 本社工場（愛媛県西条市大町1800番地）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-charcoal-700">8:30〜17:30（実働8時間、休憩60分）土日祝休</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-charcoal-700">アーク・TIG溶接の実務経験者優遇。未経験の方は研修制度あり。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種3 -->
+      <div class="reveal reveal-delay-2 bg-charcoal-50 clip-card overflow-hidden shadow-sm">
+        <div class="bg-gradient-to-r from-ember-500 to-flame-600 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">設計スタッフ</h3>
+          <span class="text-xs font-heading font-bold text-flame-700 bg-white clip-badge px-3 py-1">CAD経験者歓迎</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-charcoal-200">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-charcoal-700">月給23万円〜32万円（経験・能力を考慮の上、当社規定により決定）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-charcoal-700">瀬戸内メタルワークス株式会社 本社工場（愛媛県西条市大町1800番地）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-charcoal-700">8:30〜17:30（実働8時間、休憩60分）土日祝休</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-charcoal-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-charcoal-700">2次元・3次元CAD操作経験者。機械系・電気系学科卒業者歓迎。実務未経験可。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-3 mt-14 bg-gradient-to-br from-charcoal-950 via-charcoal-900 to-charcoal-950 clip-card px-8 py-12 sm:px-14 sm:py-14 text-center shadow-xl relative overflow-hidden">
+      <div class="absolute inset-0 spark-dots opacity-20" aria-hidden="true"></div>
+      <div class="relative">
+        <h3 class="font-heading font-black text-white text-2xl sm:text-3xl">まずはお気軽にご応募・お問い合わせください</h3>
+        <p class="text-charcoal-300 mt-4 leading-relaxed max-w-xl mx-auto">
+          履歴書は不要です。まずはお問い合わせフォームより、ご興味のある職種をお知らせください。担当より折り返しご連絡いたします。
+        </p>
+        <a href="index.html#contact" class="clip-btn inline-flex items-center gap-2 bg-gradient-to-r from-ember-500 to-flame-600 hover:brightness-110 transition text-white font-heading font-bold px-8 py-4 mt-8 shadow-md">
+          採用について問い合わせる
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-charcoal-950 text-charcoal-300">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-3 mb-5">
+          <span class="clip-card-sm flex items-center justify-center w-9 h-9 bg-gradient-to-br from-ember-500 to-flame-600 text-white font-heading font-black">瀬</span>
+          <span class="font-heading font-black text-white text-lg">瀬戸内メタルワークス株式会社</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-charcoal-400">
+          〒793-0072 愛媛県西条市大町1800番地<br />
+          TEL 0897-56-2345 ／ 営業時間 平日8:30〜17:30（土日祝休）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#services" class="hover:text-ember-400 transition-colors">事業内容</a></li>
+          <li><a href="index.html#materials" class="hover:text-ember-400 transition-colors">対応素材・設備</a></li>
+          <li><a href="index.html#works" class="hover:text-ember-400 transition-colors">施工事例</a></li>
+          <li><a href="company.html" class="hover:text-ember-400 transition-colors">会社概要</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-ember-400 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-ember-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-ember-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-charcoal-800 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-charcoal-500">
+      <p>&copy; <span data-year></span> 瀬戸内メタルワークス株式会社. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された金属加工会社の紹介サイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

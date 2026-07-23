@@ -1,0 +1,126 @@
+/* EnzoWorks サービスサイト — shared styles beyond Tailwind utilities */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+
+.font-heading {
+  font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+#site-header {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F6FB;
+}
+::-webkit-scrollbar-thumb {
+  background: #C7CEF5;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4F46E5;
+}
+
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+}
+
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background-color: #4F46E5;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+#mobile-nav {
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+#mobile-nav.open {
+  max-height: 700px;
+  opacity: 1;
+}
+
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 9999px;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Demo gallery thumbnail frame */
+.demo-thumb {
+  position: relative;
+  overflow: hidden;
+}
+.demo-thumb img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.demo-thumb:hover img {
+  transform: scale(1.05);
+}
+
+/* Hero gradient mesh backdrop */
+.mesh-bg {
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.35), transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(34, 211, 238, 0.30), transparent 42%),
+    radial-gradient(circle at 50% 90%, rgba(129, 140, 248, 0.25), transparent 45%);
+}
+
+/* Connecting line for the process/flow timeline */
+.flow-line {
+  background-image: repeating-linear-gradient(180deg, #C7CEF5 0, #C7CEF5 6px, transparent 6px, transparent 14px);
+}
+
+.gradient-text {
+  background-image: linear-gradient(90deg, #4F46E5, #06B6D4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

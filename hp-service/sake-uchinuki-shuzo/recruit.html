@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>採用情報｜うちぬき酒造株式会社</title>
+<meta name="description" content="うちぬき酒造株式会社の採用情報。蔵人（酒造り）、瓶詰め・出荷スタッフ、直売店スタッフを募集しています。未経験・繁忙期のみの住み込み相談可。愛媛県西条市。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            DEFAULT: '#1B2A4A',
+            50: '#EEF1F6',
+            100: '#D7DEEA',
+            200: '#AFBFD4',
+            300: '#8398B9',
+            400: '#5A729B',
+            500: '#3C5480',
+            600: '#2A3C60',
+            700: '#1B2A4A',
+            800: '#14203A',
+            900: '#0F1A2C',
+            950: '#080D18',
+          },
+          cream: {
+            DEFAULT: '#F7F4EC',
+            50: '#FFFEFB',
+            100: '#FBF8F0',
+            200: '#F7F4EC',
+            300: '#EFE9D8',
+            400: '#E4DAC0',
+            500: '#D8CBA0',
+          },
+          gold: {
+            DEFAULT: '#C9A24B',
+            50: '#FBF6EA',
+            100: '#F4E8C8',
+            200: '#EAD79C',
+            300: '#DFC575',
+            400: '#D4B25A',
+            500: '#C9A24B',
+            600: '#A9843A',
+            700: '#8A6A2E',
+          },
+          sencha: {
+            DEFAULT: '#6E7D53',
+            50: '#EFF2E9',
+            100: '#E1E6D4',
+            200: '#C3CDAA',
+            500: '#6E7D53',
+            600: '#57623F',
+          },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+          heading: ['"Shippori Mincho"', '"Noto Serif JP"', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-cream text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-cream-50/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-ink-900 border border-gold-500/50 text-gold-400 font-heading font-bold text-lg">酒</span>
+        <span class="font-heading font-bold text-base sm:text-lg tracking-wide text-ink-900 leading-tight">
+          うちぬき酒造<span class="hidden sm:inline">株式会社</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-9 font-heading text-sm font-medium text-ink-700">
+        <a data-nav-link="index.html" href="index.html#about" class="hover:text-gold-600 transition-colors">こだわり</a>
+        <a data-nav-link="index.html" href="index.html#products" class="hover:text-gold-600 transition-colors">商品ラインナップ</a>
+        <a data-nav-link="index.html" href="index.html#tour" class="hover:text-gold-600 transition-colors">蔵見学・試飲</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-gold-600 transition-colors">蔵元について</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-gold-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-gold-600 text-cream px-5 py-2.5 rounded-sm transition-colors">お問い合わせ</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-ink-900/5 text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-cream-50 shadow-lg mx-4 rounded-sm border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-medium text-ink-700">
+      <a href="index.html#about" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">こだわり</a>
+      <a href="index.html#products" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">商品ラインナップ</a>
+      <a href="index.html#tour" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">蔵見学・試飲</a>
+      <a href="company.html" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">蔵元について</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-gold-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-sm bg-ink-900 text-cream text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 bg-ink-900 overflow-hidden">
+  <div class="absolute inset-0 opacity-25">
+    <img src="https://images.unsplash.com/photo-1773393878458-e793434a80cc?auto=format&fit=crop&w=2000&q=80" alt="" class="w-full h-full object-cover" />
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/70 to-ink-900/40"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-gold-400 font-heading font-bold text-sm tracking-widest">RECRUIT</p>
+    <h1 class="font-heading font-bold text-cream text-4xl sm:text-5xl mt-4">採用情報</h1>
+    <p class="text-cream/70 mt-4 max-w-xl leading-relaxed">西条の名水とともに、酒造りの技を受け継ぐ仲間を募集しています。未経験からでも一歩を踏み出せます。</p>
+    <div class="flex items-center gap-2 text-sm text-cream/50 mt-8">
+      <a href="index.html" class="hover:text-gold-400">トップ</a>
+      <span>/</span>
+      <span class="text-cream">採用情報</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PR / うちぬき酒造で働く理由 ================= -->
+<section class="py-24 sm:py-32 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal order-2 lg:order-1">
+        <p class="eyebrow font-heading text-gold-600 font-bold text-sm tracking-widest">WHY UCHINUKI SHUZO</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4 leading-snug">
+          経験不問。西条の水とともに、<br />酒造りの技を学ぼう。
+        </h2>
+        <p class="text-ink-700 leading-loose mt-6">
+          うちぬき酒造では、酒造りの経験がない方にも門戸を開いています。五代目蔵元杜氏をはじめ、蔵に長く勤める先輩たちが、麹づくりから瓶詰め、接客まで一つひとつ丁寧に指導します。
+        </p>
+        <p class="text-ink-700 leading-loose mt-4">
+          仕込みの最盛期（11月〜3月）は特に人手を必要とする時期。この時期だけの短期勤務や、蔵での住み込みも相談可能です。「酒蔵で働いてみたい」という思いを、まずは聞かせてください。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 order-1 lg:order-2 gold-frame overflow-hidden rounded-sm shadow-xl aspect-[4/3]">
+        <img src="https://images.unsplash.com/photo-1779883605139-e4365f48cc59?auto=format&fit=crop&w=1200&q=80" alt="蔵・直売店で働くスタッフのイメージ" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
+      <div class="reveal card-lift bg-cream-100 rounded-sm p-7 border border-ink-900/10">
+        <div class="w-11 h-11 rounded-full bg-gold-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-gold-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" /><path stroke-linecap="round" stroke-linejoin="round" d="M3 9v6l9 5 9-5V9" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">未経験歓迎の<br />技術継承体制</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">蔵元杜氏や先輩蔵人がマンツーマンで指導。何年もかけて技術を受け継ぐ体制があります。</p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-cream-100 rounded-sm p-7 border border-ink-900/10">
+        <div class="w-11 h-11 rounded-full bg-gold-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-gold-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-7 9 7M5 10v9a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1v-9" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">繁忙期の<br />住み込み相談可</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">仕込み最盛期は蔵の宿舎を利用できます。遠方からの応募も歓迎しています。</p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-cream-100 rounded-sm p-7 border border-ink-900/10">
+        <div class="w-11 h-11 rounded-full bg-gold-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-gold-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c3 4 6 7.5 6 11a6 6 0 11-12 0c0-3.5 3-7 6-11z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">地域の名水と<br />ともに働く</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">西条の自噴水「うちぬき」が湧く土地で、四季の移ろいを感じながら酒造りに向き合えます。</p>
+      </div>
+      <div class="reveal reveal-delay-3 card-lift bg-cream-100 rounded-sm p-7 border border-ink-900/10">
+        <div class="w-11 h-11 rounded-full bg-gold-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-gold-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">長く働ける<br />少人数の蔵</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">少人数だからこそ意見が届きやすい環境。長年勤めるスタッフが多いことも自慢です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 先輩の声 ================= -->
+<section class="py-24 sm:py-32 bg-cream-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-gold-600 font-bold text-sm tracking-widest inline-flex items-center">VOICE</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">先輩の声</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+      <div class="reveal card-lift bg-cream rounded-sm p-7 border border-ink-900/10">
+        <div class="flex items-center gap-4 mb-5">
+          <img src="https://images.unsplash.com/photo-1601233749202-95d04d5b3c00?auto=format&fit=crop&w=200&q=80" alt="蔵人スタッフ" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
+          <div>
+            <p class="font-heading font-bold text-ink-900">村上 拓也</p>
+            <p class="text-xs text-ink-700/60">蔵人（酒造り）／4年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          前職は全く別の業種でしたが、日本酒が好きで転職しました。麹の温度ひとつで味が変わる奥深さに、今も毎日発見があります。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-cream rounded-sm p-7 border border-ink-900/10">
+        <div class="flex items-center gap-4 mb-5">
+          <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&w=200&q=80" alt="瓶詰め・出荷スタッフ" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
+          <div>
+            <p class="font-heading font-bold text-ink-900">近藤 大輔</p>
+            <p class="text-xs text-ink-700/60">瓶詰め・出荷スタッフ／2年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          最初は瓶詰めの単純作業だと思っていましたが、火入れの温度管理など想像以上に奥が深く、やりがいを感じています。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-cream rounded-sm p-7 border border-ink-900/10">
+        <div class="flex items-center gap-4 mb-5">
+          <img src="https://images.unsplash.com/photo-1552334949-51934e5f2d38?auto=format&fit=crop&w=200&q=80" alt="直売店スタッフ" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
+          <div>
+            <p class="font-heading font-bold text-ink-900">高橋 恵美</p>
+            <p class="text-xs text-ink-700/60">直売店スタッフ／6年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          子育てをしながら週3日で働いています。蔵見学のお客様に商品の説明をして「おいしかった」と言っていただけるのが励みです。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 募集要項 ================= -->
+<section id="jobs" class="py-24 sm:py-32 bg-cream">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-gold-600 font-bold text-sm tracking-widest inline-flex items-center">JOB OPENINGS</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">募集要項</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">現在、以下の職種で仲間を募集しています。詳細はお問い合わせフォームよりお気軽にご連絡ください。</p>
+    </div>
+
+    <div class="mt-16 space-y-8">
+      <!-- 職種1 -->
+      <div class="reveal bg-cream-100 rounded-sm overflow-hidden border border-ink-900/10">
+        <div class="bg-ink-900 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-cream text-lg">蔵人（酒造り）</h3>
+          <span class="text-xs font-heading font-bold text-gold-400 bg-cream/10 px-3 py-1 rounded-sm">正社員・季節雇用</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">月給18万円〜（経験・能力を考慮）／季節雇用は時給1,050円〜</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">うちぬき酒造株式会社（愛媛県西条市大町字新町85番地）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">7:00〜16:00（休憩60分）　仕込み期（11月〜3月）は早朝勤務あり</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">未経験者歓迎。年齢・性別不問。立ち仕事のため体力に自信のある方。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種2 -->
+      <div class="reveal reveal-delay-1 bg-cream-100 rounded-sm overflow-hidden border border-ink-900/10">
+        <div class="bg-ink-900 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-cream text-lg">瓶詰め・出荷スタッフ</h3>
+          <span class="text-xs font-heading font-bold text-gold-400 bg-cream/10 px-3 py-1 rounded-sm">パート・アルバイト可</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">時給1,000円〜</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">うちぬき酒造株式会社（瓶詰め場・出荷倉庫）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">9:00〜17:00の間で週3日〜応相談</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">未経験者歓迎。年齢不問。フォークリフト免許があれば尚可（入社後取得支援あり）。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種3 -->
+      <div class="reveal reveal-delay-2 bg-cream-100 rounded-sm overflow-hidden border border-ink-900/10">
+        <div class="bg-ink-900 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-cream text-lg">直売店スタッフ</h3>
+          <span class="text-xs font-heading font-bold text-gold-400 bg-cream/10 px-3 py-1 rounded-sm">パート・アルバイト</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">時給980円〜</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">蔵直売所・蔵見学受付</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">9:00〜17:00の間でシフト制、週2日〜</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">接客経験者歓迎。未経験者も歓迎。日本酒の知識は入社後研修でお伝えします。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-3 mt-14 bg-ink-900 rounded-sm px-8 py-12 sm:px-14 sm:py-14 text-center">
+      <h3 class="font-heading font-bold text-cream text-2xl sm:text-3xl">まずはお気軽にご応募・お問い合わせください</h3>
+      <p class="text-cream/70 mt-4 leading-relaxed max-w-xl mx-auto">
+        履歴書は不要です。まずはお問い合わせフォームより、ご興味のある職種をお知らせください。担当より折り返しご連絡いたします。
+      </p>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 transition-colors text-ink-900 font-heading font-bold px-8 py-4 rounded-sm mt-8">
+        募集について問い合わせる
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-cream/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-3 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-cream/10 border border-gold-500/50 text-gold-400 font-heading font-bold">酒</span>
+          <span class="font-heading font-bold text-cream text-lg">うちぬき酒造株式会社</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-cream/60">
+          〒793-0025 愛媛県西条市大町字新町85番地<br />
+          TEL 0897-56-4567 ／ 直売所営業時間 9:00〜17:00（年末年始休業）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#about" class="hover:text-gold-400 transition-colors">こだわり</a></li>
+          <li><a href="index.html#products" class="hover:text-gold-400 transition-colors">商品ラインナップ</a></li>
+          <li><a href="index.html#tour" class="hover:text-gold-400 transition-colors">蔵見学・試飲</a></li>
+          <li><a href="company.html" class="hover:text-gold-400 transition-colors">蔵元について</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-cream mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-gold-400 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-gold-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-gold-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-cream/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-cream/50">
+      <p>&copy; <span data-year></span> Uchinuki Shuzo Co., Ltd. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された日本酒蔵元の紹介サイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

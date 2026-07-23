@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ボランティア募集｜にこにこ子ども食堂</title>
+<meta name="description" content="にこにこ子ども食堂のボランティア募集情報。調理・配膳、学習支援、送迎・見守り、事務局・広報の各ボランティアを募集しています。未経験・週1回からOK。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: { DEFAULT: '#FFFBF0', 100: '#FFF6E5', 200: '#FFEFD1' },
+          ink: { DEFAULT: '#4A3B2F', 700: '#5C4A3B', 800: '#3D3026', 900: '#2E2419', 950: '#1F1911' },
+          coral: { DEFAULT: '#FF6F59', 50: '#FFF0ED', 100: '#FFDDD6', 200: '#FFC3B4', 300: '#FFA48D', 400: '#FF8A76', 500: '#FF6F59', 600: '#F0523B' },
+          sunny: { DEFAULT: '#FFC839', 50: '#FFF8E1', 100: '#FFEDB3', 200: '#FFE28A', 300: '#FFDD79', 400: '#FFD65C', 500: '#FFC839', 600: '#F0AE12' },
+          sky: { DEFAULT: '#3EC6E0', 50: '#E8FAFC', 100: '#C5F1F6', 200: '#9FE7EF', 300: '#7ADCE9', 400: '#5DD3E8', 500: '#3EC6E0', 600: '#22A9C4' },
+          leaf: { DEFAULT: '#6FCF7C', 50: '#EEFBF0', 100: '#CFF3D4', 200: '#A9E7B4', 300: '#8FDD9E', 400: '#7DD68C', 500: '#6FCF7C', 600: '#4CB65A' },
+          berry: { DEFAULT: '#FF7CAC', 50: '#FFF0F6', 100: '#FFD6E6', 200: '#FFBBD5', 300: '#FFA0C5', 400: '#FF8DB8', 500: '#FF7CAC', 600: '#F0568C' },
+        },
+        fontFamily: {
+          sans: ['"M PLUS Rounded 1c"', '"Noto Sans JP"', 'sans-serif'],
+          heading: ['"M PLUS Rounded 1c"', '"Noto Sans JP"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-cream text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-white/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-11 h-11 rounded-full bg-coral-500 text-white font-heading font-black text-lg shadow-md">に</span>
+        <span class="font-heading font-black text-lg sm:text-xl tracking-wide text-ink-900">にこにこ子ども食堂</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 font-heading text-sm font-bold text-ink-700">
+        <a data-nav-link="index.html" href="index.html#about" class="hover:text-coral-600 transition-colors">子ども食堂について</a>
+        <a data-nav-link="index.html" href="index.html#activities" class="hover:text-coral-600 transition-colors">活動内容</a>
+        <a data-nav-link="index.html" href="index.html#report" class="hover:text-coral-600 transition-colors">活動レポート</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-coral-600 transition-colors">団体概要</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-coral-600 transition-colors">ボランティア募集</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-coral-500 hover:bg-coral-600 text-white px-5 py-2.5 rounded-full shadow-md transition-colors">応援する</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-cream-100 shadow text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-white shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-bold text-ink-700">
+      <a href="index.html#about" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">子ども食堂について</a>
+      <a href="index.html#activities" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">活動内容</a>
+      <a href="index.html#report" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">活動レポート</a>
+      <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">団体概要</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">ボランティア募集</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-coral-500 text-white text-center">応援する</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 bg-gradient-to-br from-sky-400 via-leaf-400 to-sunny-400 overflow-hidden">
+  <div class="blob w-72 h-72 bg-white/40 -top-10 -right-10 float-slow" aria-hidden="true"></div>
+  <div class="blob w-56 h-56 bg-white/30 bottom-0 left-10 float-slower" aria-hidden="true"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-white font-heading font-bold text-sm tracking-widest">VOLUNTEER</p>
+    <h1 class="font-heading font-black text-white text-4xl sm:text-5xl mt-4">ボランティア募集</h1>
+    <p class="text-white/90 mt-4 max-w-xl leading-relaxed">あなたの「できること」を、子どもたちの笑顔に。北九州のまちで一緒に活動しませんか。</p>
+    <div class="flex items-center gap-2 text-sm text-white/80 mt-8">
+      <a href="index.html" class="hover:text-white font-bold">トップ</a>
+      <span>/</span>
+      <span class="text-white font-bold">ボランティア募集</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PR / 活動の魅力 ================= -->
+<section class="py-24 sm:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal order-2 lg:order-1">
+        <p class="eyebrow font-heading text-coral-600 font-bold text-sm tracking-widest">WHY VOLUNTEER</p>
+        <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4 leading-snug">
+          経験不問。週1回、<br />2時間からはじめよう。
+        </h2>
+        <p class="text-ink-700 leading-loose mt-6">
+          にこにこ子ども食堂では、料理が得意な方も、子どもと関わるのが初めての方も、どなたでも大歓迎です。調理、配膳、片付け、宿題のサポートまで、できることから少しずつ関わっていただけます。
+        </p>
+        <p class="text-ink-700 leading-loose mt-4">
+          「毎週土曜日だけ」「月に1回だけ」「在宅でSNS更新だけ」など、ライフスタイルに合わせた関わり方が選べるのも、にこにこ子ども食堂の特長です。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 order-1 lg:order-2 relative">
+        <div class="blob-shape bg-gradient-to-br from-sky-200 via-sunny-200 to-berry-200 aspect-[4/3] flex items-center justify-center shadow-xl">
+          <div class="grid grid-cols-3 gap-4 text-5xl sm:text-6xl" aria-hidden="true">
+            <span>🧑‍🍳</span><span>📖</span><span>🚗</span>
+            <span>🧡</span><span>🎈</span><span>🙋</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
+      <div class="reveal card-lift bg-cream-100 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-coral-100 flex items-center justify-center mb-4 text-2xl" aria-hidden="true">🙌</div>
+        <p class="font-heading font-bold text-ink-900">経験不問</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">先輩ボランティアが一つひとつ丁寧に教えます。初めての方も安心です。</p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-cream-100 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-sky-100 flex items-center justify-center mb-4 text-2xl" aria-hidden="true">⏰</div>
+        <p class="font-heading font-bold text-ink-900">週1回・2時間からOK</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">無理のない範囲で参加できます。学生さんや在宅ワークの方も活躍中です。</p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-cream-100 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-leaf-100 flex items-center justify-center mb-4 text-2xl" aria-hidden="true">💛</div>
+        <p class="font-heading font-bold text-ink-900">子ども好き大歓迎</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">子どもたちの成長を間近で見守れます。笑顔がやりがいになります。</p>
+      </div>
+      <div class="reveal reveal-delay-3 card-lift bg-cream-100 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-sunny-100 flex items-center justify-center mb-4 text-2xl" aria-hidden="true">🤝</div>
+        <p class="font-heading font-bold text-ink-900">仲間ができる</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">世代や職業を超えたつながりが生まれます。地域の輪が広がります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 先輩の声 ================= -->
+<section class="py-24 sm:py-32 bg-cream-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-coral-600 font-bold text-sm tracking-widest inline-flex items-center">VOICE</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">ボランティアの声</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+      <div class="reveal card-lift bg-white rounded-3xl p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 rounded-full bg-coral-100 flex items-center justify-center text-2xl" aria-hidden="true">🧑‍🍳</span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">中村 久美子</p>
+            <p class="text-xs text-ink-700/60">調理ボランティア／4年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          子育てが一段落したのをきっかけに参加しました。子どもたちが「おいしい」と完食してくれる瞬間が何よりの励みです。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-white rounded-3xl p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 rounded-full bg-sky-100 flex items-center justify-center text-2xl" aria-hidden="true">📖</span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">岡田 悠人</p>
+            <p class="text-xs text-ink-700/60">学習支援ボランティア／大学2年生</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          教育学部の授業だけでは学べない、子どもとの向き合い方を実践的に学べています。将来教師を目指す上で貴重な経験です。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-white rounded-3xl p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 rounded-full bg-leaf-100 flex items-center justify-center text-2xl" aria-hidden="true">🚗</span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">石井 誠</p>
+            <p class="text-xs text-ink-700/60">送迎・見守りボランティア／定年退職後2年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          退職後、地域とのつながりが減っていたので参加を決めました。子どもたちに名前を覚えてもらえるのが嬉しいですね。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 募集要項 ================= -->
+<section id="jobs" class="py-24 sm:py-32 bg-white">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-coral-600 font-bold text-sm tracking-widest inline-flex items-center">JOB OPENINGS</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">募集要項</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">現在、以下の役割でボランティアを募集しています。詳細はお問い合わせフォームよりお気軽にご連絡ください。</p>
+    </div>
+
+    <div class="mt-16 space-y-8">
+      <!-- 職種1 -->
+      <div class="reveal bg-cream-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-coral-500 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">🧑‍🍳 調理・配膳ボランティア</h3>
+          <span class="text-xs font-heading font-bold text-coral-600 bg-white px-3 py-1 rounded-full">未経験歓迎</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">活動内容</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">食材の下ごしらえ、調理、盛り付け、片付け</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">活動日</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">毎週土曜日 10:00〜14:30（隔週参加も可）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">未経験者歓迎。年齢・性別不問。食品衛生に関心のある方。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種2 -->
+      <div class="reveal reveal-delay-1 bg-cream-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-sky-500 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">📖 学習支援ボランティア</h3>
+          <span class="text-xs font-heading font-bold text-sky-600 bg-white px-3 py-1 rounded-full">学生歓迎</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">活動内容</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">宿題のサポート、絵本の読み聞かせ、遊び相手</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">活動日</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">毎週土曜日 12:30〜14:00</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">大学生・教員OB・OG歓迎。年齢不問。子どもが好きな方。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種3 -->
+      <div class="reveal reveal-delay-2 bg-cream-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-leaf-500 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">🚗 送迎・見守りボランティア</h3>
+          <span class="text-xs font-heading font-bold text-leaf-600 bg-white px-3 py-1 rounded-full">要普通免許</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">活動内容</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">自家用車での送迎補助、会場内の見守り・受付</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">活動日</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">毎週土曜日 11:00〜14:30</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">普通自動車免許（AT限定可）をお持ちの方。年齢不問。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種4 -->
+      <div class="reveal reveal-delay-3 bg-cream-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-berry-500 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">💻 事務局・広報ボランティア</h3>
+          <span class="text-xs font-heading font-bold text-berry-600 bg-white px-3 py-1 rounded-full">在宅OK</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">活動内容</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">SNS発信、寄付受付の事務、助成金申請のサポート</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">活動日</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">平日、月数回（在宅での作業も可）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">PC作業に抵抗のない方。SNS運用経験があれば尚可。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-3 mt-14 bg-gradient-to-br from-coral-500 via-berry-500 to-sunny-500 rounded-3xl px-8 py-12 sm:px-14 sm:py-14 text-center shadow-xl">
+      <h3 class="font-heading font-black text-white text-2xl sm:text-3xl">まずはお気軽にご応募・お問い合わせください</h3>
+      <p class="text-white/90 mt-4 leading-relaxed max-w-xl mx-auto">
+        履歴書は不要です。まずはお問い合わせフォームより、ご興味のある活動をお知らせください。担当より折り返しご連絡いたします。
+      </p>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 bg-white hover:bg-cream-100 transition-colors text-coral-600 font-heading font-bold px-8 py-4 rounded-full mt-8 shadow-md">
+        募集について問い合わせる
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-white/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-coral-500 text-white font-heading font-black">に</span>
+          <span class="font-heading font-black text-white text-lg">にこにこ子ども食堂</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-white/60">
+          〒802-0001 福岡県北九州市小倉北区浅野2丁目14-5 にこにこ会館1階<br />
+          TEL 093-521-4567 ／ 毎週土曜日 11:30〜14:00 開催
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#about" class="hover:text-coral-400 transition-colors">子ども食堂について</a></li>
+          <li><a href="index.html#activities" class="hover:text-coral-400 transition-colors">活動内容</a></li>
+          <li><a href="index.html#report" class="hover:text-coral-400 transition-colors">活動レポート</a></li>
+          <li><a href="company.html" class="hover:text-coral-400 transition-colors">団体概要</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">VOLUNTEER</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-coral-400 transition-colors">ボランティア募集トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-coral-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-coral-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
+      <p>&copy; <span data-year></span> NPO法人にこにこネットワーク／にこにこ子ども食堂. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された子ども食堂の紹介サイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

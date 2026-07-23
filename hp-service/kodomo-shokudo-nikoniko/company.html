@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>団体概要｜にこにこ子ども食堂</title>
+<meta name="description" content="にこにこ子ども食堂の団体概要・理事長あいさつ・沿革をご紹介します。運営：NPO法人にこにこネットワーク（福岡県北九州市小倉北区）。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: { DEFAULT: '#FFFBF0', 100: '#FFF6E5', 200: '#FFEFD1' },
+          ink: { DEFAULT: '#4A3B2F', 700: '#5C4A3B', 800: '#3D3026', 900: '#2E2419', 950: '#1F1911' },
+          coral: { DEFAULT: '#FF6F59', 50: '#FFF0ED', 100: '#FFDDD6', 200: '#FFC3B4', 300: '#FFA48D', 400: '#FF8A76', 500: '#FF6F59', 600: '#F0523B' },
+          sunny: { DEFAULT: '#FFC839', 50: '#FFF8E1', 100: '#FFEDB3', 200: '#FFE28A', 300: '#FFDD79', 400: '#FFD65C', 500: '#FFC839', 600: '#F0AE12' },
+          sky: { DEFAULT: '#3EC6E0', 50: '#E8FAFC', 100: '#C5F1F6', 200: '#9FE7EF', 300: '#7ADCE9', 400: '#5DD3E8', 500: '#3EC6E0', 600: '#22A9C4' },
+          leaf: { DEFAULT: '#6FCF7C', 50: '#EEFBF0', 100: '#CFF3D4', 200: '#A9E7B4', 300: '#8FDD9E', 400: '#7DD68C', 500: '#6FCF7C', 600: '#4CB65A' },
+          berry: { DEFAULT: '#FF7CAC', 50: '#FFF0F6', 100: '#FFD6E6', 200: '#FFBBD5', 300: '#FFA0C5', 400: '#FF8DB8', 500: '#FF7CAC', 600: '#F0568C' },
+        },
+        fontFamily: {
+          sans: ['"M PLUS Rounded 1c"', '"Noto Sans JP"', 'sans-serif'],
+          heading: ['"M PLUS Rounded 1c"', '"Noto Sans JP"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-cream text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-white/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-11 h-11 rounded-full bg-coral-500 text-white font-heading font-black text-lg shadow-md">に</span>
+        <span class="font-heading font-black text-lg sm:text-xl tracking-wide text-ink-900">にこにこ子ども食堂</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 font-heading text-sm font-bold text-ink-700">
+        <a data-nav-link="index.html" href="index.html#about" class="hover:text-coral-600 transition-colors">子ども食堂について</a>
+        <a data-nav-link="index.html" href="index.html#activities" class="hover:text-coral-600 transition-colors">活動内容</a>
+        <a data-nav-link="index.html" href="index.html#report" class="hover:text-coral-600 transition-colors">活動レポート</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-coral-600 transition-colors">団体概要</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-coral-600 transition-colors">ボランティア募集</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-coral-500 hover:bg-coral-600 text-white px-5 py-2.5 rounded-full shadow-md transition-colors">応援する</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-cream-100 shadow text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-white shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-bold text-ink-700">
+      <a href="index.html#about" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">子ども食堂について</a>
+      <a href="index.html#activities" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">活動内容</a>
+      <a href="index.html#report" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">活動レポート</a>
+      <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">団体概要</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-coral-50 hover:text-coral-600">ボランティア募集</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-coral-500 text-white text-center">応援する</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 bg-gradient-to-br from-coral-400 via-sunny-400 to-sky-400 overflow-hidden">
+  <div class="blob w-72 h-72 bg-white/40 -top-10 -left-10 float-slow" aria-hidden="true"></div>
+  <div class="blob w-64 h-64 bg-white/30 bottom-0 right-10 float-slower" aria-hidden="true"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-white font-heading font-bold text-sm tracking-widest">ABOUT US</p>
+    <h1 class="font-heading font-black text-white text-4xl sm:text-5xl mt-4">団体概要</h1>
+    <p class="text-white/90 mt-4 max-w-xl leading-relaxed">2018年から北九州の街で紡いできた、あたたかい食卓の歩み。私たちの想いと概要をご紹介します。</p>
+    <div class="flex items-center gap-2 text-sm text-white/80 mt-8">
+      <a href="index.html" class="hover:text-white font-bold">トップ</a>
+      <span>/</span>
+      <span class="text-white font-bold">団体概要</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ごあいさつ ================= -->
+<section class="py-24 sm:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-coral-600 font-bold text-sm tracking-widest inline-flex items-center">MESSAGE</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">理事長のごあいさつ</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-12 mt-16 items-start">
+      <div class="reveal lg:col-span-1">
+        <div class="blob-shape bg-gradient-to-br from-berry-200 via-sunny-200 to-sky-200 aspect-[3/4] sticky top-28 flex items-center justify-center shadow-lg">
+          <span class="flex items-center justify-center w-32 h-32 rounded-full bg-white shadow-md font-heading font-black text-5xl text-coral-600">田</span>
+        </div>
+        <div class="mt-6 text-center lg:text-left">
+          <p class="font-heading font-bold text-ink-900 text-xl">田中 陽子</p>
+          <p class="text-ink-700/70 text-sm mt-1">理事長（NPO法人にこにこネットワーク）</p>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1 lg:col-span-2">
+        <h3 class="font-heading font-bold text-2xl text-ink-900 leading-snug">
+          「いってきます」も「おかえり」も、みんなで言い合える街に。
+        </h3>
+        <div class="mt-6 space-y-5 text-ink-700 leading-loose">
+          <p>
+            にこにこ子ども食堂のウェブサイトをご覧いただき、ありがとうございます。理事長の田中陽子です。
+          </p>
+          <p>
+            民生委員として地域を回る中で、「今日は一人でごはんを食べた」という子どもたちの声をたくさん聞いてきました。2018年、そんな声に応えたくて、地域の有志と一緒に月1回の小さな食堂を始めたのが、にこにこ子ども食堂の始まりです。
+          </p>
+          <p>
+            8年目を迎えた今では、毎週土曜日に約120名ものお子さんや保護者、地域の方が集まる場所になりました。調理、配膳、学習支援、送迎まで、45名を超えるボランティアの皆さんに支えられています。
+          </p>
+          <p>
+            「ただいま」を言える場所が、家だけじゃなくてもいい。にこにこ子ども食堂が、子どもたちにとってそんな第二の居場所になれるよう、これからも地域のみなさんと一緒に歩んでいきます。
+          </p>
+        </div>
+        <p class="mt-8 font-heading font-bold text-ink-900">理事長　田中 陽子</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 団体概要テーブル ================= -->
+<section class="py-24 sm:py-32 bg-cream-100">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-coral-600 font-bold text-sm tracking-widest inline-flex items-center">PROFILE</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">団体概要</h2>
+    </div>
+
+    <div class="reveal reveal-delay-1 mt-14 bg-white rounded-3xl shadow-md overflow-hidden">
+      <table class="w-full text-sm sm:text-base">
+        <tbody class="divide-y divide-ink-900/10">
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">団体名</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">にこにこ子ども食堂（運営：特定非営利活動法人にこにこネットワーク）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">設立</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">2018年4月（2019年10月 NPO法人格取得）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">代表者</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">理事長　田中 陽子</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">所在地</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700 leading-relaxed">
+              〒802-0001 福岡県北九州市小倉北区浅野2丁目14-5 にこにこ会館1階
+            </td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">開催日</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">毎週土曜日 11:30〜14:00（食事提供 12:00〜13:30）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">対象</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700 leading-relaxed">0歳〜18歳のお子さまとその保護者、地域のみなさま（どなたでも参加OK）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">参加費</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">子ども（18歳まで）無料／大人 300円</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">活動内容</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700 leading-relaxed">子ども食堂運営、学習支援、フードパントリー、地域交流イベント</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">登録ボランティア</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">45名（2026年7月現在）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-cream-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">連絡先</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">TEL 093-521-4567</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 沿革 -->
+    <div class="mt-20">
+      <div class="text-center reveal">
+        <p class="eyebrow justify-center font-heading text-coral-600 font-bold text-sm tracking-widest inline-flex items-center">HISTORY</p>
+        <h3 class="font-heading font-black text-2xl sm:text-3xl text-ink-900 mt-4">沿革</h3>
+      </div>
+      <div class="reveal reveal-delay-1 mt-12 max-w-2xl mx-auto">
+        <ol class="relative border-l-4 border-dashed border-sunny-400 space-y-10 pl-8">
+          <li>
+            <span class="absolute -left-[11px] w-5 h-5 rounded-full bg-coral-500 border-4 border-white shadow"></span>
+            <p class="font-heading font-bold text-ink-900">2017年</p>
+            <p class="text-ink-700 text-sm mt-1">地域の民生委員・自治会有志で準備会を発足</p>
+          </li>
+          <li>
+            <span class="absolute -left-[11px] w-5 h-5 rounded-full bg-sunny-500 border-4 border-white shadow"></span>
+            <p class="font-heading font-bold text-ink-900">2018年4月</p>
+            <p class="text-ink-700 text-sm mt-1">月1回開催で「にこにこ子ども食堂」がスタート</p>
+          </li>
+          <li>
+            <span class="absolute -left-[11px] w-5 h-5 rounded-full bg-sky-500 border-4 border-white shadow"></span>
+            <p class="font-heading font-bold text-ink-900">2019年10月</p>
+            <p class="text-ink-700 text-sm mt-1">NPO法人にこにこネットワークを設立、法人格を取得</p>
+          </li>
+          <li>
+            <span class="absolute -left-[11px] w-5 h-5 rounded-full bg-leaf-500 border-4 border-white shadow"></span>
+            <p class="font-heading font-bold text-ink-900">2020年</p>
+            <p class="text-ink-700 text-sm mt-1">感染症拡大に伴い、お弁当配布のフードパントリーへ切替</p>
+          </li>
+          <li>
+            <span class="absolute -left-[11px] w-5 h-5 rounded-full bg-berry-500 border-4 border-white shadow"></span>
+            <p class="font-heading font-bold text-ink-900">2022年4月</p>
+            <p class="text-ink-700 text-sm mt-1">会食形式の食堂を再開、学習支援タイムを新設</p>
+          </li>
+          <li>
+            <span class="absolute -left-[11px] w-5 h-5 rounded-full bg-coral-500 border-4 border-white shadow"></span>
+            <p class="font-heading font-bold text-ink-900">2024年4月</p>
+            <p class="text-ink-700 text-sm mt-1">開催頻度を月1回から毎週土曜日に拡大</p>
+          </li>
+          <li>
+            <span class="absolute -left-[11px] w-5 h-5 rounded-full bg-sunny-500 border-4 border-white shadow"></span>
+            <p class="font-heading font-bold text-ink-900">2026年</p>
+            <p class="text-ink-700 text-sm mt-1">登録ボランティア45名、のべ利用者12,000人を突破</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="py-20 bg-white">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="reveal bg-gradient-to-br from-coral-500 via-berry-500 to-sunny-500 rounded-3xl px-8 py-14 sm:px-16 sm:py-16 text-center relative overflow-hidden shadow-xl">
+      <div class="relative">
+        <h2 class="font-heading font-black text-2xl sm:text-3xl text-white">寄付・応援のご相談はお気軽に</h2>
+        <p class="text-white/90 mt-4">食材の寄付、資金協力、企業連携など、あたたかいご支援をお待ちしています。</p>
+        <a href="index.html#contact" class="inline-flex items-center gap-2 bg-white hover:bg-cream-100 transition-colors text-coral-600 font-heading font-bold px-8 py-4 rounded-full mt-8 shadow-md">
+          お問い合わせはこちら
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-white/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-coral-500 text-white font-heading font-black">に</span>
+          <span class="font-heading font-black text-white text-lg">にこにこ子ども食堂</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-white/60">
+          〒802-0001 福岡県北九州市小倉北区浅野2丁目14-5 にこにこ会館1階<br />
+          TEL 093-521-4567 ／ 毎週土曜日 11:30〜14:00 開催
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#about" class="hover:text-coral-400 transition-colors">子ども食堂について</a></li>
+          <li><a href="index.html#activities" class="hover:text-coral-400 transition-colors">活動内容</a></li>
+          <li><a href="index.html#report" class="hover:text-coral-400 transition-colors">活動レポート</a></li>
+          <li><a href="company.html" class="hover:text-coral-400 transition-colors">団体概要</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">VOLUNTEER</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-coral-400 transition-colors">ボランティア募集トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-coral-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-coral-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
+      <p>&copy; <span data-year></span> NPO法人にこにこネットワーク／にこにこ子ども食堂. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された子ども食堂の紹介サイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

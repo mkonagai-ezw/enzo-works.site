@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>採用情報｜西条柑橘工房</title>
+<meta name="description" content="西条柑橘工房の採用情報。農作業スタッフ、加工・製造スタッフ、直売所・カフェスタッフを募集しています。未経験歓迎、愛媛県西条市丹原町での勤務です。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: { DEFAULT: '#2E2418', 50: '#F6F3EE', 100: '#E9E2D3', 700: '#3D3020', 800: '#251C11', 900: '#1B140C', 950: '#120D08' },
+          paper: { DEFAULT: '#FBF6EC', 100: '#FFFDF8', 200: '#F2E7CE' },
+          accent: { DEFAULT: '#F5883A', 50: '#FEF3E8', 100: '#FDE4CC', 200: '#FBCA99', 300: '#F9AD66', 400: '#F79A4D', 500: '#F5883A', 600: '#DB6F22', 700: '#B85819' },
+          lemon: { DEFAULT: '#FFD23F', 50: '#FFFBEA', 100: '#FFF6C9', 200: '#FFEE96', 300: '#FFE469', 400: '#FFDA4C', 500: '#FFD23F', 600: '#E6B520', 700: '#BF9410' },
+          leaf: { DEFAULT: '#7CB342', 50: '#F3F8EC', 100: '#E3EFD1', 200: '#C6DFA6', 300: '#A8CE7A', 400: '#93C25E', 500: '#7CB342', 600: '#63912F', 700: '#4E7324' },
+        },
+        fontFamily: {
+          sans: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+          heading: ['"M PLUS Rounded 1c"', '"Zen Kaku Gothic New"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-paper text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-paper-100/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-accent text-paper font-heading font-bold text-lg">西</span>
+        <span class="font-heading font-bold text-lg sm:text-xl tracking-wide text-ink-900">西条柑橘工房</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-9 font-heading text-sm font-medium text-ink-700">
+        <a data-nav-link="index.html" href="index.html#about" class="hover:text-accent-600 transition-colors">栽培へのこだわり</a>
+        <a data-nav-link="index.html" href="index.html#products" class="hover:text-accent-600 transition-colors">商品ラインナップ</a>
+        <a data-nav-link="index.html" href="index.html#shop" class="hover:text-accent-600 transition-colors">直売所・カフェ</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-accent-600 transition-colors">会社案内</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-accent-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-accent-600 text-paper px-5 py-2.5 rounded-full transition-colors">お問い合わせ</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-ink-900/5 text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-paper-100 shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-medium text-ink-700">
+      <a href="index.html#about" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">栽培へのこだわり</a>
+      <a href="index.html#products" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">商品ラインナップ</a>
+      <a href="index.html#shop" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">直売所・カフェ</a>
+      <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">会社案内</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-ink-900 text-paper text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 bg-ink-900 overflow-hidden">
+  <div class="absolute inset-0 opacity-25">
+    <img src="https://images.unsplash.com/photo-1780989023013-fe9d7220b233?auto=format&fit=crop&w=2000&q=80" alt="" class="w-full h-full object-cover" />
+  </div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-accent-400 font-heading font-bold text-sm tracking-widest">RECRUIT</p>
+    <h1 class="font-heading font-bold text-paper text-4xl sm:text-5xl mt-4">採用情報</h1>
+    <p class="text-paper/70 mt-4 max-w-xl leading-relaxed">太陽と潮風の中で、柑橘とともに働きませんか。西条市丹原町で仲間を募集しています。</p>
+    <div class="flex items-center gap-2 text-sm text-paper/50 mt-8">
+      <a href="index.html" class="hover:text-accent-400">トップ</a>
+      <span>/</span>
+      <span class="text-paper">採用情報</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PR / なぜ西条柑橘工房か ================= -->
+<section class="py-24 sm:py-32 bg-paper">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal order-2 lg:order-1">
+        <p class="eyebrow font-heading text-accent-600 font-bold text-sm tracking-widest">WHY SAIJO CITRUS WORKS</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4 leading-snug">
+          経験不問。柑橘とともに<br />働く一年を、はじめよう。
+        </h2>
+        <p class="text-ink-700 leading-loose mt-6">
+          西条柑橘工房では、経験の有無を問わずスタッフを受け入れています。収穫期の畑仕事はもちろん、加工場でのジャムづくり、直売所での接客まで、季節ごとに異なる仕事があるのが6次産業化事業者ならではの面白さです。
+        </p>
+        <p class="text-ink-700 leading-loose mt-4">
+          栽培・加工・販売のすべてに関われるからこそ、「自分が育てた・つくったもの」がお客様の手に渡る瞬間まで見届けられます。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 order-1 lg:order-2 overflow-hidden rounded-2xl shadow-xl aspect-[4/3]">
+        <img src="https://images.unsplash.com/photo-1703476881988-8c20382a0c5d?auto=format&fit=crop&w=1200&q=80" alt="柑橘を手にするスタッフ" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
+      <div class="reveal card-lift bg-paper-100 rounded-2xl p-7 border border-ink-900/10">
+        <div class="w-11 h-11 rounded-full bg-accent-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21c-4-2-7-6-7-10a7 7 0 0114 0c0 4-3 8-7 10z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">未経験歓迎</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">先輩スタッフが栽培・加工・接客のいずれも一つひとつ丁寧に教えます。</p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-paper-100 rounded-2xl p-7 border border-ink-900/10">
+        <div class="w-11 h-11 rounded-full bg-accent-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">季節ごとの多様な仕事</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">収穫期の畑仕事から、加工場でのジャムづくり、直売所の接客まで一年を通じて多彩な仕事があります。</p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-paper-100 rounded-2xl p-7 border border-ink-900/10">
+        <div class="w-11 h-11 rounded-full bg-accent-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m5-3.13a4 4 0 100-8 4 4 0 000 8zm6 3.13a4 4 0 00-3-3.87M7 12.13a4 4 0 013.87-3.87" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">地域とのつながり</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">地元のお客様や観光客との交流、収穫体験の案内など、人と接する場面がたくさんあります。</p>
+      </div>
+      <div class="reveal reveal-delay-3 card-lift bg-paper-100 rounded-2xl p-7 border border-ink-900/10">
+        <div class="w-11 h-11 rounded-full bg-accent-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">6次産業化ならではの手応え</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">栽培・加工・販売のすべてに関われるから、自分の仕事が形になる喜びを実感できます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 先輩の声 ================= -->
+<section class="py-24 sm:py-32 bg-paper-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-accent-600 font-bold text-sm tracking-widest inline-flex items-center">VOICE</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">スタッフの声</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+      <div class="reveal card-lift bg-paper rounded-2xl p-7 border border-ink-900/10">
+        <div class="flex items-center gap-4 mb-5">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="農作業スタッフ" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
+          <div>
+            <p class="font-heading font-bold text-ink-900">越智 隆之</p>
+            <p class="text-xs text-ink-700/60">農作業スタッフ／4年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          前職は営業職でした。日に焼けながらの畑仕事は大変ですが、収穫した柑橘がお客様の手に渡るまでを見届けられるのがやりがいです。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-paper rounded-2xl p-7 border border-ink-900/10">
+        <div class="flex items-center gap-4 mb-5">
+          <img src="https://images.unsplash.com/photo-1607503873903-c5e95f80d7b9?auto=format&fit=crop&w=200&q=80" alt="加工・製造スタッフ" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
+          <div>
+            <p class="font-heading font-bold text-ink-900">藤田 香織</p>
+            <p class="text-xs text-ink-700/60">加工・製造スタッフ／6年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          ジャムを煮る鍋の香りに包まれながらの仕事です。規格外の果実が新しい商品に生まれ変わる瞬間に、いつもわくわくします。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-paper rounded-2xl p-7 border border-ink-900/10">
+        <div class="flex items-center gap-4 mb-5">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80" alt="直売所・カフェスタッフ" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
+          <div>
+            <p class="font-heading font-bold text-ink-900">大野 智子</p>
+            <p class="text-xs text-ink-700/60">直売所・カフェスタッフ／2年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          子育てと両立しながら、直売所とカフェの接客をしています。お客様の「おいしかった」の一言が、何よりのごほうびです。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 募集要項 ================= -->
+<section id="jobs" class="py-24 sm:py-32 bg-paper">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-accent-600 font-bold text-sm tracking-widest inline-flex items-center">JOB OPENINGS</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">募集要項</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">現在、以下の職種で仲間を募集しています。詳細はお問い合わせフォームよりお気軽にご連絡ください。</p>
+    </div>
+
+    <div class="mt-16 space-y-8">
+      <!-- 職種1 -->
+      <div class="reveal bg-paper-100 rounded-2xl overflow-hidden border border-ink-900/10">
+        <div class="bg-ink-900 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-paper text-lg">農作業スタッフ（季節雇用）</h3>
+          <span class="text-xs font-heading font-bold text-accent-400 bg-paper/10 px-3 py-1 rounded-full">パート・アルバイト可</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">時給1,020円〜（経験・能力を考慮）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">西条柑橘工房 農園（愛媛県西条市丹原町）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">8:00〜17:00（休憩60分、応相談）　収穫期（10月〜3月）は特に歓迎</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">未経験者歓迎。年齢・性別不問。屋外作業のため体力に自信のある方。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種2 -->
+      <div class="reveal reveal-delay-1 bg-paper-100 rounded-2xl overflow-hidden border border-ink-900/10">
+        <div class="bg-ink-900 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-paper text-lg">加工・製造スタッフ</h3>
+          <span class="text-xs font-heading font-bold text-accent-400 bg-paper/10 px-3 py-1 rounded-full">パート・アルバイト可</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">時給1,000円〜（経験・能力を考慮）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">西条柑橘工房 加工場</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">9:00〜17:00（休憩60分、週3日〜応相談）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">未経験者歓迎。食品衛生や手仕事に関心のある方歓迎。年齢不問。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種3 -->
+      <div class="reveal reveal-delay-2 bg-paper-100 rounded-2xl overflow-hidden border border-ink-900/10">
+        <div class="bg-ink-900 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-paper text-lg">直売所・カフェスタッフ</h3>
+          <span class="text-xs font-heading font-bold text-accent-400 bg-paper/10 px-3 py-1 rounded-full">パート・アルバイト</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">時給980円〜</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">西条柑橘工房 直売所・カフェ</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">9:00〜17:00の間で週2日〜応相談</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">接客経験者歓迎。未経験者も歓迎。主婦・シニアも活躍中です。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-3 mt-14 bg-ink-900 rounded-2xl px-8 py-12 sm:px-14 sm:py-14 text-center">
+      <h3 class="font-heading font-bold text-paper text-2xl sm:text-3xl">まずはお気軽にご応募・お問い合わせください</h3>
+      <p class="text-paper/70 mt-4 leading-relaxed max-w-xl mx-auto">
+        履歴書は不要です。まずはお問い合わせフォームより、ご興味のある職種をお知らせください。担当より折り返しご連絡いたします。
+      </p>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-600 transition-colors text-paper font-heading font-bold px-8 py-4 rounded-full mt-8">
+        募集について問い合わせる
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-paper/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-accent text-paper font-heading font-bold">西</span>
+          <span class="font-heading font-bold text-paper text-lg">西条柑橘工房</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-paper/60">
+          〒799-1303 愛媛県西条市丹原町来見1500番地<br />
+          TEL 0898-68-5678 ／ 直売所営業時間 9:00〜17:00（火曜定休）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#about" class="hover:text-accent-500 transition-colors">栽培へのこだわり</a></li>
+          <li><a href="index.html#products" class="hover:text-accent-500 transition-colors">商品ラインナップ</a></li>
+          <li><a href="index.html#shop" class="hover:text-accent-500 transition-colors">直売所・カフェ</a></li>
+          <li><a href="company.html" class="hover:text-accent-500 transition-colors">会社案内</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-accent-500 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-accent-500 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-accent-500 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-paper/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-paper/50">
+      <p>&copy; <span data-year></span> Saijo Citrus Works. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された6次産業化事業者のコーポレートサイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

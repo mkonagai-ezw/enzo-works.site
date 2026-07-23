@@ -1,0 +1,179 @@
+/* 西条精工株式会社 — shared styles beyond Tailwind utilities（信頼感・技術力・精密さ） */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+}
+
+.font-heading {
+  font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+#site-header {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F7FA;
+}
+::-webkit-scrollbar-thumb {
+  background: #94A3B8;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0EA5E9;
+}
+
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+}
+
+/* Section eyebrow with a short accent tick, evoking a dimension line */
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 26px;
+  height: 2px;
+  background-color: #0EA5E9;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+#mobile-nav {
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+#mobile-nav.open {
+  max-height: 700px;
+  opacity: 1;
+}
+
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 9999px;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Blueprint-style grid texture — precision / technical drawing motif */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(14, 165, 233, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.16) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+.blueprint-grid-dark {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+/* Dimension line — a thin measurement-style divider with end ticks */
+.dim-line {
+  position: relative;
+  height: 1px;
+  background: rgba(30, 41, 59, 0.25);
+}
+.dim-line::before,
+.dim-line::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 9px;
+  background: rgba(30, 41, 59, 0.4);
+}
+.dim-line::before { left: 0; }
+.dim-line::after { right: 0; }
+.dim-line-light::before,
+.dim-line-light::after {
+  background: rgba(255, 255, 255, 0.4);
+}
+.dim-line-light {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Corner tick frame — camera-crop-mark motif applied to photo blocks */
+.tick-corners {
+  position: relative;
+}
+.tick-corners::before,
+.tick-corners::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  z-index: 10;
+}
+.tick-corners::before {
+  top: -9px;
+  left: -9px;
+  border-top: 3px solid #0EA5E9;
+  border-left: 3px solid #0EA5E9;
+}
+.tick-corners::after {
+  bottom: -9px;
+  right: -9px;
+  border-bottom: 3px solid #0EA5E9;
+  border-right: 3px solid #0EA5E9;
+}
+
+/* Soft accent glow — used sparingly instead of playful blobs */
+.glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  z-index: 0;
+}
+
+/* Diagonal hazard-stripe texture — subtle industrial accent for CTA bands */
+.stripe-band {
+  background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.07) 0 10px, transparent 10px 20px);
+}
+
+/* Numbered index badge for process / spec lists */
+.idx-badge {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}

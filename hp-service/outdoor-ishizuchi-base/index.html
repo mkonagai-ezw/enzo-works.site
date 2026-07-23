@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>石鎚アウトドアベース｜愛媛県西条市・石鎚山登山ガイド＆リバーラフティング</title>
+<meta name="description" content="石鎚アウトドアベースは、愛媛県西条市を拠点に石鎚山登山ガイド、加茂川リバーラフティング・キャニオニング、キャンプ場・グランピング運営を行うアウトドア体験事業者です。設立10年以上、年間参加者2,000名以上、重大事故ゼロの実績。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;500;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          mist: { DEFAULT: '#F4F7F5', 100: '#EAF0EC', 200: '#DCE7E0' },
+          ink: { DEFAULT: '#16211B', 50: '#F3F5F3', 100: '#E3E8E4', 700: '#3A453E', 800: '#26302A', 900: '#161F1A', 950: '#0B100D' },
+          forest: { DEFAULT: '#1B4332', 50: '#EFF6F1', 100: '#D9EBDE', 200: '#B3D7BE', 300: '#85BC98', 400: '#559A72', 500: '#2F7A54', 600: '#1B4332', 700: '#123023' },
+          river: { DEFAULT: '#0891B2', 50: '#ECFAFD', 100: '#CFF4FA', 200: '#A0E7F2', 300: '#67D3E3', 400: '#34B9CE', 500: '#0891B2', 600: '#06748F', 700: '#075B70' },
+          active: { DEFAULT: '#F97316', 50: '#FFF4ED', 100: '#FFE4D2', 200: '#FFC6A3', 300: '#FFA36B', 400: '#FB923C', 500: '#F97316', 600: '#E2570A', 700: '#BC4409' },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+          heading: ['"M PLUS 1"', '"Noto Sans JP"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-mist text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="true" class="fixed top-0 inset-x-0 z-50 bg-transparent">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-11 h-11 rounded-full bg-forest-600 text-white font-heading font-black text-lg shadow-md">石</span>
+        <span class="font-heading font-black text-base sm:text-xl tracking-wide text-white drop-shadow-sm">
+          石鎚アウトドアベース
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 font-heading text-sm font-bold text-white">
+        <a data-nav-link="index.html" href="index.html#tours" class="hover:text-active-300 transition-colors drop-shadow-sm">ツアー・アクティビティ</a>
+        <a data-nav-link="index.html" href="index.html#safety" class="hover:text-active-300 transition-colors drop-shadow-sm">安全への取り組み</a>
+        <a data-nav-link="index.html" href="index.html#gallery" class="hover:text-active-300 transition-colors drop-shadow-sm">体験ギャラリー</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-active-300 transition-colors drop-shadow-sm">会社概要</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-active-300 transition-colors drop-shadow-sm">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-active-500 hover:bg-active-600 text-white px-5 py-2.5 rounded-full shadow-md transition-colors">
+          ツアーを予約する
+        </a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white/90 shadow text-forest-700">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-white shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-bold text-ink-700">
+      <a href="index.html#tours" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">ツアー・アクティビティ</a>
+      <a href="index.html#safety" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">安全への取り組み</a>
+      <a href="index.html#gallery" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">体験ギャラリー</a>
+      <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">会社概要</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-active-500 text-white text-center">ツアーを予約する</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative min-h-[100svh] flex items-end hero-bg overflow-hidden" style="background-image: linear-gradient(190deg, rgba(11,16,10,0.30) 0%, rgba(11,16,10,0.50) 45%, rgba(6,10,7,0.90) 100%), url('https://images.unsplash.com/photo-1783528317055-acfc20ddd127?auto=format&fit=crop&w=2000&q=80');">
+  <div class="absolute inset-0 contour-bg opacity-60" aria-hidden="true"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pb-16 sm:pb-20 pt-40 w-full">
+    <p class="reveal inline-flex items-center gap-2 bg-active-500 text-white font-heading font-bold text-xs sm:text-sm tracking-widest px-4 py-2 rounded-full badge-tilt">
+      ISHIZUCHI OUTDOOR BASE ・ 愛媛県西条市
+    </p>
+    <h1 class="reveal reveal-delay-1 font-heading font-black text-white text-4xl sm:text-6xl md:text-7xl leading-[1.05] mt-6" style="text-wrap: balance;">
+      石鎚の山と川で、<br />
+      <span class="relative inline-block">
+        <span class="relative z-10">本気の非日常を。</span>
+        <span class="absolute left-0 right-0 bottom-2 h-4 sm:h-5 bg-active-500/60 -rotate-1 z-0" aria-hidden="true"></span>
+      </span>
+    </h1>
+    <p class="reveal reveal-delay-2 text-white/90 text-base sm:text-lg mt-6 max-w-xl leading-loose">
+      四国最高峰・石鎚山の登山ガイドから、清流・加茂川でのラフティングとキャニオニング、森のキャンプ場まで。経験豊富なガイドチームが、日常を忘れる本気のアウトドア体験をお届けします。
+    </p>
+    <div class="reveal reveal-delay-3 flex flex-wrap gap-4 mt-10">
+      <a href="#contact" class="inline-flex items-center gap-2 bg-active-500 hover:bg-active-600 text-white font-heading font-bold px-8 py-4 rounded-full shadow-lg transition-colors">
+        ツアーを予約する
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </a>
+      <a href="#tours" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-heading font-bold px-8 py-4 rounded-full transition-colors border border-white/40 backdrop-blur">
+        アクティビティを見る
+      </a>
+    </div>
+
+    <div class="reveal reveal-delay-4 grid grid-cols-3 max-w-xl mt-14 pt-8 border-t border-white/25 gap-4">
+      <div>
+        <p class="font-heading font-black text-white text-3xl sm:text-4xl stat-number">10<span class="text-base sm:text-lg align-top">年+</span></p>
+        <p class="text-white/70 text-xs mt-1">設立からの実績</p>
+      </div>
+      <div>
+        <p class="font-heading font-black text-active-300 text-3xl sm:text-4xl stat-number">2,000<span class="text-base sm:text-lg align-top">名+</span></p>
+        <p class="text-white/70 text-xs mt-1">年間ツアー参加者数</p>
+      </div>
+      <div>
+        <p class="font-heading font-black text-white text-3xl sm:text-4xl stat-number">0</p>
+        <p class="text-white/70 text-xs mt-1">重大事故（開業以来）</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="wedge" aria-hidden="true"><svg viewBox="0 0 100 6" preserveAspectRatio="none"><polygon points="0,6 100,0 100,6" fill="#F4F7F5" /></svg></div>
+
+<!-- ================= TOURS / ACTIVITIES ================= -->
+<section id="tours" class="py-20 sm:py-28 bg-mist">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-active-600 font-bold text-sm tracking-widest inline-flex items-center">ACTIVITIES</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">ツアー・アクティビティ</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">
+        山にも、川にも、キャンプにも本気で向き合う。石鎚の自然を舞台にした4つの体験プログラムです。
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+      <!-- card 1 -->
+      <div class="reveal card-lift bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1469026140142-cb239ea68152?auto=format&fit=crop&w=800&q=80" alt="石鎚山登山ガイドツアー" class="w-full h-full object-cover" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-forest-600 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">所要 6〜8時間</span>
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-2xl bg-forest-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 20l6.5-11 4 6 2.5-4L21 20H3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M14 8a2 2 0 100-4 2 2 0 000 4z" /></svg>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-ink-900">石鎚山登山<br />ガイドツアー</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">四国最高峰・石鎚山の鎖場から山頂の絶景まで、認定ガイドが安全にご案内します。</p>
+        </div>
+      </div>
+      <!-- card 2 -->
+      <div class="reveal reveal-delay-1 card-lift bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1641584495089-5914d85d9bcc?auto=format&fit=crop&w=800&q=80" alt="加茂川リバーラフティング" class="w-full h-full object-cover" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-river-600 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">所要 約2時間</span>
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-2xl bg-river-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-river-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M2 17c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0M2 12c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0" /></svg>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-ink-900">加茂川リバー<br />ラフティング</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">清流・加茂川を舞台にしたスリル満点のラフティング。初心者やファミリーも安心です。</p>
+        </div>
+      </div>
+      <!-- card 3 -->
+      <div class="reveal reveal-delay-2 card-lift bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1690291900903-1bf8f6f54c50?auto=format&fit=crop&w=800&q=80" alt="キャニオニングツアー" class="w-full h-full object-cover" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-active-500 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">所要 約3時間</span>
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-2xl bg-active-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-active-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v6m0 0l-3 4m3-4l3 4m-7 3c0 3 2 5 4 6.5 2-1.5 4-3.5 4-6.5" /></svg>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-ink-900">キャニオニング<br />ツアー</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">渓谷の滝壺へ飛び込む、天然のウォータースライダー。夏いちばんの絶叫アクティビティです。</p>
+        </div>
+      </div>
+      <!-- card 4 -->
+      <div class="reveal reveal-delay-3 card-lift bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1641569618527-68e26db76db0?auto=format&fit=crop&w=800&q=80" alt="グランピング・キャンプ場" class="w-full h-full object-cover" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-ink-900 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">通年営業</span>
+        </div>
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-2xl bg-forest-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20l6-13 2 4 2-4 6 13H4z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 20v-4a3 3 0 016 0v4" /></svg>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-ink-900">グランピング・<br />キャンプ場運営</h3>
+          <p class="text-sm text-ink-700 mt-2 leading-relaxed">石鎚の森に囲まれたキャンプ場。手ぶらで楽しめる焚き火ディナーも人気です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="wedge" aria-hidden="true"><svg viewBox="0 0 100 6" preserveAspectRatio="none"><polygon points="0,0 100,6 100,0" fill="#123023" /></svg></div>
+
+<!-- ================= SAFETY ================= -->
+<section id="safety" class="relative py-20 sm:py-28 bg-forest-700 text-white overflow-hidden">
+  <div class="absolute inset-0 contour-bg opacity-70" aria-hidden="true"></div>
+  <div class="blob w-72 h-72 bg-river-500 -top-10 -right-16 float-slow" aria-hidden="true"></div>
+  <div class="blob w-64 h-64 bg-active-500 bottom-0 left-10 float-slower" aria-hidden="true"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-5 gap-14 items-start">
+      <div class="reveal lg:col-span-2">
+        <p class="eyebrow font-heading text-active-400 font-bold text-sm tracking-widest">SAFETY FIRST</p>
+        <h2 class="font-heading font-black text-3xl sm:text-4xl mt-4 leading-snug">
+          大自然の中だからこそ、<br />安全管理を最優先に。
+        </h2>
+        <p class="text-white/80 leading-loose mt-6">
+          石鎚アウトドアベースでは、資格を持つガイドの同行、国際基準の装備点検、少人数制の運営を徹底し、開業以来 <span class="text-active-300 font-bold">重大事故ゼロ</span> の記録を更新し続けています。安心してアクティビティに集中していただくために。
+        </p>
+        <div class="mt-10 inline-flex items-center gap-4 bg-white/10 border border-white/20 rounded-2xl px-6 py-5 backdrop-blur">
+          <span class="font-heading font-black text-active-300 text-4xl stat-number">0</span>
+          <span class="text-sm text-white/80 leading-snug">設立以来<br />重大事故ゼロを継続中</span>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1 lg:col-span-3 grid sm:grid-cols-2 gap-5">
+        <div class="card-lift bg-white/10 border border-white/15 rounded-3xl p-6 backdrop-blur">
+          <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-active-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" /></svg>
+          </div>
+          <p class="font-heading font-bold text-lg">資格保有ガイド在籍</p>
+          <p class="text-sm text-white/75 mt-2 leading-relaxed">日本山岳ガイド協会認定ガイド、ラフトガイド資格を持つスタッフが全ツアーに同行します。</p>
+        </div>
+        <div class="card-lift bg-white/10 border border-white/15 rounded-3xl p-6 backdrop-blur">
+          <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-active-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h10M4 18h7" /><path stroke-linecap="round" stroke-linejoin="round" d="M17 15l3 3 5-5" transform="translate(-2 0)" /></svg>
+          </div>
+          <p class="font-heading font-bold text-lg">徹底した装備点検</p>
+          <p class="text-sm text-white/75 mt-2 leading-relaxed">ヘルメット・PFD・ハーネスなど国際基準の装備を毎回ツアー前に点検しています。</p>
+        </div>
+        <div class="card-lift bg-white/10 border border-white/15 rounded-3xl p-6 backdrop-blur">
+          <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-active-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20a4 4 0 00-10 0M12 12a4 4 0 100-8 4 4 0 000 8zM20 20a3 3 0 00-3.5-3M4 20a3 3 0 013.5-3" /></svg>
+          </div>
+          <p class="font-heading font-bold text-lg">少人数制ツアー</p>
+          <p class="text-sm text-white/75 mt-2 leading-relaxed">ガイド1名あたりの参加人数を制限し、一人ひとりに目が届く体制を徹底しています。</p>
+        </div>
+        <div class="card-lift bg-white/10 border border-white/15 rounded-3xl p-6 backdrop-blur">
+          <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-active-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </div>
+          <p class="font-heading font-bold text-lg">2014年から重大事故ゼロ</p>
+          <p class="text-sm text-white/75 mt-2 leading-relaxed">設立から10年以上、年間2,000名以上にご参加いただきながら重大事故ゼロを継続しています。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="wedge" aria-hidden="true"><svg viewBox="0 0 100 6" preserveAspectRatio="none"><polygon points="0,6 100,0 100,6" fill="#FFFFFF" /></svg></div>
+
+<!-- ================= GALLERY / 体験レポート ================= -->
+<section id="gallery" class="py-20 sm:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex flex-wrap items-end justify-between gap-6 reveal">
+      <div>
+        <p class="eyebrow font-heading text-active-600 font-bold text-sm tracking-widest inline-flex items-center">GALLERY</p>
+        <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">体験レポート・ギャラリー</h2>
+      </div>
+      <p class="text-ink-700 max-w-md leading-relaxed">季節ごとに表情を変える石鎚の山と川。参加者の皆さんの体験をお届けします。</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+      <!-- 1 -->
+      <a href="#contact" class="reveal card-lift group rounded-3xl overflow-hidden shadow-md hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1469026140142-cb239ea68152?auto=format&fit=crop&w=800&q=80" alt="残雪期の石鎚山を歩く登山ツアー" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-forest-600 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">春</span>
+        </div>
+        <div class="p-5 bg-mist-100">
+          <p class="text-xs text-ink-700/60 font-heading">残雪期の山開き</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">新緑の石鎚山を歩く</h3>
+        </div>
+      </a>
+      <!-- 2 -->
+      <a href="#contact" class="reveal reveal-delay-1 card-lift group rounded-3xl overflow-hidden shadow-md hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1641584495089-5914d85d9bcc?auto=format&fit=crop&w=800&q=80" alt="加茂川の夏本番ラフティング" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-river-600 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">夏</span>
+        </div>
+        <div class="p-5 bg-mist-100">
+          <p class="text-xs text-ink-700/60 font-heading">加茂川の夏本番</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">水しぶきを浴びるラフティング</h3>
+        </div>
+      </a>
+      <!-- 3 -->
+      <a href="#contact" class="reveal reveal-delay-2 card-lift group rounded-3xl overflow-hidden shadow-md hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1690291900903-1bf8f6f54c50?auto=format&fit=crop&w=800&q=80" alt="渓谷のキャニオニング体験" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-active-500 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">夏</span>
+        </div>
+        <div class="p-5 bg-mist-100">
+          <p class="text-xs text-ink-700/60 font-heading">渓谷のひんやり体験</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">滝壺へダイブ！キャニオニング</h3>
+        </div>
+      </a>
+      <!-- 4 -->
+      <a href="#contact" class="reveal card-lift group rounded-3xl overflow-hidden shadow-md hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1778675470619-a1cdee6aeabd?auto=format&fit=crop&w=800&q=80" alt="紅葉の石鎚山系トレッキング" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-active-600 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">秋</span>
+        </div>
+        <div class="p-5 bg-mist-100">
+          <p class="text-xs text-ink-700/60 font-heading">紅葉トレッキング</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">色づく稜線を歩く秋の石鎚</h3>
+        </div>
+      </a>
+      <!-- 5 -->
+      <a href="#contact" class="reveal reveal-delay-1 card-lift group rounded-3xl overflow-hidden shadow-md hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1497316283501-6e0246fc5aa0?auto=format&fit=crop&w=800&q=80" alt="雪山登山ツアー" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-river-700 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">冬</span>
+        </div>
+        <div class="p-5 bg-mist-100">
+          <p class="text-xs text-ink-700/60 font-heading">静寂に包まれる冬の稜線</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">雪山登山ガイドツアー</h3>
+        </div>
+      </a>
+      <!-- 6 -->
+      <a href="#contact" class="reveal reveal-delay-2 card-lift group rounded-3xl overflow-hidden shadow-md hover:shadow-xl block">
+        <div class="aspect-[4/3] overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1641569618527-68e26db76db0?auto=format&fit=crop&w=800&q=80" alt="森のグランピング施設" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <span class="absolute top-4 left-4 bg-ink-900 text-white text-xs font-heading font-bold px-3 py-1 rounded-full badge-tilt">通年</span>
+        </div>
+        <div class="p-5 bg-mist-100">
+          <p class="text-xs text-ink-700/60 font-heading">焚き火とグランピング</p>
+          <h3 class="font-heading font-bold text-ink-900 mt-1">森のキャンプ場で過ごす特別な夜</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAP / ACCESS ================= -->
+<section class="py-20 sm:py-28 bg-mist">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-5 gap-10 items-stretch">
+      <div class="lg:col-span-2 reveal bg-forest-700 rounded-3xl p-8 sm:p-10 text-white flex flex-col justify-between">
+        <div>
+          <p class="eyebrow font-heading text-active-400 font-bold text-sm tracking-widest inline-flex items-center">ACCESS</p>
+          <h2 class="font-heading font-black text-3xl mt-4">拠点アクセス</h2>
+          <div class="mt-8 space-y-5 text-white/85 text-sm leading-relaxed">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-active-300 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              <p>〒791-1113<br />愛媛県西条市西之川100番地</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-active-300 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m-12 5h12m-12 5h8M4 7h.01M4 12h.01M4 17h.01" /></svg>
+              <p>松山自動車道「いよ西条IC」より車で約40分<br />JR「伊予西条駅」より車で約35分</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-active-300 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <p>受付時間　8:00〜18:00（不定休・悪天候時は運休あり）</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-active-300 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              <p>TEL 0897-59-6789（受付 8:00〜18:00）</p>
+            </div>
+          </div>
+        </div>
+        <a href="#contact" class="mt-10 inline-flex items-center justify-center gap-2 bg-active-500 hover:bg-active-600 transition-colors text-white font-heading font-bold px-6 py-3.5 rounded-full">
+          お問い合わせフォームへ
+        </a>
+      </div>
+      <div class="lg:col-span-3 reveal reveal-delay-1 rounded-3xl overflow-hidden shadow-xl min-h-[360px]">
+        <iframe
+          title="石鎚アウトドアベース 拠点所在地マップ"
+          src="https://www.google.com/maps?q=愛媛県西条市西之川&output=embed"
+          class="w-full h-full min-h-[360px] border-0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="relative py-20 sm:py-28 bg-white overflow-hidden">
+  <div class="blob w-72 h-72 bg-river-200 -top-10 -right-16 opacity-50 float-slow" aria-hidden="true"></div>
+  <div class="max-w-3xl mx-auto px-5 sm:px-8 lg:px-10 relative">
+    <div class="text-center reveal">
+      <p class="eyebrow justify-center font-heading text-active-600 font-bold text-sm tracking-widest inline-flex items-center">CONTACT</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">お問い合わせ</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">
+        ツアーのご予約、企業研修・団体でのご利用のご相談など、お気軽にご連絡ください。担当より2営業日以内にご返信いたします。
+      </p>
+    </div>
+
+    <form id="contact-form" class="reveal reveal-delay-1 mt-14 bg-mist-100 rounded-3xl border-2 border-forest-100 p-6 sm:p-10 space-y-6" novalidate>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <label for="name" class="block text-sm font-heading font-bold text-ink-900 mb-2">お名前 <span class="text-active-600">必須</span></label>
+          <input type="text" id="name" name="name" required placeholder="山田 太郎" class="w-full rounded-2xl border-2 border-ink-900/10 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-active-400 focus:border-transparent bg-white" />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-heading font-bold text-ink-900 mb-2">メールアドレス <span class="text-active-600">必須</span></label>
+          <input type="email" id="email" name="email" required placeholder="example@mail.com" class="w-full rounded-2xl border-2 border-ink-900/10 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-active-400 focus:border-transparent bg-white" />
+        </div>
+      </div>
+      <div>
+        <label for="subject" class="block text-sm font-heading font-bold text-ink-900 mb-2">件名 <span class="text-active-600">必須</span></label>
+        <input type="text" id="subject" name="subject" required placeholder="石鎚山登山ガイドツアーについて" class="w-full rounded-2xl border-2 border-ink-900/10 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-active-400 focus:border-transparent bg-white" />
+      </div>
+      <div>
+        <label for="message" class="block text-sm font-heading font-bold text-ink-900 mb-2">メッセージ内容 <span class="text-active-600">必須</span></label>
+        <textarea id="message" name="message" required rows="6" placeholder="ご希望のツアー、参加人数、日程、企業研修のご相談内容などをご記入ください。" class="w-full rounded-2xl border-2 border-ink-900/10 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-active-400 focus:border-transparent bg-white resize-none"></textarea>
+      </div>
+
+      <label class="flex items-start gap-3 text-sm text-ink-700">
+        <input type="checkbox" required class="mt-1 w-4 h-4 rounded border-ink-900/30 text-active-600 focus:ring-active-400" />
+        <span>プライバシーポリシーに同意の上、送信します。</span>
+      </label>
+
+      <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-active-500 hover:bg-active-600 transition-colors text-white font-heading font-bold px-10 py-4 rounded-full shadow-lg">
+        <span class="btn-label">メッセージを送信する</span>
+        <span class="spinner hidden"></span>
+      </button>
+
+      <div id="form-feedback" class="hidden items-center gap-3 bg-forest-100 border-2 border-forest-500/30 text-ink-900 text-sm rounded-2xl px-5 py-4">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+        <span>お問い合わせありがとうございます。担当より折り返しご連絡いたします。（本デモサイトでは実際の送信は行われません）</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-white/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-forest-600 text-white font-heading font-black">石</span>
+          <span class="font-heading font-black text-white text-lg">石鎚アウトドアベース</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-white/60">
+          〒791-1113 愛媛県西条市西之川100番地<br />
+          TEL 0897-59-6789 ／ 受付時間 8:00〜18:00
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#tours" class="hover:text-active-400 transition-colors">ツアー・アクティビティ</a></li>
+          <li><a href="index.html#safety" class="hover:text-active-400 transition-colors">安全への取り組み</a></li>
+          <li><a href="index.html#gallery" class="hover:text-active-400 transition-colors">体験ギャラリー</a></li>
+          <li><a href="company.html" class="hover:text-active-400 transition-colors">会社概要</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-active-400 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-active-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-active-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
+      <p>&copy; <span data-year></span> 石鎚アウトドアベース. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作されたアウトドア体験事業者の紹介サイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

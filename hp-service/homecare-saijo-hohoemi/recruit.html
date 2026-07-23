@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>採用情報｜西条ほほえみ介護ステーション</title>
+<meta name="description" content="西条ほほえみ介護ステーションの採用情報。訪問介護員（ヘルパー）、サービス提供責任者、看護師（連携）を募集しています。無資格・未経験者向けの資格取得支援制度あり。主婦・シニア世代も活躍中。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: { DEFAULT: '#FAF6ED', 50: '#FEFDFA', 100: '#F5EFE1', 200: '#EDE3CC' },
+          ink: { DEFAULT: '#33413D', 50: '#F1F4F3', 100: '#DCE4E2', 700: '#445653', 800: '#2B3734', 900: '#1E2725', 950: '#141B19' },
+          teal: { DEFAULT: '#5EAA9E', 50: '#EFF7F5', 100: '#DCEEEA', 200: '#BFE0D9', 300: '#9CCEC5', 400: '#7CBCB0', 500: '#5EAA9E', 600: '#468A80', 700: '#386E66', 800: '#2D5750', 900: '#24423D' },
+          coral: { DEFAULT: '#FF8F73', 50: '#FFF3EF', 100: '#FFE2D9', 200: '#FFC7B7', 300: '#FFAB93', 400: '#FF9C7E', 500: '#FF8F73', 600: '#E97656', 700: '#CC5F42', 800: '#A54A34', 900: '#7D3827' },
+          sand: { DEFAULT: '#D0983A', 50: '#FCF6EB', 100: '#F7E8CB', 200: '#EFD39D', 300: '#E6BD72', 400: '#E0A94D', 500: '#D0983A', 600: '#B27C2A' },
+          sky: { DEFAULT: '#5F93AC', 50: '#F1F7FA', 100: '#DCEBF1', 200: '#BEDAE6', 300: '#9CC5D6', 400: '#7FADC4', 500: '#5F93AC', 600: '#4A7891' },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', '"M PLUS Rounded 1c"', 'sans-serif'],
+          heading: ['"M PLUS Rounded 1c"', '"Noto Sans JP"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-cream text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-white/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-11 h-11 rounded-full bg-teal-500 text-white font-heading font-bold text-lg shadow-md">ほ</span>
+        <span class="font-heading font-bold text-base sm:text-lg tracking-wide text-ink-900">西条ほほえみ介護ステーション</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7 font-heading text-sm font-bold text-ink-700">
+        <a data-nav-link="index.html" href="index.html#services" class="hover:text-teal-600 transition-colors">サービス案内</a>
+        <a data-nav-link="index.html" href="index.html#reasons" class="hover:text-teal-600 transition-colors">選ばれる理由</a>
+        <a data-nav-link="index.html" href="index.html#voices" class="hover:text-teal-600 transition-colors">ご利用者様の声</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-teal-600 transition-colors">事業所概要</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-teal-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 text-white px-5 py-2.5 rounded-full shadow-md transition-colors">無料相談・資料請求</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-cream-100 shadow text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-white shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-bold text-ink-700">
+      <a href="index.html#services" class="px-4 py-3 rounded-xl hover:bg-teal-50 hover:text-teal-600">サービス案内</a>
+      <a href="index.html#reasons" class="px-4 py-3 rounded-xl hover:bg-teal-50 hover:text-teal-600">選ばれる理由</a>
+      <a href="index.html#voices" class="px-4 py-3 rounded-xl hover:bg-teal-50 hover:text-teal-600">ご利用者様の声</a>
+      <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-teal-50 hover:text-teal-600">事業所概要</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-teal-50 hover:text-teal-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-teal-500 text-white text-center">無料相談・資料請求</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 bg-ink-900 overflow-hidden">
+  <div class="absolute inset-0 opacity-25">
+    <img src="https://images.pexels.com/photos/18271866/pexels-photo-18271866.jpeg?auto=compress&cs=tinysrgb&w=2000" alt="" class="w-full h-full object-cover" />
+  </div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-teal-300 font-heading font-bold text-sm tracking-widest">RECRUIT</p>
+    <h1 class="font-heading font-bold text-white text-4xl sm:text-5xl mt-4">採用情報</h1>
+    <p class="text-white/80 mt-4 max-w-xl leading-relaxed">あなたの「人のために」という気持ちを、西条の街で必要としている方がいます。資格・経験は問いません。一緒に地域を支えませんか。</p>
+    <div class="flex items-center gap-2 text-sm text-white/70 mt-8">
+      <a href="index.html" class="hover:text-white font-bold">トップ</a>
+      <span>/</span>
+      <span class="text-white font-bold">採用情報</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= なぜ西条ほほえみか ================= -->
+<section class="py-24 sm:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal order-2 lg:order-1">
+        <p class="eyebrow font-heading text-coral-600 font-bold text-sm tracking-widest">WHY US</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4 leading-snug">
+          なぜ西条ほほえみ<br />介護ステーションか
+        </h2>
+        <p class="text-ink-700 leading-loose mt-6">
+          西条ほほえみ介護ステーションでは、無資格・未経験からスタートしたスタッフが数多く活躍しています。主婦業と両立しながら、また定年後の新しい仕事として、それぞれのペースで長く働き続けられる環境を大切にしています。
+        </p>
+        <p class="text-ink-700 leading-loose mt-4">
+          「人の役に立ちたい」という気持ちがあれば、資格やこれまでの経歴は問いません。研修と資格取得支援で、安心してスタートしていただけます。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 order-1 lg:order-2 relative">
+        <div class="overflow-hidden shadow-xl rounded-3xl aspect-[4/3]">
+          <img src="https://images.unsplash.com/photo-1765896387387-0538bc9f997e?auto=format&fit=crop&w=1200&q=80" alt="笑顔で利用者に接するスタッフ" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
+      <div class="reveal card-lift bg-teal-50 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-teal-100 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422A12.083 12.083 0 0121 17.5c0 .38-.02.755-.058 1.125M12 14L5.84 10.578A12.083 12.083 0 003 17.5c0 .38.02.755.058 1.125M12 14v7" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">資格取得支援制度</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">無資格・未経験の方も、初任者研修などの資格取得をサポートします。</p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-coral-50 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-coral-100 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-coral-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m5-4.13a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-3.53-5.879" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">主婦・シニア活躍中</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">家庭やこれまでの経験を活かしながら、無理なく働けるシフトをご相談いただけます。</p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-sky-50 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-sky-100 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25h5.25L21 8.25v6H16.5V7.5z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">直行直帰OK</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">事業所に立ち寄らず、ご自宅から直接ご利用者様のもとへ訪問できます。</p>
+      </div>
+      <div class="reveal reveal-delay-3 card-lift bg-sand-50 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-sand-100 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-sand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">地域に必要とされる仕事</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">「ありがとう」の言葉が力になる、地域になくてはならない仕事です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 先輩の声 ================= -->
+<section class="py-24 sm:py-32 bg-teal-50">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-coral-600 font-bold text-sm tracking-widest inline-flex items-center">VOICE</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">先輩スタッフの声</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+      <div class="reveal card-lift bg-white rounded-3xl p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 rounded-full bg-teal-500 text-white flex items-center justify-center font-heading font-bold text-xl" aria-hidden="true">S</span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">佐々木 明美</p>
+            <p class="text-xs text-ink-700/60">訪問介護員／入社3年目・主婦から転職</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          子育てが落ち着いたタイミングで未経験から始めました。研修が丁寧で、初めは不安でしたが今では無理のないシフトで働けています。利用者様に「ありがとう」と言われるたび、この仕事を選んでよかったと感じます。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-white rounded-3xl p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 rounded-full bg-coral-500 text-white flex items-center justify-center font-heading font-bold text-xl" aria-hidden="true">N</span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">西田 真理</p>
+            <p class="text-xs text-ink-700/60">サービス提供責任者／入社5年目・介護福祉士</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          ヘルパーとして入社し、資格取得支援を受けながらキャリアアップしました。今はケアプランの調整やスタッフのフォローを担当しています。地域の方々の暮らしを支えている実感があるやりがいの大きい仕事です。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-white rounded-3xl p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 rounded-full bg-sky-500 text-white flex items-center justify-center font-heading font-bold text-xl" aria-hidden="true">O</span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">大西 誠一</p>
+            <p class="text-xs text-ink-700/60">訪問介護員／入社2年目・定年退職後に転職</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          定年後、何か人の役に立つ仕事をしたいと思い飛び込みました。同世代の利用者様との会話も弾みますし、直行直帰なので体力的にも無理なく続けられています。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 募集要項 ================= -->
+<section id="jobs" class="py-24 sm:py-32 bg-white">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-coral-600 font-bold text-sm tracking-widest inline-flex items-center">JOB OPENINGS</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">募集要項</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">現在、以下の職種で募集しています。詳細はお問い合わせフォームよりお気軽にご連絡ください。</p>
+    </div>
+
+    <div class="mt-16 space-y-8">
+      <!-- 職種1 -->
+      <div class="reveal bg-cream-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-teal-500 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">訪問介護員（ヘルパー）</h3>
+          <span class="text-xs font-heading font-bold text-teal-700 bg-white px-3 py-1 rounded-full">未経験・無資格歓迎</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">時給1,100円〜1,400円（資格・経験による／サービス提供責任者登用制度あり）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">西条市全域・新居浜市の一部（直行直帰OK）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">週1日・1日2時間〜応相談（シフト制）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">資格・経験不問（入社後、資格取得支援制度あり）。普通自動車免許（AT限定可）歓迎。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種2 -->
+      <div class="reveal reveal-delay-1 bg-cream-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-coral-500 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">サービス提供責任者</h3>
+          <span class="text-xs font-heading font-bold text-coral-700 bg-white px-3 py-1 rounded-full">資格保有者</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">月給210,000円〜260,000円（経験・資格による）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">西条ほほえみ介護ステーション（西条市神拝町300番地）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">8:30〜17:30（実働8時間・シフト制）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">介護福祉士または実務者研修修了者等（サービス提供責任者の要件を満たす方）。訪問介護の実務経験2年以上歓迎。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種3 -->
+      <div class="reveal reveal-delay-2 bg-cream-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-sky-500 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">看護師（訪問看護連携）</h3>
+          <span class="text-xs font-heading font-bold text-sky-600 bg-white px-3 py-1 rounded-full">要看護師免許</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">月給260,000円〜320,000円（経験による／連携先訪問看護ステーションの雇用条件に準拠）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">西条市・新居浜市エリア（連携訪問看護ステーション所属）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">8:30〜17:30（オンコール対応の有無は面談時にご相談）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">看護師免許（正看護師・准看護師）。訪問看護未経験の方も、同行研修がありますので歓迎します。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-3 mt-14 bg-gradient-to-br from-teal-600 via-teal-500 to-sky-500 rounded-3xl px-8 py-12 sm:px-14 sm:py-14 text-center shadow-xl">
+      <h3 class="font-heading font-bold text-white text-2xl sm:text-3xl">まずはお気軽にご応募・お問い合わせください</h3>
+      <p class="text-white/90 mt-4 leading-relaxed max-w-xl mx-auto">
+        履歴書は不要です。まずはお問い合わせフォームより、ご興味のある職種をお知らせください。担当より折り返しご連絡いたします。
+      </p>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 bg-white hover:bg-cream-100 transition-colors text-teal-700 font-heading font-bold px-8 py-4 rounded-full mt-8 shadow-md">
+        採用について問い合わせる
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-white/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-teal-500 text-white font-heading font-bold">ほ</span>
+          <span class="font-heading font-bold text-white text-lg">西条ほほえみ介護ステーション</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-white/60">
+          〒793-0031 愛媛県西条市神拝町300番地<br />
+          TEL 0897-53-7890（電話相談 24時間対応） ／ 訪問時間 8:00〜18:00
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#services" class="hover:text-teal-300 transition-colors">サービス案内</a></li>
+          <li><a href="index.html#reasons" class="hover:text-teal-300 transition-colors">選ばれる理由</a></li>
+          <li><a href="index.html#voices" class="hover:text-teal-300 transition-colors">ご利用者様の声</a></li>
+          <li><a href="company.html" class="hover:text-teal-300 transition-colors">事業所概要</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-teal-300 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-teal-300 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-teal-300 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
+      <p>&copy; <span data-year></span> 西条ほほえみ介護ステーション. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された訪問介護事業所の紹介サイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

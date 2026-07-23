@@ -1,0 +1,149 @@
+/* にこにこ子ども食堂 — shared styles beyond Tailwind utilities (ポップ・カラフル・明るい) */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Noto Sans JP", sans-serif;
+}
+
+.font-heading {
+  font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Noto Sans JP", sans-serif;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+#site-header {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFBF0;
+}
+::-webkit-scrollbar-thumb {
+  background: #FFD79A;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6F59;
+}
+
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-lift:hover {
+  transform: translateY(-6px) rotate(-0.3deg);
+}
+
+/* Section eyebrow with a colorful dot */
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background-color: #FF6F59;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+#mobile-nav {
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+#mobile-nav.open {
+  max-height: 700px;
+  opacity: 1;
+}
+
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 9999px;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Soft irregular blob frame, used instead of photos */
+.blob-shape {
+  border-radius: 63% 37% 54% 46% / 43% 39% 61% 57%;
+}
+
+/* Floating blurred color blobs for hero / section backdrops */
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(40px);
+  opacity: 0.55;
+  z-index: 0;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-18px) translateX(10px); }
+}
+@keyframes float-slower {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(16px) translateX(-14px); }
+}
+.float-slow { animation: float-slow 7s ease-in-out infinite; }
+.float-slower { animation: float-slower 9s ease-in-out infinite; }
+
+/* Confetti dot texture */
+.confetti-bg {
+  background-image:
+    radial-gradient(circle, #FF6F59 3px, transparent 3px),
+    radial-gradient(circle, #FFC839 3px, transparent 3px),
+    radial-gradient(circle, #3EC6E0 3px, transparent 3px),
+    radial-gradient(circle, #6FCF7C 3px, transparent 3px);
+  background-size: 90px 90px, 110px 110px, 100px 100px, 120px 120px;
+  background-position: 0 0, 30px 50px, 60px 10px, 20px 80px;
+}
+
+/* Dotted divider band between sections */
+.dot-divider {
+  background-image: radial-gradient(circle, currentColor 3.5px, transparent 3.5px);
+  background-size: 22px 22px;
+  background-position: 0 center;
+}
+
+/* Wavy rounded top edge for cards/sections */
+.scallop-top {
+  -webkit-mask-image: radial-gradient(circle at 12px 0, transparent 12px, black 12.5px);
+  mask-image: radial-gradient(circle at 12px 0, transparent 12px, black 12.5px);
+  -webkit-mask-size: 24px 24px;
+  mask-size: 24px 24px;
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+}

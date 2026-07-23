@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>採用情報｜石鎚アウトドアベース</title>
+<meta name="description" content="石鎚アウトドアベースの採用情報。アウトドアガイド、キャンプ場運営スタッフ、Web・SNS担当を募集しています。未経験・研修制度あり、資格取得支援あり。愛媛県西条市。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;500;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          mist: { DEFAULT: '#F4F7F5', 100: '#EAF0EC', 200: '#DCE7E0' },
+          ink: { DEFAULT: '#16211B', 50: '#F3F5F3', 100: '#E3E8E4', 700: '#3A453E', 800: '#26302A', 900: '#161F1A', 950: '#0B100D' },
+          forest: { DEFAULT: '#1B4332', 50: '#EFF6F1', 100: '#D9EBDE', 200: '#B3D7BE', 300: '#85BC98', 400: '#559A72', 500: '#2F7A54', 600: '#1B4332', 700: '#123023' },
+          river: { DEFAULT: '#0891B2', 50: '#ECFAFD', 100: '#CFF4FA', 200: '#A0E7F2', 300: '#67D3E3', 400: '#34B9CE', 500: '#0891B2', 600: '#06748F', 700: '#075B70' },
+          active: { DEFAULT: '#F97316', 50: '#FFF4ED', 100: '#FFE4D2', 200: '#FFC6A3', 300: '#FFA36B', 400: '#FB923C', 500: '#F97316', 600: '#E2570A', 700: '#BC4409' },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+          heading: ['"M PLUS 1"', '"Noto Sans JP"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-mist text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-white/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-11 h-11 rounded-full bg-forest-600 text-white font-heading font-black text-lg shadow-md">石</span>
+        <span class="font-heading font-black text-base sm:text-xl tracking-wide text-ink-900">石鎚アウトドアベース</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 font-heading text-sm font-bold text-ink-700">
+        <a data-nav-link="index.html" href="index.html#tours" class="hover:text-active-600 transition-colors">ツアー・アクティビティ</a>
+        <a data-nav-link="index.html" href="index.html#safety" class="hover:text-active-600 transition-colors">安全への取り組み</a>
+        <a data-nav-link="index.html" href="index.html#gallery" class="hover:text-active-600 transition-colors">体験ギャラリー</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-active-600 transition-colors">会社概要</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-active-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-active-500 hover:bg-active-600 text-white px-5 py-2.5 rounded-full shadow-md transition-colors">ツアーを予約する</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-mist-100 shadow text-forest-700">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-white shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-bold text-ink-700">
+      <a href="index.html#tours" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">ツアー・アクティビティ</a>
+      <a href="index.html#safety" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">安全への取り組み</a>
+      <a href="index.html#gallery" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">体験ギャラリー</a>
+      <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">会社概要</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-active-50 hover:text-active-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-active-500 text-white text-center">ツアーを予約する</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 bg-ink-900 overflow-hidden">
+  <div class="absolute inset-0 opacity-30">
+    <img src="https://images.unsplash.com/photo-1497316283501-6e0246fc5aa0?auto=format&fit=crop&w=2000&q=80" alt="" class="w-full h-full object-cover" />
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/60 to-ink-900/30"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-active-400 font-heading font-bold text-sm tracking-widest">RECRUIT</p>
+    <h1 class="font-heading font-black text-white text-4xl sm:text-5xl mt-4">採用情報</h1>
+    <p class="text-white/75 mt-4 max-w-xl leading-relaxed">石鎚の山と川を職場に。あなたの「本気」を、ここで仕事にしませんか。</p>
+    <div class="flex items-center gap-2 text-sm text-white/60 mt-8">
+      <a href="index.html" class="hover:text-active-300 font-bold">トップ</a>
+      <span>/</span>
+      <span class="text-white font-bold">採用情報</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PR / 働く魅力 ================= -->
+<section class="py-20 sm:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal order-2 lg:order-1">
+        <p class="eyebrow font-heading text-active-600 font-bold text-sm tracking-widest">WHY ISHIZUCHI OUTDOOR BASE</p>
+        <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4 leading-snug">
+          経験不問。石鎚の自然の中で、<br />本気で働こう。
+        </h2>
+        <p class="text-ink-700 leading-loose mt-6">
+          石鎚アウトドアベースでは、登山やラフティングの経験がない方でも大歓迎です。先輩ガイドがつきっきりで指導する研修制度を用意しており、資格取得のサポートも行っています。
+        </p>
+        <p class="text-ink-700 leading-loose mt-4">
+          オフィスではなく、山と川が仕事場。少人数のアットホームなチームで、参加者の「非日常」をつくる仕事に携われます。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 order-1 lg:order-2 overflow-hidden rounded-3xl shadow-xl aspect-[4/3]">
+        <img src="https://images.unsplash.com/photo-1476041800959-2f6bb412c8ce?auto=format&fit=crop&w=1200&q=80" alt="石鎚の森でキャンプ場の準備をするスタッフ" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
+      <div class="reveal card-lift bg-mist-100 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-forest-50 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21c-4-2-7-6-7-10a7 7 0 0114 0c0 4-3 8-7 10z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">未経験可・研修制度あり</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">先輩ガイドが基礎から丁寧に指導。未経験からのスタートを歓迎します。</p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-mist-100 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-river-50 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-river-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">資格取得支援</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">山岳ガイドやラフトガイド資格の取得費用をサポートする制度があります。</p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-mist-100 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-active-50 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-active-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20l6-13 2 4 2-4 6 13H4z" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">大自然の中で働ける</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">オフィスワークではなく、石鎚の山と川が毎日の職場になります。</p>
+      </div>
+      <div class="reveal reveal-delay-3 card-lift bg-mist-100 rounded-3xl p-7 shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-forest-50 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20a4 4 0 00-10 0M12 12a4 4 0 100-8 4 4 0 000 8zM20 20a3 3 0 00-3.5-3M4 20a3 3 0 013.5-3" /></svg>
+        </div>
+        <p class="font-heading font-bold text-ink-900">少人数アットホームなチーム</p>
+        <p class="text-sm text-ink-700 mt-2 leading-relaxed">スタッフ同士の距離が近く、一人ひとりの成長をチーム全員で支えます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 先輩の声 ================= -->
+<section class="py-20 sm:py-28 bg-mist-100">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-active-600 font-bold text-sm tracking-widest inline-flex items-center">VOICE</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">スタッフの声</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+      <div class="reveal card-lift bg-white rounded-3xl p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 rounded-full bg-forest-100 flex items-center justify-center" aria-hidden="true">
+            <svg class="w-7 h-7 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 20l6.5-11 4 6 2.5-4L21 20H3z" /></svg>
+          </span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">山岡 亮</p>
+            <p class="text-xs text-ink-700/60">アウトドアガイド／3年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          未経験からの入社でしたが、先輩ガイドに同行しながら少しずつ経験を積み、今では登山ガイド資格を取得しました。お客様の「来てよかった」の一言が原動力です。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 card-lift bg-white rounded-3xl p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 rounded-full bg-river-100 flex items-center justify-center" aria-hidden="true">
+            <svg class="w-7 h-7 text-river-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20l6-13 2 4 2-4 6 13H4z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 20v-4a3 3 0 016 0v4" /></svg>
+          </span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">越智 さやか</p>
+            <p class="text-xs text-ink-700/60">キャンプ場運営スタッフ／2年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          接客が好きで転職しました。天候や季節で表情を変える石鎚の森の中、焚き火を囲むゲストの笑顔を間近で見られるのがこの仕事の醍醐味です。
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2 card-lift bg-white rounded-3xl p-7 shadow-md">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="w-14 h-14 rounded-full bg-active-100 flex items-center justify-center" aria-hidden="true">
+            <svg class="w-7 h-7 text-active-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v12H5.5L4 18V4z" /><path stroke-linecap="round" stroke-linejoin="round" d="M8 9h8M8 12h5" /></svg>
+          </span>
+          <div>
+            <p class="font-heading font-bold text-ink-900">新田 拓海</p>
+            <p class="text-xs text-ink-700/60">Web・SNS担当／1年目</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink-700 leading-relaxed">
+          撮影から発信まで一貫して任せてもらえる環境です。ツアーに同行して撮った写真がそのまま集客につながる瞬間に、大きなやりがいを感じます。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 募集要項 ================= -->
+<section id="jobs" class="py-20 sm:py-28 bg-white">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-active-600 font-bold text-sm tracking-widest inline-flex items-center">JOB OPENINGS</p>
+      <h2 class="font-heading font-black text-3xl sm:text-4xl text-ink-900 mt-4">募集要項</h2>
+      <p class="text-ink-700 mt-4 leading-relaxed">現在、以下の職種で仲間を募集しています。詳細はお問い合わせフォームよりお気軽にご連絡ください。</p>
+    </div>
+
+    <div class="mt-16 space-y-8">
+      <!-- 職種1 -->
+      <div class="reveal bg-mist-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-forest-600 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">アウトドアガイド（登山・ラフティング）</h3>
+          <span class="text-xs font-heading font-bold text-forest-700 bg-white px-3 py-1 rounded-full badge-tilt">未経験歓迎</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">月給20万円〜28万円（資格・経験を考慮）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">石鎚アウトドアベース（愛媛県西条市西之川）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">シフト制（繁忙期は土日祝中心）　週休2日制</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">未経験者歓迎。要普通自動車免許。アウトドア活動が好きな方。ガイド資格取得支援制度あり。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種2 -->
+      <div class="reveal reveal-delay-1 bg-mist-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-river-600 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">キャンプ場運営スタッフ</h3>
+          <span class="text-xs font-heading font-bold text-river-700 bg-white px-3 py-1 rounded-full badge-tilt">パート・アルバイト可</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">時給1,020円〜／月給18万円〜（社員登用制度あり）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">石鎚の森キャンプ場・グランピング施設</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">8:00〜17:00の間でシフト制（繁忙期のGW・夏休みは特に歓迎）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">未経験者歓迎。接客経験があれば尚可。年齢不問。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 職種3 -->
+      <div class="reveal reveal-delay-2 bg-mist-100 rounded-3xl overflow-hidden shadow-sm">
+        <div class="bg-active-500 px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-heading font-bold text-white text-lg">Web・SNS担当</h3>
+          <span class="text-xs font-heading font-bold text-active-600 bg-white px-3 py-1 rounded-full badge-tilt">一部リモート可</span>
+        </div>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-ink-900/10">
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pt-5 sm:py-4 align-top">給与</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">月給18万円〜22万円（経験・スキルを考慮）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務地</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">石鎚アウトドアベース事務所（一部リモート勤務可）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 py-1 sm:py-4 align-top">勤務時間</th>
+              <td class="px-6 sm:px-8 pb-3 sm:py-4 text-ink-700">平日9:00〜18:00（フレックス相談可）</td>
+            </tr>
+            <tr class="flex flex-col sm:table-row">
+              <th class="text-left sm:w-40 font-heading font-bold text-ink-900 px-6 sm:px-8 pb-5 sm:py-4 align-top">応募資格</th>
+              <td class="px-6 sm:px-8 pb-5 sm:py-4 text-ink-700">SNS運用・写真/動画編集の経験がある方歓迎。アウトドアが好きな方大歓迎。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-3 mt-14 bg-gradient-to-br from-forest-600 via-forest-700 to-river-700 rounded-3xl px-8 py-12 sm:px-14 sm:py-14 text-center shadow-xl">
+      <h3 class="font-heading font-black text-white text-2xl sm:text-3xl">まずはお気軽にご応募・お問い合わせください</h3>
+      <p class="text-white/85 mt-4 leading-relaxed max-w-xl mx-auto">
+        履歴書は不要です。まずはお問い合わせフォームより、ご興味のある職種をお知らせください。担当より折り返しご連絡いたします。
+      </p>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 bg-active-500 hover:bg-active-600 transition-colors text-white font-heading font-bold px-8 py-4 rounded-full mt-8 shadow-md">
+        募集について問い合わせる
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-white/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-forest-600 text-white font-heading font-black">石</span>
+          <span class="font-heading font-black text-white text-lg">石鎚アウトドアベース</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-white/60">
+          〒791-1113 愛媛県西条市西之川100番地<br />
+          TEL 0897-59-6789 ／ 受付時間 8:00〜18:00
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#tours" class="hover:text-active-400 transition-colors">ツアー・アクティビティ</a></li>
+          <li><a href="index.html#safety" class="hover:text-active-400 transition-colors">安全への取り組み</a></li>
+          <li><a href="index.html#gallery" class="hover:text-active-400 transition-colors">体験ギャラリー</a></li>
+          <li><a href="company.html" class="hover:text-active-400 transition-colors">会社概要</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-active-400 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-active-400 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-active-400 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
+      <p>&copy; <span data-year></span> 石鎚アウトドアベース. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作されたアウトドア体験事業者の紹介サイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

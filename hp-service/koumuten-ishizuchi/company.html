@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>会社概要｜石鎚工務店</title>
+<meta name="description" content="石鎚工務店の会社概要・棟梁のごあいさつ・沿革。愛媛県西条市で創業60年以上、三代にわたり木造注文住宅を手がける地元工務店です。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            DEFAULT: '#2A231D',
+            50: '#f5f2ee',
+            100: '#e8e0d5',
+            200: '#d3c6b4',
+            300: '#b7a48a',
+            400: '#93805f',
+            500: '#75603f',
+            600: '#5c4a30',
+            700: '#463824',
+            800: '#2A231D',
+            900: '#1f1a15',
+            950: '#14110d',
+          },
+          paper: {
+            DEFAULT: '#F7F1E4',
+            50: '#FDFBF6',
+            100: '#FBF6EA',
+            200: '#EFE3C9',
+            300: '#E4D3AE',
+          },
+          wood: {
+            DEFAULT: '#8B5E3C',
+            50: '#f8f1e9',
+            100: '#efdfc9',
+            200: '#ddbf94',
+            300: '#c99c68',
+            400: '#a97a4a',
+            500: '#8B5E3C',
+            600: '#6f4930',
+            700: '#573a26',
+          },
+          sugi: {
+            DEFAULT: '#4B6B4E',
+            50: '#eef3ee',
+            100: '#d6e3d6',
+            200: '#aec9ae',
+            300: '#87af88',
+            400: '#678f68',
+            500: '#4B6B4E',
+            600: '#3a543c',
+            700: '#2c4030',
+          },
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+          heading: ['"Shippori Mincho"', '"Noto Serif JP"', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-paper text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-paper-100/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-wood text-paper font-heading font-bold text-lg">石</span>
+        <span class="font-heading font-bold text-lg sm:text-xl tracking-wide text-ink-900">石鎚工務店</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-9 font-heading text-sm font-medium text-ink-700">
+        <a data-nav-link="index.html" href="index.html#services" class="hover:text-wood transition-colors">事業内容</a>
+        <a data-nav-link="index.html" href="index.html#commitment" class="hover:text-wood transition-colors">こだわり</a>
+        <a data-nav-link="index.html" href="index.html#gallery" class="hover:text-wood transition-colors">施工事例</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-wood transition-colors">会社概要</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-wood transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-wood text-paper px-5 py-2.5 rounded-sm transition-colors">お問い合わせ</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-ink-900/5 text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-paper-100 shadow-lg mx-4 rounded-sm border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-medium text-ink-700">
+      <a href="index.html#services" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-wood">事業内容</a>
+      <a href="index.html#commitment" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-wood">こだわり</a>
+      <a href="index.html#gallery" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-wood">施工事例</a>
+      <a href="company.html" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-wood">会社概要</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-sm hover:bg-ink-50 hover:text-wood">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-sm bg-ink-900 text-paper text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 bg-ink-900 overflow-hidden">
+  <div class="absolute inset-0 opacity-25">
+    <img src="https://images.unsplash.com/photo-1779031242515-205111711b23?auto=format&fit=crop&w=2000&q=80" alt="" class="w-full h-full object-cover" />
+  </div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-wood-300 font-heading font-bold text-sm tracking-widest">ABOUT US</p>
+    <h1 class="font-heading font-bold text-paper text-4xl sm:text-5xl mt-4">会社概要</h1>
+    <p class="text-paper/70 mt-4 max-w-xl leading-relaxed">西条の地とともに歩んできた60年余り。私たちの想いと会社の概要をご紹介します。</p>
+    <div class="flex items-center gap-2 text-sm text-paper/50 mt-8">
+      <a href="index.html" class="hover:text-wood-300">トップ</a>
+      <span>/</span>
+      <span class="text-paper">会社概要</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 棟梁のごあいさつ ================= -->
+<section class="py-24 sm:py-32 bg-paper">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-wood font-bold text-sm tracking-widest inline-flex items-center">MESSAGE</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">棟梁のごあいさつ</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-12 mt-16 items-start">
+      <div class="reveal lg:col-span-1">
+        <div class="overflow-hidden shadow-xl rounded-sm aspect-[3/4] sticky top-28">
+          <img src="https://images.unsplash.com/photo-1758598497192-15ffa411c3de?auto=format&fit=crop&w=800&q=80" alt="代表 森田大輔の写真" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="mt-6 text-center lg:text-left">
+          <p class="font-heading font-bold text-ink-900 text-xl">森田 大輔</p>
+          <p class="text-ink-700/70 text-sm mt-1">代表（三代目棟梁）</p>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1 lg:col-span-2">
+        <h3 class="font-heading font-bold text-2xl text-ink-900 leading-snug">
+          「顔の見える家づくり」を、これからも西条で。
+        </h3>
+        <div class="mt-6 space-y-5 text-ink-700 leading-loose">
+          <p>
+            石鎚工務店のウェブサイトをご覧いただき、ありがとうございます。三代目の森田大輔です。
+          </p>
+          <p>
+            祖父がこの西条の地で大工として独立してから60年余り。父の代で木造住宅専業に、そして耐震補強という新しい柱を加え、私たちは地域の暮らしとともに家づくりを続けてきました。石鎚山から流れる水と、西条の山で育った桧や杉。この土地の恵みを活かした家づくりが、私たちの原点です。
+          </p>
+          <p>
+            家は建てて終わりではなく、そこから何十年もご家族の暮らしが続いていきます。だからこそ、担当した大工や現場監督の顔が見える、小さくても信頼していただける工務店でありたいと考えています。分からないことは何でも聞いていただける、そんな距離の近さを大切にしています。
+          </p>
+          <p>
+            近年は省エネ性能の高いZEH対応住宅にも力を入れながら、変わらず地元の木と職人の手仕事にこだわり続けます。家づくりのご相談は、どんな些細なことでもお気軽にお声がけください。
+          </p>
+        </div>
+        <p class="mt-8 font-heading font-bold text-ink-900">代表（三代目棟梁）　森田 大輔</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 会社概要テーブル ================= -->
+<section class="py-24 sm:py-32 bg-paper-100">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-wood font-bold text-sm tracking-widest inline-flex items-center">COMPANY PROFILE</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">会社概要</h2>
+    </div>
+
+    <div class="reveal reveal-delay-1 mt-14 bg-paper rounded-sm border border-ink-900/10 overflow-hidden">
+      <table class="w-full text-sm sm:text-base">
+        <tbody class="divide-y divide-ink-900/10">
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">社名</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">有限会社石鎚工務店（Ishizuchi Koumuten）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">創業</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">1962年（祖父・森田茂が大工として独立）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">代表者</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">代表（三代目棟梁）　森田 大輔</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">所在地</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700 leading-relaxed">
+              〒799-1101 愛媛県西条市小松町新屋敷100番地
+            </td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">事業内容</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700 leading-relaxed">木造注文住宅の設計・施工／リフォーム・増改築／耐震補強／造作家具・造作工事</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">施工エリア</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">西条市を中心に、新居浜市・今治市・松山市など東予・中予エリア</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">資本金</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">1,000万円</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">従業員数</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">18名（大工12名／設計・現場監督4名／事務2名）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">保有資格</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700 leading-relaxed">一級建築士／一級・二級建築大工技能士／木造建築士／既存住宅状況調査技術者／耐震診断技術者</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">連絡先</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">TEL 0898-72-3456</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 沿革 -->
+    <div class="mt-20">
+      <div class="text-center reveal">
+        <p class="eyebrow justify-center font-heading text-wood font-bold text-sm tracking-widest inline-flex items-center">HISTORY</p>
+        <h3 class="font-heading font-bold text-2xl sm:text-3xl text-ink-900 mt-4">沿革</h3>
+      </div>
+      <div class="reveal reveal-delay-1 mt-12 max-w-2xl mx-auto">
+        <ol class="relative border-l-2 border-wood/30 space-y-10 pl-8">
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-wood"></span>
+            <p class="font-heading font-bold text-ink-900">1962年</p>
+            <p class="text-ink-700 text-sm mt-1">祖父・森田茂が西条市小松町にて大工として独立、石鎚工務店を創業</p>
+          </li>
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-wood"></span>
+            <p class="font-heading font-bold text-ink-900">1988年</p>
+            <p class="text-ink-700 text-sm mt-1">二代目・森田修一が代表就任、木造住宅専業へ転換</p>
+          </li>
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-wood"></span>
+            <p class="font-heading font-bold text-ink-900">2005年</p>
+            <p class="text-ink-700 text-sm mt-1">耐震補強事業を開始、耐震診断・補強工事に本格対応</p>
+          </li>
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-wood"></span>
+            <p class="font-heading font-bold text-ink-900">2018年</p>
+            <p class="text-ink-700 text-sm mt-1">三代目・森田大輔が代表就任</p>
+          </li>
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-wood"></span>
+            <p class="font-heading font-bold text-ink-900">2024年</p>
+            <p class="text-ink-700 text-sm mt-1">ZEH対応住宅を本格展開、省エネ性能と地元産木材を両立する家づくりへ</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="py-20 bg-paper">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="reveal bg-ink-900 rounded-sm px-8 py-14 sm:px-16 sm:py-16 text-center relative overflow-hidden">
+      <div class="absolute inset-0 opacity-20">
+        <img src="https://images.unsplash.com/photo-1760067537293-6b30141d6a52?auto=format&fit=crop&w=1600&q=80" alt="" class="w-full h-full object-cover" />
+      </div>
+      <div class="relative">
+        <h2 class="font-heading font-bold text-2xl sm:text-3xl text-paper">新築・リフォームのご相談はお気軽に</h2>
+        <p class="text-paper/70 mt-4">完成見学会のご予約も承っております。</p>
+        <a href="index.html#contact" class="inline-flex items-center gap-2 bg-wood hover:bg-wood-600 transition-colors text-paper font-heading font-bold px-8 py-4 rounded-sm mt-8">
+          お問い合わせはこちら
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-paper/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-wood text-paper font-heading font-bold">石</span>
+          <span class="font-heading font-bold text-paper text-lg">石鎚工務店</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-paper/60">
+          〒799-1101 愛媛県西条市小松町新屋敷100番地<br />
+          TEL 0898-72-3456 ／ 営業時間 8:30〜17:30（日曜・祝日定休）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#services" class="hover:text-wood transition-colors">事業内容</a></li>
+          <li><a href="index.html#commitment" class="hover:text-wood transition-colors">こだわり</a></li>
+          <li><a href="index.html#gallery" class="hover:text-wood transition-colors">施工事例</a></li>
+          <li><a href="company.html" class="hover:text-wood transition-colors">会社概要</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-wood transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-wood transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-wood transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-paper/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-paper/50">
+      <p>&copy; <span data-year></span> Ishizuchi Koumuten. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された工務店コーポレートサイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

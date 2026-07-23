@@ -1,0 +1,134 @@
+/* 西条柑橘工房 — shared styles beyond Tailwind utilities (フレッシュ柑橘テイスト) */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+
+.font-heading {
+  font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", sans-serif;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Hero background */
+.hero-bg {
+  background-size: cover;
+  background-position: center;
+}
+
+#site-header {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FBF6EC;
+}
+::-webkit-scrollbar-thumb {
+  background: #f3cf9d;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F5883A;
+}
+
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+}
+
+/* Section eyebrow with a short citrus-leaf rule */
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 2px;
+  background-color: #F5883A;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+#mobile-nav {
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+#mobile-nav.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 9999px;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle citrus-grove texture */
+.grove-texture {
+  background-image:
+    radial-gradient(rgba(245, 136, 58, 0.06) 1px, transparent 1px),
+    radial-gradient(rgba(124, 179, 66, 0.05) 1px, transparent 1px);
+  background-size: 3px 3px, 7px 7px;
+  background-position: 0 0, 1.5px 3.5px;
+}
+
+/* Scalloped citrus-slice divider band, drawn with layered radial-gradients */
+.citrus-divider {
+  background-image: radial-gradient(circle at 50% 100%, transparent 0, transparent 60%, rgba(251, 246, 236, 0.9) 61%);
+  background-size: 44px 22px;
+  background-position: 0 0;
+}
+
+/* Hand-drawn-style underline for headings */
+.brush-underline {
+  position: relative;
+  display: inline-block;
+}
+.brush-underline::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: -0.15em;
+  height: 0.32em;
+  background: rgba(245, 136, 58, 0.2);
+  border-radius: 2px 8px 3px 9px / 4px 3px 8px 2px;
+  z-index: -1;
+}

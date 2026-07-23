@@ -1,0 +1,140 @@
+/* 瀬戸内メタルワークス株式会社 — shared styles beyond Tailwind utilities (産業的・硬派・幾何学的) */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+
+.font-heading {
+  font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Hero background photo */
+.hero-bg {
+  background-size: cover;
+  background-position: center;
+}
+
+#site-header {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F4F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #A1A1AA;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F59E0B;
+}
+
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+}
+
+/* Section eyebrow with a short industrial rule */
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 34px;
+  height: 3px;
+  background-color: #F59E0B;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+#mobile-nav {
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+#mobile-nav.open {
+  max-height: 700px;
+  opacity: 1;
+}
+
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 9999px;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Industrial cut-corner geometry ---------- */
+/* Cards, photo frames: corners sheared like a laser-cut steel plate */
+.clip-card {
+  clip-path: polygon(22px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 22px);
+}
+.clip-card-sm {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+.clip-btn {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+.clip-badge {
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+/* Hazard-stripe accent bar */
+.hazard-stripes {
+  background-image: repeating-linear-gradient(135deg, #F59E0B 0 16px, #18181B 16px 32px);
+}
+
+/* Subtle spark/dot texture for dark bands */
+.spark-dots {
+  background-image: radial-gradient(circle, rgba(245, 158, 11, 0.55) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+}
+
+/* Fine diagonal steel-brush texture for dark sections */
+.brushed-steel {
+  background-image: repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.035) 0px, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 6px);
+}
+
+/* Skewed divider bands used between sections for a hard angled seam */
+.seam {
+  transform: skewY(-1.6deg);
+}
+.seam-inner {
+  transform: skewY(1.6deg);
+}

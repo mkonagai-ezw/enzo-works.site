@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>会社案内｜西条柑橘工房</title>
+<meta name="description" content="西条柑橘工房の会社案内・代表あいさつ。愛媛県西条市丹原町で1958年の開墾以来、柑橘栽培と加工、直売・カフェまで手がける6次産業化事業者です。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: { DEFAULT: '#2E2418', 50: '#F6F3EE', 100: '#E9E2D3', 700: '#3D3020', 800: '#251C11', 900: '#1B140C', 950: '#120D08' },
+          paper: { DEFAULT: '#FBF6EC', 100: '#FFFDF8', 200: '#F2E7CE' },
+          accent: { DEFAULT: '#F5883A', 50: '#FEF3E8', 100: '#FDE4CC', 200: '#FBCA99', 300: '#F9AD66', 400: '#F79A4D', 500: '#F5883A', 600: '#DB6F22', 700: '#B85819' },
+          lemon: { DEFAULT: '#FFD23F', 50: '#FFFBEA', 100: '#FFF6C9', 200: '#FFEE96', 300: '#FFE469', 400: '#FFDA4C', 500: '#FFD23F', 600: '#E6B520', 700: '#BF9410' },
+          leaf: { DEFAULT: '#7CB342', 50: '#F3F8EC', 100: '#E3EFD1', 200: '#C6DFA6', 300: '#A8CE7A', 400: '#93C25E', 500: '#7CB342', 600: '#63912F', 700: '#4E7324' },
+        },
+        fontFamily: {
+          sans: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+          heading: ['"M PLUS Rounded 1c"', '"Zen Kaku Gothic New"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-paper text-ink-900 antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" data-transparent-hero="false" class="fixed top-0 inset-x-0 z-50 bg-paper-100/95 shadow-md backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-accent text-paper font-heading font-bold text-lg">西</span>
+        <span class="font-heading font-bold text-lg sm:text-xl tracking-wide text-ink-900">西条柑橘工房</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-9 font-heading text-sm font-medium text-ink-700">
+        <a data-nav-link="index.html" href="index.html#about" class="hover:text-accent-600 transition-colors">栽培へのこだわり</a>
+        <a data-nav-link="index.html" href="index.html#products" class="hover:text-accent-600 transition-colors">商品ラインナップ</a>
+        <a data-nav-link="index.html" href="index.html#shop" class="hover:text-accent-600 transition-colors">直売所・カフェ</a>
+        <a href="company.html" data-nav-link="company.html" class="hover:text-accent-600 transition-colors">会社案内</a>
+        <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-accent-600 transition-colors">採用情報</a>
+        <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-ink-900 hover:bg-accent-600 text-paper px-5 py-2.5 rounded-full transition-colors">お問い合わせ</a>
+      </nav>
+
+      <button id="menu-btn" aria-expanded="false" aria-label="メニューを開く" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-ink-900/5 text-ink-900">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="lg:hidden bg-paper-100 shadow-lg mx-4 rounded-2xl border border-ink-900/10">
+    <nav class="flex flex-col p-3 font-heading font-medium text-ink-700">
+      <a href="index.html#about" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">栽培へのこだわり</a>
+      <a href="index.html#products" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">商品ラインナップ</a>
+      <a href="index.html#shop" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">直売所・カフェ</a>
+      <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">会社案内</a>
+      <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-accent-50 hover:text-accent-600">採用情報</a>
+      <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-ink-900 text-paper text-center">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= PAGE HERO ================= -->
+<section class="relative pt-40 pb-20 bg-ink-900 overflow-hidden">
+  <div class="absolute inset-0 opacity-25">
+    <img src="https://images.unsplash.com/photo-1727856739199-28127e96f683?auto=format&fit=crop&w=2000&q=80" alt="" class="w-full h-full object-cover" />
+  </div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <p class="text-accent-400 font-heading font-bold text-sm tracking-widest">ABOUT US</p>
+    <h1 class="font-heading font-bold text-paper text-4xl sm:text-5xl mt-4">会社案内</h1>
+    <p class="text-paper/70 mt-4 max-w-xl leading-relaxed">1958年の開墾から60年以上。西条の柑橘とともに歩んできた私たちの想いと会社概要をご紹介します。</p>
+    <div class="flex items-center gap-2 text-sm text-paper/50 mt-8">
+      <a href="index.html" class="hover:text-accent-400">トップ</a>
+      <span>/</span>
+      <span class="text-paper">会社案内</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 代表あいさつ ================= -->
+<section class="py-24 sm:py-32 bg-paper">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-accent-600 font-bold text-sm tracking-widest inline-flex items-center">MESSAGE</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">代表あいさつ</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-12 mt-16 items-start">
+      <div class="reveal lg:col-span-1">
+        <div class="overflow-hidden shadow-xl rounded-2xl aspect-[3/4] sticky top-28">
+          <img src="https://images.unsplash.com/photo-1781002220057-a56f0df3c49f?auto=format&fit=crop&w=800&q=80" alt="代表 二宮美穂の写真" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="mt-6 text-center lg:text-left">
+          <p class="font-heading font-bold text-ink-900 text-xl">二宮 美穂</p>
+          <p class="text-ink-700/70 text-sm mt-1">代表（二代目）</p>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1 lg:col-span-2">
+        <h3 class="font-heading font-bold text-2xl text-ink-900 leading-snug">
+          「畑から食卓まで」顔の見えるものづくりを。
+        </h3>
+        <div class="mt-6 space-y-5 text-ink-700 leading-loose">
+          <p>
+            西条柑橘工房のウェブサイトをご覧いただき、ありがとうございます。二代目代表の二宮美穂です。
+          </p>
+          <p>
+            祖父がこの西条市丹原町の地を開墾し、柑橘栽培を始めたのが1958年。以来60年以上、石鎚山からの清らかな水と瀬戸内の穏やかな気候に育まれながら、伊予柑・甘平・せとかなど12種類以上の柑橘を大切に育ててきました。
+          </p>
+          <p>
+            2012年、「収穫した果実をそのままで終わらせたくない」という想いから加工場を設立し、6次産業化に取り組み始めました。形が不揃いな果実も余すことなく、ジャムやジュース、コスメへと生まれ変わらせています。
+          </p>
+          <p>
+            直売所やカフェを訪れてくださる皆さまの「おいしい」の声が、私たちの何よりの励みです。これからも、畑から食卓まで顔の見えるものづくりを大切にしてまいります。
+          </p>
+        </div>
+        <p class="mt-8 font-heading font-bold text-ink-900">代表（二代目）　二宮 美穂</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 会社概要テーブル ================= -->
+<section class="py-24 sm:py-32 bg-paper-100">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="eyebrow justify-center font-heading text-accent-600 font-bold text-sm tracking-widest inline-flex items-center">COMPANY PROFILE</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-4">会社概要</h2>
+    </div>
+
+    <div class="reveal reveal-delay-1 mt-14 bg-paper rounded-2xl border border-ink-900/10 overflow-hidden">
+      <table class="w-full text-sm sm:text-base">
+        <tbody class="divide-y divide-ink-900/10">
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">屋号</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">西条柑橘工房（Saijo Citrus Works）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">開墾</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">1958年（祖父の代より）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">加工事業開始</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">2012年（6次産業化スタート）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">代表者</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">代表（二代目）　二宮 美穂</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">所在地</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700 leading-relaxed">
+              〒799-1303 愛媛県西条市丹原町来見1500番地
+            </td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">栽培品種</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700 leading-relaxed">伊予柑・甘平・せとかほか12種類以上</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">年間出荷量</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">約120トン</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">直売所営業時間</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">9:00〜17:00（火曜定休）</td>
+          </tr>
+          <tr class="flex flex-col sm:table-row">
+            <th class="text-left sm:w-56 bg-paper-200/60 sm:bg-transparent font-heading font-bold text-ink-900 px-6 sm:px-8 py-4 sm:py-6 align-top">連絡先</th>
+            <td class="px-6 sm:px-8 pb-4 sm:py-6 text-ink-700">TEL 0898-68-5678</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 沿革 -->
+    <div class="mt-20">
+      <div class="text-center reveal">
+        <p class="eyebrow justify-center font-heading text-accent-600 font-bold text-sm tracking-widest inline-flex items-center">HISTORY</p>
+        <h3 class="font-heading font-bold text-2xl sm:text-3xl text-ink-900 mt-4">沿革</h3>
+      </div>
+      <div class="reveal reveal-delay-1 mt-12 max-w-2xl mx-auto">
+        <ol class="relative border-l-2 border-accent-300 space-y-10 pl-8">
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-accent"></span>
+            <p class="font-heading font-bold text-ink-900">1958年</p>
+            <p class="text-ink-700 text-sm mt-1">祖父が西条市丹原町の地を開墾し、柑橘栽培を開始</p>
+          </li>
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-accent"></span>
+            <p class="font-heading font-bold text-ink-900">1975年</p>
+            <p class="text-ink-700 text-sm mt-1">父が就農し、栽培品種を12種類以上に拡大</p>
+          </li>
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-accent"></span>
+            <p class="font-heading font-bold text-ink-900">2012年</p>
+            <p class="text-ink-700 text-sm mt-1">二代目・二宮美穂が代表に就任。加工場を設立し、6次産業化をスタート</p>
+          </li>
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-accent"></span>
+            <p class="font-heading font-bold text-ink-900">2016年</p>
+            <p class="text-ink-700 text-sm mt-1">自家製マーマレードとストレートジュースが県特産品コンクールで受賞</p>
+          </li>
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-accent"></span>
+            <p class="font-heading font-bold text-ink-900">2020年</p>
+            <p class="text-ink-700 text-sm mt-1">敷地内に直売所とカフェをオープン</p>
+          </li>
+          <li>
+            <span class="absolute -left-[9px] w-4 h-4 rounded-full bg-accent"></span>
+            <p class="font-heading font-bold text-ink-900">2024年</p>
+            <p class="text-ink-700 text-sm mt-1">柑橘コスメライン（化粧水・ハンドクリーム）を発売</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="py-20 bg-paper">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="reveal bg-ink-900 rounded-2xl px-8 py-14 sm:px-16 sm:py-16 text-center relative overflow-hidden">
+      <div class="absolute inset-0 opacity-20">
+        <img src="https://images.unsplash.com/photo-1780621752668-8e8a9865dc1e?auto=format&fit=crop&w=1600&q=80" alt="" class="w-full h-full object-cover" />
+      </div>
+      <div class="relative">
+        <h2 class="font-heading font-bold text-2xl sm:text-3xl text-paper">ギフト用の柑橘や加工品のご注文はお気軽に</h2>
+        <p class="text-paper/70 mt-4">西条の柑橘の恵みを、産地直送でお届けします。</p>
+        <a href="index.html#contact" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-600 transition-colors text-paper font-heading font-bold px-8 py-4 rounded-full mt-8">
+          お問い合わせはこちら
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink-900 text-paper/80">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2">
+        <a href="index.html" class="flex items-center gap-2.5 mb-5">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-accent text-paper font-heading font-bold">西</span>
+          <span class="font-heading font-bold text-paper text-lg">西条柑橘工房</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-sm text-paper/60">
+          〒799-1303 愛媛県西条市丹原町来見1500番地<br />
+          TEL 0898-68-5678 ／ 直売所営業時間 9:00〜17:00（火曜定休）
+        </p>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper mb-4 text-sm tracking-wide">SITEMAP</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#about" class="hover:text-accent-500 transition-colors">栽培へのこだわり</a></li>
+          <li><a href="index.html#products" class="hover:text-accent-500 transition-colors">商品ラインナップ</a></li>
+          <li><a href="index.html#shop" class="hover:text-accent-500 transition-colors">直売所・カフェ</a></li>
+          <li><a href="company.html" class="hover:text-accent-500 transition-colors">会社案内</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-bold text-paper mb-4 text-sm tracking-wide">RECRUIT</p>
+        <ul class="space-y-3 text-sm">
+          <li><a href="recruit.html" class="hover:text-accent-500 transition-colors">採用情報トップ</a></li>
+          <li><a href="recruit.html#jobs" class="hover:text-accent-500 transition-colors">募集要項</a></li>
+          <li><a href="index.html#contact" class="hover:text-accent-500 transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-paper/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-paper/50">
+      <p>&copy; <span data-year></span> Saijo Citrus Works. All Rights Reserved.</p>
+      <p>本サイトはデモ用に制作された6次産業化事業者のコーポレートサイトです。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
