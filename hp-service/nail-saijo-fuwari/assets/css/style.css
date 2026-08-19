@@ -133,6 +133,26 @@ section[id] {
   background: linear-gradient(to top, rgba(58, 49, 48, 0.72), transparent);
 }
 
+/* ============ 写真に重ねる情報カード（ヒーロー差別化要素） ============
+   Luxeの参考調査で見つけた「写真端に小さく浮かせるカード」パターン */
+.photo-info-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #FFFFFF;
+  border-radius: 1rem;
+  padding: 0.75rem 1.1rem;
+  box-shadow: 0 18px 32px -16px rgba(58, 49, 48, 0.4);
+}
+.photo-info-card .swatch {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.7);
+}
+
 /* ============ メニュータブ ============ */
 .menu-tab {
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;

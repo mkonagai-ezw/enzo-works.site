@@ -46,9 +46,9 @@
       </a>
 
       <nav class="hidden lg:flex items-center gap-6 font-accent text-sm font-bold text-ink-700">
-        <a data-nav-link="index.html" href="index.html#about" class="hover:text-pink-600 transition-colors">サロンについて</a>
-        <a data-nav-link="index.html" href="index.html#menu" class="hover:text-pink-600 transition-colors">メニュー</a>
         <a data-nav-link="index.html" href="index.html#gallery" class="hover:text-pink-600 transition-colors">デザイン例</a>
+        <a data-nav-link="index.html" href="index.html#menu" class="hover:text-pink-600 transition-colors">メニュー</a>
+        <a data-nav-link="index.html" href="index.html#about" class="hover:text-pink-600 transition-colors">サロンについて</a>
         <a href="company.html" data-nav-link="company.html" class="hover:text-pink-600 transition-colors">会社案内</a>
         <a href="recruit.html" data-nav-link="recruit.html" class="hover:text-pink-600 transition-colors">採用情報</a>
         <a href="index.html#contact" class="inline-flex items-center gap-1.5 bg-pink-600 hover:bg-pink-700 text-white px-5 py-2.5 rounded-full shadow-md transition-colors">
@@ -69,9 +69,9 @@
 
   <div id="mobile-nav" class="lg:hidden bg-white shadow-lg mx-4 rounded-2xl border border-pink-100">
     <nav class="flex flex-col p-3 font-accent font-bold text-ink-700 text-base">
-      <a href="index.html#about" class="px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600">サロンについて</a>
-      <a href="index.html#menu" class="px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600">メニュー</a>
       <a href="index.html#gallery" class="px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600">デザイン例</a>
+      <a href="index.html#menu" class="px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600">メニュー</a>
+      <a href="index.html#about" class="px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600">サロンについて</a>
       <a href="company.html" class="px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600">会社案内</a>
       <a href="recruit.html" class="px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600">採用情報</a>
       <a href="index.html#contact" class="mt-1 px-4 py-3 rounded-xl bg-pink-600 text-white text-center">ご予約・お問い合わせ</a>
@@ -79,47 +79,40 @@
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="relative overflow-hidden fluffy-bg pt-32 sm:pt-40 pb-24 sm:pb-32">
+<!-- ================= HERO（編集写真を主役にした左右分割） ================= -->
+<section class="relative overflow-hidden pt-32 sm:pt-40 pb-20 sm:pb-28 bg-cream">
   <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-    <div class="grid lg:grid-cols-12 gap-14 items-center">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
 
-      <div class="lg:col-span-7">
-        <p class="reveal pill-tag">西条市 ｜ 完全予約制プライベートサロン</p>
-        <h1 class="reveal reveal-delay-1 font-heading font-bold text-ink-900 text-4xl sm:text-5xl md:text-6xl leading-snug mt-6" style="text-wrap: balance;">
-          指先から、私らしく。<br />
-          <span class="text-pink-600">ふわり</span>とときめく時間を。
+      <div class="lg:col-span-5 order-2 lg:order-1">
+        <h1 class="reveal font-heading font-bold text-ink-900 text-4xl sm:text-5xl leading-[1.15]" style="text-wrap: balance;">
+          指先から、<br />
+          私らしく<br />
+          <span class="text-pink-600">ふわり</span>と。
         </h1>
-        <p class="reveal reveal-delay-2 text-ink-600 text-base sm:text-lg mt-6 max-w-xl leading-loose">
-          地爪にやさしいジェルネイルと、まつげの負担を抑えたアイラッシュ。おひとりずつの個室スペースで、ゆったりお過ごしいただけるプライベートサロンです。
+        <p class="reveal reveal-delay-1 text-ink-600 text-base sm:text-lg mt-6 max-w-md leading-loose">
+          完全予約制の個室で、地爪にやさしいジェルネイルとまつげエクステを。西条市の小さなプライベートサロンです。
         </p>
-
-        <div class="reveal reveal-delay-3 flex flex-wrap gap-3 mt-8">
-          <span class="pill-tag">完全予約制・個室</span>
-          <span class="pill-tag">地爪に優しいパラジェル対応</span>
-          <span class="pill-tag">まつげエクステ2D〜6D</span>
-          <span class="pill-tag">創業5年目</span>
-        </div>
-
-        <div class="reveal reveal-delay-4 flex flex-wrap gap-4 mt-10">
-          <a href="#menu" class="inline-flex items-center gap-2 bg-pink-600 hover:bg-pink-700 text-white font-heading font-bold text-lg px-8 py-4 rounded-full shadow-lg transition-colors">
-            メニュー・料金を見る
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-          </a>
-          <a href="#contact" class="inline-flex items-center gap-2 bg-white hover:bg-lavender-100 text-ink-900 font-heading font-bold text-lg px-8 py-4 rounded-full transition-colors border-2 border-lavender-300">
+        <div class="reveal reveal-delay-2 flex flex-wrap gap-4 mt-8">
+          <a href="#contact" class="inline-flex items-center gap-2 bg-pink-600 hover:bg-pink-700 text-white font-heading font-bold px-7 py-3.5 rounded-full shadow-md transition-colors min-h-[44px]">
             ご予約はこちら
           </a>
+          <a href="#gallery" class="inline-flex items-center gap-2 text-ink-900 font-heading font-bold px-7 py-3.5 rounded-full border-2 border-ink-900/15 hover:border-pink-300 transition-colors min-h-[44px]">
+            デザイン例を見る
+          </a>
         </div>
+        <p class="reveal reveal-delay-3 text-xs text-ink-500 mt-8 tracking-wide">完全予約制・個室 ／ 地爪に優しいパラジェル対応 ／ 創業5年目</p>
       </div>
 
-      <div class="lg:col-span-5 relative reveal reveal-delay-2">
-        <div class="relative mx-auto max-w-sm">
-          <div class="nail-tip-card w-full aspect-[4/5]">
-            <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=900&q=80" alt="ふわりとしたピンク系デザインのジェルネイル" loading="lazy" />
-            <span class="nail-tip-caption">今月の人気デザイン</span>
-          </div>
-          <div class="nail-tip-card w-32 sm:w-40 aspect-square absolute -bottom-8 -left-6 sm:-left-10 hidden sm:block">
-            <img src="https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?auto=format&fit=crop&w=500&q=80" alt="ナチュラルなまつげエクステの仕上がり" loading="lazy" />
+      <div class="lg:col-span-7 order-1 lg:order-2 relative reveal reveal-delay-1">
+        <div class="rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
+          <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=1400&q=80" alt="繊細なアートを施したジェルネイルのクローズアップ" class="w-full h-full object-cover" />
+        </div>
+        <div class="photo-info-card reveal reveal-delay-3 -bottom-6 left-6 sm:left-10">
+          <span class="swatch" style="background: linear-gradient(135deg, #F4A6A0, #C9B6E4);"></span>
+          <div>
+            <p class="font-heading font-bold text-ink-900 text-sm">今月の人気デザイン</p>
+            <p class="font-accent text-pink-700 font-bold text-sm">¥7,000〜</p>
           </div>
         </div>
       </div>
@@ -127,53 +120,53 @@
   </div>
 </section>
 
-<div class="wave-divider text-cream-100" aria-hidden="true"></div>
-
-<!-- ================= サロンについて ================= -->
-<section id="about" class="relative py-24 sm:py-36 bg-cream-100 overflow-hidden">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-    <div class="grid lg:grid-cols-12 gap-x-10 gap-y-16 items-start">
-
-      <div class="lg:col-span-5 reveal relative">
-        <div class="nail-tip-card w-full max-w-md mx-auto lg:mx-0 aspect-[4/5]">
-          <img src="https://images.unsplash.com/photo-1659391542239-9648f307c0b1?auto=format&fit=crop&w=900&q=80" alt="やわらかな光に包まれたふわりの施術スペース" loading="lazy" />
-        </div>
-        <span class="hidden sm:flex absolute -bottom-6 right-2 lg:-right-6 items-center justify-center w-24 h-24 rounded-full bg-gold-100 border-2 border-gold-400 text-ink-900 font-heading font-bold text-sm text-center leading-tight p-3">
-          創業<br />5年目
-        </span>
+<!-- ================= デザイン例ギャラリー（商品そのものを主役に、ヒーロー直後に配置） ================= -->
+<section id="gallery" class="py-20 sm:py-28 bg-cream-100 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="flex flex-wrap items-end justify-between gap-6 reveal">
+      <div>
+        <p class="font-accent text-pink-600 font-bold text-sm tracking-widest">GALLERY</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">デザイン例</h2>
       </div>
+      <p class="text-ink-600 max-w-md leading-relaxed">これまでの仕上がりの一部です。お好みの雰囲気をお聞かせください。</p>
+    </div>
 
-      <div class="lg:col-span-7 lg:mt-20 reveal reveal-delay-1">
-        <p class="eyebrow font-accent text-pink-600 font-bold text-sm tracking-widest">ABOUT US</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3 leading-snug">サロンについて</h2>
-
-        <blockquote class="font-heading text-2xl sm:text-3xl text-pink-700 leading-snug mt-8 max-w-xl">
-          “ 指先を見るたび、ちょっと機嫌が良くなる。<br class="hidden sm:block" />そんな毎日をお届けしたくて。”
-        </blockquote>
-
-        <div class="mt-8 space-y-5 text-ink-600 leading-loose max-w-xl">
-          <p>
-            2021年、西条市に「ネイル&amp;アイラッシュ ふわり」を開きました。「特別な日じゃなくても、指先をきれいにしていたい」というシンプルな想いから始まったサロンです。
-          </p>
-          <p>
-            完全予約制の個室スペースで、他のお客様の目を気にせずゆったりお過ごしいただけます。地爪やまつ毛への負担を最小限に抑える施術を大切にしており、オフのご相談も歓迎です。
-          </p>
-          <p>
-            「なりたい指先」のイメージを一緒に探すところから、丁寧にカウンセリングいたします。
-          </p>
-        </div>
-
-        <p class="mt-8 font-heading text-xl text-ink-900">― オーナーネイリスト　森田 まゆ</p>
+    <div class="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div class="rounded-2xl overflow-hidden reveal aspect-square shadow-sm">
+        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80" alt="くすみカラーのワンカラーネイル" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div class="rounded-2xl overflow-hidden reveal reveal-delay-1 aspect-square shadow-sm">
+        <img src="https://images.unsplash.com/photo-1610992015762-45dca7fa3a85?auto=format&fit=crop&w=600&q=80" alt="フラワーアートのジェルネイル" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div class="nail-tip-card reveal reveal-delay-2 aspect-square">
+        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=600&q=80" alt="グラデーションネイル" loading="lazy" />
+        <span class="nail-tip-caption">人気No.1</span>
+      </div>
+      <div class="rounded-2xl overflow-hidden reveal reveal-delay-3 aspect-square shadow-sm">
+        <img src="https://images.unsplash.com/photo-1619607146034-5a05296c8f9a?auto=format&fit=crop&w=600&q=80" alt="フレンチネイル" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div class="rounded-2xl overflow-hidden reveal aspect-square shadow-sm">
+        <img src="https://images.unsplash.com/photo-1735151226446-1d364b4adc2f?auto=format&fit=crop&w=600&q=80" alt="ナチュラルなまつげエクステ" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div class="nail-tip-card reveal reveal-delay-1 aspect-square">
+        <img src="https://images.unsplash.com/photo-1639629509821-c54cdd984227?auto=format&fit=crop&w=600&q=80" alt="ボリュームまつげエクステ" loading="lazy" />
+        <span class="nail-tip-caption">人気No.2</span>
+      </div>
+      <div class="rounded-2xl overflow-hidden reveal reveal-delay-2 aspect-square shadow-sm">
+        <img src="https://images.unsplash.com/photo-1612887390768-fb02affea7a6?auto=format&fit=crop&w=600&q=80" alt="パールを使ったニュアンスネイル" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div class="rounded-2xl overflow-hidden reveal reveal-delay-3 aspect-square shadow-sm">
+        <img src="https://images.unsplash.com/photo-1548902378-2ec44c906391?auto=format&fit=crop&w=600&q=80" alt="上品な仕上がりのまつげエクステ" class="w-full h-full object-cover" loading="lazy" />
       </div>
     </div>
   </div>
 </section>
 
 <!-- ================= メニュー（タブ切り替え） ================= -->
-<section id="menu" class="py-24 sm:py-36 bg-cream">
+<section id="menu" class="py-20 sm:py-28 bg-cream">
   <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-10">
     <div class="text-center max-w-2xl mx-auto reveal">
-      <p class="eyebrow justify-center font-accent text-pink-600 font-bold text-sm tracking-widest inline-flex items-center">MENU</p>
+      <p class="font-accent text-pink-600 font-bold text-sm tracking-widest">MENU</p>
       <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">メニュー・料金</h2>
       <p class="text-ink-600 mt-4 leading-relaxed">
         ネイル・アイラッシュ、それぞれのメニューをタブで切り替えてご覧いただけます。価格はすべて税込です。
@@ -216,61 +209,44 @@
   </div>
 </section>
 
-<!-- ================= デザイン例ギャラリー（ネイルチップカード・差別化要素） ================= -->
-<section id="gallery" class="py-24 sm:py-36 bg-cream-100 overflow-hidden">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 lg:px-10">
-    <div class="text-center max-w-2xl mx-auto reveal">
-      <p class="eyebrow justify-center font-accent text-pink-600 font-bold text-sm tracking-widest inline-flex items-center">GALLERY</p>
-      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">デザイン例</h2>
-      <p class="text-ink-600 mt-4 leading-relaxed">これまでのデザイン例の一部です。お好みの雰囲気を教えてください。</p>
-    </div>
+<!-- ================= サロンについて（テキスト主体、写真は控えめに） ================= -->
+<section id="about" class="relative py-20 sm:py-28 bg-cream-100">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-x-10 gap-y-10 items-start">
+      <div class="lg:col-span-7 reveal">
+        <p class="font-accent text-pink-600 font-bold text-sm tracking-widest">ABOUT US</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3 leading-snug">サロンについて</h2>
 
-    <div class="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
-      <div class="nail-tip-card reveal aspect-[3/4]">
-        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80" alt="くすみカラーのワンカラーネイル" loading="lazy" />
-        <span class="nail-tip-caption">くすみカラー</span>
+        <blockquote class="font-heading text-xl sm:text-2xl text-pink-700 leading-snug mt-6 max-w-lg">
+          “ 指先を見るたび、ちょっと機嫌が良くなる。”
+        </blockquote>
+
+        <div class="mt-6 space-y-4 text-ink-600 leading-loose max-w-lg">
+          <p>
+            2021年、西条市に開いた完全予約制の個室サロンです。地爪やまつ毛への負担を最小限に抑える施術を大切にしており、「なりたい指先」のイメージを一緒に探すところから丁寧にカウンセリングいたします。
+          </p>
+        </div>
+        <p class="mt-6 font-heading text-lg text-ink-900">― オーナーネイリスト　森田 まゆ</p>
       </div>
-      <div class="nail-tip-card reveal reveal-delay-1 aspect-[3/4]">
-        <img src="https://images.unsplash.com/photo-1610992015762-45dca7fa3a85?auto=format&fit=crop&w=600&q=80" alt="フラワーアートのジェルネイル" loading="lazy" />
-        <span class="nail-tip-caption">フラワーアート</span>
-      </div>
-      <div class="nail-tip-card reveal reveal-delay-2 aspect-[3/4]">
-        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=600&q=80" alt="グラデーションネイル" loading="lazy" />
-        <span class="nail-tip-caption">グラデーション</span>
-      </div>
-      <div class="nail-tip-card reveal reveal-delay-3 aspect-[3/4]">
-        <img src="https://images.unsplash.com/photo-1619607146034-5a05296c8f9a?auto=format&fit=crop&w=600&q=80" alt="フレンチネイル" loading="lazy" />
-        <span class="nail-tip-caption">フレンチ</span>
-      </div>
-      <div class="nail-tip-card reveal aspect-[3/4]">
-        <img src="https://images.unsplash.com/photo-1735151226446-1d364b4adc2f?auto=format&fit=crop&w=600&q=80" alt="ナチュラルなまつげエクステ" loading="lazy" />
-        <span class="nail-tip-caption">ナチュラルラッシュ</span>
-      </div>
-      <div class="nail-tip-card reveal reveal-delay-1 aspect-[3/4]">
-        <img src="https://images.unsplash.com/photo-1639629509821-c54cdd984227?auto=format&fit=crop&w=600&q=80" alt="ボリュームまつげエクステ" loading="lazy" />
-        <span class="nail-tip-caption">ボリュームラッシュ</span>
-      </div>
-      <div class="nail-tip-card reveal reveal-delay-2 aspect-[3/4]">
-        <img src="https://images.unsplash.com/photo-1612887390768-fb02affea7a6?auto=format&fit=crop&w=600&q=80" alt="パールを使ったニュアンスネイル" loading="lazy" />
-        <span class="nail-tip-caption">パールニュアンス</span>
-      </div>
-      <div class="nail-tip-card reveal reveal-delay-3 aspect-[3/4]">
-        <img src="https://images.unsplash.com/photo-1548902378-2ec44c906391?auto=format&fit=crop&w=600&q=80" alt="上品な仕上がりのまつげエクステ" loading="lazy" />
-        <span class="nail-tip-caption">上品ラッシュ</span>
+
+      <div class="lg:col-span-5 reveal reveal-delay-1">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] shadow-sm">
+          <img src="https://images.unsplash.com/photo-1659391542239-9648f307c0b1?auto=format&fit=crop&w=700&q=80" alt="やわらかな光に包まれたふわりの施術スペース" class="w-full h-full object-cover" loading="lazy" />
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ================= お客様の声 ================= -->
-<section id="voice" class="py-24 sm:py-36 bg-cream">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+<section id="voice" class="py-20 sm:py-28 bg-cream">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
     <div class="text-center max-w-2xl mx-auto reveal">
-      <p class="eyebrow justify-center font-accent text-pink-600 font-bold text-sm tracking-widest inline-flex items-center">VOICE</p>
+      <p class="font-accent text-pink-600 font-bold text-sm tracking-widest">VOICE</p>
       <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">お客様の声</h2>
     </div>
 
-    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="mt-12 grid sm:grid-cols-2 gap-6">
       <div class="reveal card-lift fluffy-card p-7">
         <div class="flex items-center gap-4 mb-5">
           <img src="https://images.unsplash.com/photo-1513097633097-329a3a64e0d4?auto=format&fit=crop&w=200&q=80" alt="ご来店のお客様" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
@@ -295,27 +271,15 @@
           “ すっぴんでも目元が華やかになるので手放せません。持ちも良く、丁寧なカウンセリングで安心してお任せできます。”
         </p>
       </div>
-      <div class="reveal reveal-delay-2 card-lift fluffy-card p-7">
-        <div class="flex items-center gap-4 mb-5">
-          <img src="https://images.unsplash.com/photo-1695757002354-8bca71d087c7?auto=format&fit=crop&w=200&q=80" alt="ご来店のお客様" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
-          <div>
-            <p class="font-heading font-bold text-ink-900">40代・主婦</p>
-            <p class="text-xs text-ink-500">ネイル＋ラッシュ同時利用</p>
-          </div>
-        </div>
-        <p class="font-heading text-lg text-pink-700 leading-relaxed">
-          “ ネイルとまつげを一緒にお願いできるのが助かります。予約も取りやすく、自分だけの時間としてリフレッシュできています。”
-        </p>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= アクセス ================= -->
-<section id="access" class="py-24 sm:py-36 bg-cream-100">
+<section id="access" class="py-20 sm:py-28 bg-cream-100">
   <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
     <div class="text-center max-w-2xl mx-auto reveal">
-      <p class="eyebrow justify-center font-accent text-pink-600 font-bold text-sm tracking-widest inline-flex items-center">ACCESS</p>
+      <p class="font-accent text-pink-600 font-bold text-sm tracking-widest">ACCESS</p>
       <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">アクセス</h2>
     </div>
 
@@ -360,10 +324,10 @@
 </section>
 
 <!-- ================= CONTACT ================= -->
-<section id="contact" class="py-24 sm:py-36 bg-cream">
+<section id="contact" class="py-20 sm:py-28 bg-cream">
   <div class="max-w-3xl mx-auto px-5 sm:px-8 lg:px-10">
     <div class="text-center reveal">
-      <p class="eyebrow justify-center font-accent text-pink-600 font-bold text-sm tracking-widest inline-flex items-center">CONTACT</p>
+      <p class="font-accent text-pink-600 font-bold text-sm tracking-widest">CONTACT</p>
       <h2 class="font-heading font-bold text-3xl sm:text-4xl text-ink-900 mt-3">ご予約・お問い合わせ</h2>
       <p class="text-ink-600 mt-4 leading-relaxed">
         ご予約・ご質問など、お気軽にご連絡ください。2営業日以内にご返信いたします。
@@ -409,7 +373,6 @@
 </section>
 
 <!-- ================= FOOTER ================= -->
-<div class="wave-divider text-ink-900 rotate-180" aria-hidden="true"></div>
 <footer class="bg-ink-900 text-cream-100/80">
   <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -426,9 +389,9 @@
       <div>
         <p class="font-heading font-bold text-white mb-4 text-sm tracking-wide">SITEMAP</p>
         <ul class="space-y-3 text-sm">
-          <li><a href="index.html#about" class="hover:text-pink-300 transition-colors">サロンについて</a></li>
-          <li><a href="index.html#menu" class="hover:text-pink-300 transition-colors">メニュー</a></li>
           <li><a href="index.html#gallery" class="hover:text-pink-300 transition-colors">デザイン例</a></li>
+          <li><a href="index.html#menu" class="hover:text-pink-300 transition-colors">メニュー</a></li>
+          <li><a href="index.html#about" class="hover:text-pink-300 transition-colors">サロンについて</a></li>
           <li><a href="company.html" class="hover:text-pink-300 transition-colors">会社案内</a></li>
         </ul>
       </div>
