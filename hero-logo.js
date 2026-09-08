@@ -77,6 +77,7 @@ try {
     host.addEventListener('pointerdown',e=>{
         if(drag||!allowed()||(e.pointerType==='mouse'&&e.button!==0))return;
         drag={id:e.pointerId,x:e.clientX,y:e.clientY,at:performance.now()};
+        host.classList.add('pointer-interaction');
         vx=vy=0;host.setPointerCapture(e.pointerId);host.focus({preventScroll:true});
     });
     host.addEventListener('pointermove',e=>{
@@ -91,12 +92,14 @@ try {
     host.addEventListener('pointercancel',e=>{release(e);vx=vy=0;});
     host.addEventListener('lostpointercapture',()=>{drag=null;});
     host.addEventListener('keydown',e=>{
+        host.classList.remove('pointer-interaction');
         const keys={ArrowLeft:[0,-.15],ArrowRight:[0,.15],ArrowUp:[-.15,0],ArrowDown:[.15,0]};
         if(e.key==='Home'){e.preventDefault();reset();draw();}
         else if(keys[e.key]){e.preventDefault();logo.rotation.x+=keys[e.key][0];logo.rotation.y+=keys[e.key][1];vx=vy=0;draw();}
     });
     reduced.addEventListener('change',()=>{floatPaused=reduced.matches;vx=vy=0;sync();});
     document.addEventListener('visibilitychange',sync);
+    host.addEventListener('blur',()=>host.classList.remove('pointer-interaction'));
     new IntersectionObserver(([e])=>{visible=e.isIntersecting;sync();}).observe(art);
     new MutationObserver(sync).observe(hero,{attributes:true,attributeFilter:['class']});
     new ResizeObserver(resize).observe(host);

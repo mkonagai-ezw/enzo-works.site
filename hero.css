@@ -15,7 +15,8 @@
 .hero-art svg { width:90%; position:relative; transform:rotate(-9deg); filter:drop-shadow(12px 30px 20px #254b4525); }
 .hero-model { position:absolute; inset:0 0 45px; z-index:2; cursor:grab; touch-action:none; border-radius:20px; }
 .hero-model:active { cursor:grabbing; }
-.hero-model:focus-visible { outline:2px solid #2d999f; outline-offset:-8px; }
+.hero-model:focus { outline:none; }
+.hero-model:focus-visible:not(.pointer-interaction) { outline:2px solid #2d999f; outline-offset:-8px; }
 .hero-model canvas { display:block; width:100%; height:100%; }
 .hero-art.model-ready svg { visibility:hidden; }
 .hero-art::before { pointer-events:none; }
@@ -37,6 +38,9 @@
 .hero.hero-revealing .hero-art { animation:hero-arrive 1.1s .2s both; }
 .hero a:focus-visible,.hero button:focus-visible { outline:2px solid #2d999f; outline-offset:5px; }
 body.hero-intro-active .music-player,body.hero-intro-active .chat-button-wrapper { visibility:hidden; pointer-events:none; }
+/* A child bubble sets visibility inline; removing its entire wrapper from layout
+   also prevents the timed bubble updates from appearing over the film. */
+body.hero-intro-active .chat-button-wrapper { display:none; }
 @keyframes hero-arrive { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
 @media(max-width:760px) {
  .hero { min-height:920px; padding:400px 7vw 160px; align-items:center; }
