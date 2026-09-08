@@ -17,6 +17,7 @@
     <link rel="apple-touch-icon" href="images/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hero.css">
 </head>
 <body>
 
@@ -39,14 +40,33 @@
         </nav>
     </header>
 
-    <section class="hero">
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-art">
+            <div class="hero-model" tabindex="0" role="group" aria-label="ENZO立体ロゴ。ドラッグまたは矢印キーで回転、Homeキーで向きをリセット。" aria-describedby="hero-model-hint"></div>
+            <svg viewBox="-30 -20 940 620" fill="none" aria-hidden="true">
+                <defs><linearGradient id="hero-metal" x1="100" y1="0" x2="650" y2="570" gradientUnits="userSpaceOnUse"><stop stop-color="#183d42"/><stop offset=".45" stop-color="#0e2128"/><stop offset=".55" stop-color="#4f7478"/><stop offset="1" stop-color="#122b30"/></linearGradient></defs>
+                <path d="M0 300 284 28H754L678 119H342L275 184 577 196 490 296H169L160 308 257 417H414L543 298H624L633 415 761 298H849L626 535H540V442L528 431 415 535H205Z" fill="url(#hero-metal)" stroke="#83aba9" stroke-width="3" stroke-linejoin="round"/>
+            </svg>
+            <span class="hero-art-label" id="hero-model-hint">ドラッグ / スワイプで回転</span>
+        </div>
+        <div class="hero-edition" aria-hidden="true">ENZO WORKS — CREATIVE STUDIO<br><span>FREE YOUR IDEAS.</span></div>
         <div class="hero-content">
-            <h1 class="main-title">Think freely,<br>Build smart.</h1>
+            <p class="hero-eyebrow">INDEPENDENT CREATIVE PARTNER</p>
+            <h1 class="main-title" id="hero-title">Think freely,<br><span>Build smart.</span></h1>
             <p class="sub-text">
                 愛媛県西条市を拠点に。<br>
                 自由な発想と確かな技術で、ビジネスを加速させる。
             </p>
+            <a class="hero-cta" href="#service">できることを見る <span aria-hidden="true">↗</span></a>
         </div>
+        <div class="hero-footer"><a href="#about">SCROLL TO EXPLORE ↓</a><button class="hero-replay" type="button" hidden>↻ 映像をもう一度</button></div>
+        <div class="hero-intro">
+            <video muted playsinline preload="metadata" poster="images/topimage.webp" aria-hidden="true"><source src="videos/heromovie.mp4" type="video/mp4"></video>
+            <span class="hero-intro-caption" aria-hidden="true">THINK FREELY. / BUILD SMART.</span>
+            <button class="hero-skip" type="button">映像をスキップ ↗</button>
+        </div>
+        <div class="hero-flash" aria-hidden="true"></div>
     </section>
 
     <section id="about" class="section">
@@ -857,5 +877,6 @@
         updateLimitInfo();
     </script>
 <script src="script.js"></script>
+<script type="module" src="hero.js"></script>
 </body>
 </html>
