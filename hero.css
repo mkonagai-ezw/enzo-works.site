@@ -55,7 +55,8 @@ body.hero-intro-active .chat-button-wrapper { display:none; }
  .hero-footer { bottom:110px; left:7vw; right:7vw; }
  .hero-footer a { font-size:8px; letter-spacing:0; }
  .hero-replay { font-size:10px; padding:9px 12px; }
- .hero-intro video { object-fit:cover; object-position:50% 50%; }
+ .hero-intro video { position:absolute; width:140%; max-width:none; height:auto; aspect-ratio:16/9; top:50%; left:50%; transform:translate(-50%,-50%); object-fit:contain; }
+ .hero-intro::before { content:''; position:absolute; inset:-30px; background:linear-gradient(#07171c55,#07171c99),url('images/topimage.webp') center/cover; filter:blur(24px); }
  .hero-intro { background:radial-gradient(ellipse at center,#18343c,#050e14); }
  .hero-intro-caption { bottom:170px; left:7vw; font-size:8px; }
  .hero-skip { bottom:120px; right:7vw; }
