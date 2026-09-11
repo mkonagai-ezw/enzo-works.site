@@ -249,11 +249,13 @@
    apply:(s,pick)=>{if(pick==='accept'){for(const [key,value] of Object.entries(effects))s[key]=key==='money'?s[key]+G.funds(s,value):clamp(s[key]+value);hist(s,title,'成長');}}
   });
  }
+ defs.push(...(G.People?.defs||[]));
  const byId=Object.fromEntries(defs.map(d=>[d.id,d]));
  const ids=defs.map(d=>d.id);
  const rate={prologue:.35,term:.35,term2:.35,term3:.35};
  // 1ターン1本。確実イベントを優先し、なければ確率で候補から重み付き抽選。
  function pick(s){
+  const person=G.People?.pick(s);if(person)return person;
   const x=ensure(s),ch=chapter(s);
   const ready=defs.filter(d=>d.phases.includes(ch)&&!x.seen.includes(d.id)&&d.when(s));
   const sure=ready.find(d=>d.sure);
@@ -274,6 +276,7 @@
  function choose(s,id){
   const d=byId[s.event];if(!d)return base.choose(s,id);
   if(s.stage!=='event')return false;
+  if(G.People&&!G.People.canChoose(s,s.event))return false;
   const ev=d.event(s),opt=ev.choices.find(c=>c.id===id);if(!opt||opt.disabled)return false;
   log(s,ev.title+' → '+opt.title);
   const x=ensure(s);if(!x.seen.includes(d.id))x.seen.push(d.id);
@@ -288,6 +291,6 @@
   for(const k of ['cultDenied','ledgerRisk','kickbackRisk','moneyScandal'])if(x[k]!==undefined&&typeof x[k]!=='boolean')return false;
   return true;
  }
- G.Extra={ids,defs,pick,event,validate,pickGrowth:s=>defs.find(d=>growthEvents.some(g=>g[0]===d.id)&&d.phases.includes(chapter(s))&&!ensure(s).seen.includes(d.id)&&d.when(s))?.id||null};
+ G.Extra={ids,defs,pick,event,validate,pickGrowth:s=>G.People?.pick(s)||defs.find(d=>growthEvents.some(g=>g[0]===d.id)&&d.phases.includes(chapter(s))&&!ensure(s).seen.includes(d.id)&&d.when(s))?.id||null};
  G.event=event;G.choose=choose;
 })(typeof window!=='undefined'?window:globalThis);

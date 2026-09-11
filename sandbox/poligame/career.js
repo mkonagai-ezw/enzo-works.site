@@ -112,10 +112,13 @@
   else if(s.debts.some(d=>d.status==='踏み倒し'))paragraphs.push('支援者の要求を断ち切る決断は、組織との関係にも代償を残しました。');
   else if(s.debts.some(d=>d.status==='履行済み')&&!has('sponsor_request','withdraw'))paragraphs.push('支援者との約束には、履行や解消という形で区切りをつけました。');
   else if(has('term_review','admit'))paragraphs.push('公約との違いを認め、自分の言葉で説明する道を選びました。');
+  const people=G.People?.entries(s)||[];
+  if(people.length){const relation=people.map(r=>{const p=G.People.profiles.find(p=>p.id===r.id);return p.name+(r.trust>=45?(r.agreement<0?'とは、政策で対立したまま話し合える関係を築きました。':'とは、対話を通じて政策への理解も深めました。'):r.life>=70?'の相談した問題は改善しましたが、信頼関係には課題が残りました。':r.stage<4?'との関係は、まだ道半ばでした。':'とは、最後まで距離が残りました。');}).join('');if(paragraphs.length<4)paragraphs.push(relation);else paragraphs[3]+=relation;}
   const seen=new Set(),highlights=[];
   for(const x of [...c.choices].reverse().sort((a,b)=>(important.includes(b.event)?1:0)-(important.includes(a.event)?1:0))){
-   if(seen.has(x.event)||['start','rival','campaign','after','legacy'].includes(x.event))continue;
-   highlights.push(x);seen.add(x.event);if(highlights.length===3)break;
+   const topic=x.event.startsWith('person_')?x.event.slice(0,x.event.lastIndexOf('_')):x.event;
+   if(seen.has(topic)||['start','rival','campaign','after','legacy'].includes(x.event))continue;
+   highlights.push(x);seen.add(topic);if(highlights.length===3)break;
   }
   if(highlights.length<3)for(const h of [...s.history].reverse()){
    if(!['公約','役職','政策','矛盾','支援者の要求','謝罪済み','造反'].includes(h.kind)||highlights.some(x=>x.label===h.text))continue;

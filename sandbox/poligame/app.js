@@ -33,12 +33,13 @@ function perform(op,id){
 }
 function refresh(){pendingAction=null;save();render();const center=document.getElementById('game-content');center?.focus({preventScroll:true});}
 const effectKeys=[['energy','体力','♥'],['fame','知名度','★'],['speech','弁舌','●'],['policy','政策力','◆'],['network','人脈','✦'],['money','活動資金','💰','万円'],['clean','クリーン度','✨'],['influence','党内影響力','🏛️']];
-function effectSnapshot(){if(state)G.outcomes.delete(state);return state?Object.fromEntries(effectKeys.map(([key])=>[key,state[key]]).concat([['likes',state.likes.slice()]])):null;}
+function effectSnapshot(){if(state)G.outcomes.delete(state);return state?Object.fromEntries(effectKeys.map(([key])=>[key,state[key]]).concat([['likes',state.likes.slice()],['people',(state.people?.entries||[]).map(r=>({id:r.id,trust:r.trust,agreement:r.agreement,life:r.life}))]])):null;}
 function prepareEffects(before){
  if(!before||typeof setTimeout==='undefined')return null;
  const items=[],changed=new Set();
  for(const [key,label,icon,unit] of effectKeys){const delta=state[key]-before[key];if(delta){items.push({key,label,icon,unit,delta});changed.add(key);}}
  state.likes.forEach((value,i)=>{const delta=value-before.likes[i];if(delta){items.push({key:'likes.'+i,label:G.groups[i][0],icon:'👥',delta});changed.add('likes.'+i);}});
+ for(const r of state.people?.entries||[]){const old=before.people?.find(x=>x.id===r.id)||{trust:20,agreement:-40,life:20},p=G.People.profiles.find(x=>x.id===r.id);for(const [k,label] of [['trust','信頼'],['agreement','政策への賛否'],['life','生活']]){const delta=r[k]-old[k];if(delta)items.push({key:'person.'+r.id+'.'+k,label:p.name+'：'+label,icon:'💬',delta});}}
  const results=G.outcomes.get(state)||[];
  return items.length||results.length?{before,items,changed,results,progress:0}:null;
 }
@@ -79,7 +80,7 @@ app.addEventListener('click',e=>{
  if(op==='careerTab'&&state&&G.Career.isFinal(state)&&['portrait','history','result'].includes(id)){careerTab=id;render();return;}
  if(op==='party'){party=Number(id);render();return;}
  if(op==='actionGroup'&&actionGroups.some(g=>g.id===id)){actionGroup=id;pendingAction=null;render();return;}
- if(op==='inspector'&&['support','debt','records'].includes(id)){inspector=id;render();return;}
+ if(op==='inspector'&&['support','debt','records','people'].includes(id)){inspector=id;render();return;}
  if(op==='pickAction'&&state?.stage==='main'&&['visit','org','question'].includes(id)&&G.allowed(state,id)){pendingAction=id;if(id==='org'&&(G.groups[target][5]<3||state.memory[target]))target=G.groups.findIndex((g,i)=>g[5]>=3&&!state.memory[i]);if(target<0)target=0;render();return;}
  if(op==='cancelAction'){pendingAction=null;render();return;}
  if(op==='target'&&Number.isInteger(Number(id))&&Number(id)>=0&&Number(id)<12){target=Number(id);render();return;}

@@ -87,6 +87,8 @@ window.GameScenes={
   grill:{src:'assets/events/grill.webp',alt:'国会で役所の担当者を厳しく問い詰めている',label:'国会委員会室'}
  },
  resolve(state){
+  const person=window.Game.People?.forEvent(state);
+  if(person)return {src:'assets/people/'+person.profile.id+'.webp',alt:person.profile.alt,label:person.profile.place};
   const growth={fame_local:'national_debate',fame_national:'leader_policy',speech_forum:'debate',speech_teacher:'leader_ground',policy_proposal:'platform',policy_team:'committee_select',network_volunteers:'petitions',network_support:'expenses'};
   return this.events[state.event]||this.events[growth[state.event]]||this.default;
  }
