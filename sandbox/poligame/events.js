@@ -128,8 +128,8 @@
     c('refuse','受け取らず、公表する','クリーン度が上がる／長老の機嫌を損ね、党内の評価が下がる'),
     c('take','受け取る','資金が増える／あとで報じられるかもしれない')]}),
    apply:(s,id)=>{
-    if(id==='refuse'){s.money=Math.max(0,s.money-100);s.clean=clamp(s.clean+3);s.influence=clamp(s.influence-5);debt(s,-1,1);s.debts.at(-1).name='派閥の長老';hist(s,'派閥からの戻し金を拒んで公表','発言');}
-    else{s.money+=200;s.clean=clamp(s.clean-10);ensure(s).kickbackRisk=true;hist(s,'派閥からの戻し金を受け取った','接触',{publicity:1});}
+    if(id==='refuse'){s.money=Math.max(0,s.money-G.funds(s,100));s.clean=clamp(s.clean+3);s.influence=clamp(s.influence-5);debt(s,-1,1);s.debts.at(-1).name='派閥の長老';hist(s,'派閥からの戻し金を拒んで公表','発言');}
+    else{s.money+=G.funds(s,200);s.clean=clamp(s.clean-10);ensure(s).kickbackRisk=true;hist(s,'派閥からの戻し金を受け取った','接触',{publicity:1});}
    }},
   {id:'kickback_exposed',phases:TERMS,weight:3,when:s=>flag(s,'kickbackRisk'),
    event:()=>({speaker:'記者のサトウ',title:'「派閥からの戻し金、受け取っていましたね」',body:'派閥から戻ってきたお金を受け取っていたことが報じられました。',choices:[c('accept','受け止める','無党派が離れる／クリーン度が落ちる')]}),
@@ -155,7 +155,7 @@
     c('open','全部の使い道を公開する','クリーン度と無党派が上がる／少しお金を返す'),
     c('legal','「法律どおりです」とだけ答える','無党派が離れる')]}),
    apply:(s,id)=>{
-    if(id==='open'){s.money=Math.max(0,s.money-50);s.clean=clamp(s.clean+5);change(s,[[7,4]]);hist(s,'経費の使い道を全公開','発言');}
+    if(id==='open'){s.money=Math.max(0,s.money-G.funds(s,50));s.clean=clamp(s.clean+5);change(s,[[7,4]]);hist(s,'経費の使い道を全公開','発言');}
     else{change(s,[[7,-4]]);hist(s,'経費の公開を拒んだ','発言');}
    }},
   // ===== D. 選挙区の出来事 =====
@@ -188,10 +188,10 @@
    }},
   {id:'parachute',phases:['prologue'],weight:3,when:s=>s.turn>=2&&s.turn<=4,
    event:s=>({speaker:'記者のサトウ',title:'「この街に、住んだことがありますか」',body:'「よそから来た候補だ」「親の地盤を継いだだけだ」という声が出ています。',choices:[
-    c('move','家族で選挙区に引っ越す','お金がかかる／地元が喜ぶ',s.money<100),
+    c('move','家族で選挙区に引っ越す','お金がかかる／地元が喜ぶ',s.money<G.funds(s,100)),
     c('ignore','気にしない','地元と無党派が少し離れる')]}),
    apply:(s,id)=>{
-    if(id==='move'){s.money-=100;change(s,[[6,5],[7,2]]);}
+    if(id==='move'){s.money-=G.funds(s,100);change(s,[[6,5],[7,2]]);}
     else change(s,[[6,-5],[7,-3]]);
    }},
   {id:'heckler',phases:['prologue'],weight:3,when:s=>G.campaign(s),
@@ -244,9 +244,9 @@
  for(const [id,stat,threshold,title,body,accept,effects] of growthEvents){
   defs.push({id,phases:ALL,sure:true,when:s=>s[stat]>=threshold,
    event:s=>({speaker:'地域の協力者',title,body,choices:[
-    c('accept',accept,'育てた能力を生かす／活動時間を使う',s.energy<-(effects.energy||0)||s.money<-(effects.money||0)),
+    c('accept',accept,'育てた能力を生かす／活動時間を使う',s.energy<-(effects.energy||0)||s.money<G.funds(s,-(effects.money||0))),
     c('decline','今回は見送る','体力と資金を温存する／この機会は一度だけ')]}),
-   apply:(s,pick)=>{if(pick==='accept'){for(const [key,value] of Object.entries(effects))s[key]=key==='money'?s[key]+value:clamp(s[key]+value);hist(s,title,'成長');}}
+   apply:(s,pick)=>{if(pick==='accept'){for(const [key,value] of Object.entries(effects))s[key]=key==='money'?s[key]+G.funds(s,value):clamp(s[key]+value);hist(s,title,'成長');}}
   });
  }
  const byId=Object.fromEntries(defs.map(d=>[d.id,d]));
@@ -268,7 +268,7 @@
  function event(s){const d=byId[s.event];return d?d.event(s):base.event(s);}
  function finishSkip(s){
   const exhausted=s.energy===0;
-  if(exhausted){s.energy=35;s.fame=clamp(s.fame-3);log(s,'体力が尽き、休養した。');}
+  if(exhausted){s.energy=0;s.fame=clamp(s.fame-3);log(s,'体力が尽き、休養した。');}
   if(isTermCh(s))G.Legislature.finishTurn(s);else if(exhausted)G.finishTurn(s);else s.stage='weekend';
  }
  function choose(s,id){
@@ -288,6 +288,6 @@
   for(const k of ['cultDenied','ledgerRisk','kickbackRisk','moneyScandal'])if(x[k]!==undefined&&typeof x[k]!=='boolean')return false;
   return true;
  }
- G.Extra={ids,defs,pick,event,validate};
+ G.Extra={ids,defs,pick,event,validate,pickGrowth:s=>defs.find(d=>growthEvents.some(g=>g[0]===d.id)&&d.phases.includes(chapter(s))&&!ensure(s).seen.includes(d.id)&&d.when(s))?.id||null};
  G.event=event;G.choose=choose;
 })(typeof window!=='undefined'?window:globalThis);

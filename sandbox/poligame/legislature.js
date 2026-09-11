@@ -30,7 +30,7 @@
   ['committee','委員会で活動する','担当する分野の支持を育てる。対立層は離れる。','体力 −8'],
   ['local','地元で活動する','各層の話を聞き、地盤を固める。','体力 −10'],
   ['faction','派閥の会合に出る','党内の影響力を育てる。3回ごとに長老への借り。','体力 −8'],
-  ['abroad','海外を視察する','政策を学ぶが、経費への批判も受ける。','体力 −8']
+  ['abroad','海外を視察する','政策力で判定。成功なら政策力・知名度・無党派の支持が伸びる。','体力 −8']
  ];
  // Actions unlocked only in the second term (mid-career).
  const term2Actions=[
@@ -52,6 +52,7 @@
  ];
  // §12/§13 終章の毎ターン行動。対象を取らず、1ターン1つ。
  const govActions=[
+  ['publicity','党の広報を強化する','党の活動資金で広報チームを動かす。無党派への説明を強化。','活動資金を使用'],
   ['policy','看板政策を推し進める','国会通過を狙う。恩恵層は喜び、負担層は離れる。','任期中3本まで'],
   ['diplomacy','外遊・首脳会談に臨む','弁舌で判定。成功で支持率と保守層。','弁舌判定'],
   ['presser','記者会見で国民に説明する','今期の支持率の自然減を打ち消す。','無党派＋2'],
@@ -135,7 +136,7 @@
   }
   if(s.turn%2===0)s.pendingEvents.push('bill');
   // 条件イベント：固定イベントも採決もないターンの主行動前に1本だけ。
-  if(s.turn>=3&&!s.pendingEvents.length){const extra=G.Extra?.pick(s);if(extra)s.pendingEvents.push(extra);}
+  if(s.turn>=3){const extra=s.pendingEvents.length?G.Extra?.pickGrowth(s):G.Extra?.pick(s);if(extra)s.pendingEvents.push(extra);}
   advance(s);
  }
  function advance(s){
@@ -143,6 +144,7 @@
   if(s.pendingEvents.length){s.event=s.pendingEvents.shift();s.stage='event';return;}
   s.event=null;
   if(!s.postAction){s.stage='main';return;}
+  G.settleBudget(s);
   const target=s.turn%3===0?s.likes.indexOf(Math.max(...s.likes)):s.rival.indexOf(Math.max(...s.rival));
   s.rival[target]=clamp(s.rival[target]+2,-50,100);s.rivalFame=clamp(s.rivalFame+1);
   s.governmentApproval=clamp(s.governmentApproval+(random(s)*6-3));
@@ -269,7 +271,7 @@
    case 'term_review':return {speaker:'記者のサトウ',title:'「選挙の公約と、採決が違いませんか」',body:'記者があなたの公約と議会での投票を照らし合わせています。説明が必要な採決は'+contradictions(s)+'件です。',choices:[c('explain','採決の理由を説明する','弁舌で判定／公約との矛盾が多いほど難しい'),c('admit','方針が変わったことを認める','約束した層が失望する／履歴に説明を残す')]};
    case 'term_collect':case 'term2_collect':{
     const d=s.debts[s.collection[0]];if(!d)return null;
-    return {speaker:d.name+'からの連絡',title:'「あのときの、お願いです」',body:'支援を受けたときの約束を、今こそ果たしてほしいと言われました。協力すれば、ほかの支持者が負担を背負います。',choices:[c('fulfill','約束を果たす','相手が喜ぶ／対立層が怒る'),c('partial','一部の協力にとどめる','資金200万円／重さ1の借りが残る',s.money<200),c('break','要求を断る','相手の組織票が対抗馬へ／再契約できなくなる')]};
+    return {speaker:d.name+'からの連絡',title:'「あのときの、お願いです」',body:'支援を受けたときの約束を、今こそ果たしてほしいと言われました。協力すれば、ほかの支持者が負担を背負います。',choices:[c('fulfill','約束を果たす','相手が喜ぶ／対立層が怒る'),c('partial','一部の協力にとどめる','資金'+G.funds(s,200)+'万円／重さ1の借りが残る',s.money<G.funds(s,200)),c('break','要求を断る','相手の組織票が対抗馬へ／再契約できなくなる')]};
    }
    case 'role_offer':{
     const rel=committees[s.committee]?.groups||[];
@@ -315,8 +317,10 @@
     ]};
    case 'boss_demand':{
     const inFaction=hasParty(s)&&['regional','economic','social'].includes(s.faction);
-    return {speaker:'派閥の長老',title:inFaction?'「今回は、お前が出るな」':'「今回は、見送っておけ」',body:'党首選に出ないでほしい、次は必ず後押しする、という打診です。従えば党内の関係は保たれますが、今回の党首選には進めません。逆らえば、派閥の議員票は当てにできません。',choices:[
+    return {speaker:'派閥の長老',title:inFaction?'「今回は、お前が出るな」':'「今回は、見送っておけ」',body:'出馬を見送るよう打診されました。実績と人脈があれば、説得や後継指名で支持を保ったまま出馬できます。説得せず逆らうと派閥票を失い、従うと今回はここで終了します。',choices:[
      c('obey','長老の顔を立てて見送る','党首選をスキップ／党内での立場は守られる'),
+     c('persuade','実績を示して長老を説得する','影響力60・人脈40・政策力50が必要／派閥の支持を保って出馬',s.influence<60||s.network<40||s.policy<50),
+     c('successor','後継候補として推薦を受ける','影響力80・人脈60が必要／党内影響力＋5・派閥の支持を保つ',s.influence<80||s.network<60),
      c('defy','それでも党首選に出る','派閥の議員票がゼロになる／自分の意思を通す')
     ]};
    }
@@ -332,7 +336,7 @@
    }
    case 'term3_collect':{
     const d=s.debts[s.collection[0]];if(!d)return null;
-    return {speaker:d.name+'からの連絡',title:'「そろそろ、けじめを」',body:'古い約束の回収です。党の顔と呼ばれる今こそ、果たしてほしいと迫られています。',choices:[c('fulfill','約束を果たす','相手が喜ぶ／対立層が怒る'),c('partial','一部の協力にとどめる','資金200万円／重さ1の借りが残る',s.money<200),c('break','要求を断る','相手の組織票が対抗馬へ／再契約できなくなる')]};
+    return {speaker:d.name+'からの連絡',title:'「そろそろ、けじめを」',body:'古い約束の回収です。党の顔と呼ばれる今こそ、果たしてほしいと迫られています。',choices:[c('fulfill','約束を果たす','相手が喜ぶ／対立層が怒る'),c('partial','一部の協力にとどめる','資金'+G.funds(s,200)+'万円／重さ1の借りが残る',s.money<G.funds(s,200)),c('break','要求を断る','相手の組織票が対抗馬へ／再契約できなくなる')]};
    }
   }
   return base.event(s);
@@ -379,7 +383,7 @@
   if(type==='officers'){if(hasParty(s))influence(s,id==='support'?3:-5);else if(id==='support')s.network=clamp(s.network+3);}
   if(type==='petitions'){const selected=Number(id);change(s,[0,1,11].map(i=>[i,i===selected?8:-3]));record(s,names([selected])+'の相談を優先','発言');}
   if(type==='term_campaign'&&s.nominationCancelled)s.nomination='公認取消';
-  if(type==='term_campaign'&&isTerm2(s)&&hasParty(s)&&s.faction!=='none'){s.money+=s.factionRank?200:100;log(s,'派閥から選挙資金を受け取った。');}
+  if(type==='term_campaign'&&isTerm2(s)&&hasParty(s)&&s.faction!=='none'){s.money+=G.funds(s,s.factionRank?200:100);log(s,'派閥から選挙資金を受け取った。');}
   if(type==='role_offer'){
    if(id==='accept'){
     s.role='政務官';s.fame=clamp(s.fame+5);influence(s,5);
@@ -401,8 +405,8 @@
   if(type==='faction_rank'){
    if(hasParty(s)&&['regional','economic','social'].includes(s.faction)){
     if(id==='press'){
-     if(s.influence>=45||s.fame>=55){s.factionRank=true;influence(s,5);s.money+=150;log(s,'派閥内で優位に立ち、党の資金も回ってきた。');}
-     else{influence(s,-2);s.money=Math.max(0,s.money-100);log(s,'序列争いに競り負け、派閥からの資金が細った。');}
+     if(s.influence>=45||s.fame>=55){s.factionRank=true;influence(s,5);s.money+=G.funds(s,150);log(s,'派閥内で優位に立ち、党の資金も回ってきた。');}
+     else{influence(s,-2);s.money=Math.max(0,s.money-G.funds(s,100));log(s,'序列争いに競り負け、派閥からの資金が細った。');}
     }else influence(s,-3);
    }else if(id==='go')change(s,G.groups.map((_,i)=>[i,1]));
   }
@@ -429,6 +433,7 @@
   }
   if(type==='boss_demand'){
    if(id==='obey'){s.leadershipSkip=true;log(s,'長老の顔を立て、今回の党首選は見送ることにした。');record(s,'党首選を見送った','党内');}
+   else if(id==='persuade'||id==='successor'){s.factionZero=false;if(id==='successor')influence(s,5);record(s,id==='successor'?'長老から後継指名を受けた':'長老を説得して出馬','党内');}
    else{s.factionZero=true;influence(s,-3);log(s,'長老に逆らって党首選へ。派閥の議員票は当てにできない。');record(s,'長老に逆らって出馬を決めた','党内');}
   }
   if(type==='platform'){
@@ -440,7 +445,7 @@
    else if(id==='accept'){s.reelected=false;s.term3Failed=true;s.pendingEvents=[];log(s,'選挙区で敗れ、議員生活を終えることになった。');}
    if(s.reelected){
     // 単独過半数、または与党系の党が連立込みで多数を保てるだけの議席。
-    s.ruling=s.result.party.seats>=233||(s.alliance!=='broke'&&G.parties[s.party].ruling&&s.result.party.seats>=150);
+    s.ruling=s.result.party.seats>=233||(s.alliance!=='broke'&&G.parties[s.party].ruling&&s.result.party.seats>=150)||(s.alliance==='joint'&&s.result.party.seats>=150);
     log(s,'党の獲得議席は約'+s.result.party.seats+'。'+(s.ruling?'与党として政権を担う。':'野党として次を狙う。'));
    }
   }
@@ -495,6 +500,7 @@
     ]};
    }
    case 'leader_ground':return {speaker:'秘書のタナカ',title:'残りの時間を、どう使いますか。',body:'地方をまわって都道府県代表の支持を固めるか、対立候補の足元を裏で崩すか。',choices:[
+    c('team','全国遊説をチームに委託する','資金'+G.funds(s,100)+'万円／都道府県票＋14〜18・党員への訴求を強化',s.money<G.funds(s,100)),
     c('tour','地方を行脚する','決選投票の都道府県票＋／安全'),
     c('backroom','裏で切り崩す','党内影響力−8／成功で「派閥の長」の議員票−／失敗で「裏切り者」の烙印')
    ]};
@@ -621,7 +627,8 @@
    s.event='leader_ground';return true;
   }
   if(type==='leader_ground'){
-   if(id==='tour'){s.prefVotes=Math.min(32,(s.prefVotes||0)+8+Math.floor(random(s)*5));log(s,'地方行脚で都道府県代表の支持を固めた。');record(s,'党首選：地方を行脚','党内');}
+   if(id==='team'){s.money-=G.funds(s,100);s.prefVotes=Math.min(32,(s.prefVotes||0)+14+Math.floor(random(s)*5));s.memberBoost=(s.memberBoost||0)+.04;record(s,'党首選：全国遊説を委託','党内');}
+   else if(id==='tour'){s.prefVotes=Math.min(32,(s.prefVotes||0)+8+Math.floor(random(s)*5));log(s,'地方行脚で都道府県代表の支持を固めた。');record(s,'党首選：地方を行脚','党内');}
    else{
     s.influence=clamp(s.influence-8);
     if(random(s)<clamp(s.influence/120,.15,.8)){s.rivalDietCut=(s.rivalDietCut||0)+.12;log(s,'裏工作が効き、「派閥の長」の足元が揺らいだ。');record(s,'党首選：裏工作','党内');}
@@ -752,7 +759,7 @@
    ownWon:own.player>own.rival,ownShare:own.share,
    seats:party.seats,voteShare:party.voteShare,
    soleMajority:party.seats>=233,
-   coalitionMajority:party.seats<233&&['coalition','joint'].includes(s.alliance)&&party.seats>=200,
+   coalitionMajority:party.seats<233&&['coalition','joint'].includes(s.alliance)&&party.seats>=150,
    forced:!!forced
   };
   s.result={player:own.player,rival:own.rival,total:own.total,share:own.share,won:s.govResult.ownWon,party:{seats:party.seats,voteShare:party.voteShare,total:465,majority:party.seats>=233}};
@@ -767,7 +774,7 @@
   else if(R.toppled){key='toppled';grade='D';label='派閥に倒される';text='党内の不満が限界を超え、身内の反乱で政権は崩れました。数の力を甘く見た代償でした。';}
   else if(R.scandalFall){key='scandal_fall';grade='D';label='スキャンダル退陣';text='相次ぐ不祥事で支持率は底を割り、政権は短命に終わりました。';}
   else if(!R.ownWon){key='nobody';grade='E';label='ただの人';text='最終選挙であなた自身が議席を失いました。総理の座も、次の一歩もありません。';}
-  else if(R.soleMajority&&s.approval>=60&&broken===0){key='national_pm';grade='S';label='国民の総理';text='単独過半数、高い支持率、そして誰も裏切らずに。文句なしの信任を得た政権です。';}
+  else if(R.soleMajority&&s.approval>=60&&broken===0&&s.turn>=4&&s.history.some(h=>h.chapter==='government'&&h.kind==='政策'&&h.text.endsWith('成立'))){key='national_pm';grade='S';label='国民の総理';text='単独過半数、高い支持率、そして誰も裏切らずに。文句なしの信任を得た政権です。';}
   else if(R.soleMajority){key='long_gov';grade='A';label='長期政権';text='単独過半数を守り抜きました。安定した長期政権の土台ができました。';}
   else if(R.coalitionMajority){key='coalition_pm';grade='B';label='連立の総理';text='単独では届かなかったものの、連立を保って過半数を維持しました。';}
   else if(s.influence>=80){key='shadow';grade='B';label='院政';text='過半数は割れましたが、党内にはなお絶大な影響力が残りました。後継を指名し、あなたは一線を退きます。';}
@@ -780,6 +787,7 @@
   log(s,'終章：'+label+'（評価 '+grade+' / スコア '+s.govResult.score+'）');
  }
  function govAfterTurn(s){
+  G.settleBudget(s);
   const drop=s._noDrop?0:2;s._noDrop=false;
   s.approval=clamp(s.approval*.82+layerApprovalIndex(s)*.18-drop-(s.factionAnger>10?3:0));
   if(s.factionAnger>=15){s.govResult={toppled:true};finalizeGovernment(s);return;}
@@ -794,7 +802,7 @@
   log(s,'政権'+s.turn+'期目。支持率は'+Math.round(s.approval)+'%、派閥の不満は'+Math.round(s.factionAnger)+'。');
  }
  function govAllowed(s,id){
-  return s.stage==='main'&&s.govPhase==='run'&&govActions.some(a=>a[0]===id)&&!(id==='policy'&&s.policyPushed>=3);
+  return s.stage==='main'&&s.govPhase==='run'&&govActions.some(a=>a[0]===id)&&s.money>=G.actionFunds(s,id)&&!(id==='policy'&&s.policyPushed>=3);
  }
  function govAction(s,id){
   if(!govAllowed(s,id))return false;
@@ -817,6 +825,7 @@
    else{s.approval=clamp(s.approval-3);log(s,'外遊は空回りに終わった。');}
    if(random(s)<.2){s.incidentType='abroad_disaster';s.event='gov_incident';s.stage='event';return true;}
   }
+  else if(id==='publicity'){s.money-=G.funds(s,100);s._noDrop=true;change(s,[[2,3],[3,3],[7,3]]);s.approval=clamp(s.approval+2);log(s,'党の広報チームが政策を説明した。');}
   else if(id==='presser'){s._noDrop=true;change(s,[[2,2],[3,2],[7,2]]);log(s,'記者会見で政権の考えを説明した。');}
   else if(id==='faction_care'){s.factionAnger=Math.max(0,s.factionAnger-3);change(s,[[2,-3],[3,-3],[7,-3]]);log(s,'派閥に配慮し、不満を抑えた。');}
   else if(id==='tighten'){s.influence=clamp(s.influence+3);s.factionAnger+=1;log(s,'党内を引き締めた。');}
@@ -862,12 +871,12 @@
   return false;
  }
  function allowed(s,id){
-  if(s.stage!=='main')return false;
+  if(s.stage!=='main'||(id!=='rest'&&s.energy===0))return false;
   if(s.mandate&&id!=='hq'&&id!=='rest')return false;
   if(termActions.some(a=>a[0]===id))return !(id==='faction'&&(!hasParty(s)||!s.faction||s.faction==='none'))&&!(id==='committee'&&s.committee===null);
   if(term2Actions.some(a=>a[0]===id)){
    if(!isTerm2(s))return false;
-   if(id==='study_group')return s.money>=100;
+   if(id==='study_group')return s.money>=G.funds(s,100);
    if(id==='stump')return G.campaign(s)&&hasParty(s);
    return false;
   }
@@ -884,10 +893,10 @@
   if(term2Actions.some(a=>a[0]===id)){
    const c=id==='study_group'?8:5;
    s.energy=clamp(s.energy-(G.Campaign?.energyCost(s,id)??c*(G.campaign(s)?2:1)));s.mandate=false;
-   if(id==='study_group'){s.money=Math.max(0,s.money-100);influence(s,5);s.network=clamp(s.network+3);if(hasParty(s)&&s.faction!=='none'){influence(s,-1);log(s,'派閥の長老は、いい顔をしなかった。');}record(s,'勉強会を立ち上げた','勉強会');}
+   if(id==='study_group'){s.money=Math.max(0,s.money-G.funds(s,100));influence(s,5);s.network=clamp(s.network+3);if(hasParty(s)&&s.faction!=='none'){influence(s,-1);log(s,'派閥の長老は、いい顔をしなかった。');}record(s,'勉強会を立ち上げた','勉強会');}
    if(id==='stump'){influence(s,3);s.partySupport=(s.partySupport||0)+1;change(s,[[7,2],[6,1]]);record(s,'党の候補の応援に立った','応援');}
    G.Campaign?.afterAction(s,id);
-   if(!s.energy){s.energy=35;s.fame=clamp(s.fame-3);log(s,'体力を使い果たし、休養した。');}
+   if(!s.energy){s.energy=0;s.fame=clamp(s.fame-3);log(s,'体力を使い果たし、休養した。');}
    log(s,term2Actions.find(a=>a[0]===id)[1]);finishTurn(s);return true;
   }
   const cost={question:12,committee:8,local:10,faction:8,abroad:8}[id];
@@ -901,11 +910,11 @@
    const losses=[...new Set(related.flatMap(i=>G.groups[i][7]))].filter(i=>!related.includes(i)&&i!==11);
    change(s,[...related.map(i=>[i,3]),[11,2],...losses.map(i=>[i,-1])]);
   }
-  if(id==='local')change(s,G.groups.map((_,i)=>[i,2]));
+  if(id==='local')change(s,G.groups.map((_,i)=>[i,1.25]));
   if(id==='faction'){influence(s,3);s.factionVisits++;if(s.factionVisits%3===0){debt(s,-1,1);s.debts.at(-1).name='派閥の長老';}}
-  if(id==='abroad'){s.policy=clamp(s.policy+3);s.fame=clamp(s.fame+1);change(s,[[2,-2],[3,-2],[7,-2]]);record(s,'海外視察に参加','視察');}
+  if(id==='abroad'){const success=random(s)<clamp((s.policy+20)/100,.1,.95);s.policy=clamp(s.policy+(success?5:2));s.fame=clamp(s.fame+(success?3:0));change(s,success?[[2,2],[3,2],[7,2]]:[[2,-2],[3,-2],[7,-2]]);record(s,success?'海外視察の成果を政策に反映':'海外視察で成果を示せず','視察');}
   G.Campaign?.afterAction(s,id);
-  if(!s.energy){s.energy=35;s.fame=clamp(s.fame-3);log(s,'体力を使い果たし、休養した。');}
+  if(!s.energy){s.energy=0;s.fame=clamp(s.fame-3);log(s,'体力を使い果たし、休養した。');}
   log(s,termActions.find(a=>a[0]===id)[1]);finishTurn(s);return true;
  }
  function continueResult(s,rescue=false){
