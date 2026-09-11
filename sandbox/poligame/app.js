@@ -52,10 +52,18 @@ function startEffects(before){
 function transitionAfter(op,id,before){
  pendingAction=null;save();
  if(typeof Image==='undefined'){refresh();return;}
- effectAnimation=prepareEffects(before);transition={kind:op,id};render();
- const asset=window.GameScenes.resolve(state),minimum=new Promise(done=>setTimeout(done,op==='start'?1000:effectAnimation?1650:720));
+ effectAnimation=prepareEffects(before);transition={kind:op,id,chapter:state.chapter};render();
+ const asset=window.GameScenes.resolve(state),minimum=new Promise(done=>setTimeout(done,op==='start'?3000:effectAnimation?1650:720));
  const preload=!asset.src?Promise.resolve():new Promise(done=>{const image=new Image(),timeout=setTimeout(done,1800);image.onload=image.onerror=()=>{clearTimeout(timeout);done();};image.src=asset.src;});
  Promise.all([minimum,preload]).then(()=>{transition=null;if(effectAnimation)applyEffects();else refresh();});
+}
+function transitionChapter(){
+ pendingAction=null;effectAnimation=null;save();
+ if(typeof setTimeout==='undefined'){refresh();return;}
+ transition={kind:'chapter',chapter:state.chapter};render();
+ const asset=window.GameScenes.resolve(state),minimum=new Promise(done=>setTimeout(done,3000));
+ const preload=!asset.src?Promise.resolve():new Promise(done=>{const image=new Image(),timeout=setTimeout(done,3600);image.onload=image.onerror=()=>{clearTimeout(timeout);done();};image.src=asset.src;});
+ Promise.all([minimum,preload]).then(()=>{transition=null;refresh();});
 }
 app.addEventListener('input',e=>{if(e.target.id==='candidate')draftName=e.target.value;});
 app.addEventListener('change',e=>{
@@ -79,7 +87,11 @@ app.addEventListener('click',e=>{
   state=null;render();return;
  }
  const before=effectSnapshot();
- if(perform(op,id)){if(['start','action','weekend'].includes(op))transitionAfter(op,id,before);else startEffects(before);}
+ if(perform(op,id)){
+  if(['beginTerm','beginSecondTerm','beginThirdTerm','beginLeadership','beginGovernment'].includes(op))transitionChapter();
+  else if(['start','action','weekend'].includes(op))transitionAfter(op,id,before);
+  else startEffects(before);
+ }
 });
 render();
 if(document.modelContext?.registerTool){
