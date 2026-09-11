@@ -23,7 +23,7 @@
  function event(s){
   const p=current(s)||fresh(s),c=choice;
   switch(s.event){
-   case 'fundraising':return {speaker:'後援会長のオオクボ',title:'政治資金パーティを開きませんか？',body:'開催した場合だけ資金と人脈が増え、体力と今回の主行動を使います。ここで見送っても資金・体力は減りません。大規模開催では、後日、支援した業界団体から公約を求められます。'+(s.mandate?'今回は党務のため開催できません。':s.party===1&&s.nomination!=='無所属'?'都市改革党の規則では個人参加型のみ開催できます。':'人脈は「後援会づくり」で育ちます。'),choices:[
+   case 'fundraising':return {speaker:'後援会長のオオクボ',title:'政治資金パーティを開きませんか？',body:'開催した場合だけ資金と人脈が増え、体力と今回の主行動を使います。ここで見送っても資金・体力は減りません。大規模開催では、後日、支援した業界団体から公約を求められます。'+(s.mandate?'今回は党務のため開催できません。':s.party===1&&s.nomination!=='無所属'?'都市改革党の規則では個人参加型のみ開催できます。':'人脈は「地域交流」や「後援会づくり」で育ちます。'),choices:[
     c('small','小規模パーティを開催する','開催後：資金＋150万円・人脈＋3／体力−15・今回の主行動を消費（必要：人脈20・体力15）',s.network<20||s.energy<15||s.mandate),
     c('large','大規模パーティを開催する',(s.memory[11]?'業界との関係が破綻／':'')+'開催後：資金＋350万円・人脈＋5／体力−25・今回の主行動を消費／後日、業界団体から要求あり（必要：人脈35・体力25）',s.network<35||s.energy<25||s.mandate||s.memory[11]||(s.party===1&&s.nomination!=='無所属')),
     c('later','今回は開かず、次回また検討する',(isTerm(s)?'今は何も変化しない（資金±0・体力±0）／第10ターンまで再提案':'今は何も変化しない（資金±0・体力±0）／8か月目まで再提案'),s.turn===(isTerm(s)?10:8)),
@@ -44,16 +44,16 @@
     c('provocative','対抗馬を挑発して注目を集める','今すぐ知名度＋4・クリーン度−5／毎回25%で若者−6・都市無党派−8'),
     c('cancel','発信を取りやめる','今後の配信なし／契約費は戻らない')
    ]};
-   case 'consultant':return {speaker:'選挙コンサルのミズノ',title:'最後の選挙戦、陣営を強化しましょう。',body:'300万円で主行動3回を強化。街頭演説・SNS・広告の知名度上昇量が50%増え、主行動の消費体力は25%減少します。休養も1回として数えます。今回の選挙限りの契約です。',choices:[
-    c('hire','選挙対策パックを契約する','300万円／主行動3回／知名度効果＋50%・消費体力−25%',s.money<300),
+   case 'consultant':return {speaker:'選挙コンサルのミズノ',title:'最後の選挙戦、陣営を強化しましょう。',body:'150万円で主行動3回を強化。街頭演説・SNS・広告の知名度上昇量が50%増え、主行動の消費体力は25%減少します。休養も1回として数えます。今回の選挙限りの契約です。',choices:[
+    c('hire','選挙対策パックを契約する','150万円／主行動3回／知名度効果＋50%・消費体力−25%',s.money<150),
     c('skip','自分たちで戦う','資金を温存する')
    ]};
   }
   return base.event(s);
  }
- const costs={speech:15,visit:12,org:10,network:10,study:8,media:15,sns:8,hq:8,rest:0,ad:5,question:12,committee:8,local:10,faction:8,abroad:8,study_group:8,stump:5};
+ const costs={outreach:10,donors:12,practice:8,speech:15,visit:12,org:10,network:10,study:8,media:15,sns:8,hq:8,rest:0,ad:5,question:12,committee:8,local:10,faction:8,abroad:8,study_group:8,stump:5};
  function energyCost(s,id){const normal=costs[id]*(G.campaign(s)?2:1);return Math.ceil(normal*(current(s)?.consultant>0?.75:1));}
- function fameGain(s,id){const normal=id==='speech'?3*[1,1.5,.7][s.district]:['sns','ad'].includes(id)?2:0;return normal*(current(s)?.consultant>0?1.5:1);}
+ function fameGain(s,id){const normal=id==='speech'?3*[1,1.5,.7][s.district]:id==='ad'?6:id==='sns'?2:0;return normal*(current(s)?.consultant>0?1.5:1);}
  // Called by both engines before exhaustion, turn advancement and the final vote.
  function afterAction(s,id){
   const p=ensure(s);
@@ -98,7 +98,7 @@
    if(id==='provocative'){s.fame=clamp(s.fame+4);s.clean=clamp(s.clean-5);}
    if(id==='cancel')p.influencer=0;
   }
-  if(type==='consultant'){mark(p,type);if(id==='hire'){s.money-=300;p.consultant=3;}}
+  if(type==='consultant'){mark(p,type);if(id==='hire'){s.money-=150;p.consultant=3;}}
   schedule(s);return true;
  }
  function validate(s){

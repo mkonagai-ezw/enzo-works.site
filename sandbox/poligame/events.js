@@ -230,6 +230,25 @@
     else{s.influence=clamp(s.influence+2);change(s,[[11,2]]);}
    }}
  ];
+ // One-time milestones reward investment; each consumes an available event slot.
+ const growthEvents=[
+  ['fame_local','fame',35,'地元番組から出演依頼です。','街で顔を覚えてもらえるようになりました。地元番組が、あなたの活動を紹介したいそうです。','番組に出演する',{energy:-8,fame:5,network:3}],
+  ['fame_national','fame',65,'全国の番組から声がかかりました。','地元を越えて活動が知られ始めました。全国の視聴者に、自分の考えを伝える機会です。','全国放送で話す',{energy:-12,fame:7,influence:4}],
+  ['speech_forum','speech',35,'街の討論会を任されました。','わかりやすい話し方が評判になっています。住民の話し合いで、進行役を頼まれました。','話し合いをまとめる',{energy:-8,speech:3,network:4}],
+  ['speech_teacher','speech',65,'話し方を教えてほしいそうです。','若い候補者たちが、あなたの話し方を学びたがっています。教えることで仲間を増やせそうです。','若い候補に教える',{energy:-10,network:6,influence:4}],
+  ['policy_proposal','policy',40,'政策の提案を求められました。','積み重ねた勉強が専門家の目に留まりました。地域の課題について、具体的な案を求められています。','提案をまとめる',{energy:-8,policy:3,fame:4}],
+  ['policy_team','policy',65,'専門家が力を貸してくれます。','あなたの政策に共感した専門家が集まりました。小さな研究会を作れば、次の政策を深められます。','研究会を立ち上げる',{energy:-8,money:-50,policy:6,network:6}],
+  ['network_volunteers','network',25,'手伝いたい人が集まりました。','交流を続けた人たちが、活動を手伝いたいと申し出ました。一緒に街へ出れば、声を届ける仲間になります。','仲間と街に出る',{energy:-6,fame:4,network:3}],
+  ['network_support','network',55,'個人の支援が広がっています。','知り合いが知り合いを紹介して、小さな支援の輪ができました。団体との約束を作らず活動を続ける助けになります。','個人の応援を受ける',{energy:-8,money:120,network:3}]
+ ];
+ for(const [id,stat,threshold,title,body,accept,effects] of growthEvents){
+  defs.push({id,phases:ALL,sure:true,when:s=>s[stat]>=threshold,
+   event:s=>({speaker:'地域の協力者',title,body,choices:[
+    c('accept',accept,'育てた能力を生かす／活動時間を使う',s.energy<-(effects.energy||0)||s.money<-(effects.money||0)),
+    c('decline','今回は見送る','体力と資金を温存する／この機会は一度だけ')]}),
+   apply:(s,pick)=>{if(pick==='accept'){for(const [key,value] of Object.entries(effects))s[key]=key==='money'?s[key]+value:clamp(s[key]+value);hist(s,title,'成長');}}
+  });
+ }
  const byId=Object.fromEntries(defs.map(d=>[d.id,d]));
  const ids=defs.map(d=>d.id);
  const rate={prologue:.35,term:.35,term2:.35,term3:.35};
