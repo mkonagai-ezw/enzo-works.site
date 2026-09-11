@@ -141,7 +141,7 @@ function govEndUI(){
  <p class="footnote">序章から終章まで、これが今回の到達点です。政党や路線を変えると、まったく違う物語になります。</p>
  <button class="primary" data-do="reset">最初から、別の物語を →</button></div>`;
 }
-function endUI(){
+function chapterEndUI(){
  if(state.chapter==='leadership')return leaderEndUI();
  if(state.chapter==='government')return govEndUI();
  const broken=state.debts.filter(d=>d.status==='踏み倒し').length,pending=state.debts.filter(d=>['未回収','一部履行'].includes(d.status)).length;
@@ -158,4 +158,14 @@ function endUI(){
  ${(t2||t3)&&state.result?.party?`<div class="vote-row"><span>党の全国議席</span><b>${state.result.party.seats} / ${state.result.party.total}${state.result.party.majority?'（単独過半数）':t3&&state.ruling?'（連立で過半数）':''}</b></div>`:''}
  ${t3&&elected?`<div class="vote-row"><span>党の立場 / あなたの役職</span><b>${state.ruling?'与党':'野党'} / ${state.cabinet==='minister'?'大臣':state.cabinet==='exec'?'党三役':'なし'}</b></div>`:''}
  ${!term()&&elected?'<button class="primary" data-do="beginTerm">第1期の議員活動へ →</button> ':''}${t1&&state.reelected?'<button class="primary" data-do="beginSecondTerm">第2期（中堅議員）へ →</button> ':''}${t2&&state.reelected?'<button class="primary" data-do="beginThirdTerm">第3期（党の顔）へ →</button> ':''}${t3&&state.reelected&&!state.leadershipSkip&&!state.term3Failed?'<button class="primary" data-do="beginLeadership">党首選に挑む →</button> ':''}<button class="primary" data-do="reset">別の道で、もう一度 →</button></div>`;
+}
+
+let careerTab='portrait';
+function endUI(){
+ if(!G.Career.isFinal(state))return chapterEndUI();
+ const r=G.Career.summary(state),tabs=[['portrait','あなたの総括'],['history','象徴的な選択'],['result','結果の詳細']];
+ const tabbar=`<nav class="career-tabs" aria-label="政治家人生の振り返り">${tabs.map(([id,label])=>`<button data-do="careerTab" data-id="${id}" aria-pressed="${careerTab===id}">${label}</button>`).join('')}</nav>`;
+ if(careerTab==='result')return `<div class="career-result">${tabbar}${chapterEndUI()}</div>`;
+ const layers=rows=>rows.map(x=>`<div class="career-layer"><b>${esc(x.name)}</b><span>好感度 ${num(x.value)} <small>開始時比 ${x.delta>=0?'+':''}${num(x.delta)}</small></span></div>`).join('');
+ return `${state.govResult&&['S','A'].includes(state.govResult.ending?.grade)?victoryCelebration():''}<article class="career-card" aria-label="政治家人生の総括"><header>${state.govResult&&['S','A','B'].includes(state.govResult.ending?.grade)?`<div class="career-clear-art">${milestoneArt('prime_minister')}</div>`:''}<span class="eyebrow">あなたが歩んだ、政治の道</span><h1>${esc(r.title)}</h1><p class="career-trait">${esc(r.trait)}</p><div class="career-meta">当選 ${r.wins}回 ／ 最高役職：${esc(r.role)} ／ ${esc(r.ending)}</div></header>${tabbar}<div class="career-body">${careerTab==='portrait'?`<p class="career-story">${r.paragraphs.map(esc).join('')}</p><div class="career-layers"><section><h2>支持の基盤</h2>${r.supporters.length?layers(r.supporters):'<p>まだ固まっていませんでした</p>'}</section><section><h2>距離ができた人々</h2>${r.lost.length?layers(r.lost):'<p>大きく支持を失った層はありません</p>'}</section></div><p class="career-hint"><b>次の挑戦へ</b>${esc(r.hint)}</p>`:`<ol class="career-highlights">${r.highlights.map(x=>`<li><small>${esc(period(x.turn,x.chapter))} ／ ${esc(x.title)}</small><p>「${esc(x.label)}」</p></li>`).join('')||'<li>象徴的な選択を記録するには、まだ短い挑戦でした。</li>'}</ol><details><summary>活動・選挙・判定の記録を見る</summary><p>${r.actions.map(([id,n])=>esc(transitionLook[id.replace('weekend:','')]?.[1]||id)+' '+n+'回').join(' ／ ')||'活動回数の記録はありません。'}</p>${r.elections.map(e=>`<p>${esc(chapterIntros[e.chapter]?.[1]||e.chapter)}の選挙：${e.rescue?'比例復活':e.won?'当選':'落選'} ／ ${num(e.player)}票</p>`).join('')}<p>支持基盤からの推計票（最終状態）：${r.supporters.map(x=>esc(x.name)+' '+num(x.votes)+'票').join(' ／ ')||'支持基盤なし'}</p>${r.funding.map(x=>`<p>${esc(period(x.turn,x.chapter))}：${esc(x.source)} ${x.amount>0?'+':''}${num(x.amount)}万円</p>`).join('')}<p>記録された判定：成功 ${r.checks.filter(x=>x.success).length}回 ／ 失敗 ${r.checks.filter(x=>!x.success).length}回</p></details>`}${r.partial?'<p class="career-note">以前のセーブのため、残っている記録と更新後の行動から総括しています。</p>':''}</div><footer><button class="primary" data-do="reset">別の道で、もう一度 →</button></footer></article>`;
 }

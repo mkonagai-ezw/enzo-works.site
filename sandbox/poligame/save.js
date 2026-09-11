@@ -27,6 +27,7 @@
    if(['term','term2','term3','leadership','government'].includes(s.chapter)&&!G.Legislature?.validate(s))return null;
    if(G.Campaign&&!G.Campaign.validate(s))return null;
    if(G.Extra&&!G.Extra.validate(s))return null;
+   if(G.Career&&!G.Career.validate(s))return null;
    if(s.stage==='event'){
     if(typeof s.event!=='string'||!G.event(s))return null;
     if(s.event==='collect'&&(!s.collection.length||!['未回収','一部履行'].includes(s.debts[s.collection[0]].status)))return null;

@@ -53,6 +53,7 @@ function check(s,key,option){
  const info=checkInfo(s,key,option);if(!info)throw Error('Unknown check '+key);
  const draw=random(s),success=info.risk?draw>=(key==='sns'?.1+(100-s.clean)/1000:key==='heckler_risk'?.2:.25):draw<info.chance;
  const outcome={...info,success,text:success?info.success:info.failure};
+ root.Game.Career?.recordCheck(s,outcome);
  outcomes.set(s,[...(outcomes.get(s)||[]),outcome].slice(-8));
  log(s,(success?'成功':'失敗')+'：'+info.title+' — '+outcome.text);
  return success;

@@ -76,6 +76,7 @@ app.addEventListener('click',e=>{
  const button=e.target.closest('[data-do]');if(!button||button.disabled)return;
  const op=button.dataset.do,id=button.dataset.id;
  if(transition||effectAnimation)return;
+ if(op==='careerTab'&&state&&G.Career.isFinal(state)&&['portrait','history','result'].includes(id)){careerTab=id;render();return;}
  if(op==='party'){party=Number(id);render();return;}
  if(op==='actionGroup'&&actionGroups.some(g=>g.id===id)){actionGroup=id;pendingAction=null;render();return;}
  if(op==='inspector'&&['support','debt','records'].includes(id)){inspector=id;render();return;}
@@ -85,7 +86,7 @@ app.addEventListener('click',e=>{
  if(op==='reset'){
   if(!confirm('現在の進行を消して、最初から始めますか？'))return;
   try{localStorage.removeItem(KEY);storageWarning='';}catch{storageWarning='保存データを削除できませんでした。再読み込みすると以前の進行が戻る場合があります。';}
-  state=null;render();return;
+  state=null;careerTab='portrait';render();return;
  }
  const before=effectSnapshot();
  if(perform(op,id)){
