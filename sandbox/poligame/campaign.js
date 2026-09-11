@@ -61,7 +61,7 @@
   if(p.consultant>0){const bonus=fameGain(s,id)/3;s.fame=clamp(s.fame+bonus);p.consultant--;log(s,'コンサル契約：あと'+p.consultant+'回');}
   if(p.influencer>0){
    s.fame=clamp(s.fame+3);p.influencer--;log(s,'コラボ動画を配信：知名度＋3／あと'+p.influencer+'回');
-   if(p.influencerMode==='provocative'&&random(s)<.25){s.likes[2]=clamp(s.likes[2]-6,-50,100);s.likes[7]=clamp(s.likes[7]-8,-50,100);log(s,'挑発的な動画が炎上。若者−6・都市無党派−8。');}
+   if(p.influencerMode==='provocative'&&!G.check(s,'influencer_risk')){s.likes[2]=clamp(s.likes[2]-6,-50,100);s.likes[7]=clamp(s.likes[7]-8,-50,100);log(s,'挑発的な動画が炎上。若者−6・都市無党派−8。');}
   }
  }
  function consumeParty(s,large){

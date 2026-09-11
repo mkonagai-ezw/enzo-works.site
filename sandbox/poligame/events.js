@@ -40,7 +40,7 @@
     c('distance','業界と距離を置く','業界が怒る／約束の一部が宙に浮く'),
     c('ignore','相手にしない','無党派が離れる／クリーン度が下がる')]}),
    apply:(s,id)=>{
-    if(id==='explain'){if(judge(s,'policy')){change(s,[[7,3]]);log(s,'説明が届き、無党派は納得した。');}else{change(s,[[7,-6]]);log(s,'説明は空回りした。');}}
+    if(id==='explain'){if(G.check(s,'mouthpiece')){change(s,[[7,3]]);log(s,'説明が届き、無党派は納得した。');}else{change(s,[[7,-6]]);log(s,'説明は空回りした。');}}
     else if(id==='distance'){change(s,[[11,-12]]);const d=s.debts.find(d=>d.group===11&&['未回収','一部履行'].includes(d.status));if(d){d.status='一部履行';d.weight=1;}hist(s,'業界と距離を置くと表明','発言');}
     else{change(s,[[7,-8]]);s.clean=clamp(s.clean-4);}
    }},
@@ -71,7 +71,7 @@
     c('ride','盛り上がりに乗る','知名度と若者が上がる／高齢者が離れ、炎上するかも')]}),
    apply:(s,id)=>{
     if(id==='calm')change(s,[[2,-4],[7,3],[0,2]]);
-    else{s.fame=clamp(s.fame+6);change(s,[[2,4],[0,-6]]);if(random(s)<.25){change(s,[[7,-8]]);log(s,'ファンの騒ぎが炎上した。');}}
+    else{s.fame=clamp(s.fame+6);change(s,[[2,4],[0,-6]]);if(!G.check(s,'fandom_risk')){change(s,[[7,-8]]);log(s,'ファンの騒ぎが炎上した。');}}
    }},
   // ===== B. 災害・突発（ランダム） =====
   {id:'quake',phases:ALL,weight:1,when:s=>chapter(s)!=='prologue'||s.turn>=2,
@@ -80,7 +80,7 @@
     c('hq','東京で対策の実務にあたる','党内で評価される／地元は「顔を見せない」と感じる'),
     c('ignore','予定の活動を続ける','地元とみんなが「冷たい」と感じる')]}),
    apply:(s,id)=>{
-    if(id==='go'){s.energy=clamp(s.energy-20);if(judge(s,'policy')){change(s,[[6,8],...G.groups.map((_,i)=>[i,2])]);s.fame=clamp(s.fame+4);log(s,'現地での支援が評価された。');}else{change(s,[[7,-5]]);log(s,'「写真だけ」と批判された。');}hist(s,'震災の現地入り','写真',{publicity:2});return 'skip';}
+    if(id==='go'){s.energy=clamp(s.energy-20);if(G.check(s,'quake')){change(s,[[6,8],...G.groups.map((_,i)=>[i,2])]);s.fame=clamp(s.fame+4);log(s,'現地での支援が評価された。');}else{change(s,[[7,-5]]);log(s,'「写真だけ」と批判された。');}hist(s,'震災の現地入り','写真',{publicity:2});return 'skip';}
     if(id==='hq'){s.influence=clamp(s.influence+3);change(s,[[6,-4]]);}
     else{change(s,[[6,-10],...G.groups.map((_,i)=>[i,-3])]);hist(s,'震災の最中に予定を優先','冷たい');}
    }},
@@ -97,7 +97,7 @@
     c('online','ネット配信に切り替える','政策力で判定／うまくいけば知名度と若者が上がる'),
     c('force','集会を開く','知名度は少し上がる／クリーン度と無党派が下がる')]}),
    apply:(s,id)=>{
-    if(id==='online'){if(judge(s,'policy')){s.fame=clamp(s.fame+4);change(s,[[2,3]]);log(s,'ネット配信が話題になった。');}else log(s,'配信は伸びなかった。');}
+    if(id==='online'){if(G.check(s,'pandemic')){s.fame=clamp(s.fame+4);change(s,[[2,3]]);log(s,'ネット配信が話題になった。');}else log(s,'配信は伸びなかった。');}
     else{s.fame=clamp(s.fame+2);s.clean=clamp(s.clean-6);change(s,[[7,-8]]);}
    }},
   {id:'byelection',phases:TERMS,weight:2,when:hasParty,
@@ -175,7 +175,7 @@
     c('plan','計画を認めつつ、代わりの案を出す','政策力で判定／うまくいけばみんなが納得')]}),
    apply:(s,id)=>{
     if(id==='oppose'){change(s,[[0,6],[1,6],[7,-4]]);hist(s,'病院と高校の存続を約束','公約',{group:0});}
-    else if(judge(s,'policy')){change(s,[[0,3],[1,3],[7,3]]);log(s,'代わりの案が受け入れられた。');}
+    else if(G.check(s,'closure')){change(s,[[0,3],[1,3],[7,3]]);log(s,'代わりの案が受け入れられた。');}
     else{change(s,[[0,-6],[1,-6]]);log(s,'代わりの案は「机上の空論」と言われた。');}
    }},
   {id:'facility',phases:TERMS,weight:2,when:s=>s.district===2,
@@ -200,8 +200,8 @@
     c('fight','言い返す','味方の層は沸く／無党派が離れ、炎上するかも'),
     c('police','警備に外へ出してもらう','リベラル層が怒る／「排除した」と記録される')]}),
    apply:(s,id)=>{
-    if(id==='calm'){if(judge(s,'speech')){s.fame=clamp(s.fame+4);change(s,[[7,3]]);}else s.fame=clamp(s.fame+1);}
-    else if(id==='fight'){const side=G.parties[s.party].likes[8]>=G.parties[s.party].likes[9]?8:9;change(s,[[side,4],[7,-4]]);if(random(s)<.2){change(s,[[7,-8]]);log(s,'言い返した動画が炎上した。');}}
+    if(id==='calm'){if(G.check(s,'heckler')){s.fame=clamp(s.fame+4);change(s,[[7,3]]);}else s.fame=clamp(s.fame+1);}
+    else if(id==='fight'){const side=G.parties[s.party].likes[8]>=G.parties[s.party].likes[9]?8:9;change(s,[[side,4],[7,-4]]);if(!G.check(s,'heckler_risk')){change(s,[[7,-8]]);log(s,'言い返した動画が炎上した。');}}
     else{change(s,[[9,-5],[7,-2]]);hist(s,'ヤジを飛ばした人を排除','排除');}
    }},
   // ===== E. 党内・国会 =====
@@ -226,7 +226,7 @@
     c('push','追及を続ける','弁舌で判定／うまくいけば知名度と無党派が上がる'),
     c('stop','矛を収める','党内と業界の評価が少し上がる')]}),
    apply:(s,id)=>{
-    if(id==='push'){if(judge(s,'speech')){s.fame=clamp(s.fame+5);change(s,[[7,4]]);log(s,'追及が評価された。');}else{change(s,[[7,-6]]);s.influence=clamp(s.influence-3);log(s,'「やりすぎ」と批判された。');}}
+    if(id==='push'){if(G.check(s,'grill')){s.fame=clamp(s.fame+5);change(s,[[7,4]]);log(s,'追及が評価された。');}else{change(s,[[7,-6]]);s.influence=clamp(s.influence-3);log(s,'「やりすぎ」と批判された。');}}
     else{s.influence=clamp(s.influence+2);change(s,[[11,2]]);}
    }}
  ];

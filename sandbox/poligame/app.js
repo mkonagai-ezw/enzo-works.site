@@ -33,13 +33,14 @@ function perform(op,id){
 }
 function refresh(){pendingAction=null;save();render();const center=document.getElementById('game-content');center?.focus({preventScroll:true});}
 const effectKeys=[['energy','体力','♥'],['fame','知名度','★'],['speech','弁舌','●'],['policy','政策力','◆'],['network','人脈','✦'],['money','活動資金','💰','万円'],['clean','クリーン度','✨'],['influence','党内影響力','🏛️']];
-function effectSnapshot(){return state?Object.fromEntries(effectKeys.map(([key])=>[key,state[key]]).concat([['likes',state.likes.slice()]])):null;}
+function effectSnapshot(){if(state)G.outcomes.delete(state);return state?Object.fromEntries(effectKeys.map(([key])=>[key,state[key]]).concat([['likes',state.likes.slice()]])):null;}
 function prepareEffects(before){
  if(!before||typeof setTimeout==='undefined')return null;
  const items=[],changed=new Set();
  for(const [key,label,icon,unit] of effectKeys){const delta=state[key]-before[key];if(delta){items.push({key,label,icon,unit,delta});changed.add(key);}}
  state.likes.forEach((value,i)=>{const delta=value-before.likes[i];if(delta){items.push({key:'likes.'+i,label:G.groups[i][0],icon:'👥',delta});changed.add('likes.'+i);}});
- return items.length?{before,items,changed,progress:0}:null;
+ const results=G.outcomes.get(state)||[];
+ return items.length||results.length?{before,items,changed,results,progress:0}:null;
 }
 function applyEffects(){
  let step=0;const tick=()=>{step++;effectAnimation.progress=Math.min(1,step/12);render();if(step<12)setTimeout(tick,50);else setTimeout(()=>{effectAnimation=null;render();document.getElementById('game-content')?.focus({preventScroll:true});},260);};tick();

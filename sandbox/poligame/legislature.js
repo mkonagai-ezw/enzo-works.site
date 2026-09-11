@@ -413,7 +413,7 @@
   if(type==='national_debate'){
    const count=contradictions(s),promised=s.policyStance==='elder'?[0]:s.policyStance==='child'?[1]:s.policyStance==='third'?[0,1]:[];
    if(id==='debate'){
-    const success=random(s)<clamp((s.speech+30)/100-count*.1,.1,.95);
+    const success=G.check(s,'national_debate');
     if(success){s.nationalFame=true;s.fame=clamp(s.fame+6);change(s,[[7,4]]);log(s,'全国放送での論戦が高く評価された。');}
     else{change(s,[[7,-8]]);log(s,'討論でつまずき、都市無党派が離れた。');}
     if(count)change(s,promised.map(i=>[i,-5]));
@@ -460,7 +460,7 @@
   if(type==='term_review'){
    const count=contradictions(s),promised=s.policyStance==='elder'?[0]:s.policyStance==='child'?[1]:s.policyStance==='third'?[0,1]:[];
    if(id==='explain'){
-    const success=random(s)<clamp((s.speech+35)/100-count*.1,.1,.95);
+    const success=G.check(s,'term_review');
     change(s,success?[[2,3],[3,3],[7,3]]:[[2,-5],[3,-5],[7,-5]]);
     if(count)change(s,promised.map(i=>[i,-5*count]));
     log(s,success?'説明は届いた。公約との違いは記録に残る。':'説明に苦しんだ。過去の公約が追及された。');
@@ -619,7 +619,7 @@
   if(type==='leader_debate'){
    const count=contradictions(s);
    if(id==='fight'){
-    const success=random(s)<clamp((s.speech+25)/100-count*.1,.1,.95);
+    const success=G.check(s,'leader_debate');
     if(success){s.memberBoost=(s.memberBoost||0)+.1;s.fame=clamp(s.fame+3);log(s,'討論で存在感を示した。党員の支持が伸びる。');}
     else{s.debatePenalty=(s.debatePenalty||0)+.15;log(s,'討論で過去の採決を突かれた。党員票が削れる。');}
     record(s,'党首選：討論会に臨んだ','討論',{contradictions:count});
@@ -631,7 +631,7 @@
    else if(id==='tour'){s.prefVotes=Math.min(32,(s.prefVotes||0)+8+Math.floor(random(s)*5));log(s,'地方行脚で都道府県代表の支持を固めた。');record(s,'党首選：地方を行脚','党内');}
    else{
     s.influence=clamp(s.influence-8);
-    if(random(s)<clamp(s.influence/120,.15,.8)){s.rivalDietCut=(s.rivalDietCut||0)+.12;log(s,'裏工作が効き、「派閥の長」の足元が揺らいだ。');record(s,'党首選：裏工作','党内');}
+    if(G.check(s,'backroom')){s.rivalDietCut=(s.rivalDietCut||0)+.12;log(s,'裏工作が効き、「派閥の長」の足元が揺らいだ。');record(s,'党首選：裏工作','党内');}
     else{s.betrayed=true;s.influence=clamp(s.influence-3);change(s,[[7,-4]]);log(s,'裏工作が露見。「裏切り者」の烙印がついた。');record(s,'党首選：裏工作が露見','裏切り');}
    }
    finishLeadership(s);return true;
@@ -724,17 +724,17 @@
  function govResolveIncident(s,id){
   const t=s.incidentType;s.incidentType=null;
   if(t==='disaster'){
-   if(random(s)<clamp((s.policy+20)/100,.1,.95)){s.approval=clamp(s.approval+6);change(s,[[6,5]]);log(s,'災害対応が評価された。');}
+   if(G.check(s,'disaster')){s.approval=clamp(s.approval+6);change(s,[[6,5]]);log(s,'災害対応が評価された。');}
    else{s.approval=clamp(s.approval-8);log(s,'災害対応の遅れを批判された。');}
   }else if(t==='foreign'){
-   if(random(s)<clamp((s.speech+20)/100,.1,.95)){s.approval=clamp(s.approval+5);change(s,[[8,5]]);log(s,'外交危機を乗り切った。');}
+   if(G.check(s,'foreign')){s.approval=clamp(s.approval+5);change(s,[[8,5]]);log(s,'外交危機を乗り切った。');}
    else{s.approval=clamp(s.approval-6);change(s,[[8,-5]]);log(s,'外交で腰砕けと見られた。');}
   }else if(t==='economy'){
    const soft=[2,3].includes(s.platform);
    s.approval=clamp(s.approval-(soft?2:5)-(s.handoutGiven?2:0));if(!soft)change(s,[[3,-5],[4,-5]]);
    log(s,soft?'景気は悪化したが、経済政策が下支えした。':'景気の悪化が政権を直撃した。');
   }else if(t==='gaffe'){
-   if(random(s)<clamp((s.speech+20)/100,.1,.95)){s.approval=clamp(s.approval-2);log(s,'早い謝罪で失言を鎮めた。');}
+   if(G.check(s,'gaffe')){s.approval=clamp(s.approval-2);log(s,'早い謝罪で失言を鎮めた。');}
    else{s.approval=clamp(s.approval-5);change(s,[[7,-8]]);log(s,'失言を放置し、批判が広がった。');}
   }else if(t==='scandal'){
    if(id==='sack'){s.approval=clamp(s.approval-4);s.factionAnger+=2;s.sackedRecently=true;log(s,'閣僚を更迭した。');record(s,'閣僚スキャンダルで更迭','政権');}
@@ -815,13 +815,13 @@
    const seatRate=(s.result?.party?.seats||150)/465;
    const merit=s.cabinetPlan==='merit'?.15:s.cabinetPlan==='renew'?-.05:0;
    const p=platforms[s.platform]||platforms[0];
-   if(random(s)<clamp(seatRate+merit-s.factionAnger*.02,.05,.95)){
+   if(G.check(s,'policy')){
     change(s,[...p.benefit.map(i=>[i,15]),...p.burden.map(i=>[i,-12])]);s.approval=clamp(s.approval+5);
     log(s,'看板政策「'+p.name+'」が国会を通過した。');record(s,'看板政策「'+p.name+'」成立','政策');
    }else{s.approval=clamp(s.approval-6);log(s,'看板政策「'+p.name+'」は否決された。');record(s,'看板政策「'+p.name+'」否決','政策');}
   }
   else if(id==='diplomacy'){
-   if(random(s)<clamp((s.speech+20)/100,.1,.95)){s.approval=clamp(s.approval+4);change(s,[[8,3]]);log(s,'首脳会談が成果を上げた。');}
+   if(G.check(s,'diplomacy')){s.approval=clamp(s.approval+4);change(s,[[8,3]]);log(s,'首脳会談が成果を上げた。');}
    else{s.approval=clamp(s.approval-3);log(s,'外遊は空回りに終わった。');}
    if(random(s)<.2){s.incidentType='abroad_disaster';s.event='gov_incident';s.stage='event';return true;}
   }
@@ -902,7 +902,7 @@
   const cost={question:12,committee:8,local:10,faction:8,abroad:8}[id];
   s.energy=clamp(s.energy-(G.Campaign?.energyCost(s,id)??cost*(G.campaign(s)?2:1)));s.mandate=false;
   if(id==='question'){
-   if(random(s)<clamp((s.policy+20)/100,.1,.95)){s.fame=clamp(s.fame+4);change(s,[[target,5]],true);log(s,'国会質問で'+names([target])+'の課題が注目された。');}
+   if(G.check(s,'question')){s.fame=clamp(s.fame+4);change(s,[[target,5]],true);log(s,'国会質問で'+names([target])+'の課題が注目された。');}
    else{influence(s,-2);record(s,names([target])+'を扱う質問が空回り','質問');}
   }
   if(id==='committee'){
@@ -912,7 +912,7 @@
   }
   if(id==='local')change(s,G.groups.map((_,i)=>[i,1.25]));
   if(id==='faction'){influence(s,3);s.factionVisits++;if(s.factionVisits%3===0){debt(s,-1,1);s.debts.at(-1).name='派閥の長老';}}
-  if(id==='abroad'){const success=random(s)<clamp((s.policy+20)/100,.1,.95);s.policy=clamp(s.policy+(success?5:2));s.fame=clamp(s.fame+(success?3:0));change(s,success?[[2,2],[3,2],[7,2]]:[[2,-2],[3,-2],[7,-2]]);record(s,success?'海外視察の成果を政策に反映':'海外視察で成果を示せず','視察');}
+  if(id==='abroad'){const success=G.check(s,'abroad');s.policy=clamp(s.policy+(success?5:2));s.fame=clamp(s.fame+(success?3:0));change(s,success?[[2,2],[3,2],[7,2]]:[[2,-2],[3,-2],[7,-2]]);record(s,success?'海外視察の成果を政策に反映':'海外視察で成果を示せず','視察');}
   G.Campaign?.afterAction(s,id);
   if(!s.energy){s.energy=0;s.fame=clamp(s.fame-3);log(s,'体力を使い果たし、休養した。');}
   log(s,termActions.find(a=>a[0]===id)[1]);finishTurn(s);return true;

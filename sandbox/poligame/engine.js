@@ -7,6 +7,67 @@ const parties=[
 {name:'生活連帯党',tag:'暮らしを守る連帯',desc:'労働組合が選挙の土台。経営者への接近は、支持者を揺らす。',fame:10,money:500,likes:[10,20,5,20,-20,35,0,5,-15,20,-10,-10],mod:[0,0,0],ruling:false,leader:[.5,.5]},
 {name:'正道党',tag:'小さく、固い結束',desc:'熱心な組織の支持が強み。その距離の近さを、無党派は見ている。',fame:10,money:600,likes:[10,15,-5,10,0,0,5,-15,5,-10,60,5],mod:[0,0,0],ruling:true,leader:[.7,.3]},
 {name:'新風の会',tag:'風を味方につける',desc:'知名度は一歩リード。追い風も逆風も大きく、最後まで読めない。',fame:25,money:300,likes:[-5,5,20,20,-10,-15,5,15,15,-20,-10,-20],mod:[0,5,-5],ruling:false,leader:[.2,.8]}];
+
+const outcomes=new WeakMap();
+function checkInfo(s,key,option){
+ const specs={
+  media:['テレビ出演','弁舌','speech',20,'番組で好評を得て知名度が上がる','言葉に詰まり、無党派の支持が下がる'],
+  debate:['公開討論','弁舌','speech',35,'説明が届き、知名度と支持が上がる','説明に苦しみ、無党派の支持が下がる'],
+  scandal:['スキャンダルへの説明','政策力','policy',20,'説明が届き、支持低下を軽減する','説明が裏目に出て、支持低下が大きくなる'],
+  question:['国会質問','政策力','policy',20,'課題が注目され、知名度と対象層の支持が上がる','質問が空回りし、党内影響力が下がる'],
+  abroad:['海外視察','政策力','policy',20,'成果を持ち帰り、政策力・知名度・支持が伸びる','政策力は少し伸びるが、無党派の支持が下がる'],
+  national_debate:['全国テレビ討論','弁舌','speech',30,'全国的な注目と支持を得る','討論でつまずき、都市無党派が離れる'],
+  term_review:['公約の説明','弁舌','speech',35,'無党派に説明が届く','説明に苦しみ、無党派の支持が下がる'],
+  leader_debate:['党首選討論','弁舌','speech',25,'党員への訴求が強まる','党員票に不利な評価が残る'],
+  backroom:['党首選の裏工作','党内影響力','influence',0,'対立候補の議員票を削る','裏切り者と見られ、票集めが不利になる'],
+  mouthpiece:['業界との関係説明','政策力','policy',20,'都市無党派が納得する','説明が空回りし、都市無党派が離れる'],
+  quake:['震災の現地支援','政策力','policy',20,'支援が評価され、知名度と支持が上がる','「写真だけ」と批判される'],
+  pandemic:['オンライン配信','政策力','policy',20,'配信が話題になり、知名度と若者支持が上がる','配信が伸びず、追加の成果は得られない'],
+  closure:['施設存続の代案','政策力','policy',20,'代案が受け入れられる','机上の空論と見られ、住民の支持が下がる'],
+  heckler:['ヤジへの冷静な対応','弁舌','speech',20,'対応が評価され、知名度と支持が上がる','十分に伝わらず、知名度の小幅上昇にとどまる'],
+  grill:['国会での追及','弁舌','speech',20,'追及が評価され、知名度と支持が上がる','やりすぎと批判され、支持と影響力が下がる'],
+  disaster:['災害対応','政策力','policy',20,'対応が評価され、支持率が上がる','対応が遅れ、支持率が下がる'],
+  foreign:['外交危機への対応','弁舌','speech',20,'危機を乗り切り、支持率が上がる','弱腰と見られ、支持率と支持が下がる'],
+  gaffe:['失言の火消し','弁舌','speech',20,'早い謝罪で支持率の低下を軽減する','対応が遅れ、支持率と支持が下がる'],
+  diplomacy:['首脳会談','弁舌','speech',20,'外交成果で支持率が上がる','会談が空回りし、支持率が下がる'],
+  policy:['看板政策の採決','与党議席・組閣方針・派閥不満',null,0,'政策が成立し、支持率と恩恵層の支持が上がる','政策が否決され、支持率が下がる'],
+  sns:['SNS発信','クリーン度',null,0,'炎上せずに発信できる','炎上し、若者と都市無党派の支持が下がる'],
+  fandom_risk:['ファンの盛り上がり','固定確率',null,0,'追加の炎上は起きない','騒ぎが炎上し、都市無党派が離れる'],
+  heckler_risk:['ヤジへの反論','固定確率',null,0,'反論の動画は炎上しない','反論の動画が炎上する'],
+  influencer_risk:['挑発的なコラボ配信','固定確率',null,0,'今回の配信は炎上しない','今回の配信が炎上し、支持が下がる']
+ };
+ const a=Object.hasOwn(specs,key)?specs[key]:null;if(!a)return null;
+ const [title,label,stat,bonus,success,failure]=a;
+ let chance=clamp(((s[stat]||0)+bonus)/100,.1,.95),risk=false;
+ const count=['national_debate','term_review','leader_debate'].includes(key)?(root.Game.Legislature?.contradictions(s)||0):0;
+ if(count)chance=clamp(((s[stat]||0)+bonus)/100-count*.1,.1,.95);
+ if(key==='debate')chance=clamp((s.speech+35)/100-(option==='switch'&&s.policyStance!=='third'?.1:0),.1,.95);
+ if(key==='backroom')chance=clamp(s.influence/120,.15,.8);
+ if(key==='policy')chance=clamp((s.result?.party?.seats||150)/465+(s.cabinetPlan==='merit'?.15:s.cabinetPlan==='renew'?-.05:0)-s.factionAnger*.02,.05,.95);
+ if(key==='sns'){risk=true;chance=1-(.1+(100-s.clean)/1000);}
+ if(key==='fandom_risk'||key==='influencer_risk'){risk=true;chance=.75;}
+ if(key==='heckler_risk'){risk=true;chance=.8;}
+ return {key,title,label,value:stat?s[stat]:key==='sns'?s.clean:null,chance,success,failure,risk,penalty:count?count*10:option==='switch'&&key==='debate'&&s.policyStance!=='third'?10:0};
+}
+function check(s,key,option){
+ const info=checkInfo(s,key,option);if(!info)throw Error('Unknown check '+key);
+ const draw=random(s),success=info.risk?draw>=(key==='sns'?.1+(100-s.clean)/1000:key==='heckler_risk'?.2:.25):draw<info.chance;
+ const outcome={...info,success,text:success?info.success:info.failure};
+ outcomes.set(s,[...(outcomes.get(s)||[]),outcome].slice(-8));
+ log(s,(success?'成功':'失敗')+'：'+info.title+' — '+outcome.text);
+ return success;
+}
+function choiceCheck(s,op,id){
+ if(op==='action')return checkInfo(s,({media:'media',sns:'sns',question:'question',abroad:'abroad',diplomacy:'diplomacy',policy:'policy'})[id]);
+ if(op!=='choice')return null;
+ const e=s.event;
+ if(e==='debate')return checkInfo(s,'debate',id);
+ if(e==='gov_incident'&&id==='go')return checkInfo(s,s.incidentType);
+ const key={scandal:{explain:'scandal'},national_debate:{debate:'national_debate'},term_review:{explain:'term_review'},leader_debate:{fight:'leader_debate'},leader_ground:{backroom:'backroom'},mouthpiece:{explain:'mouthpiece'},quake:{go:'quake'},pandemic:{online:'pandemic'},closure:{plan:'closure'},heckler:{calm:'heckler',fight:'heckler_risk'},grill:{push:'grill'},fandom:{ride:'fandom_risk'}}[e]?.[id];
+ if(key==='backroom'){const info=checkInfo({...s,influence:clamp(s.influence-8)},key);info.label='党内影響力（コスト8支払い後）';return info;}
+ return checkInfo(s,key);
+}
+
 function population(s,i){return groups[i][1+s.district]/groups.reduce((sum,g)=>sum+g[1+s.district],0)*100000;}
 const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,v));
 const previewRandom=new WeakMap();
@@ -35,8 +96,8 @@ if(id==='visit')change(s,[[target,6*(s.district===1?.5:1)]],true);
 if(id==='org'){s.visits[target]++;const donation=funds(s,groups[target][5]*50*(business&&target===11?2:1));s.money+=donation;s.donationRefund=donation;change(s,[[target,8]],true);s.org[target]=population(s,target)*groups[target][5]*.1;if(groups[target][5]>=4)debt(s,target,s.visits[target]>=3?2:1);s.clean-=target===11?(business?8:3):target===10?5:2;if(business&&target===11)s.newBusiness++;s.history.push({turn:s.turn,text:groups[target][0]+'を訪問',kind:'接触',group:target,publicity:1});if(s.party===1&&s.nomination!=='無所属'){s.event='reform';}}
 if(id==='network'){s.money-=funds(s,50);s.network+=8;change(s,[[6,3],[2,-1]],false)}
 if(id==='study')s.policy+=5;
-if(id==='media'){if(random(s)<clamp((s.speech+20)/100,.1,.95)){s.fame+=8;log(s,'テレビ出演が好評。知名度が上がった。')}else{change(s,[[2,-8],[3,-8],[7,-8]]);log(s,'テレビで言葉に詰まる。無党派の期待がしぼんだ。')}}
-if(id==='sns'){change(s,[[2,4],[0,-1]],false);s.fame+=2;if(random(s)<.1+(100-s.clean)/1000){change(s,[[2,-5],[7,-5]]);log(s,'SNSの投稿が炎上した。')}}
+if(id==='media'){if(check(s,'media')){s.fame+=8;log(s,'テレビ出演が好評。知名度が上がった。')}else{change(s,[[2,-8],[3,-8],[7,-8]]);log(s,'テレビで言葉に詰まる。無党派の期待がしぼんだ。')}}
+if(id==='sns'){change(s,[[2,4],[0,-1]],false);s.fame+=2;if(!check(s,'sns')){change(s,[[2,-5],[7,-5]]);log(s,'SNSの投稿が炎上した。')}}
 if(id==='hq'){s.influence+=4;s.money+=funds(s,100);if(!forced)s.nextMandate=true;}
 if(id==='ad'){s.money-=funds(s,100);s.fame+=6}
 root.Game.Campaign?.afterAction(s,id);for(const k of ['fame','speech','policy','network','clean','influence'])s[k]=clamp(s[k]);log(s,actions.find(a=>a[0]===id)[1]+(id==='visit'||id==='org'?'：'+groups[target][0]:''));const exhausted=s.energy===0;if(exhausted){s.energy=0;s.fame=clamp(s.fame-3);log(s,'体力が尽きた。知名度が下がった。次の活動は休養が必要です。');}if(s.event==='reform'){s.stage='event';s.resume=exhausted||s.chapter==='term'||s.chapter==='term2'||s.chapter==='term3'?'finish':'weekend'}else if(exhausted||s.chapter==='term'||s.chapter==='term2'||s.chapter==='term3'){finishTurn(s)}else{s.stage='weekend'}return true;}
@@ -61,13 +122,13 @@ function choose(s,id){if(s.stage!=='event')return false;const ev=event(s),opt=ev
 if(type==='nomination'){if(id==='official')s.nomination='公認';if(id==='independent')independent(s);if(id==='list')s.nomination='比例下位';}
 if(type==='donation'){if(id==='accept'){s.money+=funds(s,500);s.org[11]=Math.max(s.org[11],population(s,11)*.5);s.clean=clamp(s.clean-15);change(s,[[11,8],[2,-3],[3,-3],[7,-5]]);debt(s,11,2);if(s.party===1&&s.nomination!=='無所属'){s.event='reform';s.donationRefund=funds(s,500);s.resume='main';return true;}}else{change(s,[[2,5],[3,5],[7,5]]);s.clean=clamp(s.clean+5);}}
 if(type==='issue'){s.policyStance=id;change(s,id==='elder'?[[0,10],[1,-8]]:id==='child'?[[1,10],[0,-8]]:[[0,5],[1,5],[7,-3]]);s.history.push({turn:s.turn,text:opt.title,kind:'公約',group:id==='elder'?0:1,publicity:3});}
-if(type==='debate'){const contradiction=id==='switch'&&s.policyStance!=='third';const chance=clamp((s.speech+35)/100-(contradiction?.1:0),.1,.95);if(random(s)<chance){change(s,groups.map((_,i)=>[i,3]));s.fame=clamp(s.fame+5);log(s,'討論会で説明が届いた。各層の評価が上がる。')}else{change(s,[[2,-5],[3,-5],[7,-5]]);log(s,'討論会で説明に苦しんだ。無党派の評価が下がる。')}if(contradiction){change(s,[[s.policyStance==='elder'?0:1,-5]]);s.history.push({turn:s.turn,text:'討論で過去の公約と矛盾',kind:'矛盾',publicity:3});}}
-if(type==='scandal'){let m=id==='deny'?.3:id==='explain'?(random(s)<clamp((s.policy+20)/100,.1,.95)?.5:1.2):1;change(s,groups.map((_,i)=>[i,([2,3,7].includes(i)?-12:-5)*m]));if(id==='apologize')s.clean=clamp(s.clean-5);s.denied=id==='deny';s.history.push({turn:s.turn,text:opt.title,kind:'報道への対応',publicity:3});}
+if(type==='debate'){const contradiction=id==='switch'&&s.policyStance!=='third';const chance=clamp((s.speech+35)/100-(contradiction?.1:0),.1,.95);if(check(s,'debate',id)){change(s,groups.map((_,i)=>[i,3]));s.fame=clamp(s.fame+5);log(s,'討論会で説明が届いた。各層の評価が上がる。')}else{change(s,[[2,-5],[3,-5],[7,-5]]);log(s,'討論会で説明に苦しんだ。無党派の評価が下がる。')}if(contradiction){change(s,[[s.policyStance==='elder'?0:1,-5]]);s.history.push({turn:s.turn,text:'討論で過去の公約と矛盾',kind:'矛盾',publicity:3});}}
+if(type==='scandal'){let m=id==='deny'?.3:id==='explain'?(check(s,'scandal')?.5:1.2):1;change(s,groups.map((_,i)=>[i,([2,3,7].includes(i)?-12:-5)*m]));if(id==='apologize')s.clean=clamp(s.clean-5);s.denied=id==='deny';s.history.push({turn:s.turn,text:opt.title,kind:'報道への対応',publicity:3});}
 if(type==='festival'){change(s,[[6,id==='yes'?3:-2]],true);if(id==='yes')s.energy=clamp(s.energy-5);}
 if(type==='reform'){if(id==='return'){s.money=Math.max(0,s.money-(s.donationRefund||250));s.influence=clamp(s.influence-5);s.clean=clamp(s.clean+5)}else independent(s);s.donationRefund=0;const resume=s.resume;s.resume=null;if(resume==='finish')finishTurn(s);else s.stage=resume||'main';return true;}
 if(type==='after'){s.event=s.collection.length?'collect':null;s.stage=s.event?'event':'end';return true;}
 if(type==='collect'){const d=s.debts[s.collection.shift()];if(id==='fulfill'){d.status='履行済み';if(d.group>=0)change(s,[[d.group,8]],true);else{change(s,[[2,-6],[7,-6]]);s.influence=clamp(s.influence+5)}}if(id==='partial'){s.money-=funds(s,200);d.status='一部履行';d.weight=1;if(d.group>=0)change(s,[[d.group,-4]]);}if(id==='break'){d.status='踏み倒し';if(d.group>=0){change(s,[[d.group,-30]]);s.memory[d.group]=true;s.rivalOrg??=Array(12).fill(0);s.rivalOrg[d.group]+=s.org[d.group];s.org[d.group]=0;s.rival[d.group]=clamp(s.rival[d.group]+20,-50,100)}else{s.influence=clamp(s.influence-15);s.nominationCancelled=true;}}s.history.push({turn:13,text:d.name+'の要求：'+opt.title,kind:'借りの回収',publicity:3});s.event=s.collection.length?'collect':null;s.stage=s.event?'event':'end';return true;}
 s.stage='main';return true;}
 function continueResult(s,rescue=false){if(s.stage!=='result')return false;const eligible=s.nomination!=='無所属'&&!s.usedRescue&&s.result.share>=.42;if(!s.result.won&&!(rescue&&eligible)){s.stage='end';return true}if(!s.result.won){s.usedRescue=true;debt(s,-1,3)}s.elected=true;s.turn=13;if(s.denied&&random(s)<.4){change(s,[[2,-24],[3,-24],[7,-24]]);s.clean=clamp(s.clean-20);log(s,'当選後に虚偽が発覚。否定した報道が再燃した。')}s.collection=s.debts.filter(d=>d.status==='未回収').sort((a,b)=>b.weight-a.weight||a.id-b.id).slice(0,2).map(d=>d.id);s.stage='event';s.event='after';return true;}
-const api={funds,scale,budget,settleBudget,actionFunds,groups,parties,create,votes,actions,allowed,action,weekend,event,choose,continueResult,clamp,campaign,finishTurn,mechanics:{random,log,change,debt,population,independent},previewRandom};root.Game=api;if(typeof module!=='undefined')module.exports=api;
+const api={check,checkInfo,choiceCheck,outcomes,funds,scale,budget,settleBudget,actionFunds,groups,parties,create,votes,actions,allowed,action,weekend,event,choose,continueResult,clamp,campaign,finishTurn,mechanics:{random,log,change,debt,population,independent},previewRandom};root.Game=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
