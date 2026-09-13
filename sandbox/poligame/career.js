@@ -1,6 +1,6 @@
 (function(root){
  'use strict';
- const G=root.Game,chapters=['prologue','term','term2','term3','leadership','government'];
+ const G=root.Game,chapters=['prologue','term','term2','term3','leadership','party','government'];
  const chapter=s=>s.chapter||'prologue';
  const copy=x=>JSON.parse(JSON.stringify(x));
  const roles=['新人候補','国会議員','政務官','副大臣','党三役','大臣','党首','内閣総理大臣'];
@@ -10,9 +10,9 @@
   c.highestRole=Math.max(c.highestRole,role(s));
   const ch=chapter(s),r=s.result;
   if(!r)return;
-  const resolved=ch==='prologue'?(s.elected||s.stage==='end'):['term','term2','term3'].includes(ch)?(s.reelected||s.stage==='end'):ch==='government'&&s.stage==='end'&&s.govResult?.seats!=null;
+  const resolved=ch==='prologue'?(s.elected||s.stage==='end'):['term','term2','term3'].includes(ch)?(s.reelected||s.stage==='end'):ch==='party'?s.stage==='end'&&!!s.partyOps?.result:ch==='government'&&s.stage==='end'&&s.govResult?.seats!=null;
   if(!resolved)return;
-  const won=ch==='prologue'?!!s.elected:ch==='government'?!!s.govResult.ownWon:!!s.reelected;
+  const won=ch==='prologue'?!!s.elected:ch==='party'?!!s.partyOps.result.ownWon:ch==='government'?!!s.govResult.ownWon:!!s.reelected;
   const entry={chapter:ch,won,rescue:won&&!r.won,player:r.player,rival:r.rival,share:r.share};
   const i=c.elections.findIndex(e=>e.chapter===ch);if(i<0)c.elections.push(entry);else c.elections[i]=entry;
  }
@@ -62,7 +62,7 @@
  }
  const create=G.create;G.create=function(...args){const s=create(...args);s.career=fresh(s);return s;};
  for(const [name,kind] of [['action','action'],['choose','choice'],['weekend','weekend'],['continueResult','continue']])wrap(G,name,kind);
- for(const name of ['begin','beginSecond','beginThird','beginLeadership','beginGovernment'])wrap(G.Legislature,name,'chapter');
+ for(const name of ['begin','beginSecond','beginThird','beginLeadership','beginParty','beginGovernment'])wrap(G.Legislature,name,'chapter');
  function recordCheck(s,o){const c=s.career||active.get(s);if(c){c.checks.push({chapter:chapter(s),turn:s.turn,key:o.key,success:o.success,title:o.title});if(c.checks.length>256)c.checks.shift();}}
  function isFinal(s){
   if(s.stage!=='end')return false;
@@ -70,7 +70,8 @@
    case 'prologue':return !s.elected;
    case 'term':case 'term2':return !s.reelected;
    case 'term3':return !s.reelected||!!s.leadershipSkip||!!s.term3Failed;
-   case 'leadership':return !s.leaderResult?.ending?.toGovernment;
+   case 'leadership':return !s.leaderResult?.ending?.toGovernment&&!(G.Nominations&&s.leaderResult?.won);
+   case 'party':return !!s.partyOps?.opposition&&!s.partyOps?.result?.won;
    case 'government':return true;
   }
  }
@@ -124,10 +125,10 @@
    if(!['公約','役職','政策','矛盾','支援者の要求','謝罪済み','造反'].includes(h.kind)||highlights.some(x=>x.label===h.text))continue;
    highlights.push({chapter:h.chapter||'prologue',turn:h.turn,title:h.kind,label:h.text});if(highlights.length===3)break;
   }
-  const minimum={prologue:0,term:1,term2:2,term3:3,leadership:4,government:4}[chapter(s)];
-  const currentWin=chapter(s)==='prologue'?!!s.elected:['term','term2','term3'].includes(chapter(s))?!!s.reelected:chapter(s)==='government'&&s.govResult?.seats!=null?!!s.govResult.ownWon:false;
-  const wins=Math.max(c.elections.filter(e=>e.won).length,minimum+Number(currentWin));
-  const ending=s.govResult?.ending?.label||s.leaderResult?.ending?.label||(s.leadershipSkip?'党首選を見送る':s.result&&!s.result.won?'選挙で落選':'今回の挑戦を終える');
+  const minimum={prologue:0,term:1,term2:2,term3:3,leadership:4,party:4,government:4}[chapter(s)];
+  const currentWin=chapter(s)==='prologue'?!!s.elected:['term','term2','term3'].includes(chapter(s))?!!s.reelected:chapter(s)==='party'?!!s.partyOps?.result?.ownWon:chapter(s)==='government'&&s.govResult?.seats!=null?!!s.govResult.ownWon:false;
+  const wins=Math.max(c.elections.filter(e=>e.won).length,minimum+Number(currentWin)+(chapter(s)==='government'&&s.partyOps?.result?.ownWon?1:0));
+  const ending=chapter(s)==='party'&&!s.partyOps?.result?.won?'政権交代への挑戦を終える':s.govResult?.ending?.label||s.leaderResult?.ending?.label||(s.leadershipSkip?'党首選を見送る':s.result&&!s.result.won?'選挙で落選':'今回の挑戦を終える');
   let hint='次は活動の配分を変え、別の支持基盤を育てる道もあります。';
   if(s.govResult?.toppled)hint='党内の不満が政権の幕引きにつながりました。次は派閥への配慮や内閣改造を早めに検討できます。';
   else if(s.leadershipSkip)hint='次は人脈40・政策力50・党内影響力60を育てると、長老を説得して党首選へ進む道が開けます。';
@@ -136,6 +137,7 @@
   else if(s.fame<45)hint='知名度には伸ばす余地がありました。次は演説や発信で、支持を投票につなげる機会を増やせます。';
   else if(s.money<G.funds(s,50))hint='活動資金が少なくなっていました。個人サポーター募集や人脈育成で、選べる活動を増やせます。';
   else if(lost.length)hint=lost[0].name+'の好感度が開始時より下がりました。次はその層への活動や、政策の負担にも目を向けられます。';
+  const partyStory=G.Nominations?.summary(s);if(partyStory){if(paragraphs.length>=4)paragraphs[3]+=partyStory;else paragraphs.push(partyStory);}
   return {title,trait,paragraphs:paragraphs.slice(0,4),supporters,lost,highlights,ending,wins,role:roles[Math.max(c.highestRole,role(s))],hint,partial:c.partial,elections:c.elections,checks:c.checks,funding:c.funding,actions:Object.entries(c.actions).sort((a,b)=>b[1]-a[1]),short};
  }
  function validate(s){

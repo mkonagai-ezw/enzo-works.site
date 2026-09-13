@@ -13,7 +13,7 @@
  const choice=(id,title,hint,disabled=false)=>({id,title,hint,disabled});
  const mark=(p,id)=>{if(!p.seen.includes(id))p.seen.push(id);};
  function schedule(s){
-  if(s.stage!=='main'||['term3','leadership','government'].includes(chapter(s)))return;
+  if(s.stage!=='main'||['term3','leadership','party','government'].includes(chapter(s)))return;
   const p=ensure(s),t=s.turn,term=isTerm(s);let id=null;
   if(p.party==='large'&&!p.sponsorResolved&&t>=(term?12:9))id='sponsor_request';
   else if(!isTerm2(s)&&!p.seen.includes('fundraising')&&t>=(term?7:4)&&t<=(term?10:8)&&p.deferredTurn!==t)id='fundraising';

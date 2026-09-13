@@ -100,17 +100,18 @@
    let score=0;
    for(let i=0;i<12;i++){
     const nShare=G.groups[i][1]/totalShare,turnout=G.groups[i][4];
-    const contrib=mine?s.likes[i]*roleMult:0;
+    const contrib=mine?s.likes[i]*roleMult+(s.partyOps?.reach[i]||0):0;
     let coeff=clamp((P.likes[i]+contrib+bonus+gov+20)/120,0,1);
     if(mine)coeff=clamp(coeff+approvalBias+(plat?(plat.benefit.includes(i)?.05:plat.burden.includes(i)?-.05:0):0),0,1);
     score+=nShare*turnout*coeff;
    }
-   return score*(mine?allianceMult:1);
+   return score*(mine?allianceMult*(1+(s.partyOps?.campaignBoost||0)/100):1);
   });
   const sum=raw.reduce((x,y)=>x+y,0);
   const voteShare=sum&&hasParty(s)?raw[s.party]/sum:0;
-  const seats=Math.round(Math.min(voteShare*1.3,.6)*465);
-  return {voteShare,seats,total:465,majority:seats>=233};
+  const baseSeats=Math.round(Math.min(voteShare*1.3,.6)*465),nomination=G.Nominations?.seatEffect(s);
+  const seats=clamp(baseSeats+(nomination?.bonus||0),0,465);
+  return {voteShare,seats,total:465,majority:seats>=233,...(s.partyOps?{baseSeats,nomination}:{})};
  }
  function result(s){s.result=G.votes(s);s.result.won=s.result.player>s.result.rival;if(isTerm2(s))s.result.party=partySeats(s);s.stage='result';s.event=null;log(s,isTerm2(s)?'2期目の任期を終え、3度目の選挙が開票された。':'任期を終え、2度目の選挙が開票された。');}
  function prepare(s){
@@ -563,8 +564,9 @@
   else if(pending===0&&broken===0&&rebels>=3){key='man_of_principle';grade='B';label='信念の人';text='党首選には敗れました。しかし借りを一つも残さず、筋を通した姿は党の内外に強い印象を残しました。';}
   else{key='party_elder';grade='C';label='党の要職に残る';text='党首選には届きませんでした。派閥の均衡の中で、あなたはなお党の中枢に席を持っています。次の機会を待ちます。';}
   R.ending={key,grade,label,text,toGovernment};
+  if(R.won&&G.Nominations){R.ending.toParty=true;R.ending.label=s.ruling?'与党の新党首へ':'政権交代をめざす野党党首';R.ending.text='党首選を制しました。公認会議で候補を選び、党の運営方針を決めましょう。';}
   s.stage='end';s.event=null;
-  if(!toGovernment){R.score=overallScore(s,4,0);s.finalScore=R.score;}
+  if(!toGovernment&&!R.ending.toParty){R.score=overallScore(s,4,0);s.finalScore=R.score;}
   log(s,'党首選：'+label+(toGovernment?'':'（評価 '+grade+'）'));
  }
  function finishLeadership(s){
@@ -646,9 +648,10 @@
  }
  // ===== §12/§13 終章（government phase）=====
  function beginGovernment(s){
-  if(s.stage!=='end'||s.chapter!=='leadership'||!s.leaderResult||!s.leaderResult.won||!s.ruling)return false;
+  const ready=G.Nominations?s.chapter==='party'&&s.partyOps?.complete:s.chapter==='leadership';
+  if(s.stage!=='end'||!ready||!s.leaderResult||!s.leaderResult.won||!s.ruling)return false;
   s.chapter='government';s.turn=1;s.govPhase='cabinet';
-  s.cabinetPlan=null;s.surpriseSlots=false;s.factionAnger=0;
+  s.cabinetPlan=null;s.surpriseSlots=false;s.factionAnger=s.partyOps?Math.max(0,Math.round((50-s.partyOps.cohesion)/10)):0;
   s.approval=null;s.policyPushed=0;s.reshuffleUsed=false;s.dissolved=false;
   s.incidentType=null;s.govResult=null;s._noDrop=false;
   s.handoutSeen=false;s.handoutGiven=false;s.dissolveAsked=false;s.sackedRecently=false;
@@ -760,10 +763,11 @@
    seats:party.seats,voteShare:party.voteShare,
    soleMajority:party.seats>=233,
    coalitionMajority:party.seats<233&&['coalition','joint'].includes(s.alliance)&&party.seats>=150,
-   forced:!!forced
+   forced:!!forced,...(party.nomination?{nomination:party.nomination}:{})
   };
   s.result={player:own.player,rival:own.rival,total:own.total,share:own.share,won:s.govResult.ownWon,party:{seats:party.seats,voteShare:party.voteShare,total:465,majority:party.seats>=233}};
   s.event='gov_election';s.stage='event';
+  if(s.partyOps)for(const r of s.partyOps.slate)r.elected=r.status==='公認'&&party.seats>=Math.round(220-G.Nominations.profiles.find(c=>c.id===r.id).quality*.6);
   log(s,'開票の結果、党の全国議席は約'+party.seats+'。');
  }
  function finalizeGovernment(s){
@@ -799,6 +803,7 @@
  function govNextTurn(s){
   if(s.turn>=16){log(s,'任期満了。');runFinalElection(s,true);return;}
   s.turn++;s.event=null;s.stage='main';
+  G.Nominations?.govInterrupt(s);
   log(s,'政権'+s.turn+'期目。支持率は'+Math.round(s.approval)+'%、派閥の不満は'+Math.round(s.factionAnger)+'。');
  }
  function govAllowed(s,id){
@@ -927,7 +932,7 @@
   log(s,s.reelected?(isTerm2(s)?'3度目の選挙を制した。次は党の顔として与党化を目指す。':'再選を果たした。次は中堅議員としての道へ。'):(isTerm2(s)?'議席を守れず、議会を去ることになった。':'再選に届かず、この任期で議会を去る。'));return true;
  }
  function validate(s){
-  const known=allEventIds.concat(['scandal','reform'],G.Campaign?.ids||[],G.Extra?.ids||[]);
+  const known=allEventIds.concat(['scandal','reform'],G.Campaign?.ids||[],G.Extra?.ids||[],G.Nominations?.ids||[]);
   const ok=s.version===2&&s.elected===true&&Number.isFinite(s.governmentApproval)&&s.governmentApproval>=0&&s.governmentApproval<=100&&
    (s.committee===null||Number.isInteger(s.committee)&&!!committees[s.committee])&&
    [null,'none','aide','regional','economic','social'].includes(s.faction)&&Number.isInteger(s.factionVisits)&&s.factionVisits>=0&&
@@ -976,7 +981,7 @@
    if(!Number.isInteger(s.policyPushed)||s.policyPushed<0||s.policyPushed>3)return false;
    if(s.incidentType!=null&&!incidents[s.incidentType])return false;
    for(const k of ['handoutSeen','handoutGiven','dissolveAsked','sackedRecently'])if(s[k]!==undefined&&typeof s[k]!=='boolean')return false;
-   if(s.stage==='event'&&!govEventIds.includes(s.event))return false;
+   if(s.stage==='event'&&!govEventIds.includes(s.event)&&!G.Nominations?.ids.includes(s.event))return false;
    if(s.stage==='main'&&s.govPhase!=='run')return false;
    if(s.govResult!=null&&typeof s.govResult!=='object')return false;
    if(s.stage==='end'&&!(s.govResult&&s.govResult.ending))return false;

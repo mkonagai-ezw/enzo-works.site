@@ -6,8 +6,9 @@ const num=x=>Math.round(x).toLocaleString('ja-JP');
 const term=()=>['term','term2','term3'].includes(state?.chapter);
 const leadership=()=>state?.chapter==='leadership';
 const government=()=>state?.chapter==='government';
+const partyChapter=()=>state?.chapter==='party';
 const maximum=()=>term()?16:12;
-const period=(t,chapter)=>chapter==='term'?'第1期 · '+t+' / 16ターン':chapter==='term2'?'第2期 · '+t+' / 16ターン':chapter==='term3'?'第3期 · '+t+' / 16ターン':chapter==='leadership'?'党首選':chapter==='government'?'終章 · '+t+'期':t>12?'当選後':t+'か月目';
+const period=(t,chapter)=>chapter==='term'?'第1期 · '+t+' / 16ターン':chapter==='term2'?'第2期 · '+t+' / 16ターン':chapter==='term3'?'第3期 · '+t+' / 16ターン':chapter==='party'?'党運営 · '+t+' / 6期':chapter==='leadership'?'党首選':chapter==='government'?'終章 · '+t+'期':t>12?'当選後':t+'か月目';
 try{
  const raw=localStorage.getItem(KEY);
  if(raw){state=G.restore(raw);if(!state)storageWarning='セーブの内容に問題があり、読み込めませんでした。新しく始められます。';}
@@ -28,12 +29,13 @@ function perform(op,id){
  if(op==='beginSecondTerm')return G.Legislature.beginSecond(state);
  if(op==='beginThirdTerm')return G.Legislature.beginThird(state);
  if(op==='beginLeadership')return G.Legislature.beginLeadership(state);
+ if(op==='beginParty')return G.Legislature.beginParty(state);
  if(op==='beginGovernment')return G.Legislature.beginGovernment(state);
  return false;
 }
 function refresh(){pendingAction=null;save();render();const center=document.getElementById('game-content');center?.focus({preventScroll:true});}
 const effectKeys=[['energy','体力','♥'],['fame','知名度','★'],['speech','弁舌','●'],['policy','政策力','◆'],['network','人脈','✦'],['money','活動資金','💰','万円'],['clean','クリーン度','✨'],['influence','党内影響力','🏛️']];
-function effectSnapshot(){if(state)G.outcomes.delete(state);return state?Object.fromEntries(effectKeys.map(([key])=>[key,state[key]]).concat([['likes',state.likes.slice()],['people',(state.people?.entries||[]).map(r=>({id:r.id,trust:r.trust,agreement:r.agreement,life:r.life}))]])):null;}
+function effectSnapshot(){if(state)G.outcomes.delete(state);return state?Object.fromEntries(effectKeys.map(([key])=>[key,state[key]]).concat([['partyOps',state.partyOps?JSON.parse(JSON.stringify(state.partyOps)):null],['likes',state.likes.slice()],['people',(state.people?.entries||[]).map(r=>({id:r.id,trust:r.trust,agreement:r.agreement,life:r.life}))]])):null;}
 function prepareEffects(before){
  if(!before||typeof setTimeout==='undefined')return null;
  const items=[],changed=new Set();
@@ -41,6 +43,11 @@ function prepareEffects(before){
  state.likes.forEach((value,i)=>{const delta=value-before.likes[i];if(delta){items.push({key:'likes.'+i,label:G.groups[i][0],icon:'👥',delta});changed.add('likes.'+i);}});
  for(const r of state.people?.entries||[]){const old=before.people?.find(x=>x.id===r.id)||{trust:20,agreement:-40,life:20},p=G.People.profiles.find(x=>x.id===r.id);for(const [k,label] of [['trust','信頼'],['agreement','政策への賛否'],['life','生活']]){const delta=r[k]-old[k];if(delta)items.push({key:'person.'+r.id+'.'+k,label:p.name+'：'+label,icon:'💬',delta});}}
  const results=G.outcomes.get(state)||[];
+ if(before.partyOps&&state.partyOps){
+  const boost=state.partyOps.campaignBoost-before.partyOps.campaignBoost;if(boost)items.push({key:'party.campaignBoost',label:'全国選挙運動',icon:'📣',delta:boost,unit:'%'});
+  for(const [key,label] of Object.entries(G.Nominations.labels)){const delta=state.partyOps[key]-before.partyOps[key];if(delta){items.push({key:'party.'+key,label,icon:'🏛️',delta});changed.add('party.'+key);}}
+  for(const [key,label] of [['reach','党支持'],['pressure','支配圧力']])state.partyOps[key].forEach((value,i)=>{const delta=value-before.partyOps[key][i];if(delta){items.push({key:'party.'+key+'.'+i,label:label+'：'+G.groups[i][0],icon:'🏛️',delta});changed.add('party.'+key+'.'+i);}});
+ }
  return items.length||results.length?{before,items,changed,results,progress:0}:null;
 }
 function applyEffects(){
@@ -80,7 +87,7 @@ app.addEventListener('click',e=>{
  if(op==='careerTab'&&state&&G.Career.isFinal(state)&&['portrait','history','result'].includes(id)){careerTab=id;render();return;}
  if(op==='party'){party=Number(id);render();return;}
  if(op==='actionGroup'&&actionGroups.some(g=>g.id===id)){actionGroup=id;pendingAction=null;render();return;}
- if(op==='inspector'&&['support','debt','records','people'].includes(id)){inspector=id;render();return;}
+ if(op==='inspector'&&['support','debt','records','people','party'].includes(id)){inspector=id;render();return;}
  if(op==='pickAction'&&state?.stage==='main'&&['visit','org','question'].includes(id)&&G.allowed(state,id)){pendingAction=id;if(id==='org'&&(G.groups[target][5]<3||state.memory[target]))target=G.groups.findIndex((g,i)=>g[5]>=3&&!state.memory[i]);if(target<0)target=0;render();return;}
  if(op==='cancelAction'){pendingAction=null;render();return;}
  if(op==='target'&&Number.isInteger(Number(id))&&Number(id)>=0&&Number(id)<12){target=Number(id);render();return;}
@@ -91,7 +98,7 @@ app.addEventListener('click',e=>{
  }
  const before=effectSnapshot();
  if(perform(op,id)){
-  if(['beginTerm','beginSecondTerm','beginThirdTerm','beginLeadership','beginGovernment'].includes(op))transitionChapter();
+  if(['beginTerm','beginSecondTerm','beginThirdTerm','beginLeadership','beginParty','beginGovernment'].includes(op)){if(state.partyOps)inspector='party';transitionChapter();}
   else if(['start','action','weekend'].includes(op))transitionAfter(op,id,before);
   else startEffects(before);
  }

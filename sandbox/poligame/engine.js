@@ -11,6 +11,9 @@ const parties=[
 const outcomes=new WeakMap();
 function checkInfo(s,key,option){
  const specs={
+  party_dialogue:['公認候補との対話','人脈','network',20,'合意をまとめ、党内の結束が上がる','合意に届かず、党内の結束が下がる'],
+  party_explain:['公認候補の説明責任','弁舌','speech',20,'撤回と説明が届き、党の清潔度が上がる','説明が届かず、党の清潔度と都市の党支持が下がる'],
+  party_negotiate:['支持層を越えた合意','政策力','policy',15,'合意ができ、支配圧力が下がる','合意に届かず、結束と対象層の党支持が下がる'],
   media:['テレビ出演','弁舌','speech',20,'番組で好評を得て知名度が上がる','言葉に詰まり、無党派の支持が下がる'],
   debate:['公開討論','弁舌','speech',35,'説明が届き、知名度と支持が上がる','説明に苦しみ、無党派の支持が下がる'],
   scandal:['スキャンダルへの説明','政策力','policy',20,'説明が届き、支持低下を軽減する','説明が裏目に出て、支持低下が大きくなる'],
@@ -62,6 +65,9 @@ function choiceCheck(s,op,id){
  if(op==='action')return checkInfo(s,({media:'media',sns:'sns',question:'question',abroad:'abroad',diplomacy:'diplomacy',policy:'policy'})[id]);
  if(op!=='choice')return null;
  const e=s.event;
+ if(e==='party_bridge'&&id==='dialogue'||e==='party_rebel'&&id==='persuade')return checkInfo(s,'party_dialogue');
+ if(e==='party_scandal'&&id==='explain')return checkInfo(s,'party_explain');
+ if(e==='party_pressure'&&id==='negotiate')return checkInfo(s,'party_negotiate');
  if(e==='debate')return checkInfo(s,'debate',id);
  if(e==='gov_incident'&&id==='go')return checkInfo(s,s.incidentType);
  const key={scandal:{explain:'scandal'},national_debate:{debate:'national_debate'},term_review:{explain:'term_review'},leader_debate:{fight:'leader_debate'},leader_ground:{backroom:'backroom'},mouthpiece:{explain:'mouthpiece'},quake:{go:'quake'},pandemic:{online:'pandemic'},closure:{plan:'closure'},heckler:{calm:'heckler',fight:'heckler_risk'},grill:{push:'grill'},fandom:{ride:'fandom_risk'}}[e]?.[id];
@@ -72,7 +78,7 @@ function choiceCheck(s,op,id){
 function population(s,i){return groups[i][1+s.district]/groups.reduce((sum,g)=>sum+g[1+s.district],0)*100000;}
 const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,v));
 const previewRandom=new WeakMap();
-const scale=s=>({prologue:1,term:2,term2:4,term3:8,leadership:12,government:16}[s.chapter]||1);
+const scale=s=>({prologue:1,term:2,term2:4,term3:8,leadership:12,party:12,government:16}[s.chapter]||1);
 const funds=(s,n)=>Math.round(n*scale(s));
 const recognition=n=>Math.min(1,n/60)+Math.max(0,n-60)*.003;
 function budget(s){const k=scale(s);return k===1?{income:0,expense:0,net:0}:{income:funds(s,35+Math.floor((s.network+s.fame)/10)),expense:funds(s,30),net:funds(s,5+Math.floor((s.network+s.fame)/10))};}

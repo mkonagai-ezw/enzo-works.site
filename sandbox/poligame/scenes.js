@@ -87,6 +87,11 @@ window.GameScenes={
   grill:{src:'assets/events/grill.webp',alt:'国会で役所の担当者を厳しく問い詰めている',label:'国会委員会室'}
  },
  resolve(state){
+  if(state.partyOps&&(state.chapter==='party'||state.event?.startsWith('party_'))){
+   const key={party_nominate:state.turn===3?'nomination_list':state.turn===5?'nomination_local':'nomination_committee',party_bridge:'nomination_local',party_sponsor:'nomination_pressure',party_scandal:'nomination_accountability',party_local:'nomination_local',party_pressure:'nomination_pressure',party_rebel:'nomination_rebel',party_reunion:'nomination_committee'}[state.event]||'nomination_committee';
+   const descriptions={nomination_committee:'党員たちが候補者の資料を並べて公認を話し合っている',nomination_list:'専門家、業界推薦者、配信者が党の公認面接を待っている',nomination_local:'地方支部と党本部の担当者が公認方針を話し合っている',nomination_pressure:'党内グループが公認枠を要求し、部屋の外では住民が待っている',nomination_accountability:'党の担当者が公認候補の発言について記者へ説明している',nomination_rebel:'候補の公約と党の法案の違いを議員たちが話し合っている'};
+   return {src:'assets/nominations/'+key+'.webp',alt:descriptions[key],label:'党運営・公認戦略'};
+  }
   const person=window.Game.People?.forEvent(state);
   if(person)return {src:'assets/people/'+person.profile.id+'.webp',alt:person.profile.alt,label:person.profile.place};
   const growth={fame_local:'national_debate',fame_national:'leader_policy',speech_forum:'debate',speech_teacher:'leader_ground',policy_proposal:'platform',policy_team:'committee_select',network_volunteers:'petitions',network_support:'expenses'};
