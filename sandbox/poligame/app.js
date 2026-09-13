@@ -83,7 +83,9 @@ app.addEventListener('change',e=>{
 app.addEventListener('click',e=>{
  const button=e.target.closest('[data-do]');if(!button||button.disabled)return;
  const op=button.dataset.do,id=button.dataset.id;
+ if(op==='mobileClose'){mobileInfoOpen=false;render();document.getElementById('mobile-info-open')?.focus({preventScroll:true});return;}
  if(transition||effectAnimation)return;
+ if(op==='mobileInfo'){mobileInfoOpen=true;render();document.getElementById('mobile-info-close')?.focus({preventScroll:true});return;}
  if(op==='careerTab'&&state&&G.Career.isFinal(state)&&['portrait','history','result'].includes(id)){careerTab=id;render();return;}
  if(op==='party'){party=Number(id);render();return;}
  if(op==='actionGroup'&&actionGroups.some(g=>g.id===id)){actionGroup=id;pendingAction=null;render();return;}
@@ -103,6 +105,10 @@ app.addEventListener('click',e=>{
   else startEffects(before);
  }
 });
+app.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&mobileInfoOpen){mobileInfoOpen=false;render();document.getElementById('mobile-info-open')?.focus({preventScroll:true});}
+});
+window.matchMedia?.('(max-width:800px)').addEventListener?.('change',e=>{if(!e.matches&&mobileInfoOpen){mobileInfoOpen=false;render();}});
 render();
 if(document.modelContext?.registerTool){
  const controller=new AbortController();window.addEventListener('pagehide',()=>controller.abort(),{once:true});
