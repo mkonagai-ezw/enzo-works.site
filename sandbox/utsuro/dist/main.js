@@ -71,9 +71,10 @@ async function init(){
  try{
   const data=await Promise.all([model('house.glb'),model('garden.glb'),model('bamboo.glb'),model('bamboo_far.glb'),model('fern.glb'),model('door.glb'),fetch('assets/navigation.json').then(r=>r.json()),fetch('assets/layout.json').then(r=>r.json())]);
   [house,,,,,door,navigation,layout]=data;
-  house.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;for(const m of (Array.isArray(o.material)?o.material:[o.material])){m.shadowSide=THREE.BackSide;for(const t of [m.map,m.normalMap,m.roughnessMap])if(t)t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());}}});scene.add(house);
+  // Cast architectural shadows from the visible faces; back-face casting creates triangular self-shadows on thin imported walls.
+  house.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;for(const m of (Array.isArray(o.material)?o.material:[o.material])){m.shadowSide=THREE.FrontSide;for(const t of [m.map,m.normalMap,m.roughnessMap])if(t)t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());}}});scene.add(house);
   data[1].traverse(o=>{if(o.isMesh){o.receiveShadow=true;o.castShadow=o.name!=='Garden_earth';}});scene.add(data[1]);
-  door.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;for(const m of (Array.isArray(o.material)?o.material:[o.material]))m.shadowSide=THREE.BackSide;}});scene.add(door);
+  door.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;for(const m of (Array.isArray(o.material)?o.material:[o.material]))m.shadowSide=THREE.FrontSide;}});scene.add(door);
   instances(data[2],layout.bambooNear,'bamboo');instances(data[3],layout.bambooFar,'bamboo');instances(data[4],layout.ferns,'fern');
   environmentLight();
   phone=await model('phone.glb');phone.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(phone);
