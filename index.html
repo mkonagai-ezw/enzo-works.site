@@ -175,7 +175,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="sandbox-item">
+                <!-- 株価予想は一時非表示。再公開する際は hidden を外す。 -->
+                <div class="sandbox-item" id="ai-market-prediction" hidden>
                     <button class="sandbox-accordion-header">
                         <span class="sandbox-accordion-title">AIは市場予測できるのか？ 5営業日後の終値予想バトル</span>
                         <span class="sandbox-accordion-icon"><i class="fa-solid fa-chevron-down"></i></span>
@@ -473,6 +474,7 @@
         const CHAT_LIMIT_KEY = 'chat_send_count';
         const CHAT_DATE_KEY = 'chat_last_date';
         const MAX_SENDS_PER_DAY = 5;
+        let isSending = false;
 
         // 日付を取得（YYYY-MM-DD形式）
         function getTodayString() {
@@ -515,8 +517,8 @@
             } else {
                 chatLimitInfo.textContent = `本日の残り送信回数: ${remaining}回`;
                 chatLimitInfo.style.color = '#aaa';
-                chatSendBtn.disabled = false;
-                chatInput.disabled = false;
+                chatSendBtn.disabled = isSending;
+                chatInput.disabled = isSending;
             }
         }
 
@@ -637,7 +639,7 @@
         // ボットメッセージを表示するヘルパー関数
         function showBotMessage(text) {
             // 改行を<br>タグに変換（連続する改行は空行として1つの<br>に）
-            const formattedText = text
+            const formattedText = escapeHtml(text)
                 .replace(/\n\n+/g, '\n\n') // 連続する改行を2つに統一
                 .replace(/\n/g, '<br>'); // 改行を<br>に変換
             
@@ -654,6 +656,12 @@
             setTimeout(() => {
                 chatBody.scrollTop = chatBody.scrollHeight;
             }, 100);
+        }
+
+        function escapeHtml(text) {
+            const element = document.createElement('span');
+            element.textContent = text;
+            return element.innerHTML;
         }
 
         // ボタンクリック時の返答メッセージ
@@ -691,14 +699,16 @@
 
         // メッセージを送信
         async function sendMessage() {
+            if (isSending) return;
             const message = chatInput.value.trim();
+            if (!message) return;
             
             // 5文字未満チェック
             if (message.length < 5) {
                 // ユーザーメッセージを表示（送信回数は消費しない）
                 const userMessageDiv = document.createElement('div');
                 userMessageDiv.className = 'chat-message user-message';
-                userMessageDiv.innerHTML = `<p>${message}</p>`;
+                userMessageDiv.innerHTML = `<p>${escapeHtml(message)}</p>`;
                 chatBody.appendChild(userMessageDiv);
                 
                 // 入力欄をクリア
@@ -726,11 +736,11 @@
             // ユーザーメッセージを表示
             const userMessageDiv = document.createElement('div');
             userMessageDiv.className = 'chat-message user-message';
-            userMessageDiv.innerHTML = `<p>${message}</p>`;
+            userMessageDiv.innerHTML = `<p>${escapeHtml(message)}</p>`;
             chatBody.appendChild(userMessageDiv);
 
-            // 送信回数を増やす
-            incrementSendCount();
+            // 応答待ちの間は二重送信を防ぐ。回数は成功時のみ消費する。
+            isSending = true;
             updateLimitInfo();
 
             // 入力欄をクリア
@@ -753,6 +763,8 @@
             }, 100);
 
             // APIにリクエストを送信
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 25000);
             try {
                 const response = await fetch('/api/chat', {
                     method: 'POST',
@@ -760,31 +772,28 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ message: message }),
+                    signal: controller.signal,
                 });
 
-                // ローディングメッセージを削除
-                const loadingMsg = document.getElementById('loading-message');
-                if (loadingMsg) {
-                    loadingMsg.remove();
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok || typeof data.response !== 'string' || !data.response.trim()) {
+                    throw new Error(data.error || '応答を取得できませんでした。しばらくしてから再度お試しください。');
                 }
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    showBotMessage('申し訳ございません。エラーが発生しました: ' + (errorData.error || '不明なエラー'));
-                    // 最新メッセージまでスクロール（showBotMessage内で処理されるので不要だが念のため）
-                    return;
-                }
-
-                const data = await response.json();
-                showBotMessage(data.response || '応答を取得できませんでした。');
+                showBotMessage(data.response);
+                incrementSendCount();
             } catch (error) {
-                // ローディングメッセージを削除
-                const loadingMsg = document.getElementById('loading-message');
-                if (loadingMsg) {
-                    loadingMsg.remove();
-                }
                 console.error('Chat API Error:', error);
-                showBotMessage('申し訳ございません。通信エラーが発生しました。しばらくしてから再度お試しください。');
+                chatInput.value = message;
+                showBotMessage('申し訳ございません。' + (error.name === 'AbortError'
+                    ? '応答に時間がかかっています。少し待ってから再度お試しください。'
+                    : error.message));
+                return;
+            } finally {
+                clearTimeout(timeoutId);
+                loadingMessageDiv.remove();
+                isSending = false;
+                updateLimitInfo();
             }
 
             // 最新メッセージまでスクロール（showBotMessage内で処理されるので不要だが念のため）
@@ -865,7 +874,7 @@
         chatCloseBtn.addEventListener('click', closeChat);
         chatSendBtn.addEventListener('click', sendMessage);
         chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
+            if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
                 e.preventDefault();
                 sendMessage();
             }

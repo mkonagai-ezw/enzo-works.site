@@ -3,7 +3,7 @@
  */
 async function loadAIBattle() {
     const grid = document.getElementById('ai-grid');
-    if (!grid) return;
+    if (!grid || grid.closest('[hidden]')) return;
 
     // 既にロード中の場合は処理をスキップ
     if (grid.dataset.loading === 'true') return;
@@ -174,10 +174,10 @@ function initSandboxAccordion() {
                 if (body) body.style.display = 'block';
 
                 // アコーディオンが開いた時にデータを再読み込み
-                loadAIBattle();
+                if (body?.querySelector('#ai-grid')) loadAIBattle();
 
                 // ★GA4 イベント送信: アコーディオンが開いた時
-                if (typeof gtag === 'function') {
+                if (body?.querySelector('#ai-grid') && typeof gtag === 'function') {
                     gtag('event', 'ai_battle_open', {
                         'event_category': 'engagement',
                         'event_label': 'AI Market Prediction Battle'
