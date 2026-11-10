@@ -10,7 +10,7 @@ Vercel本番（`https://www.enzo-works.com`）と連携しているリポジト�
 - 送信回数は回答を取得できた場合のみ加算します。失敗した質問は入力欄に残り、再送できます。
 - `npm test` でAPIの入力チェック・正常応答・課金エラー・通信失敗などを検証できます。
 
-株価予想の表示は `index.html` の `#ai-market-prediction` に付けた `hidden` で一時停止しています。再表示する際はこの属性を外します。予想データの生成スケジュールは変更していません。
+株価予想の表示は `index.html` の `#ai-market-prediction` に付けた `hidden` で一時停止しています。API利用も停止するため、GitHub Actionsの `AI Prediction Scheduler` を無効化し、`.github/workflows/schedule.yml` の定期実行設定を削除しています。再開する場合は、表示の `hidden` を外し、ワークフローを有効化したうえで必要に応じて定期実行を設定してください。コードと予想データは保持しています。
 
 ## ⚠️ hp-service/ ディレクトリについて（重要）
 

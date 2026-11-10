@@ -1,9 +1,8 @@
 name: AI Prediction Scheduler
 
 on:
+  # 株価予想は停止中。定期実行を再開するまで schedule は設定しない。
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *' 
 
 jobs:
   run_ai_prediction:
