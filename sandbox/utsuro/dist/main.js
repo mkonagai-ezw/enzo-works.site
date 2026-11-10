@@ -3,9 +3,9 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from './vendor/meshopt_decoder.mjs';
 import {createDust} from './dust.js';
 import {createDollHaunting} from './doll-haunting.js?v=jizo-transform-1';
-import {createPursuit,RUN_SPEED} from './pursuit.js?v=jizo-transform-1';
+import {createPursuit,RUN_SPEED} from './pursuit.js?v=rustle-loop-1';
 import {createRain} from './rain.js';
-import {createStoryAudio} from './story-audio.js?v=jizo-transform-1';
+import {createStoryAudio} from './story-audio.js?v=rustle-loop-1';
 import {createTouchStick} from './touch-controls.js';
 const $=s=>document.querySelector(s),canvas=$('#world');
 const mobileMode=matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0||innerWidth<900;
@@ -99,7 +99,7 @@ async function init(){
   const soundResponse=await fetch('assets/audio/'+encodeURIComponent('バサ.mp3'));
   if(!soundResponse.ok)throw new Error('人形の効果音を読み込めません');rustleData=await soundResponse.arrayBuffer();
   haunting=createDollHaunting({scene,camera,doll,navigation,surfaceHeight,obstacles:[house,data[1],phone,well,jizo],door,onFirstMove:playRustle});
-  pursuit=createPursuit({camera,haunting,navigation,height:surfaceHeight,doorBox:()=>{const b=new THREE.Box3().setFromObject(door);return {min:b.min.toArray(),max:b.max.toArray()};},onReveal:()=>{setJizoPresent(false);if($('#sound').checked)storyAudio?.playReveal(startImpactBuffer);},onFootstep:p=>{if(playing&&!document.hidden&&$('#sound').checked)storyAudio?.playFootstep(p);}});
+  pursuit=createPursuit({camera,haunting,navigation,height:surfaceHeight,doorBox:()=>{const b=new THREE.Box3().setFromObject(door);return {min:b.min.toArray(),max:b.max.toArray()};},onReveal:()=>{setJizoPresent(false);if($('#sound').checked)storyAudio?.playReveal(startImpactBuffer);}});
   $('#start').disabled=false;$('#startText').textContent='探索を始める';$('#loading').hidden=true;
   // An observable diagnostics panel supports repeatable local QA without game UI clutter.
   const info=document.createElement('output');info.id='diagnostics';info.hidden=true;document.body.append(info);
@@ -119,7 +119,7 @@ function startAudio(){
  if(!audioContext){audioContext=new (window.AudioContext||window.webkitAudioContext)();soundGain=audioContext.createGain();soundGain.gain.value=$('#sound').checked?.08:0;soundGain.connect(audioContext.destination);const b=audioContext.createBuffer(1,audioContext.sampleRate*5,audioContext.sampleRate),a=b.getChannelData(0);let previous=0;for(let i=0;i<a.length;i++){previous=(previous+(Math.random()*2-1)*.025)/1.025;a[i]=previous*4;}startImpactBuffer=b;const src=audioContext.createBufferSource();src.buffer=b;src.loop=true;const low=audioContext.createBiquadFilter();low.type='lowpass';low.frequency.value=700;src.connect(low);low.connect(soundGain);src.start();}
  audioContext.resume().then(()=>{if(firstAudioStart&&playing&&$('#sound').checked)storyAudio?.playStart(startImpactBuffer);});soundGain.gain.setTargetAtTime($('#sound').checked?.08:0,audioContext.currentTime,.4);
  if(!storyAudio)storyAudio=createStoryAudio(audioContext,phonePoint);
- if(!rustleReady)rustleReady=audioContext.decodeAudioData(rustleData.slice(0)).then(buffer=>{rustleDuration=buffer.duration;return buffer;});
+ if(!rustleReady)rustleReady=audioContext.decodeAudioData(rustleData.slice(0)).then(buffer=>{rustleDuration=buffer.duration;storyAudio.setMovementBuffer(buffer);return buffer;});
 }
 async function playRustle(){
  if(!audioContext||!$('#sound').checked)return;
@@ -214,7 +214,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
    $('#status').textContent=state.phase==='phone'?'家の中で、電話が鳴っている':state.chasing?'光の中心で、人形を止めろ':state.phase==='jizo-ready'?'家の裏手に、石のお地蔵さんがある':state.phase==='sighting'?'今のうちに離れろ — '+Math.ceil(pursuit.diagnostics().sighting.grace)+'秒':'庭・縁側・和室';
    if(state.phase==='sighting')$('#hint').textContent='今のうちに離れろ。光の中心で人形を止められる。';
    if(state.chasing)$('#hint').textContent=state.phase==='phone'?'E 電話に出る　／　F 懐中電灯':'光の中心で止める　／　F 懐中電灯';
-   storyAudio?.update(state,playing&&!document.hidden,$('#sound').checked,camera);
+   storyAudio?.update(state,playing&&!document.hidden,$('#sound').checked,camera,haunting.actor.position);
    document.body.classList.toggle('pursued',state.chasing);
    $('#reticle').classList.toggle('holding',state.frozen&&state.chasing);
  }

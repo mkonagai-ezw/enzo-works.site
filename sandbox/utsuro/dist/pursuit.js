@@ -7,7 +7,7 @@ export class RevealGrace {
   update(dt,active){if(active)this.grace=Math.max(0,this.grace-dt);return this.grace<=.000001;}
 }
 export class EscapeState {
-  constructor(){this.phase='explore';this.seconds=0;this.frozen=false;this.rain=false;}
+  constructor(){this.phase='explore';this.seconds=0;this.frozen=false;this.rain=false;this.moving=false;}
   unlock(moves){if(this.phase==='explore'&&moves>0)this.phase='jizo-ready';}
   examine(){if(this.phase!=='jizo-ready')return false;this.phase='warning';this.rain=true;return true;}
   dismiss(){if(this.phase!=='warning')return false;this.phase='reveal';return true;}
@@ -90,22 +90,23 @@ export function beamHits(camera,base,enabled,clearLine){
   }return false;
 }
 
-export function createPursuit({camera,haunting,navigation,height,doorBox,onReveal=()=>{},onFootstep=()=>{}}){
+export function createPursuit({camera,haunting,navigation,height,doorBox,onReveal=()=>{}}){
   const state=new EscapeState(),nav=new ChaseNavigation(navigation,height,doorBox),actor=haunting.actor;
-  let path=[],repath=0,motion=0,visibleSpawn=null,gate=new RevealGrace(),releasePending=true,releaseGrace=0,stepDistance=0;
+  let path=[],repath=0,motion=0,visibleSpawn=null,gate=new RevealGrace(),releasePending=true,releaseGrace=0;
   const eye=new THREE.Vector3();
   return {state,nav,
-    reset(){Object.assign(state,new EscapeState());path=[];repath=0;motion=0;visibleSpawn=null;gate=new RevealGrace();releasePending=true;releaseGrace=0;stepDistance=0;haunting.reset();},
+    reset(){Object.assign(state,new EscapeState());path=[];repath=0;motion=0;visibleSpawn=null;gate=new RevealGrace();releasePending=true;releaseGrace=0;haunting.reset();},
     examine(){if(!state.examine())return false;haunting.setPresent(false);return true;},
     dismiss(){
       if(!state.dismiss())return false;
       onReveal();
       const base=new THREE.Vector3(3,height(3,-7.8),-7.8);
       haunting.setPose(base,camera.position);actor.visible=true;visibleSpawn=base.toArray();
-      path=[];repath=0;gate=new RevealGrace();releasePending=true;releaseGrace=0;stepDistance=0;
+      path=[];repath=0;gate=new RevealGrace();releasePending=true;releaseGrace=0;
       state.reveal();state.frozen=true;return true;
     },
     update(dt,active,yaw,flashOn){
+      state.moving=false;
       state.unlock(haunting.diagnostics().moves);
       if(!active)return;
       nav.dynamicDoor=doorBox?.();
@@ -136,11 +137,12 @@ export function createPursuit({camera,haunting,navigation,height,doorBox,onRevea
           haunting.setPose(actor.position,eye,Math.sin(motion*11)*.035+Math.sin(motion*2.1)*.025);
         }
         const traveled=previousPosition.distanceTo(actor.position);
-        if(traveled>0){stepDistance+=traveled;if(stepDistance>=.68){stepDistance%=.68;onFootstep(actor.position.clone());}}
+        state.moving=traveled>.00001;
         const caught=!state.frozen&&Math.hypot(eye.x-actor.position.x,eye.z-actor.position.z)<.59&&Math.abs(eye.y-1.62-actor.position.y)<.65&&haunting.clearLine(eye,actor.position.clone().add(new THREE.Vector3(0,.55,0)));
         state.tick(dt,true,caught);
+        if(!state.chasing)state.moving=false;
       }
     },
-    diagnostics(){return {phase:state.phase,seconds:+state.seconds.toFixed(2),frozen:state.frozen,rain:state.rain,position:actor.position.toArray(),pathNodes:path.length,visibleSpawn,sighting:{confirmed:true,grace:+gate.grace.toFixed(2)},releasePending,releaseGrace:+releaseGrace.toFixed(2)};}
+    diagnostics(){return {phase:state.phase,seconds:+state.seconds.toFixed(2),frozen:state.frozen,moving:state.moving,rain:state.rain,position:actor.position.toArray(),pathNodes:path.length,visibleSpawn,sighting:{confirmed:true,grace:+gate.grace.toFixed(2)},releasePending,releaseGrace:+releaseGrace.toFixed(2)};}
   };
 }
