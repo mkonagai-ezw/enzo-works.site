@@ -65,7 +65,7 @@ export function createDollHaunting({scene,camera,doll,navigation,surfaceHeight,o
     root.updateMatrixWorld(true);
     root.traverse(o=>{
       if(!o.isMesh)return;
-      proxies.push(makeProxy(o));
+      const proxy=makeProxy(o);proxy.userData.obstacleRoot=root;proxies.push(proxy);
       // House furniture has individual navigation boxes. Other props use their mesh bounds.
       if(root!==obstacles[0]&&o.name!=='Garden_earth')extraBoxes.push(...propBoxes(o));
     });
@@ -89,7 +89,7 @@ export function createDollHaunting({scene,camera,doll,navigation,surfaceHeight,o
     direction.subVectors(to,eye);const distance=direction.length();direction.divideScalar(distance);ray.set(eye,direction);
     for(const b of [...fixedBoxes,doorBox,...plantBoxes])if(ray.intersectBox(b,hit)&&hit.distanceTo(eye)<distance-.025)return false;
     raycaster.set(eye,direction);raycaster.near=.015;raycaster.far=distance-.025;
-    return raycaster.intersectObjects(allProxies,false).length===0;
+    return raycaster.intersectObjects(allProxies.filter(p=>p.userData.obstacleRoot?.visible!==false),false).length===0;
   }
   function clearBody(base,rotation,requireAll){
     const right=new THREE.Vector3(Math.cos(rotation+Math.atan2(originalForward.x,originalForward.z)),0,-Math.sin(rotation+Math.atan2(originalForward.x,originalForward.z)));
@@ -159,7 +159,7 @@ export function createDollHaunting({scene,camera,doll,navigation,surfaceHeight,o
       syncDoor();direction.subVectors(to,from);const distance=direction.length();
       if(distance<.03)return true;
       direction.divideScalar(distance);raycaster.set(from,direction);raycaster.near=.02;raycaster.far=distance-.03;
-      return raycaster.intersectObjects(allProxies,false).length===0;
+      return raycaster.intersectObjects(allProxies.filter(p=>p.userData.obstacleRoot?.visible!==false),false).length===0;
     },
     update(dt,active){
       if(!active){state.update(dt,{active:false},relocate);visible=false;visibilityClock=0;return;}

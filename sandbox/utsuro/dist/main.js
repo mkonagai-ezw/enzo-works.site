@@ -2,10 +2,10 @@ import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from './vendor/meshopt_decoder.mjs';
 import {createDust} from './dust.js';
-import {createDollHaunting} from './doll-haunting.js';
-import {createPursuit,RUN_SPEED} from './pursuit.js';
+import {createDollHaunting} from './doll-haunting.js?v=jizo-transform-1';
+import {createPursuit,RUN_SPEED} from './pursuit.js?v=jizo-transform-1';
 import {createRain} from './rain.js';
-import {createStoryAudio} from './story-audio.js';
+import {createStoryAudio} from './story-audio.js?v=jizo-transform-1';
 import {createTouchStick} from './touch-controls.js';
 const $=s=>document.querySelector(s),canvas=$('#world');
 const mobileMode=matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0||innerWidth<900;
@@ -27,7 +27,7 @@ let pursuit,storyAudio,phone,jizo,higanbana,endShown=false;
 const jizoPoint=new THREE.Vector3(3,.60,-7.8),phonePoint=new THREE.Vector3(1.7,1.15,-.83);
 function controlsLocked(){return ['warning','lost','clear'].includes(pursuit?.state.phase);}
 let haunting,rustleData,rustleReady,rustleSource,rustleGain,rustlePlays=0,rustleDuration=0;
-const keys=new Set();let previousFrame=performance.now();let yaw=0,pitch=0,drag=false,lookPointer=null,lastX=0,lastY=0,flashOn=true,audioContext,soundGain,footTime=0;
+const keys=new Set();let previousFrame=performance.now();let yaw=0,pitch=0,drag=false,lookPointer=null,lastX=0,lastY=0,flashOn=true,audioContext,startImpactBuffer,soundGain,footTime=0;
 const PLAYER_START={position:[7.5,1.62,8],yaw:.65,pitch:0};
 const position=new THREE.Vector3(...PLAYER_START.position),target=new THREE.Vector3();
 function returnToGarden(){position.fromArray(PLAYER_START.position);yaw=PLAYER_START.yaw;pitch=PLAYER_START.pitch;inspectionUntil=0;camera.position.copy(position);camera.rotation.set(pitch,yaw,0);}
@@ -99,7 +99,7 @@ async function init(){
   const soundResponse=await fetch('assets/audio/'+encodeURIComponent('バサ.mp3'));
   if(!soundResponse.ok)throw new Error('人形の効果音を読み込めません');rustleData=await soundResponse.arrayBuffer();
   haunting=createDollHaunting({scene,camera,doll,navigation,surfaceHeight,obstacles:[house,data[1],phone,well,jizo],door,onFirstMove:playRustle});
-  pursuit=createPursuit({camera,haunting,navigation,height:surfaceHeight,doorBox:()=>{const b=new THREE.Box3().setFromObject(door);return {min:b.min.toArray(),max:b.max.toArray()};}});
+  pursuit=createPursuit({camera,haunting,navigation,height:surfaceHeight,doorBox:()=>{const b=new THREE.Box3().setFromObject(door);return {min:b.min.toArray(),max:b.max.toArray()};},onReveal:()=>{setJizoPresent(false);if($('#sound').checked)storyAudio?.playReveal(startImpactBuffer);},onFootstep:p=>{if(playing&&!document.hidden&&$('#sound').checked)storyAudio?.playFootstep(p);}});
   $('#start').disabled=false;$('#startText').textContent='探索を始める';$('#loading').hidden=true;
   // An observable diagnostics panel supports repeatable local QA without game UI clutter.
   const info=document.createElement('output');info.id='diagnostics';info.hidden=true;document.body.append(info);
@@ -115,8 +115,9 @@ function start(){
 }
 function pause(){playing=false;keys.clear();touchStick.reset();drag=false;lookPointer=null;document.body.classList.remove('playing');$('#reticle').hidden=true;$('#touch').hidden=true;$('#prompt').hidden=true;$('#startText').textContent='探索に戻る';if(document.pointerLockElement)document.exitPointerLock();if(soundGain)soundGain.gain.setTargetAtTime($('#sound').checked?.015:0,audioContext.currentTime,.3);if(rustleSource){rustleSource.stop();rustleSource=null;}}
 function startAudio(){
- if(!audioContext){audioContext=new (window.AudioContext||window.webkitAudioContext)();soundGain=audioContext.createGain();soundGain.connect(audioContext.destination);const b=audioContext.createBuffer(1,audioContext.sampleRate*5,audioContext.sampleRate),a=b.getChannelData(0);let previous=0;for(let i=0;i<a.length;i++){previous=(previous+(Math.random()*2-1)*.025)/1.025;a[i]=previous*4;}const src=audioContext.createBufferSource();src.buffer=b;src.loop=true;const low=audioContext.createBiquadFilter();low.type='lowpass';low.frequency.value=700;src.connect(low);low.connect(soundGain);src.start();}
- audioContext.resume();soundGain.gain.setTargetAtTime($('#sound').checked?.08:0,audioContext.currentTime,.4);
+ const firstAudioStart=!audioContext;
+ if(!audioContext){audioContext=new (window.AudioContext||window.webkitAudioContext)();soundGain=audioContext.createGain();soundGain.gain.value=$('#sound').checked?.08:0;soundGain.connect(audioContext.destination);const b=audioContext.createBuffer(1,audioContext.sampleRate*5,audioContext.sampleRate),a=b.getChannelData(0);let previous=0;for(let i=0;i<a.length;i++){previous=(previous+(Math.random()*2-1)*.025)/1.025;a[i]=previous*4;}startImpactBuffer=b;const src=audioContext.createBufferSource();src.buffer=b;src.loop=true;const low=audioContext.createBiquadFilter();low.type='lowpass';low.frequency.value=700;src.connect(low);low.connect(soundGain);src.start();}
+ audioContext.resume().then(()=>{if(firstAudioStart&&playing&&$('#sound').checked)storyAudio?.playStart(startImpactBuffer);});soundGain.gain.setTargetAtTime($('#sound').checked?.08:0,audioContext.currentTime,.4);
  if(!storyAudio)storyAudio=createStoryAudio(audioContext,phonePoint);
  if(!rustleReady)rustleReady=audioContext.decodeAudioData(rustleData.slice(0)).then(buffer=>{rustleDuration=buffer.duration;return buffer;});
 }
@@ -149,14 +150,15 @@ function showStory(title,detail,button,ending=false){
  keys.clear();touchStick.reset();drag=false;lookPointer=null;$('#storyTitle').textContent=title;$('#storyDetail').textContent=detail;$('#storyAction').textContent=button;$('#story').dataset.ending=ending?'true':'false';$('#story').hidden=false;$('#reticle').hidden=true;$('#prompt').hidden=true;$('#touch').hidden=true;
  if(document.pointerLockElement)document.exitPointerLock();$('#storyAction').focus();
 }
+function setJizoPresent(present){jizo.visible=present;const collider=navigation.colliders.find(b=>b.name==='Jizo');if(collider)collider.disabled=!present;}
 function closeWarning(){
- if(!pursuit.dismiss(yaw))return;$('#story').hidden=true;keys.clear();$('#reticle').hidden=false;$('#touch').hidden=!touchUI();$('#hint').textContent='光の中心に、とらえろ。';
+ if(!pursuit.dismiss())return;flashOn=true;camera.lookAt(haunting.actor.position.clone().add(new THREE.Vector3(0,.5,0)));yaw=camera.rotation.y;pitch=camera.rotation.x;camera.updateMatrixWorld(true);$('#story').hidden=true;keys.clear();$('#reticle').hidden=false;$('#touch').hidden=!touchUI();$('#hint').textContent='光の中心に、とらえろ。';
  if(!touchUI()){try{canvas.requestPointerLock()?.catch(()=>{});}catch{}}
 }
 function restartGame(){
  if(!pursuit||!['lost','clear'].includes(pursuit.state.phase))return;
  keys.clear();touchStick.reset();drag=false;lookPointer=null;pursuit.reset();storyAudio?.reset();rain.reset();
- higanbana.visible=false;
+ higanbana.visible=false;setJizoPresent(true);
  if(rustleSource){try{rustleSource.stop();}catch{}rustleSource=null;}
  rustlePlays=0;endShown=false;doorOpen=false;doorProgress=0;door.position.z=0;door.updateMatrixWorld(true);
  flashOn=true;footTime=0;inspectionUntil=0;firstStart=false;returnToGarden();previousFrame=performance.now();
@@ -164,17 +166,6 @@ function restartGame(){
  document.body.classList.remove('pursued');$('#reticle').classList.remove('holding');start();
 }
 function activateStoryAction(){if(pursuit?.state.phase==='warning')closeWarning();else restartGame();}
-function updatePresenceHint(){
- const hint=$('#presenceHint'),d=pursuit?.diagnostics();hint.hidden=!playing||d?.phase!=='sighting'||d.sighting.confirmed;
- if(hint.hidden)return;
- const head=haunting.actor.position.clone().add(new THREE.Vector3(0,.82,0));
- const local=head.clone().applyMatrix4(camera.matrixWorldInverse),screen=head.project(camera);
- let x=screen.x,y=screen.y;
- if(local.z>=0){x=Math.sign(local.x||1)*.86;y=0;}
- const arrow=x<-.8?'◀':x>.8?'▶':y<-.65?'↓':y>.65?'↑':'↓';
- hint.style.left=(50+THREE.MathUtils.clamp(x,-.8,.8)*50)+'%';hint.style.top=(50-THREE.MathUtils.clamp(y,-.65,.65)*50)+'%';
- hint.textContent=arrow+' 気配 — 光を向ける';
-}
 function interact(){if(!playing||controlsLocked())return;const t=interactionTarget();
  if(t==='jizo'&&pursuit.examine()){showStory('にげろ','', '閉じる');return;}
  if(t==='phone'&&pursuit.state.answer())return;
@@ -184,7 +175,7 @@ function surfaceHeight(x,z){let h=Math.max(0,terrainHeight(x,z));for(const f of 
 function blocked(x,z,y){
  if(x<-13||x>14||z<-14||z>16)return true;
  const r=.18;
- for(const b of navigation.colliders){if(b.max[1]<y-1.05||b.min[1]>y+.1)continue;if(x+r>b.min[0]&&x-r<b.max[0]&&z+r>b.min[2]&&z-r<b.max[2])return true;}
+ for(const b of navigation.colliders){if(b.disabled)continue;if(b.max[1]<y-1.05||b.min[1]>y+.1)continue;if(x+r>b.min[0]&&x-r<b.max[0]&&z+r>b.min[2]&&z-r<b.max[2])return true;}
  if(!doorOpen&&Math.abs(x-3.34)<r+.035&&z>-.97-r&&z<-.07+r)return true;
  return false;
 }
@@ -220,22 +211,21 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
    const state=pursuit.state;
    higanbana.visible=haunting.diagnostics().moves>0;
    if(['lost','clear'].includes(state.phase)&&!endShown){endShown=true;showStory(state.phase==='clear'?'生還':'つかまった',state.phase==='clear'?'受話器の向こうで、誰かが息をした。':'もう、振り向かなくていい。','もう一度',true);}
-   $('#status').textContent=state.phase==='phone'?'家の中で、電話が鳴っている':state.chasing?'光の中心で、人形を止めろ':state.phase==='jizo-ready'?'家の裏手に、石のお地蔵さんがある':state.phase==='reveal'?'周囲を見回せ。まだ、動いていない。':state.phase==='sighting'?(pursuit.diagnostics().sighting.confirmed?'見つかった。離れろ。':'気配の先を、光の中心で捉えろ。'):'庭・縁側・和室';
-   if(state.phase==='sighting')$('#hint').textContent=pursuit.diagnostics().sighting.confirmed?'光で止められる。今のうちに距離を取れ。':'F 懐中電灯　／　人形に光を合わせる';
+   $('#status').textContent=state.phase==='phone'?'家の中で、電話が鳴っている':state.chasing?'光の中心で、人形を止めろ':state.phase==='jizo-ready'?'家の裏手に、石のお地蔵さんがある':state.phase==='sighting'?'今のうちに離れろ — '+Math.ceil(pursuit.diagnostics().sighting.grace)+'秒':'庭・縁側・和室';
+   if(state.phase==='sighting')$('#hint').textContent='今のうちに離れろ。光の中心で人形を止められる。';
    if(state.chasing)$('#hint').textContent=state.phase==='phone'?'E 電話に出る　／　F 懐中電灯':'光の中心で止める　／　F 懐中電灯';
    storyAudio?.update(state,playing&&!document.hidden,$('#sound').checked,camera);
    document.body.classList.toggle('pursued',state.chasing);
    $('#reticle').classList.toggle('holding',state.frozen&&state.chasing);
  }
  rain.update(dt,!!pursuit?.state.rain,camera,flashOn&&playing);
- updatePresenceHint();
 
  $('#inspection').hidden=!playing||performance.now()>inspectionUntil;
  camera.getWorldDirection(v3);flash.position.copy(camera.position).addScaledVector(v3,.2);flash.position.y-=.16;flash.target.position.copy(camera.position).addScaledVector(v3,10);flash.visible=playing&&flashOn;
  dust.update(elapsed,flash.position,v3,flash.visible,renderer.getPixelRatio());
  renderer.render(scene,camera);
  frameTimes.push(frameDt);if(frameTimes.length>120)frameTimes.shift();
- if(elapsed-diagnosticAt>1&&$('#diagnostics')){diagnosticAt=elapsed;$('#diagnostics').textContent=JSON.stringify({loaded:!!house,playing,mobileMode,touchVisible:!$('#touch').hidden,position:position.toArray().map(x=>+x.toFixed(3)),yaw,pitch,flash:flashOn,door:doorOpen,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps:Math.round(frameTimes.length/frameTimes.reduce((a,b)=>a+b,0)),colliders:navigation.colliders.length,doll:haunting?.diagnostics(),flowers:{visible:!!higanbana?.visible,count:higanbana?.children.length||0},pursuit:pursuit?.diagnostics(),storyAudio:storyAudio?.diagnostics(),rustle:{plays:rustlePlays,duration:rustleDuration,state:audioContext?.state}});}
+ if(elapsed-diagnosticAt>1&&$('#diagnostics')){diagnosticAt=elapsed;$('#diagnostics').textContent=JSON.stringify({loaded:!!house,playing,mobileMode,touchVisible:!$('#touch').hidden,position:position.toArray().map(x=>+x.toFixed(3)),yaw,pitch,flash:flashOn,door:doorOpen,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps:Math.round(frameTimes.length/frameTimes.reduce((a,b)=>a+b,0)),colliders:navigation.colliders.length,doll:haunting?.diagnostics(),jizoVisible:!!jizo?.visible,flowers:{visible:!!higanbana?.visible,count:higanbana?.children.length||0},pursuit:pursuit?.diagnostics(),storyAudio:storyAudio?.diagnostics(),rustle:{plays:rustlePlays,duration:rustleDuration,state:audioContext?.state}});}
 }
 $('#fullscreen').hidden=!document.documentElement.requestFullscreen;
 $('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{}};

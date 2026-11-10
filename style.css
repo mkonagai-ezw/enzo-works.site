@@ -1690,3 +1690,8 @@ h2.hp-promo-title {
     .hp-promo-desc { font-size: 14px; }
     .hp-promo-br { display: none; }
 }
+/* Standalone game links stay a single rounded control on narrow screens. */
+#sandbox .sandbox-project .main-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;max-width:100%;min-height:52px;padding:14px 24px;line-height:1.5;text-decoration:none;vertical-align:middle}
+#sandbox .sandbox-project .main-btn i{flex:0 0 auto;margin:0}
+#sandbox .sandbox-project .main-btn span{min-width:0;overflow-wrap:anywhere}
+@media(max-width:480px){#sandbox .sandbox-project .main-btn{width:100%;font-size:15px;padding:14px 12px;gap:8px}#sandbox .sandbox-accordion-body{padding:16px 12px}}

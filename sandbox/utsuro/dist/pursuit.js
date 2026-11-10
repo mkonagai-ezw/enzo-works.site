@@ -1,14 +1,10 @@
 import * as THREE from './vendor/three.module.js';
 
 export const RUN_SPEED=2.65, DOLL_SPEED=3.12, SURVIVE_SECONDS=60;
-export const SIGHTING_SECONDS=1, START_GRACE_SECONDS=3;
-export class SightingGate {
-  constructor(){this.seen=0;this.confirmed=false;this.grace=START_GRACE_SECONDS;}
-  update(dt,active,observed){
-    if(!active){if(!this.confirmed)this.seen=0;return false;}
-    if(!this.confirmed){this.seen=observed?this.seen+dt:0;if(this.seen>=SIGHTING_SECONDS)this.confirmed=true;return false;}
-    this.grace=Math.max(0,this.grace-dt);return this.grace<=.000001;
-  }
+export const START_GRACE_SECONDS=5, FIRST_RELEASE_GRACE_SECONDS=2;
+export class RevealGrace {
+  constructor(){this.grace=START_GRACE_SECONDS;}
+  update(dt,active){if(active)this.grace=Math.max(0,this.grace-dt);return this.grace<=.000001;}
 }
 export class EscapeState {
   constructor(){this.phase='explore';this.seconds=0;this.frozen=false;this.rain=false;}
@@ -32,7 +28,7 @@ export class EscapeState {
 export class ChaseNavigation {
   constructor(navigation,height,doorBox){
     this.height=height;this.doorBox=doorBox;this.dynamicDoor=doorBox?.();this.cell=.22;this.minX=-12.5;this.minZ=-13.5;this.cols=119;this.rows=132;
-    this.boxes=navigation.colliders.filter(b=>b.name!=='Ichimatsu doll');
+    this.boxes=navigation.colliders.filter(b=>b.name!=='Ichimatsu doll'&&b.name!=='Jizo');
     this.buckets=new Map();
     for(const b of this.boxes)for(let x=Math.floor(b.min[0]-.2);x<=Math.floor(b.max[0]+.2);x++)for(let z=Math.floor(b.min[2]-.2);z<=Math.floor(b.max[2]+.2);z++){
       const key=x+','+z;if(!this.buckets.has(key))this.buckets.set(key,[]);this.buckets.get(key).push(b);
@@ -94,50 +90,38 @@ export function beamHits(camera,base,enabled,clearLine){
   }return false;
 }
 
-export function createPursuit({camera,haunting,navigation,height,doorBox}){
+export function createPursuit({camera,haunting,navigation,height,doorBox,onReveal=()=>{},onFootstep=()=>{}}){
   const state=new EscapeState(),nav=new ChaseNavigation(navigation,height,doorBox),actor=haunting.actor;
-  let closeYaw=0,path=[],repath=0,motion=0,spawnAttempts=0,visibleSpawn=null,gate=new SightingGate();
-  const eye=new THREE.Vector3(),direction=new THREE.Vector3();
-  function spawn(){
-    camera.updateMatrixWorld(true);camera.getWorldDirection(direction);eye.copy(camera.position);const candidates=[];
-    const view=new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));
-    for(const radius of [6.5,5.5,7.5,4.5])for(let i=0;i<80;i++){
-      const a=i/80*Math.PI*2,p=new THREE.Vector3(eye.x+Math.sin(a)*radius,0,eye.z+Math.cos(a)*radius);p.y=height(p.x,p.z);
-      const look=p.clone().add(new THREE.Vector3(0,.5,0)).sub(eye).normalize(),dot=look.dot(direction);
-      const chest=p.clone().add(new THREE.Vector3(0,.5,0));
-      if(dot<.72||!view.containsPoint(chest)||nav.blocked(p)||!haunting.clearLine(eye,chest))continue;
-      candidates.push({p,score:dot*10-Math.abs(radius-6)});
-    }
-    candidates.sort((a,b)=>b.score-a.score);spawnAttempts++;
-    for(const {p} of candidates){const route=nav.path(p,eye);if(!route.length)continue;
-      haunting.setPose(p,eye);actor.visible=true;visibleSpawn=p.toArray();path=route;repath=.6;gate=new SightingGate();state.reveal();return true;}
-    return false;
-  }
+  let path=[],repath=0,motion=0,visibleSpawn=null,gate=new RevealGrace(),releasePending=true,releaseGrace=0,stepDistance=0;
+  const eye=new THREE.Vector3();
   return {state,nav,
-    reset(){Object.assign(state,new EscapeState());closeYaw=0;path=[];repath=0;motion=0;spawnAttempts=0;visibleSpawn=null;gate=new SightingGate();haunting.reset();},
+    reset(){Object.assign(state,new EscapeState());path=[];repath=0;motion=0;visibleSpawn=null;gate=new RevealGrace();releasePending=true;releaseGrace=0;stepDistance=0;haunting.reset();},
     examine(){if(!state.examine())return false;haunting.setPresent(false);return true;},
-    dismiss(yaw){if(!state.dismiss())return false;closeYaw=yaw;repath=0;return true;},
+    dismiss(){
+      if(!state.dismiss())return false;
+      onReveal();
+      const base=new THREE.Vector3(3,height(3,-7.8),-7.8);
+      haunting.setPose(base,camera.position);actor.visible=true;visibleSpawn=base.toArray();
+      path=[];repath=0;gate=new RevealGrace();releasePending=true;releaseGrace=0;stepDistance=0;
+      state.reveal();state.frozen=true;return true;
+    },
     update(dt,active,yaw,flashOn){
       state.unlock(haunting.diagnostics().moves);
-      if(!active){if(state.phase==='sighting')gate.update(dt,false,false);return;}
+      if(!active)return;
       nav.dynamicDoor=doorBox?.();
-      if(state.phase==='reveal'){
-        repath-=dt;const turn=Math.abs(Math.atan2(Math.sin(yaw-closeYaw),Math.cos(yaw-closeYaw)));
-        if(turn>.32&&repath<=0){spawn();repath=.3;}
-      }
       if(state.phase==='sighting'){
-        camera.updateMatrixWorld(true);
-        const observed=flashOn&&beamHits(camera,actor.position,true,haunting.clearLine)&&[.12,.4,.65].every(h=>{
-          const point=actor.position.clone().add(new THREE.Vector3(0,h,0)),screen=point.clone().project(camera);
-          return screen.z>-1&&screen.z<1&&Math.abs(screen.x)<.8&&Math.abs(screen.y)<.8&&haunting.clearLine(camera.position,point);
-        });
         state.frozen=true;
-        if(gate.update(dt,true,observed)){state.beginChase();repath=0;}
-        // No movement, catch or survival timer during discovery and its grace period.
+        if(gate.update(dt,true)){state.beginChase();repath=0;}
+        // The transformation is immediate; a fixed active-time grace allows escape even without aiming.
         return;
       }
       if(state.chasing){
-        eye.copy(camera.position);state.frozen=beamHits(camera,actor.position,flashOn,haunting.clearLine);repath-=dt;
+        eye.copy(camera.position);const lit=beamHits(camera,actor.position,flashOn,haunting.clearLine);
+        if(!lit&&releasePending){releasePending=false;releaseGrace=FIRST_RELEASE_GRACE_SECONDS;}
+        const releaseProtected=releaseGrace>0;
+        if(releaseProtected)releaseGrace=Math.max(0,releaseGrace-dt);
+        state.frozen=lit||releaseProtected;repath-=dt;
+        const previousPosition=actor.position.clone();
         if(!state.frozen){
           motion+=dt;
           if(repath<=0){path=nav.path(actor.position,eye);repath=.65;}
@@ -151,10 +135,12 @@ export function createPursuit({camera,haunting,navigation,height,doorBox}){
           }
           haunting.setPose(actor.position,eye,Math.sin(motion*11)*.035+Math.sin(motion*2.1)*.025);
         }
-        const caught=Math.hypot(eye.x-actor.position.x,eye.z-actor.position.z)<.59&&Math.abs(eye.y-1.62-actor.position.y)<.65&&haunting.clearLine(eye,actor.position.clone().add(new THREE.Vector3(0,.55,0)));
+        const traveled=previousPosition.distanceTo(actor.position);
+        if(traveled>0){stepDistance+=traveled;if(stepDistance>=.68){stepDistance%=.68;onFootstep(actor.position.clone());}}
+        const caught=!state.frozen&&Math.hypot(eye.x-actor.position.x,eye.z-actor.position.z)<.59&&Math.abs(eye.y-1.62-actor.position.y)<.65&&haunting.clearLine(eye,actor.position.clone().add(new THREE.Vector3(0,.55,0)));
         state.tick(dt,true,caught);
       }
     },
-    diagnostics(){return {phase:state.phase,seconds:+state.seconds.toFixed(2),frozen:state.frozen,rain:state.rain,position:actor.position.toArray(),pathNodes:path.length,spawnAttempts,visibleSpawn,sighting:{seen:+gate.seen.toFixed(2),confirmed:gate.confirmed,grace:+gate.grace.toFixed(2)}};}
+    diagnostics(){return {phase:state.phase,seconds:+state.seconds.toFixed(2),frozen:state.frozen,rain:state.rain,position:actor.position.toArray(),pathNodes:path.length,visibleSpawn,sighting:{confirmed:true,grace:+gate.grace.toFixed(2)},releasePending,releaseGrace:+releaseGrace.toFixed(2)};}
   };
 }
