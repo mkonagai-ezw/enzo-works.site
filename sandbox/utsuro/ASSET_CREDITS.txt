@@ -1,0 +1,106 @@
+﻿うつろ — 使用アセット / 2026-11-10
+
+古民家（明治時代の一般的な民家）
+ろい / Roy Nambu（ペンとサイコロ）
+https://booth.pm/ja/items/4188667
+無料。商品ページで商用・非商用利用および改変可、クレジット不要と記載。
+そのままの転売は禁止。家屋の構造・内装を使用し、軽量化・材質変更・廃屋加工を実施。
+
+Vintage Rotary Phone / 黒電話
+ponta3D
+https://booth.pm/ja/items/7840219
+無料。ゲーム等の商用利用可。モデルデータの再配布・転売は禁止。
+ゲーム内小物として使用。元モデルを素材集として配布しないでください。
+
+Bamboo Stalks
+Grab3D / CC0
+https://grab3d.com/models/nature/bamboo-stalk/
+竹の幹の基礎モデル。色調・配置・遠景用形状を変更、葉群を追加。
+
+Poly Haven / CC0
+https://polyhaven.com/license
+https://polyhaven.com/a/fern_02
+https://polyhaven.com/a/forest_ground_04
+https://polyhaven.com/a/mossy_rock
+https://polyhaven.com/a/old_wood_floor
+シダ、林床、苔石、古材の素材を使用。
+家屋に同梱された素材は家屋データの一部として加工。
+
+制作した要素
+地形、踏み石の配置、破れた障子、散乱板、竹の葉、雲の表現、風音・足音、探索UI。
+
+ライブラリ
+three.js r187 / MIT / https://threejs.org/
+meshoptimizer / MIT / https://github.com/zeux/meshoptimizer
+ブラウザ配布用のライセンス文は dist/vendor に同梱。
+
+このファイルは制作時の整理です。利用条件の原文は各配布元を参照してください。
+
+追加素材（質感・密度更新）
+Poly Haven / CC0
+https://polyhaven.com/a/fabric_pattern_07
+https://polyhaven.com/a/wood_table_worn
+座布団の布と、座卓の擦れた古材。カラー・法線・粗さの画像を使用。
+
+雨染み・古井戸更新
+古井戸の石組み・木枠・封じ板・滑車・縄・踏み石は今回作成。
+表面材は既存の苔石・古材・金物・縄の材質を再利用。
+室内の雨染み・カビ・埃は形状と頂点色で作成した追加表現。
+
+座布団のカラーは深緑の単色に変更。fabric_pattern_07は布の法線表現に使用。
+
+
+2026-11-10 林・竹藪の置き換え
+Japanese Maple — endlessvoidmc
+https://sketchfab.com/3d-models/japanese-maple-003c6ab20e644655ba36fe54cb04765b
+CC BY 4.0 / https://creativecommons.org/licenses/by/4.0/
+幹を軽量化し、縮尺・配置・材質をゲーム向けに調整。
+
+Free Bamboo Set — JonhGillessen
+https://sketchfab.com/3d-models/free-bamboo-set-e9f9fa5397814f81bf85ad06acf5bf30
+CC BY 4.0 / https://creativecommons.org/licenses/by/4.0/
+セットから3種類を使用。根元を基準に縮尺・配置・材質を調整。
+上記2素材はゲーム内の「使用アセット」にも作者・出典・ライセンスを表示。
+
+Poly Haven / CC0 / https://polyhaven.com/license
+https://polyhaven.com/a/pine_tree_01
+https://polyhaven.com/a/shrub_01
+https://polyhaven.com/a/grass_medium_02
+https://polyhaven.com/a/dry_branches_medium_01
+松2種、低木2種、下草2種、枯れ枝2種。形状の軽量化とPBR材質の変換を実施。
+試作時の Tree Small 02 (https://polyhaven.com/a/tree_small_02) はモミジに置き換え。
+旧 Grab3D の竹幹と自作の葉は現在の画面では使用していません。
+
+2026-11-11 市松人形
+Miss Yamanashi - Japanese Friendship Doll
+Wyoming State Museum / 3D modeled by Zanna Wright
+https://sketchfab.com/3d-models/miss-yamanashi-japanese-friendship-doll-a0cb9d60f14a4434a7ae8d723c4f2e9e
+CC BY 4.0 / https://creativecommons.org/licenses/by/4.0/
+形状の軽量化、テクスチャ圧縮、材質・縮尺・配置を変更。
+博物館・作者が本ゲームを推奨していることを意味しません。
+原資料は1920年代の日米友好人形であり、ゲーム内の演出は本作独自のものです。
+
+
+視線連動ギミック（2026-11-11）
+効果音：制作フォルダー audio/se/バサ.mp3 の既存音源をそのまま使用。出典・ライセンスの指定は元ファイルに付属していません。
+three-mesh-bvh 0.9.18 — Garrett Johnson / MIT
+https://github.com/gkjohnson/three-mesh-bvh
+ライセンス全文：dist/vendor/LICENSE-three-mesh-bvh.txt
+ブラウザ用配布版はthree.jsの参照先を同梱ファイルへ変更。
+
+
+■ 2026-11-11：裏庭のお地蔵様と追跡イベント
+お地蔵様 3Dモデル — Ochigo 3D
+https://booth.pm/ja/items/3249860
+無料。商用・非商用利用と改変可。クレジット任意。単体素材の再配布不可、ゲームに組み込んだ配布可。
+変更：座標系・縮尺・配置・材質、WebP／Meshoptによる圧縮。2450三角形。
+
+演出用音源（ユーザー提供のプロジェクト内ファイル）：
+雨：freesound_community-rain_light_3-64055.mp3
+BGM：かごめかごめ [VrgLy6TcO4o].wav
+着信：黒電話：効果音SE [Jsz428aqBsk].wav
+WAVはブラウザー用にモノラル32kHzへ変換。音源の出典名は提供ファイル名の通り。
+
+彼岸花 — さびねずみ
+https://booth.pm/ja/items/2494085
+CC0。6本を縮尺・配置・色調調整し、WebP/Meshoptで軽量化。初回の人形移動後に表示。
