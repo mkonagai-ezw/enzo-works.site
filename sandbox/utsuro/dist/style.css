@@ -65,8 +65,9 @@ body.ending-cinematic header,body.ending-cinematic footer,body.ending-cinematic 
 @keyframes hint-drift{0%,8%,21%,62%,100%{transform:translate(0,0)}7%{transform:translate(2px,0)}20%{transform:translate(-2px,1px)}61%{transform:translate(1px,-1px)}}
 @media(prefers-reduced-motion:reduce){.hintPicture{animation:none}}
 
-/* Keep location and weather information out of the title/menu screen. */
-body:not(.playing) #place,body:not(.playing) footer{display:none}
+/* Keep the screen free of persistent location/weather and decorative labels. */
+body #place,body footer{display:none}
+body.playing header .mark,body.playing #lookHint,body.playing #movePad small{display:none}
 #contentWarning{max-width:290px;margin:18px 0 10px;color:#f0998c;font-size:12px;line-height:1.8;letter-spacing:.03em}
 #intro #start{margin-top:0}
 @media(max-height:520px){
