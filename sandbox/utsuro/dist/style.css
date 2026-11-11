@@ -17,3 +17,50 @@
 h1{font-size:clamp(54px,5.5vw,78px);letter-spacing:.12em}
 @media(max-width:650px){h1{font-size:54px}}
 @media(max-height:520px){.touch-mode h1{font-size:44px}}
+
+#blackout{position:fixed;inset:0;background:#000;opacity:0;z-index:60;pointer-events:none}
+
+/* Allow menu scrolling, but never hand double-tap or pinch zoom to the browser. */
+html,body{touch-action:pan-x pan-y;overscroll-behavior:none}
+body.playing{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+button,#touch,#world,#movePad,input[type=range]{touch-action:none}
+
+#story[data-kind="corridor"] #storyTitle{font-size:clamp(28px,5vw,46px);letter-spacing:.24em;margin:24px 0 32px}
+#story[data-kind="corridor"] #storyDetail{font-size:clamp(14px,2.5vw,18px);line-height:2;white-space:pre-line;max-width:36em;margin:0 auto;text-align:left}
+#story[data-kind="corridor"] .storyCard{max-height:90dvh;overflow:auto;padding:32px 24px}
+
+body.ending-cinematic header,body.ending-cinematic footer,body.ending-cinematic .vignette,body.ending-cinematic #reticle,body.ending-cinematic #touch,body.ending-cinematic #prompt{visibility:hidden}
+#endingWhite{position:fixed;inset:0;background:#fff;z-index:85;opacity:0;pointer-events:none}
+#ending{position:fixed;inset:0;z-index:80;background:#000;color:#ede9df;overflow:hidden;touch-action:manipulation}
+#ending[hidden],#ending [hidden]{display:none!important}
+.endingMorning{position:absolute;inset:0;background:#192015}
+.endingPhoto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:38% 50%}
+.endingMorning:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 20%,#11150d55 48%,#0a120be8 100%);pointer-events:none}
+.endingNarrative{position:absolute;z-index:1;right:7vw;top:50%;transform:translateY(-50%);width:min(38vw,560px);font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(17px,1.5vw,24px);line-height:2.5;letter-spacing:.13em;text-shadow:0 2px 8px #000}
+#endingLine{white-space:pre-line;min-height:7.5em;margin:0;text-wrap:pretty}
+#endingNext{display:block;margin:28px 0 0 auto;min-height:48px;padding:10px 20px;font-size:12px;letter-spacing:.15em;background:#10170c77}
+.creditWindow{position:absolute;inset:0 0 max(88px,calc(env(safe-area-inset-bottom) + 76px));overflow:hidden;mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
+.creditRoll{position:absolute;top:0;left:0;width:100%;will-change:transform;text-align:center;padding:32px 24px}
+.creditBlock{max-width:760px;margin:0 auto 72px;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;line-height:1.9;overflow-wrap:anywhere}
+.creditBlock h1{font-size:clamp(40px,7vw,72px);letter-spacing:.3em;margin:0 0 100px}
+.creditBlock h2{font:400 clamp(12px,1.1vw,16px) system-ui,sans-serif;color:#a69f93;letter-spacing:.18em;margin:0 0 19px}
+.creditBlock p{font-size:clamp(15px,1.6vw,22px);letter-spacing:.08em;margin:6px 0}
+.creditHeading{margin-top:80px;margin-bottom:100px}
+.creditHeading h2{color:#ebe3d5;letter-spacing:.25em}
+.creditActions{position:absolute;bottom:max(20px,env(safe-area-inset-bottom));left:16px;right:16px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;z-index:3}
+.creditActions button{min-height:48px;min-width:116px;padding:12px 20px;background:#101010;font-size:13px;letter-spacing:.15em}
+.creditActions button:focus-visible,#endingNext:focus-visible{outline:2px solid #eee3cf;outline-offset:4px}
+.creditsComplete{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:80px}
+.creditsComplete h1{font-size:clamp(45px,8vw,88px);font-family:serif;letter-spacing:.25em}
+.creditsComplete p{font-size:13px;letter-spacing:.25em;color:#a69f93}
+@media(max-width:650px) and (min-height:551px){.endingPhoto{height:auto;aspect-ratio:16/9;object-fit:contain}.endingMorning:after{height:calc(100vw * 9 / 16 + 2px);background:linear-gradient(transparent 75%,#192015)}.endingNarrative{left:8vw;right:8vw;top:calc(100vw * 9 / 16 + 9vh);transform:none;width:auto;font-size:17px;line-height:2.3}.creditBlock{margin-bottom:60px}.creditBlock h2{font-size:11px}.creditBlock p{font-size:16px}}
+@media(max-height:550px){.endingNarrative{right:5vw;width:43vw;font-size:14px;line-height:1.9}#endingLine{min-height:5.7em}#endingNext{margin-top:12px}.creditActions{bottom:12px}.creditWindow{bottom:72px}}
+#corridorHint{position:fixed;inset:0;z-index:70;background:rgba(3,4,4,.96);display:grid;place-items:center;overflow:hidden;touch-action:none;cursor:none}
+#corridorHint[hidden]{display:none}
+.hintPicture{width:min(90vw,117vh,1200px);aspect-ratio:3/2;position:relative;filter:sepia(.08) brightness(.78);animation:hint-drift 2.3s steps(1,end) infinite}
+.hintPicture img{display:block;width:100%;height:100%;object-fit:contain;user-select:none}
+.hintPicture:after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,#00000018 3px 4px);box-shadow:inset 0 0 45px 12px #0005}
+.hintNoise{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;opacity:var(--noise-strength,.7);pointer-events:none}
+.viewing-hint header,.viewing-hint footer,.viewing-hint #reticle,.viewing-hint #prompt,.viewing-hint #inspection,.viewing-hint #touch{visibility:hidden}
+@keyframes hint-drift{0%,8%,21%,62%,100%{transform:translate(0,0)}7%{transform:translate(2px,0)}20%{transform:translate(-2px,1px)}61%{transform:translate(1px,-1px)}}
+@media(prefers-reduced-motion:reduce){.hintPicture{animation:none}}

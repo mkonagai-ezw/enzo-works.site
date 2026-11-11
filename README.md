@@ -2,6 +2,12 @@
 
 Vercel本番（`https://www.enzo-works.com`）と連携しているリポジトリです。`main`へのpushで自動デプロイされます。
 
+## とある家
+
+公開URLは `https://www.enzo-works.com/sandbox/toaru-ie/` です。`vercel.json` で既存の制作フォルダ `sandbox/utsuro/dist/` を配信し、旧 `/sandbox/utsuro/` と `/sandbox/utsuro/dist/` のURLは新URLへ恒久転送します。制作フォルダ名はBlenderの素材参照や制作スクリプトとの互換性のため維持しています。
+
+現在の公開版は廃屋探索から廊下への移行まで対応しています。廊下の選択肢本文と正誤判定は未接続で、エンディング演出・クレジットは実装済みですが通常プレイからの到達はまだできません。
+
 ## チャットの運用
 
 - Vercelの `CHATBOT_GEMINI_API_KEY` にGemini APIキーを設定します。`CHATBOT_GEMINI_MODEL` は任意で、未設定時は `gemini-2.5-flash` を使います。

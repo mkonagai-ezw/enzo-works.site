@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/sandbox/utsuro/dist/index.html", "destination": "/sandbox/toaru-ie/", "permanent": true },
+    { "source": "/sandbox/utsuro/dist/:path*", "destination": "/sandbox/toaru-ie/:path*", "permanent": true },
+    { "source": "/sandbox/utsuro/index.html", "destination": "/sandbox/toaru-ie/", "permanent": true },
+    { "source": "/sandbox/utsuro/:path*", "destination": "/sandbox/toaru-ie/:path*", "permanent": true },
+    { "source": "/sandbox/toaru-ie/index.html", "destination": "/sandbox/toaru-ie/", "permanent": true },
+    { "source": "/sandbox/toaru-ie", "destination": "/sandbox/toaru-ie/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/sandbox/toaru-ie/ASSET_CREDITS.txt", "destination": "/sandbox/utsuro/ASSET_CREDITS.txt" },
+    { "source": "/sandbox/toaru-ie/", "destination": "/sandbox/utsuro/dist/index.html" },
+    { "source": "/sandbox/toaru-ie/:path*", "destination": "/sandbox/utsuro/dist/:path*" }
+  ]
+}

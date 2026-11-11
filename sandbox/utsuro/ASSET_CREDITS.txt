@@ -104,3 +104,88 @@ WAVはブラウザー用にモノラル32kHzへ変換。音源の出典名は提
 彼岸花 — さびねずみ
 https://booth.pm/ja/items/2494085
 CC0。6本を縮尺・配置・色調調整し、WebP/Meshoptで軽量化。初回の人形移動後に表示。
+
+
+■ 2026-11-11：影の腕（制作プレビュー）
+Low Poly Arms (Rigged) — DevMops
+https://opengameart.org/content/low-poly-arms-rigged
+CC0 / https://creativecommons.org/publicdomain/zero/1.0/
+原素材：arms_low_poly_rigged.zip。右腕のメッシュと骨格配置・ウェイトを基に加工。
+変更：単腕化、腕の細長化と指の伸長、軽量な23ボーンへの再構成、1段階の平滑化、黒い材質、4つの独自アニメーション。
+1本2,208三角形。Emerge / Sway / Writhe / Retract。
+
+■ 2026-11-11：合掌する僧侶（制作プレビュー）
+Monk — creator424 (@creator4241)
+https://sketchfab.com/3d-models/monk-a37a0ea77f654aee830920ed148ec0f2
+CC BY 4.0 / https://creativecommons.org/licenses/by/4.0/
+変更：茶色の外衣を黒へ変更、手のひら・指先を合わせた直立合掌ポーズ、足を閉じた姿勢、袖・裾の補正、材質とテクスチャ圧縮。
+dist/assets/monk-praying.glb は静止ポーズ。編集用Blenderでは元の姿勢と合掌姿勢をシェイプキーとして保存。
+顔を覆うお札は本プロジェクト用にAI生成した別素材。赤黒の架空の文字を描いた古い和紙を、顔に沿う曲面に貼付。
+
+T字廊下ブロック（ローカル試作、2026-11-11）
+- 建築部材：Roy Nambu（ろい）「古民家（明治時代の一般的な民家）」
+  https://booth.pm/ja/items/4188667
+  床板・柱・天井板を抽出し、壁・梁・床へ再構成。商用利用・改編可。
+- 燭台：Kou「【無料】燭台」
+  https://booth.pm/en/items/3347436
+  中央支柱と受け皿を利用、装飾腕の除去・支柱延長。商用利用可、ゲーム内組み込み可。
+  素材配布を目的とした再配布は禁止。
+- ろうそく：AnyRPG「Medieval Candles」CC0
+  https://opengameart.org/content/medieval-candles
+  CandleStick.001の形状を使用、寸法と色を編集。
+- 床のPBR：Poly Haven「Old Wood Floor」CC0（既存取得素材）
+  https://polyhaven.com/a/old_wood_floor
+
+
+■ 2026-11-11：読経と廊下への遷移
+上記の僧侶・影の腕・廊下素材を本編に統合。
+井戸の既存の封鎖板6枚に開閉用の親を追加し、お地蔵様を調べた後に開く演出へ変更。
+読経：ユーザー提供ファイル audio/se/お化け屋敷・お経 [HT4KHTi4f34].wav
+配布用の dist/assets/audio/chant.wav は元ファイルをそのまま複製。追加のライセンス情報は提供ファイルに付属していません。
+人形の追跡・捕獲・60秒後のクリアを廃止。初回移動から3秒後にかごめかごめ、地蔵の警告後は僧の位置から読経、僧を調べると電話・腕・暗転を経て廊下へ移行。
+
+
+■ 2026-11-11：物語の伏線
+Child Shoe — desktopdan
+https://sketchfab.com/3d-models/child-shoe-5ad02ecf7bb34425a8c4a1be2b554be9
+CC BY 4.0 / https://creativecommons.org/licenses/by/4.0/
+ブラウザで配布条件を確認しGLBを取得。形状とテクスチャを軽量化、22cm基準へ正規化、色調と配置を変更。
+ロープ・鎖・収納・位牌・額縁は本作用に制作。既存のPoly Haven古材・布・石の法線素材（CC0）を流用。
+祈祷師の古写真は本作用のAI生成画像。実在人物・団体を示すものではない。
+初期：2本のロープ、錆びた鎖、空の収納。読経開始：24個の子供靴、30基の位牌、写真が出現。
+
+Monk ritual fire: Kenney Particle Pack, CC0. https://kenney.nl/assets/particle-pack
+Downloaded from author upload: https://opengameart.org/content/particle-pack-80-sprites
+Flame 01-03 and smoke 01 sprites; custom rising motion, tint, smoke, embers and point light. License bundled in dist/assets/fire/License.txt.
+
+夫婦の影（2026-11-11）
+モデル: Quaternius Universal Base Characters Standard — Superhero male/female.
+https://quaternius.itch.io/universal-base-characters
+アニメーション: Quaternius Universal Animation Library Standard — Idle_Loop / Sprint_Loop.
+https://quaternius.itch.io/universal-animation-library
+両ダウンロードの同梱ライセンス: CC0 1.0 Universal。原文を dist/assets/couple/ に保存。
+加工: 肌・下着・眼・眉のテクスチャ除去、黒い材質、身長/横幅変更、動作の転用と首/背骨/腕の変形。
+煙: Kenney Particle Pack smoke_01 (CC0)、ボーン追従の粒子として使用。
+突撃/接触音: 既存のバサ.mp3を再利用、音程と音量を調整。
+
+夫婦の影の足音: 部屋に駆け込んでくる.mp3（ユーザー指定・提供音源）。二重再生、時間差・左右定位・再生速度を調整。
+
+分岐の僧侶: Monk — creator424 (CC BY 4.0)、既存取得モデルを再利用。左右対称の指差しポーズ、黒い外衣、紙札を除去し共通の顔面墨書を追加。
+廊下成功時の人形: Miss Yamanashi — Wyoming State Museum / Zanna Wright、既存取得済みCC BY 4.0モデルを再利用。
+
+分岐の僧侶（2026-11-11更新）: 顔面墨書を廃止し、顔全体を覆う古紙札に変更。縦書きの古紙テクスチャは本作用にAI生成した共通素材。
+
+最終玄関（2026-11-11）: Roy Nambu / BOOTH 4188667 の取得済み古民家部材とPoly Havenの古材テクスチャを再利用し、窓・引き戸・配置を加工。夫婦はQuaternius Universal Base Characters/Animation Library（CC0）、人形はMiss Yamanashi（既出CC BY 4.0）を再利用。煙はKenney Particle Pack（CC0）。朝の家の静止画は既存ゲーム外観を参照し内蔵image_genで生成。原画・指示: raw/ending/。
+
+最終玄関の燭台: 分岐廊下と同じKou（BOOTH 3347436）の燭台とAnyRPG Medieval Candles（CC0）を再利用。6本に複製・配置。
+
+エンディング楽曲（2026-11-11）:
+「亡霊」／作詞 ENZO WORKS／作曲 SUNO（ユーザー指定表記）。
+ユーザー添付 1-亡霊_v01.mp3 を原音のまま dist/assets/audio/bourei-v01.mp3 に収録。
+エンドロールの全文・制作支援・使用ツール表記は dist/ending-credits.js。
+
+謎のメモ・画用紙・クレヨン（2026-11-11）:
+本作用にBlenderで新規制作。殴り書きメモと古紙の原画は内蔵image_genによるAI生成。原画と生成指示は raw/foreshadowing/despair-note-v1* / drawing-paper-v1*。
+紙の微細法線には既存Poly Haven fabric_pattern_07（CC0）を再利用。メモの指定文面・制作監修 ENZO WORKS、モデル制作・ゲーム組込支援 Codex。
+
+Handwritten clue note revision v2: OpenAI built-in image generation, edited from v1. Source: raw/foreshadowing/despair-note-v2.png. Exact prompt: raw/foreshadowing/despair-note-v2-prompt.txt. Game asset: dist/assets/despair-note-v2.glb.
