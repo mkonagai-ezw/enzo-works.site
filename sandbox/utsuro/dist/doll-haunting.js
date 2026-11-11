@@ -1,5 +1,6 @@
 import * as THREE from './vendor/three.module.js';
 import {MeshBVH,acceleratedRaycast} from './vendor/three-mesh-bvh.module.js';
+import {SpatialBoxes,transformKey} from './performance-runtime.js';
 
 // Looking away is distinct from walking behind a wall. Each move needs a new sighting.
 export class HauntingState {
@@ -71,23 +72,26 @@ export function createDollHaunting({scene,camera,doll,navigation,surfaceHeight,o
     });
   }
   scene.traverse(o=>{
-    if(!o.isInstancedMesh)return;
+    if(!o.isInstancedMesh||o.userData.lodProxy)return;
     o.geometry.computeBoundingBox();const m=new THREE.Matrix4(),world=new THREE.Matrix4();
     for(let i=0;i<o.count;i++){o.getMatrixAt(i,m);world.multiplyMatrices(o.matrixWorld,m);plantBoxes.push(o.geometry.boundingBox.clone().applyMatrix4(world));}
   });
   door.traverse(o=>{if(o.isMesh)doorProxies.push({source:o,proxy:makeProxy(o)});});
   const doorBox=new THREE.Box3();
-  function syncDoor(){door.updateMatrixWorld(true);doorBox.setFromObject(door);for(const p of doorProxies)p.proxy.matrixWorld.copy(p.source.matrixWorld);}
+  let doorKey='';
+  function syncDoor(){const key=transformKey(door);if(key===doorKey)return;doorKey=key;door.updateMatrixWorld(true);doorBox.setFromObject(door);for(const p of doorProxies)p.proxy.matrixWorld.copy(p.source.matrixWorld);}
+  const rayBoxes=new SpatialBoxes([...fixedBoxes,...plantBoxes]),fitBoxes=new SpatialBoxes([...fixedBoxes,...extraBoxes,...plantBoxes]);
   const allProxies=[...proxies,...doorProxies.map(p=>p.proxy)];
   const frustum=new THREE.Frustum(),viewMatrix=new THREE.Matrix4(),matrix=new THREE.Matrix4();
   const expanded=new THREE.Box3(),testBox=new THREE.Box3(),bodyBox=new THREE.Box3();
   const eye=new THREE.Vector3(),direction=new THREE.Vector3(),point=new THREE.Vector3();
-  let visibilityClock=0,visible=false,lastPlacement=null,searches=0,lastSearchMs=0,rejections={};
+  let visibilityClock=0,visible=false,lastPlacement=null,searches=0,lastSearchMs=0,rejections={},pendingSearch=null;
   function reject(reason){rejections[reason]=(rejections[reason]||0)+1;return false;}
   function inView(box){return frustum.intersectsBox(expanded.copy(box).expandByScalar(.10));}
   function clearRay(to){
     direction.subVectors(to,eye);const distance=direction.length();direction.divideScalar(distance);ray.set(eye,direction);
-    for(const b of [...fixedBoxes,doorBox,...plantBoxes])if(ray.intersectBox(b,hit)&&hit.distanceTo(eye)<distance-.025)return false;
+    if(ray.intersectBox(doorBox,hit)&&hit.distanceTo(eye)<distance-.025)return false;
+    for(const b of rayBoxes.query(Math.min(eye.x,to.x),Math.max(eye.x,to.x),Math.min(eye.z,to.z),Math.max(eye.z,to.z)))if(ray.intersectBox(b,hit)&&hit.distanceTo(eye)<distance-.025)return false;
     raycaster.set(eye,direction);raycaster.near=.015;raycaster.far=distance-.025;
     return raycaster.intersectObjects(allProxies.filter(p=>p.userData.obstacleRoot?.visible!==false),false).length===0;
   }
@@ -105,8 +109,8 @@ export function createDollHaunting({scene,camera,doll,navigation,surfaceHeight,o
   function boundsAt(base,rotation){matrix.makeRotationY(rotation);matrix.setPosition(base);return testBox.copy(localBounds).applyMatrix4(matrix);}
   function fits(base,box){
     bodyBox.copy(box).expandByScalar(.025);bodyBox.min.y=base.y+.035;
-    const obstacle=[...fixedBoxes,doorBox,...extraBoxes,...plantBoxes].find(b=>bodyBox.intersectsBox(b));
-    if(obstacle)return reject(obstacle.name||'collision');
+    if(bodyBox.intersectsBox(doorBox))return reject('door');
+    for(const obstacle of fitBoxes.query(bodyBox.min.x,bodyBox.max.x,bodyBox.min.z,bodyBox.max.z))if(bodyBox.intersectsBox(obstacle))return reject(obstacle.name||'collision');
     // Four feet/hem samples may not straddle a step, float, or sink into a prop.
     const r=.22;
     for(const [dx,dz] of [[0,0],[-r,-r],[-r,r],[r,-r],[r,r]]){
@@ -118,7 +122,8 @@ export function createDollHaunting({scene,camera,doll,navigation,surfaceHeight,o
     return true;
   }
   function relocate(){
-    const started=performance.now();searches++;rejections={};
+    const started=performance.now();
+    if(!pendingSearch||pendingSearch.eye.distanceToSquared(eye)>.1225){searches++;rejections={};
     const candidates=[];
     // Sample a small ring around the player. A failed search leaves the doll in place.
     const offset=(state.moves*.381966)%1;
@@ -131,23 +136,32 @@ export function createDollHaunting({scene,camera,doll,navigation,surfaceHeight,o
       if(inView(box))continue;
       candidates.push({base,rotation,box,score:Math.abs(radius-2.1)+Math.random()*.7});
     }
-    candidates.sort((a,b)=>a.score-b.score);
-    for(const c of candidates){
+    candidates.sort((a,b)=>a.score-b.score);pendingSearch={candidates,index:0,eye:eye.clone()};
+    }
+    let checked=0;
+    while(pendingSearch.index<pendingSearch.candidates.length){
+      if(checked++>=12||performance.now()-started>2){state.retry=0;lastSearchMs=performance.now()-started;return false;}
+      const c=pendingSearch.candidates[pendingSearch.index++];
+      // The player may have moved/turned since this search began. Validate against
+      // the current camera, including facing, full body visibility and floor contact.
+      c.rotation=facingRotation(c.base,eye,originalForward);c.box.copy(boundsAt(c.base,c.rotation));
+      if(inView(c.box)||c.base.distanceTo(eye)<1.4)continue;
       if(!fits(c.base,c.box))continue;
       if(!clearBody(c.base,c.rotation,true)){reject('occluded');continue;}
       const from=pivot.position.toArray();pivot.position.copy(c.base);pivot.rotation.y=c.rotation;pivot.updateMatrixWorld(true);
       currentBounds.copy(c.box);collider.min=currentBounds.min.toArray();collider.max=currentBounds.max.toArray();
       lastPlacement={from,to:c.base.toArray(),rotation:c.rotation,offscreen:true,unobstructed:true,facingDot:originalForward.clone().applyAxisAngle(new THREE.Vector3(0,1,0),c.rotation).dot(eye.clone().sub(c.base).setY(0).normalize())};
-      visible=false;visibilityClock=0;lastSearchMs=performance.now()-started;return true;
+      visible=false;visibilityClock=0;pendingSearch=null;lastSearchMs=performance.now()-started;return true;
     }
-    lastSearchMs=performance.now()-started;return false;
+    pendingSearch=null;lastSearchMs=performance.now()-started;return false;
   }
   return {
     actor:pivot,
+    get moves(){return state.moves;},
     reset(){
       Object.assign(state,new HauntingState());pivot.visible=true;pivot.position.copy(origin);pivot.rotation.set(0,0,0);pivot.updateMatrixWorld(true);
       currentBounds.copy(localBounds).translate(origin);collider.min=currentBounds.min.toArray();collider.max=currentBounds.max.toArray();
-      visibilityClock=0;visible=false;lastPlacement=null;searches=0;lastSearchMs=0;rejections={};
+      visibilityClock=0;visible=false;lastPlacement=null;searches=0;lastSearchMs=0;rejections={};pendingSearch=null;
     },
     setPresent(value){pivot.visible=value;if(!value){collider.min=[10000,10000,10000];collider.max=[10000,10000,10000];}},
     setPose(base,eyePosition,lean=0){
@@ -162,10 +176,10 @@ export function createDollHaunting({scene,camera,doll,navigation,surfaceHeight,o
       return raycaster.intersectObjects(allProxies.filter(p=>p.userData.obstacleRoot?.visible!==false),false).length===0;
     },
     update(dt,active){
-      if(!active){state.update(dt,{active:false},relocate);visible=false;visibilityClock=0;return;}
+      if(!active){state.update(dt,{active:false},relocate);visible=false;visibilityClock=0;pendingSearch=null;return;}
       camera.updateMatrixWorld(true);eye.copy(camera.position);syncDoor();
       frustum.setFromProjectionMatrix(viewMatrix.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));
-      const outside=!inView(currentBounds);visibilityClock-=dt;
+      const outside=!inView(currentBounds);if(!outside)pendingSearch=null;visibilityClock-=dt;
       if(outside)visible=false;
       else if(visibilityClock<=0){visible=eye.distanceTo(pivot.position)<10&&clearBody(pivot.position,pivot.rotation.y,false);visibilityClock=.12;}
       if(state.update(dt,{active:true,observed:visible&&!outside,outside},relocate)&&state.moves===1)onFirstMove();

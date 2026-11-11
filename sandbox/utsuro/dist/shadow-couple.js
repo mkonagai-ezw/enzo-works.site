@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {shadowMotion,createShadowPoseDriver} from './shadow-motion.js';
+import {shadowMotion,createShadowPoseDriver,shadowFrameDelta} from './shadow-motion.js?v=performance-1';
 import {ShadowEncounterState,sweptDistance} from './shadow-encounter-state.js';
 export async function createShadowCouple({loader,scene,mobile,canStand,onStart=()=>{},onReset=()=>{},onContact=()=>{},onGameOver=()=>{}}){
  const assets=await Promise.all(['male','female'].map(n=>loader.loadAsync('assets/couple/shadow-'+n+'.glb')));
@@ -37,13 +37,20 @@ export async function createShadowCouple({loader,scene,mobile,canStand,onStart=(
   a.shell.updateMatrixWorld(true);anchors.forEach((n,i)=>a.bones[n]?.getWorldPosition(a.anchorPositions[i]));const p=a.positions;
   for(let i=0;i<a.phases.length;i++){const life=(t*(.47+(i%5)*.07)+a.phases[i])%1,anchor=a.anchorPositions[i%anchors.length],angle=i*2.399+t*(i%2?1:-1),r=.04+life*.23;
    p[i*3]=anchor.x+Math.cos(angle)*r-a.forward.x*life*.65;p[i*3+1]=anchor.y+Math.sin(angle*1.4)*r+life*.14;p[i*3+2]=anchor.z+Math.sin(angle)*r-a.forward.z*life*.65;
-  }a.particles.geometry.attributes.position.needsUpdate=true;a.particleMaterial.uniforms.clock.value=t;a.particleMaterial.uniforms.pixelScale.value=innerHeight/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
+  }a.particles.geometry.attributes.position.needsUpdate=true;a.particleMaterial.uniforms.clock.value=t;if(camera)a.particleMaterial.uniforms.pixelScale.value=innerHeight/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
  }
  return {state,group,actors,
   showcase(run=false){state.reset();onReset();state.phase='preview';group.visible=true;actors.forEach((a,i)=>{a.shell.position.set(i?.68:-.68,0,i?-6.1:-5.7);a.shell.rotation.set(0,0,0);a.run.stop();a.idle.stop();(run?a.run:a.idle).reset().play();a.run.timeScale=i?1.55:1.38;a.started=run;});},
-  trigger(player,spawns=[[-.57,0,-22.3],[.58,0,-23.2]]){if(!state.start())return false;onStart();group.visible=true;shown=false;actors.forEach((a,i)=>{a.shell.position.fromArray(spawns[i]);a.shell.rotation.set(0,0,0);a.started=true;a.idle.stop();a.run.reset().play();a.run.timeScale=shadowMotion(0,i).stride;});buildFlow(player);flowTime=0;return true;},
+  trigger(player,spawns=[[-.57,0,-22.3],[.58,0,-23.2]]){if(!state.start())return false;onStart();shown=false;actors.forEach((a,i)=>{a.shell.position.fromArray(spawns[i]);a.shell.rotation.set(0,0,0);a.started=true;a.idle.stop();a.run.reset().play();const motion=shadowMotion(0,i);a.run.timeScale=motion.stride;a.pose(0,motion,false);particles(a,0);});buildFlow(player);flowTime=0;group.visible=true;return true;},
+  async warmup(renderer,camera){
+   // Compile and upload the skinned meshes/particles offscreen before gameplay.
+   const wasVisible=group.visible,renderTarget=renderer.getRenderTarget(),scratch=new THREE.WebGLRenderTarget(64,64),warmCamera=camera.clone();
+   warmCamera.position.set(0,1.64,-1.1);warmCamera.lookAt(0,1,-8);warmCamera.updateMatrixWorld(true);
+   try{group.visible=true;actors.forEach((a,i)=>{a.shell.position.set(i?.58:-.57,0,-8);a.idle.stop();a.run.reset().play();a.pose(0,shadowMotion(0,i),false);particles(a,0,warmCamera);});await renderer.compileAsync(scene,warmCamera);renderer.setRenderTarget(scratch);renderer.render(scene,warmCamera);}
+   finally{renderer.setRenderTarget(renderTarget);scratch.dispose();group.visible=wasVisible;actors.forEach(a=>{a.run.stop();a.idle.reset().play();a.pose(0,shadowMotion(0,a.index),false);a.started=false;});}
+  },
   reset(){state.reset();onReset();shown=false;group.visible=false;actors.forEach(a=>{a.run.stop();a.idle.reset().play();a.started=false;});},
-  update(dt,player,camera){if(state.phase==='hidden'||state.phase==='gameover')return;state.tick(dt);flowTime+=dt;if(flowTime>.35){buildFlow(player);flowTime=0;}
+  update(dt,player,camera){if(state.phase==='hidden'||state.phase==='gameover')return;dt=shadowFrameDelta(dt);state.tick(dt);flowTime+=dt;if(flowTime>.35){buildFlow(player);flowTime=0;}
    actors.forEach((a,i)=>{
     const go=state.phase==='rush',motion=shadowMotion(state.time,i);
     if(go&&!a.started){a.idle.stop();a.run.reset().play();a.run.timeScale=i?1.55:1.38;a.started=true;}

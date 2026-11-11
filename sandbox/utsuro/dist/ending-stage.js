@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import {EndingState} from './ending-state.js';
-import {createEndingPresentation} from './ending-presentation.js';
+import {createEndingPresentation} from './ending-presentation.js?v=performance-2';
 import {createFarewellPose} from './farewell-pose.js';
 import {createSoftFarewellShadow} from './soft-farewell-shadow.js';
+import {cacheShadow} from './performance-runtime.js';
 
 export async function createEndingStage({loader,dollSource,mobile,renderer,soundEnabled=()=>true}){
  const [gltf,...people]=await Promise.all([loader.loadAsync('assets/ending/ending-stage.glb?v=candles-1'),...['male','female'].map(n=>loader.loadAsync('assets/couple/shadow-'+n+'.glb'))]);
@@ -34,16 +35,16 @@ export async function createEndingStage({loader,dollSource,mobile,renderer,sound
  const smoke=await new THREE.TextureLoader().loadAsync('assets/fire/smoke_01.png');
  const mistPositions=new Float32Array((mobile?90:180)*3),mistGeo=new THREE.BufferGeometry();mistGeo.setAttribute('position',new THREE.BufferAttribute(mistPositions,3));const mistMat=new THREE.PointsMaterial({color:'#030404',alphaMap:smoke,size:.32,transparent:true,depthWrite:false,opacity:.35,fog:false});const mist=new THREE.Points(mistGeo,mistMat);scene.add(mist);mist.frustumCulled=false;
  const photo=new Image();photo.alt='晴天の朝、竹藪に囲まれた古い家';photo.src='assets/ending/morning-house-v1.webp';photo.className='endingPhoto';await photo.decode();
- const state=new EndingState();let onRestart=()=>{},onExit=()=>{};
+ const state=new EndingState(),sunCache=cacheShadow(sun);let onRestart=()=>{},onExit=()=>{};
  const presentation=createEndingPresentation({photo,onRestart:()=>onRestart(),onExit:()=>onExit(),soundEnabled});
  const white=document.createElement('div');white.id='endingWhite';white.setAttribute('aria-hidden','true');document.body.append(white);
  function reset(){presentation.reset();state.reset();family.visible=false;mist.visible=false;dissolveUniform.value=0;left.position.x=leftX;right.position.x=rightX;white.style.opacity=0;particleMat.opacity=0;document.body.classList.remove('ending-cinematic','ending-epilogue');}
  const point=new THREE.Vector3(0,1.1,-12.4),direction=new THREE.Vector3();
- return {scene,state,presentation,spawn:[0,1.64,-1.5],reset,setRestart(fn){onRestart=fn;},setExit(fn){onExit=fn;},advanceText(){presentation.advance();},
+ return {scene,state,presentation,spawn:[0,1.64,-1.5],reset,setRestart(fn){onRestart=fn;},setExit(fn){onExit=fn;},advanceText(){presentation.advance();},get shadowRevision(){return left.position.x+','+right.position.x;},
   canStand(x,z){return Math.abs(x)<1.85&&z<-.3&&z>-11.75&&candles.every(c=>Math.hypot(x-c.light.position.x,z-c.light.position.z)>.27);},
   target(camera){direction.copy(point).sub(camera.position);return !state.locked&&direction.length()<2.9&&direction.normalize().dot(camera.getWorldDirection(new THREE.Vector3()))>.82?'exit':null;},
   begin(position,yaw,pitch){const ok=state.begin(position.toArray(),yaw,pitch);if(ok){document.body.classList.add('ending-cinematic');presentation.unlockAudio();}return ok;},
-  update(dt,active,camera,position){state.tick(dt,active);const t=state.time;document.body.dataset.endingShot=presentation.state.phase==='complete'?'complete':presentation.state.phase==='credits'?'credits':state.phase==='epilogue'?'epilogue':t>=6.6&&t<9?'dissolving':t>=4&&t<5.7?'family':t>=16&&t<19?'exit':'entrance';left.position.x=leftX-state.door*1.27;right.position.x=rightX+state.door*1.27;sun.intensity=5+state.door*90;shaftMaterial.uniforms.strength.value=.025+state.door*.045;family.visible=state.familyVisible;dissolveUniform.value=state.dissolve;
+  update(dt,active,camera,position){state.tick(dt,active);if(state.phase==='epilogue'){white.style.opacity=state.white;presentation.update(dt,active,true);document.body.dataset.endingShot=presentation.state.phase;return;}const t=state.time;document.body.dataset.endingShot=presentation.state.phase==='complete'?'complete':presentation.state.phase==='credits'?'credits':state.phase==='epilogue'?'epilogue':t>=6.6&&t<9?'dissolving':t>=4&&t<5.7?'family':t>=16&&t<19?'exit':'entrance';left.position.x=leftX-state.door*1.27;right.position.x=rightX+state.door*1.27;sunCache.sync(left.position.x+','+right.position.x);sun.intensity=5+state.door*90;shaftMaterial.uniforms.strength.value=.025+state.door*.045;family.visible=state.familyVisible;dissolveUniform.value=state.dissolve;
    softParents.forEach((parent,i)=>{parent.material.opacity=.94*(1-state.dissolve);parent.rotation.z=(i?.025:-.025)+Math.sin(t*.7+i)*.0015;}); if(active)candleTime+=dt; for(const c of candles){c.light.intensity=5.2*(1+.055*Math.sin(candleTime*7.3+c.phase)+.025*Math.sin(candleTime*17+c.phase));c.flame.scale.y=.032*(1+.1*Math.sin(candleTime*9+c.phase));c.flame.rotation.z=.1*Math.sin(candleTime*4.8+c.phase);}
    if(state.locked){const turn=state.turn,forward=state.startYaw+Math.atan2(Math.sin(-state.startYaw),Math.cos(-state.startYaw));const facing=forward+Math.PI*turn;const settle=THREE.MathUtils.smoothstep(t,0,1.5);camera.rotation.set(THREE.MathUtils.lerp(state.startPitch,-.11*turn,settle),THREE.MathUtils.lerp(state.startYaw,facing,settle),0);position.fromArray(state.startPosition);position.x=THREE.MathUtils.lerp(position.x,0,state.walk);position.z=THREE.MathUtils.lerp(position.z,-13.4,state.walk);camera.position.copy(position);}
    for(let i=0;i<count;i++){const s=seeds[i],which=i%3,x=which===0?-.34:which===1?0:.34,h=which===1?.83:which===0?1.88:1.61;points[i*3]=x+Math.sin(i*2.4+t*.6)*(.12+state.dissolve*.5);points[i*3+1]=(s*h+state.dissolve*.9)%2.4;points[i*3+2]=(which===1?-5.6:-5.1)+Math.cos(i*1.3)*.16-state.dissolve*.45;}

@@ -1,14 +1,17 @@
 import * as THREE from 'three';
 const x=new THREE.Vector3(1,0,0),y=new THREE.Vector3(0,1,0),z=new THREE.Vector3(0,0,1),q=new THREE.Quaternion();
-// Hold a contorted pose, then catch up abruptly. The short blend avoids mesh discontinuities.
-function catchUp(t,period,offset=0){const v=(t+offset)/period,n=Math.floor(v),f=v-n,u=Math.min(1,f/.16),ease=u*u*(3-2*u);return (n%2===0?1:-1)*(2*ease-1);}
+// Keep the unnatural holds, but blend across several frames instead of snapping.
+function catchUp(t,period,offset=0){const v=(t+offset)/period,n=Math.floor(v),f=v-n,u=Math.min(1,f/.4),ease=u*u*(3-2*u);return (n%2===0?1:-1)*(2*ease-1);}
+// Never catch up a long stall by teleporting towards the player. Animation,
+// translation and the encounter clock all use this same bounded time step.
+export function shadowFrameDelta(dt){return Number.isFinite(dt)?Math.max(0,Math.min(dt,1/30)):0;}
 export function shadowMotion(t,index){
  const k=index?1:-1,p=t+index*.37;
  return {twist:catchUp(p,.47)*.57,lag:catchUp(p-.13,.47)*.42,
   neck:k*.73+catchUp(p,.73,.12)*.27,head:catchUp(p-.08,.73,.12)*-.37,
   shoulder:catchUp(p,.31)*.67,elbow:catchUp(p-.1,.39)*.82,
   lean:index?.42:-.24,roll:Math.sin(p*5.1)*.13,
-  speed:(index?9.1:8.3)*(.87+.30*catchUp(p,.39)),stride:1.45+.38*catchUp(p,.39),
+  speed:(index?9.1:8.3)*(.87+.10*Math.sin(p*7)),stride:1.45+.18*Math.sin(p*7),
   lift:.018*(1+Math.sin(p*15))};
 }
 export function applyShadowPose(bones,motion,locked=false){

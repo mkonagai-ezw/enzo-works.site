@@ -1,3 +1,4 @@
+import {setText,setOpacity} from './performance-runtime.js';
 import {EpilogueState} from './epilogue-state.js';
 import {CREDIT_SECTIONS} from './ending-credits.js';
 export function createEndingPresentation({photo,onRestart,onExit,soundEnabled}){
@@ -39,10 +40,10 @@ export function createEndingPresentation({photo,onRestart,onExit,soundEnabled}){
   overlay.hidden=state.phase==='idle';overlay.dataset.phase=state.phase;
   const credits=['credits','complete'].includes(state.phase);
   document.body.classList.toggle('ending-epilogue',state.phase!=='idle');
-  morning.hidden=credits;morning.style.opacity=String(1-state.fade);
-  line.textContent=state.text;
+  morning.hidden=credits;setOpacity(morning,1-state.fade);
+  setText(line,state.text);
   advance.hidden=state.phase!=='narrative'||(state.lastLine&&state.lineComplete);
-  advance.textContent=state.lineComplete?'次へ　›':'全文を表示';
+  setText(advance,state.lineComplete?'次へ　›':'全文を表示');
   rollWindow.hidden=state.phase!=='credits';actions.hidden=!credits;final.hidden=state.phase!=='complete';
   if(state.phase==='credits'){if(!creditsHeight||!viewportHeight)measure();roll.style.transform=`translateY(${viewportHeight-(viewportHeight+creditsHeight)*state.creditProgress}px)`;}
  }
