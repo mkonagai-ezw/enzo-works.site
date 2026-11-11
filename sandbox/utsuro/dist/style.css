@@ -64,3 +64,17 @@ body.ending-cinematic header,body.ending-cinematic footer,body.ending-cinematic 
 .viewing-hint header,.viewing-hint footer,.viewing-hint #reticle,.viewing-hint #prompt,.viewing-hint #inspection,.viewing-hint #touch{visibility:hidden}
 @keyframes hint-drift{0%,8%,21%,62%,100%{transform:translate(0,0)}7%{transform:translate(2px,0)}20%{transform:translate(-2px,1px)}61%{transform:translate(1px,-1px)}}
 @media(prefers-reduced-motion:reduce){.hintPicture{animation:none}}
+
+/* Keep location and weather information out of the title/menu screen. */
+body:not(.playing) #place,body:not(.playing) footer{display:none}
+#contentWarning{max-width:290px;margin:18px 0 10px;color:#f0998c;font-size:12px;line-height:1.8;letter-spacing:.03em}
+#intro #start{margin-top:0}
+@media(max-height:520px){
+ .touch-mode #intro #contentWarning{grid-column:2;grid-row:1;max-width:none;font-size:11px;line-height:1.65;margin:0 0 8px}
+ .touch-mode #intro #start{grid-row:2}
+ .touch-mode #intro #loading{grid-row:3}
+ .touch-mode #intro .mobileGuide{grid-row:4}
+ .touch-mode #intro h1{grid-row:1 / 3}
+ .touch-mode #intro .subtitle{grid-row:3}
+ .touch-mode #intro .description{grid-row:4 / 7}
+}
