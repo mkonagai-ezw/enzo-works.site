@@ -23,10 +23,12 @@ import {shareGLTFImages} from './shared-textures.js';
 import {createWellShaft} from './well-shaft.js';
 import {createTatamiScorch} from './tatami-scorch.js';
 import {createTouchStick} from './touch-controls.js';
+import {createTitleScreen} from './title-screen.js?v=title-card-2';
 const elements=new Map(),$=s=>{if(!elements.has(s)){const e=document.querySelector(s);if(e)elements.set(s,e);return e;}return elements.get(s);},canvas=$('#world');
 const diagnosticMode=['127.0.0.1','localhost'].includes(location.hostname)&&new URLSearchParams(location.search).has('qa');
 const mobileMode=matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0||innerWidth<900;
 const touchUI=()=>mobileMode||innerWidth<900;
+const titleScreen=createTitleScreen();
 const renderer=new THREE.WebGLRenderer({canvas,antialias:!mobileMode,powerPreference:'high-performance'});
 const resolution=new AdaptiveResolution(Math.min(devicePixelRatio,mobileMode?1:1.6),mobileMode?.8:1);
 renderer.setPixelRatio(resolution.value);renderer.setSize(innerWidth,innerHeight);
@@ -157,19 +159,19 @@ async function init(){
   try{renderer.setRenderTarget(warmTarget);renderer.render(scene,camera);}finally{renderer.setRenderTarget(previousTarget);warmTarget.dispose();monkFire.group.visible=fireVisible;arms.group.visible=armVisible;}
   moonCache.invalidate();flashCache.invalidate();
   flash.visible=true;flash.intensity=0;renderingWarmup=false;previousFrame=performance.now();
-  $('#start').disabled=false;$('#startText').textContent='探索を始める';$('#loading').hidden=true;
+  $('#start').disabled=false;$('#startText').textContent='はじめる';$('#loading').hidden=true;
   // An observable diagnostics panel supports repeatable local QA without game UI clutter.
   if(diagnosticMode){const info=document.createElement('output');info.id='diagnostics';info.hidden=true;document.body.append(info);}
  }catch(e){renderingWarmup=false;console.error(e);$('#startText').textContent='読み込みに失敗しました';$('#error').hidden=false;$('#error').textContent='風景を読み込めませんでした。起動用ファイルから開き直してください。 '+e.message;}
 }
 function start(){
  if(!house||controlsLocked())return;
- playing=true;document.body.classList.add('playing');$('#reticle').hidden=false;$('#touch').hidden=movementLocked()||!touchUI();
+ playing=true;document.body.classList.add('playing');titleScreen.enter(touchUI());$('#reticle').hidden=false;$('#touch').hidden=movementLocked()||!touchUI();
  if(firstStart){returnToGarden();firstStart=false;}$('#hint').textContent='F 懐中電灯　／　E 調べる';
  if(!touchUI()){try{let p=canvas.requestPointerLock();p?.catch(()=>{});}catch{}}
  startAudio();
 }
-function pause(){shadowAudio?.suspend();ending?.pauseAudio();corridorCreak?.suspend();playing=false;keys.clear();touchStick.reset();drag=false;lookPointer=null;document.body.classList.remove('playing');$('#reticle').hidden=true;$('#touch').hidden=true;$('#prompt').hidden=true;$('#startText').textContent='探索に戻る';if(document.pointerLockElement)document.exitPointerLock();if(soundGain)soundGain.gain.setTargetAtTime($('#sound').checked?.015:0,audioContext.currentTime,.3);if(rustleSource){rustleSource.stop();rustleSource=null;}}
+function pause(){shadowAudio?.suspend();ending?.pauseAudio();corridorCreak?.suspend();playing=false;keys.clear();touchStick.reset();drag=false;lookPointer=null;document.body.classList.remove('playing');$('#reticle').hidden=true;$('#touch').hidden=true;$('#prompt').hidden=true;$('#startText').textContent='探索に戻る';titleScreen.pause();if(document.pointerLockElement)document.exitPointerLock();if(soundGain)soundGain.gain.setTargetAtTime($('#sound').checked?.015:0,audioContext.currentTime,.3);if(rustleSource){rustleSource.stop();rustleSource=null;}}
 function startAudio(){
  const firstAudioStart=!audioContext;
  if(!audioContext){audioContext=new (window.AudioContext||window.webkitAudioContext)();soundGain=audioContext.createGain();soundGain.gain.value=$('#sound').checked?.08:0;soundGain.connect(audioContext.destination);const b=audioContext.createBuffer(1,audioContext.sampleRate*5,audioContext.sampleRate),a=b.getChannelData(0);let previous=0;for(let i=0;i<a.length;i++){previous=(previous+(Math.random()*2-1)*.025)/1.025;a[i]=previous*4;}startImpactBuffer=b;const src=audioContext.createBufferSource();src.buffer=b;src.loop=true;const low=audioContext.createBiquadFilter();low.type='lowpass';low.frequency.value=700;src.connect(low);low.connect(soundGain);src.start();}
@@ -242,7 +244,7 @@ function enterCorridor(){
  $('#place').textContent='廊下';$('#prompt').hidden=true;$('#inspection').hidden=true;$('#hint').textContent='人形の絵を手がかりに、左右の道を選ぶ';
 }
 function restartGame(autoStart=true){
- clueReading=false;
+ titleScreen.reset();clueReading=false;
  corridorHints?.reset(true);ending?.reset();corridorWins=0;endingQAFreeze=false;
  $('#touchLight').hidden=false;$('footer>span:first-child').textContent='曇天　／　夜';canvas.setAttribute('aria-label','曇天の夜、竹藪に囲まれた日本の廃屋');
  shadowCouple.reset();shadowAudio?.reset();corridorEvents.reset();corridorReading=false;
@@ -250,7 +252,7 @@ function restartGame(autoStart=true){
  arms.group.visible=false;armsActive=false;monkFire.reset();monk.visible=false;navigation.colliders.find(b=>b.name==='Praying monk').disabled=true;wellLid.quaternion.copy(wellLidRest);wellLid.updateMatrixWorld(true);
  higanbana.visible=false;setJizoPresent(true);if(rustleSource){try{rustleSource.stop();}catch{}rustleSource=null;}
  rustlePlays=0;doorOpen=false;doorProgress=0;door.position.z=0;door.updateMatrixWorld(true);flashOn=true;inspectionUntil=0;firstStart=false;returnToGarden();previousFrame=performance.now();
- $('#story').hidden=true;$('#blackout').style.opacity=0;$('#presenceHint').hidden=true;$('#inspection').hidden=true;$('#credits').hidden=true;if(autoStart)start();else{pause();$('#startText').textContent='はじめる';$('#place').textContent='竹藪の家';$('#hint').textContent='イヤホン推奨';}
+ $('#story').hidden=true;$('#blackout').style.opacity=0;$('#presenceHint').hidden=true;$('#inspection').hidden=true;$('#credits').close();if(autoStart)start();else{pause();$('#startText').textContent='はじめる';$('#place').textContent='竹藪の家';$('#hint').textContent='イヤホン推奨';}
 }
 function restartCorridor(){corridorWins=0;shadowCouple.reset();shadowAudio?.reset();$('#story').hidden=true;$('#blackout').style.opacity=0;story.phase='corridor';story.rain=false;enterCorridor();playing=true;$('#reticle').hidden=false;$('#touch').hidden=!touchUI();$('#hint').textContent='F 懐中電灯　／　廊下を進む';}
 // One result per block; wrong exits lead into the established shadow encounter.
@@ -350,10 +352,10 @@ function blocked(x,z,y){
 }
 $('#start').onclick=start;
 $('#storyAction').onclick=activateStoryAction;
-$('#menu').onclick=()=>{if(!controlsLocked())playing?pause():start();};$('#creditsToggle').onclick=()=>$('#credits').hidden=false;$('#closeCredits').onclick=()=>$('#credits').hidden=true;
+$('#menu').onclick=()=>{if(!controlsLocked())playing?pause():start();};
 $('#brightness').oninput=e=>renderer.toneMappingExposure=Number(e.target.value);$('#sound').onchange=()=>{if(soundGain)soundGain.gain.setTargetAtTime($('#sound').checked&&currentStage==='house'?.08:0,audioContext.currentTime,.2);else if(playing&&$('#sound').checked)startAudio();if(rustleGain)rustleGain.gain.setTargetAtTime($('#sound').checked?.65:0,audioContext.currentTime,.02);};
 $('#touchLight').onclick=()=>{if(canToggleFlash())flashOn=!flashOn;};$('#touchAction').onclick=interact;
-document.addEventListener('keydown',e=>{if(currentStage==='ending'&&e.target.closest?.('#ending button')&&['Enter','Space'].includes(e.code))return;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))e.preventDefault();if(e.repeat)return;if(controlsLocked()){if(['KeyE','Enter','Space'].includes(e.code)){e.preventDefault();activateStoryAction();}return;}keys.add(e.code);if(e.code==='KeyF'&&canToggleFlash())flashOn=!flashOn;if(e.code==='KeyE')interact();if(e.code==='Escape')pause();if(e.code==='KeyR'&&!story.rain&&currentStage==='house')returnToGarden();});
+document.addEventListener('keydown',e=>{if(!playing)return;if(currentStage==='ending'&&e.target.closest?.('#ending button')&&['Enter','Space'].includes(e.code))return;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))e.preventDefault();if(e.repeat)return;if(controlsLocked()){if(['KeyE','Enter','Space'].includes(e.code)){e.preventDefault();activateStoryAction();}return;}keys.add(e.code);if(e.code==='KeyF'&&canToggleFlash())flashOn=!flashOn;if(e.code==='KeyE')interact();if(e.code==='Escape')pause();if(e.code==='KeyR'&&!story.rain&&currentStage==='house')returnToGarden();});
 document.addEventListener('keyup',e=>keys.delete(e.code));window.addEventListener('blur',()=>{keys.clear();if(playing&&!controlsLocked())pause()});
 document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&playing&&!drag&&!controlsLocked())pause()});
 canvas.addEventListener('pointerdown',e=>{if(!playing||controlsLocked())return;if(lookPointer!==null)return;drag=true;lookPointer=e.pointerId;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId)});
@@ -408,7 +410,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
  camera.getWorldDirection(v3);flash.position.copy(camera.position).addScaledVector(v3,.2);flash.position.y-=.16;flash.target.position.copy(camera.position).addScaledVector(v3,10);flash.intensity=(currentStage==='corridor'?corridor.lighting.flashPower:25)*story.flashlightPower*(currentStage==='corridor'?1-shadowCouple.state.darkness:1);flash.visible=true;if(!playing||!flashOn||story.flashlightPower<=0)flash.intensity=0;
  if(clues)clues.cupboard.update(active?Math.min(frameDt,.1):0,{active:active&&currentStage==='house'&&!controlsLocked(),beforeJizo:!story.rain,camera,flash,clearLine:(a,b)=>haunting.clearLine(a,b)});
  if(currentStage==='house')dust.update(elapsed,flash.position,v3,flash.intensity>0,renderer.getPixelRatio());
- const overlayOnly=currentStage==='ending'&&ending.state.phase==='epilogue';
+ const overlayOnly=!playing||(currentStage==='ending'&&ending.state.phase==='epilogue');
  if(!overlayOnly){
   if(currentStage==='house'&&elapsed-lastLodTime>.2){lastLodTime=elapsed;for(const lod of forestLods){const distance=Math.hypot(camera.position.x-lod.center.x,camera.position.z-lod.center.z),coarse=distance>(lod.coarse?14:18);if(coarse!==lod.coarse){lod.coarse=coarse;lod.high.visible=!coarse;lod.low.visible=coarse;forestRevision++;}}}
   const casters=currentStage==='house'?[transformKey(door),transformKey(haunting?.actor),transformKey(jizo),transformKey(monk),transformKey(wellLid),clues?.reveal.visible,clues?.cupboard.shadowKey,higanbana?.visible,story.remainingClues,forestRevision].join('|'):currentStage==='corridor'?[corridorEvents.group.visible,transformKey(corridorEvents.doll)].join('|'):ending?.shadowRevision;

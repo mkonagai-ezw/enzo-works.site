@@ -1,0 +1,13 @@
+Title screen artwork — 2026-11-12
+Mode: built-in image_gen (imagegen skill), edited from approved title-screen concept.
+Reference: exec-3f0bfbc7-4265-4ffb-950a-8fca3be2ccbf.png
+Background: house-night-v1.webp
+Title alpha artwork: title-vertical-v1.webp
+Logo: enzo-works-v1.webp, resized from project images/logo.png (existing ENZO WORKS identity).
+Generated images resized/encoded to WebP; title displayed as an ivory CSS alpha mask.
+
+BACKGROUND PROMPT
+Use case: precise-object-edit. Asset type: background-only artwork for the approved horror-game title screen. Edit the provided approved mockup. REMOVE ALL typography, the vertical title, red warning, menu text, and bottom logo, reconstructing the natural dark background underneath. Keep the entire house, engawa, door slit of warm light, bamboo, trees, stones, framing, perspective, earthy charcoal/brown palette and subdued cinematic exposure exactly as in the reference. Wide 16:9 landscape. No text, logo, UI, people, ghosts, or added objects. Preserve the dark negative space on right where title was, and at bottom where real HTML menu will sit.
+
+TITLE PROMPT
+Use case: background-extraction. Asset type: transparent vertical Japanese title artwork for a game UI. Extract ONLY the large ivory vertical title from the right of the supplied approved mockup. Exact text in one vertical column, top to bottom: と あ る 家 (four characters, no spaces visibly printed). Preserve the elegant Japanese Mincho / literary movie-title letterforms, fine serifs, subtle ink wear and warm ivory color of the reference. Remove absolutely everything else: background, house, warning, menus, logo. True transparent alpha background; no opaque backing, no shadow, no checkerboard. Center the four-character vertical column in a tall narrow canvas with minimal clear padding so it can be displayed as an independent title image.

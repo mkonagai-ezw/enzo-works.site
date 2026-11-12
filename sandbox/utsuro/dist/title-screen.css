@@ -1,0 +1,71 @@
+/* Title card: fixed composition, independent artwork and live controls. */
+body:not(.playing) header{visibility:hidden;pointer-events:none}
+body #intro,body.touch-mode #intro{
+ position:fixed;inset:0;z-index:5;transform:none;width:100%;height:100%;height:100dvh;
+ max-width:none;max-height:none;margin:0;padding:0;overflow:hidden;display:block;
+ color:#e8dcc7;background:#080907 url('./assets/title/house-night-v1.webp') center/cover no-repeat;
+ isolation:isolate;
+}
+body #intro::before{content:'';position:absolute;inset:0;width:auto;height:auto;z-index:-1;transform:none;pointer-events:none;background:linear-gradient(0deg,rgba(3,4,3,.54),transparent 48%)}
+body.playing #intro,body.touch-mode.playing #intro{display:none}
+#intro .title-art{position:absolute;top:9%;right:10%;width:clamp(180px,17vw,290px);height:53%;margin:0;padding:0;line-height:1;font-size:inherit;filter:drop-shadow(0 2px 10px #000)}
+.title-art span{display:block;width:100%;height:100%;background:#e7d5b8;mask:url('./assets/title/title-vertical-v1.webp') center/contain no-repeat;-webkit-mask:url('./assets/title/title-vertical-v1.webp') center/contain no-repeat}
+#intro .title-menu{position:absolute;bottom:max(11.5%,72px);left:50%;transform:translateX(-50%);width:min(94%,720px);text-align:center;font-family:'Yu Mincho','Hiragino Mincho ProN','Noto Serif JP',serif}
+body #intro #contentWarning{max-width:none;margin:0 auto 10px;color:#d17e6d;font-size:clamp(11px,1vw,15px);line-height:1.8;letter-spacing:.1em;text-wrap:balance}
+#intro button{font-family:inherit;color:#e8dcc7;letter-spacing:.22em;text-indent:.22em;border:0;background:none;box-shadow:none;border-radius:2px;cursor:pointer;transition:color .2s,text-shadow .2s}
+#intro button:hover{color:#fff6e4;text-shadow:0 0 18px #d8bd8a66;background:none}
+#intro button:focus-visible{outline:1px solid #d6c3a3;outline-offset:4px}
+body #intro #start{display:block;width:auto;min-width:220px;max-width:100%;min-height:54px;padding:7px 20px;margin:0 auto;font-size:clamp(27px,3.1vw,45px);line-height:1.6;text-align:center}
+#intro #start:disabled{cursor:wait;color:#a29887;opacity:.7}
+#intro .title-secondary{display:flex;justify-content:center;gap:36px;margin-top:8px}
+#intro .title-secondary button{min-height:44px;padding:4px 12px;margin:0;font-size:clamp(16px,1.6vw,23px);line-height:1.5}
+#intro #loading{position:absolute;top:100%;left:50%;transform:translateX(-50%);width:150px;height:1px;margin:5px 0 0;background:#ddd2bc20}
+#intro #loading i{background:#d3bda0;height:1px}
+#intro .title-brand{position:absolute;bottom:max(4.5%,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:116px;height:auto;filter:brightness(0) invert(1);opacity:.85}
+dialog.title-dialog,dialog#credits{
+ position:fixed;inset:0;transform:none;box-sizing:border-box;width:min(600px,calc(100vw - 36px));max-height:calc(100dvh - 48px);
+ margin:auto;padding:30px 32px;color:#dfd6c7;background:#141411;border:1px solid #665b46;border-radius:0;overflow:auto;
+ box-shadow:0 25px 100px #000a;font:14px/1.9 'Yu Gothic','Hiragino Kaku Gothic ProN',sans-serif;letter-spacing:.04em;touch-action:pan-y;
+}
+dialog:not([open]){display:none!important}
+dialog.title-dialog::backdrop,dialog#credits::backdrop{background:#000b}
+.title-dialog h2,#credits h2{font-family:'Yu Mincho','Hiragino Mincho ProN',serif;font-weight:400;font-size:25px;letter-spacing:.2em;margin:0 0 24px;color:#eee2cc}
+.title-dialog h3{font-size:13px;font-weight:400;letter-spacing:.12em;margin:28px 0 12px;color:#d1b992}
+#settings .options{display:flex;flex-direction:column;gap:24px;margin:0;padding:0}
+#settings .options label{display:flex;align-items:center;justify-content:space-between;gap:24px;font-size:14px}
+#settings input[type=range]{width:60%;max-width:260px;accent-color:#c3aa82}
+#settings input[type=checkbox]{width:20px;height:20px;accent-color:#c3aa82;margin-right:8px}
+#settings .options label:last-child{justify-content:flex-start;gap:0}
+.title-dialog p{color:#beb6a7;margin:10px 0;font-size:13px;line-height:1.9}
+dialog#credits a{color:#cbb797;text-underline-offset:3px}
+.title-dialog .dialog-close,#credits #closeCredits{display:block;position:sticky;bottom:0;margin:28px auto 0;padding:10px 28px;min-height:44px;border:1px solid #73654e;background:#1b1b16;color:#e9ddc7;font-size:14px;letter-spacing:.15em;cursor:pointer}
+.title-dialog button:focus-visible,.title-dialog input:focus-visible,#credits :focus-visible{outline:2px solid #e4ca9e;outline-offset:3px}
+#orientationGuide{width:min(350px,calc(100vw - 40px));padding:32px 24px;text-align:center}
+#orientationGuide .orientation-symbol{display:block;width:120px;height:92px;margin:0 auto 22px;color:#c9b38f}
+#orientationGuide h2{font-size:22px;line-height:1.8;letter-spacing:.12em;margin-bottom:18px}
+#orientationGuide p{line-height:2;color:#bfb6a5}
+#orientationGuide .dialog-close{font-size:13px;margin-top:26px;min-height:48px;position:static}
+#firstControls{position:fixed;z-index:6;left:50%;bottom:8%;transform:translateX(-50%);padding:13px 22px;width:max-content;max-width:85vw;text-align:center;white-space:pre-line;background:#050706b8;color:#d8d4c8;font-size:12px;line-height:2;letter-spacing:.08em;pointer-events:none}
+body.touch-mode #firstControls{bottom:32%}
+@media(max-aspect-ratio:3/4){
+ body #intro,body.touch-mode #intro{background-position:56% center}
+ body #intro::before{background:linear-gradient(0deg,#030403e8,transparent 58%),linear-gradient(270deg,#03040385,transparent 65%)}
+ #intro .title-art{top:8%;right:1%;width:180px;height:44%}
+ #intro .title-menu{bottom:max(13%,90px);width:90%}
+ body #intro #contentWarning{max-width:300px;margin-bottom:14px;font-size:11px;letter-spacing:.04em}
+ body #intro #start{font-size:32px}
+ #intro .title-secondary{gap:28px;margin-top:12px}
+ #intro .title-secondary button{font-size:18px}
+ #intro .title-brand{width:108px;bottom:max(5%,env(safe-area-inset-bottom))}
+}
+@media(max-height:520px) and (min-aspect-ratio:3/4){
+ #intro .title-art{top:6%;right:9%;height:54%;width:170px}
+ #intro .title-menu{bottom:max(13%,45px);width:80%}
+ body #intro #contentWarning{font-size:10px;margin-bottom:0}
+ body #intro #start{font-size:26px;min-height:44px;padding:0 16px}
+ #intro .title-secondary{margin-top:0;gap:28px}
+ #intro .title-secondary button{font-size:15px;padding:0 10px}
+ #intro .title-brand{bottom:max(3%,env(safe-area-inset-bottom));width:88px}
+ dialog.title-dialog,dialog#credits{max-height:calc(100dvh - 24px);padding:22px}
+}
+@media(prefers-reduced-motion:reduce){#intro button{transition:none}}
