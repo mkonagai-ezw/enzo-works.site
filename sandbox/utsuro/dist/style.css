@@ -28,6 +28,12 @@ button,#touch,#world,#movePad,input[type=range]{touch-action:none}
 #story[data-kind="corridor"] #storyTitle{font-size:clamp(28px,5vw,46px);letter-spacing:.24em;margin:24px 0 32px}
 #story[data-kind="corridor"] #storyDetail{font-size:clamp(14px,2.5vw,18px);line-height:2;white-space:pre-line;max-width:36em;margin:0 auto;text-align:left}
 #story[data-kind="corridor"] .storyCard{max-height:90dvh;overflow:auto;padding:32px 24px}
+#story[data-kind="newspaper"] .storyCard{display:flex;flex-direction:column;width:min(92vw,700px);max-height:90dvh;padding:26px 30px;background:#c7b995;color:#27251f;box-shadow:0 8px 60px #000b;border:1px solid #80765f}
+#story[data-kind="newspaper"] .storyMark{display:none}
+#story[data-kind="newspaper"] #storyTitle{flex:none;font-size:clamp(23px,4vw,32px);font-weight:600;letter-spacing:.12em;margin:0 0 18px;color:#27251f;text-shadow:none}
+#story[data-kind="newspaper"] #storyDetail{min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;white-space:pre-line;text-align:left;color:#27251f;font-size:15px;line-height:1.9;letter-spacing:.04em;margin:0;padding-right:10px}
+#story[data-kind="newspaper"] #storyAction{flex:none;align-self:center;margin-top:18px;min-height:44px;color:#27251f;border-color:#625a46}
+@media(max-height:520px){#story[data-kind="newspaper"] .storyCard{padding:16px 22px;max-height:94dvh}#story[data-kind="newspaper"] #storyTitle{margin-bottom:10px}#story[data-kind="newspaper"] #storyDetail{font-size:14px}#story[data-kind="newspaper"] #storyAction{padding:10px 24px;margin-top:10px}}
 
 body.ending-cinematic header,body.ending-cinematic footer,body.ending-cinematic .vignette,body.ending-cinematic #reticle,body.ending-cinematic #touch,body.ending-cinematic #prompt{visibility:hidden}
 #endingWhite{position:fixed;inset:0;background:#fff;z-index:85;opacity:0;pointer-events:none}

@@ -3,8 +3,8 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from './vendor/meshopt_decoder.mjs';
 import {createDust} from './dust.js';
 import {createDollHaunting} from './doll-haunting.js?v=performance-2';
-import {createForeshadowing,CLUE_VIEWS} from './foreshadowing.js?v=note-2';
-import {HouseStoryState,CLUE_IDS} from './house-story.js?v=note-1';
+import {createForeshadowing,CLUE_VIEWS} from './foreshadowing.js?v=newspaper-1';
+import {HouseStoryState,CLUE_IDS} from './house-story.js?v=newspaper-1';
 import {createMonkFire} from './monk-fire.js?v=performance-2';
 import {createShadowCouple} from './shadow-couple.js?v=performance-2';
 import {createShadowAudio} from './shadow-audio.js?v=performance-2';
@@ -40,13 +40,13 @@ const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);const imageCache
 async function model(file){const g=await loader.loadAsync('assets/'+(mobileMode?'mobile/':'')+file);loaded++;$('#loading i').style.width=Math.round(loaded/total*100)+'%';return g.scene;}
 let house,navigation,layout,door,doorProgress=0,doorOpen=false,playing=false,firstStart=true,inspectionUntil=0;
 let corridorEvents,corridorReading=false,shadowCouple,shadowAudio,shadowAudioLoading=false,monkFire,clues,storyAudio,phone,jizo,higanbana,monk,arms,corridor,wellLid,wellLidRest,armsActive=false,currentStage='house';
-let corridorHints,renderingWarmup=false;
+let corridorHints,renderingWarmup=false,clueReading=false;
 let ending,endingLoading=false,endingDollSource,corridorWins=0,endingQAFreeze=false;
 const story=new HouseStoryState(),monkBase=new THREE.Vector3(...shadowArmRoom.center),monkPoint=monkBase.clone().add(new THREE.Vector3(0,1.15,0));
 async function sharedModel(file){return (await loader.loadAsync('assets/'+file)).scene;}
 const jizoPoint=new THREE.Vector3(3,.60,-7.8),phonePoint=new THREE.Vector3(1.7,1.15,-.83);
-function controlsLocked(){return !!corridorHints?.state.locked||endingLoading||(currentStage==='ending'&&ending?.state.locked)||corridorReading||story.viewLocked||!!shadowCouple?.state.locked;}
-function movementLocked(){return !!corridorHints?.state.locked||endingLoading||(currentStage==='ending'&&ending?.state.locked)||corridorReading||story.movementLocked||!!shadowCouple?.state.locked;}
+function controlsLocked(){return clueReading||!!corridorHints?.state.locked||endingLoading||(currentStage==='ending'&&ending?.state.locked)||corridorReading||story.viewLocked||!!shadowCouple?.state.locked;}
+function movementLocked(){return clueReading||!!corridorHints?.state.locked||endingLoading||(currentStage==='ending'&&ending?.state.locked)||corridorReading||story.movementLocked||!!shadowCouple?.state.locked;}
 function canToggleFlash(){return !corridorHints?.state.locked&&currentStage!=='ending'&&!['ritual','blackout','arrival'].includes(story.phase);}
 let haunting,rustleData,rustleReady,rustleSource,rustleGain,rustlePlays=0,rustleDuration=0;
 const keys=new Set();let previousFrame=performance.now();let yaw=0,pitch=0,drag=false,lookPointer=null,lastX=0,lastY=0,flashOn=true,audioContext,startImpactBuffer,soundGain,footTime=0;
@@ -105,7 +105,7 @@ async function init(){
   environmentLight();
   phone=await model('phone.glb');phone.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(phone);
   jizo=await model('jizo.glb');jizo.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(jizo);
-  const [flower,flowerLayout]=await Promise.all([model('higanbana.glb'),fetch('assets/higanbana-layout.json').then(r=>r.json())]);
+  const [flower,flowerLayout]=await Promise.all([model('higanbana.glb'),fetch('assets/higanbana-layout.json?v=newspaper-1').then(r=>r.json())]);
   higanbana=new THREE.Group();higanbana.name='Jizo unlock flowers';higanbana.visible=false;
   for(const p of flowerLayout.placements.slice(0,CLUE_IDS.length)){const stem=flower.clone(true);stem.position.fromArray(p.position);stem.rotation.y=p.rotation;stem.scale.setScalar(p.scale);stem.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;o.material.side=THREE.DoubleSide;}});higanbana.add(stem);}scene.add(higanbana);
   const jizoBounds=new THREE.Box3().setFromObject(jizo);navigation.colliders.push({name:'Jizo',min:jizoBounds.min.toArray(),max:jizoBounds.max.toArray()});
@@ -232,6 +232,7 @@ function enterCorridor(){
  $('#place').textContent='廊下';$('#prompt').hidden=true;$('#inspection').hidden=true;$('#hint').textContent='人形の絵を手がかりに、左右の道を選ぶ';
 }
 function restartGame(autoStart=true){
+ clueReading=false;
  corridorHints?.reset();ending?.reset();corridorWins=0;endingQAFreeze=false;
  $('#touchLight').hidden=false;$('footer>span:first-child').textContent='曇天　／　夜';canvas.setAttribute('aria-label','曇天の夜、竹藪に囲まれた日本の廃屋');
  shadowCouple.reset();shadowAudio?.reset();corridorEvents.reset();corridorReading=false;
@@ -252,9 +253,9 @@ export async function enterEndingStage(){
   position.fromArray(ending.spawn);yaw=0;pitch=0;camera.position.copy(position);camera.rotation.set(0,0,0);camera.updateMatrixWorld(true);flashOn=false;$('#story').hidden=true;$('#blackout').style.opacity=0;$('#reticle').hidden=false;$('#inspection').hidden=true;$('#touch').hidden=!touchUI();$('#touchLight').hidden=true;$('footer>span:first-child').textContent='朝の光';canvas.setAttribute('aria-label','朝の光が差す日本家屋の玄関');$('#hint').textContent='E　玄関を開ける';$('#place').textContent='玄関';if(soundGain)soundGain.gain.setTargetAtTime(0,audioContext.currentTime,.3);return true;
  }catch(e){console.error(e);$('#hint').textContent='玄関を読み込めませんでした。もう一度お試しください。';return false;}finally{endingLoading=false;}
 }
-function closeCorridorMessage(){corridorReading=false;$('#story').hidden=true;clearInput();$('#reticle').hidden=false;$('#touch').hidden=!touchUI();if(!touchUI()){try{canvas.requestPointerLock()?.catch(()=>{});}catch{}}}
+function closeCorridorMessage(){corridorReading=false;clueReading=false;$('#story').hidden=true;clearInput();$('#reticle').hidden=false;$('#touch').hidden=!touchUI();if(!touchUI()){try{canvas.requestPointerLock()?.catch(()=>{});}catch{}}}
 
-function activateStoryAction(){if(currentStage==='ending'&&ending.state.phase==='epilogue'){ending.advanceText();return;}if(corridorReading){closeCorridorMessage();return;}if(shadowCouple?.state.phase==='gameover'){restartCorridor();return;}if(story.phase==='warning')closeWarning();}
+function activateStoryAction(){if(currentStage==='ending'&&ending.state.phase==='epilogue'){ending.advanceText();return;}if(corridorReading||clueReading){closeCorridorMessage();return;}if(shadowCouple?.state.phase==='gameover'){restartCorridor();return;}if(story.phase==='warning')closeWarning();}
 function interact(){
  if(!playing||movementLocked())return;const t=interactionTarget();
  if(t==='exit'){if(ending.begin(position,yaw,pitch)){clearInput();$('#touch').hidden=true;$('#prompt').hidden=true;$('#reticle').hidden=true;if(document.pointerLockElement)document.exitPointerLock();}return;}
@@ -262,7 +263,7 @@ function interact(){
  if(t?.startsWith('corridor:')){const message=corridorEvents.message(t);corridorReading=true;showStory(message.title,message.text,'閉じる');$('#story').dataset.kind='corridor';return;}
  if(t==='jizo'&&story.examine()){haunting.setPresent(false);showStory('にげろ','','閉じる');return;}
  if(t==='monk'){beginRitual();return;}
- if(t?.startsWith('clue:')){recordClue(t.slice(5));inspectionUntil=performance.now()+6500;$('#inspection').textContent=clues.get(t).text;return;}
+ if(t?.startsWith('clue:')){const clue=clues.get(t);recordClue(t.slice(5));if(clue.reading){clueReading=true;inspectionUntil=0;showStory(clue.title,clue.text,'閉じる');$('#story').dataset.kind='newspaper';$('#storyDetail').scrollTop=0;}else{inspectionUntil=performance.now()+6500;$('#inspection').textContent=clue.text;}return;}
  if(t==='well'){recordClue('well');inspectionUntil=performance.now()+6500;$('#inspection').textContent=story.rain?'蓋が、開いている。\n二本の縄が、暗闇の中へ続いている。':'板の隙間から、二本の縄が垂れている。\n先は暗くて見えない。';}
  else if(t==='door'){doorOpen=!doorOpen;footstep();}
 }

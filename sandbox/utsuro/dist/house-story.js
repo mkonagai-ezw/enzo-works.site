@@ -1,5 +1,5 @@
 // Active-time sequencing: pausing or hiding the tab cannot skip the reveal.
-export const CLUE_IDS=['well','chains','shoes','tablets','portrait','note'];
+export const CLUE_IDS=['well','chains','shoes','tablets','portrait','note','newspaper'];
 export const STORY_TIMING={kagomeDelay:3,armsStart:0,fireStart:0,phoneStart:9,flickerStart:12,fadeStart:20,blackout:24,transfer:25,arrival:2};
 export class HouseStoryState {
  constructor(){this.reset();}
