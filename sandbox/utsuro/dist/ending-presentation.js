@@ -1,6 +1,6 @@
 import {setText,setOpacity} from './performance-runtime.js';
 import {EpilogueState} from './epilogue-state.js?v=story-wording-1';
-import {CREDIT_SECTIONS} from './ending-credits.js?v=collapse-audio-1';
+import {CREDIT_SECTIONS} from './ending-credits.js?v=reading-credits-1';
 export function createEndingPresentation({photo,onRestart,onExit,soundEnabled}){
  const state=new EpilogueState();let generation=0,pending=false,blocked=false,wantsAudio=false,creditsHeight=0,viewportHeight=0;
  const overlay=document.createElement('section');overlay.id='ending';overlay.hidden=true;overlay.setAttribute('aria-label','とある家 エンディング');
@@ -50,7 +50,7 @@ export function createEndingPresentation({photo,onRestart,onExit,soundEnabled}){
    if(visible&&state.phase==='idle'){state.start();duration();}
    state.tick(dt,active&&visible);render();
    wantsAudio=active&&visible&&state.phase==='credits'&&soundEnabled();
-   if(wantsAudio){music.volume=.72*Math.min(1,state.creditTime/3,Math.max(0,(state.duration-state.creditTime)/5));if(music.paused)attempt();}
+   if(wantsAudio){music.volume=.55*Math.min(1,state.creditTime/3,Math.max(0,(state.duration-state.creditTime)/5));if(music.paused)attempt();}
    else{music.pause();}
    if(wantsAudio&&!music.paused&&!music.seeking&&music.currentTime>0){state.creditTime=Math.min(state.duration,music.currentTime);}
   },

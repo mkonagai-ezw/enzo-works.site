@@ -15,7 +15,7 @@ import {createCorridorEvents} from './corridor-events.js?v=four-memories-1';
 import {CORRIDOR_COUNT,evaluateCorridorExit} from './corridor-choices.js?v=four-memories-1';
 import {createCorridorHints} from './corridor-hints.js?v=four-memories-1';
 import {createCorridorStage} from './corridor-stage.js?v=corridor-readable-1';
-import {createEndingStage} from './ending-stage.js?v=story-wording-1';
+import {createEndingStage} from './ending-stage.js?v=reading-credits-1';
 import {createRain} from './rain.js';
 import {createStoryAudio} from './ritual-audio.js?v=ending-buffers-1';
 import {cacheShadow,transformKey,AdaptiveResolution,cinematicFrameDelta,setText,setOpacity} from './performance-runtime.js?v=mobile-scares-1';
@@ -140,7 +140,7 @@ async function init(){
   if(!soundResponse.ok)throw new Error('人形の効果音を読み込めません');rustleData=await soundResponse.arrayBuffer();
   corridorEvents=await createCorridorEvents({loader,scene:corridor.scene,dollSource:doll,architecture:corridor.architecture});
   endingDollSource=doll;
-  corridorHints=createCorridorHints({onComplete:()=>{const memory=corridorEvents.finishHint();if(memory?.fresh){corridor.memoryRead(memory.count);if(memory.count===2){if(corridorEvents.floor===2&&$('#sound').checked)shadowAudio?.playPass(camera);if(corridorEvents.floor===3){yaw=0;pitch=-.04;camera.rotation.set(pitch,yaw,0);shadowCouple.glimpse();}}}clearInput();$('#touch').hidden=!playing||!touchUI();},onError:()=>{corridorEvents.retryHint();clearInput();$('#touch').hidden=!playing||!touchUI();inspectionUntil=performance.now()+4000;$('#inspection').textContent='絵を読み込めませんでした。もう一度、人形を調べてください。';}});
+  corridorHints=createCorridorHints({onComplete:()=>{const memory=corridorEvents.finishHint();if(memory?.fresh){corridor.memoryRead(memory.count);if(memory.count===2){if(corridorEvents.floor===2&&$('#sound').checked)shadowAudio?.playPass(camera);if(corridorEvents.floor===3){yaw=0;pitch=-.04;camera.rotation.set(pitch,yaw,0);shadowCouple.glimpse();}}}clearInput();$('#touch').hidden=!playing||!touchUI();},onError:()=>{corridorEvents.retryHint();clearInput();$('#touch').hidden=!playing||!touchUI();showInspection('絵を読み込めませんでした。もう一度、人形を調べてください。');}});
   shadowCouple=await createShadowCouple({loader,scene:corridor.scene,mobile:mobileMode,canStand:corridor.canStand,onStart:()=>corridor.setCandlesLit(true),onReset:()=>corridor.setCandlesLit(true),onContact:()=>{clearInput();$('#touch').hidden=true;$('#prompt').hidden=true;},onGameOver:()=>showStory('とある家','帰る道を、間違えた。','もう一度',true)});
   monkFire=await createMonkFire(scene,monkBase,mobileMode);
   tatamiScorch=await createTatamiScorch({house,scene,mobile:mobileMode,anisotropy:Math.min(8,renderer.capabilities.getMaxAnisotropy())});
@@ -211,7 +211,7 @@ function interactionTarget(){
  return null;
 }
 function showStory(title,detail,button,ending=false){
- $('#story').dataset.kind='story';
+ $('#story').dataset.kind='story';$('#story').setAttribute('aria-labelledby','storyTitle');
  keys.clear();touchStick.reset();drag=false;lookPointer=null;$('#storyTitle').textContent=title;$('#storyDetail').textContent=detail;$('#storyAction').textContent=button;$('#story').dataset.ending=ending?'true':'false';$('#story').hidden=false;$('#reticle').hidden=true;$('#prompt').hidden=true;$('#touch').hidden=true;
  if(document.pointerLockElement)document.exitPointerLock();$('#storyAction').focus();
 }
@@ -266,6 +266,7 @@ export async function enterEndingStage(){
   position.fromArray(ending.spawn);yaw=0;pitch=0;camera.position.copy(position);camera.rotation.set(0,0,0);camera.updateMatrixWorld(true);flashOn=false;$('#story').hidden=true;$('#blackout').style.opacity=0;$('#reticle').hidden=false;$('#inspection').hidden=true;$('#touch').hidden=!touchUI();$('#touchLight').hidden=true;$('footer>span:first-child').textContent='朝の光';canvas.setAttribute('aria-label','朝の光が差す日本家屋の玄関');$('#hint').textContent='E　玄関を開ける';$('#place').textContent='玄関';if(soundGain)soundGain.gain.setTargetAtTime(0,audioContext.currentTime,.3);return true;
  }catch(e){console.error(e);$('#hint').textContent='玄関を読み込めませんでした。もう一度お試しください。';return false;}finally{endingLoading=false;}
 }
+function showInspection(text){clueReading=true;inspectionUntil=0;showStory('',text,'閉じる');$('#story').dataset.kind='inspection';$('#story').setAttribute('aria-labelledby','storyDetail');}
 function closeCorridorMessage(){corridorReading=false;clueReading=false;$('#story').hidden=true;clearInput();$('#reticle').hidden=false;$('#touch').hidden=!touchUI();if(!touchUI()){try{canvas.requestPointerLock()?.catch(()=>{});}catch{}}}
 
 function activateStoryAction(){if(corridorHints?.state.locked){corridorHints.skip();return;}if(currentStage==='ending'&&ending.state.phase==='epilogue')return;if(corridorReading||clueReading){closeCorridorMessage();return;}if(shadowCouple?.state.phase==='gameover'){restartCorridor();return;}if(story.phase==='warning')closeWarning();}
@@ -275,11 +276,11 @@ function interact(){
  if(t==='hint-doll'){if(corridorEvents.inspect()){clearInput();$('#touch').hidden=true;$('#prompt').hidden=true;corridorHints.begin(corridorEvents.floor,corridorEvents.state.steps);}return;}
  if(t?.startsWith('corridor:')){const message=corridorEvents.message(t);corridorReading=true;showStory(message.title,message.text,'閉じる');$('#story').dataset.kind='corridor';return;}
  if(t==='jizo'&&story.examine()){haunting.setPresent(false);showStory('真実に向き合って','','閉じる');$('#story').dataset.kind='jizo';return;}
- if(t==='clue-hint-doll'){const text=story.nextClueHint();if(text){inspectionUntil=performance.now()+10000;$('#inspection').textContent=text;}return;}
+ if(t==='clue-hint-doll'){const text=story.nextClueHint();if(text)showInspection(text);return;}
  if(t==='monk'){beginRitual();return;}
  if(t==='cupboard'){clues.cupboard.interact();return;}
- if(t?.startsWith('clue:')){const clue=clues.get(t);recordClue(t.slice(5));if(clue.reading){clueReading=true;inspectionUntil=0;showStory(clue.title,'','閉じる');$('#story').dataset.kind='newspaper';const image=document.createElement('img');image.src=clue.image;image.alt=clue.title+'\n'+clue.text;image.draggable=false;$('#storyDetail').append(image);$('#storyDetail').scrollTop=0;$('#storyDetail').scrollLeft=0;}else{inspectionUntil=performance.now()+6500;$('#inspection').textContent=clue.text;}return;}
- if(t==='well'){recordClue('well');inspectionUntil=performance.now()+6500;$('#inspection').textContent=story.rain?'蓋が、開いている。\n二本の縄が、暗闇の中へ続いている。':'板の隙間から、二本の縄が垂れている。\n先は暗くて見えない。';}
+ if(t?.startsWith('clue:')){const clue=clues.get(t);recordClue(t.slice(5));if(clue.reading){clueReading=true;inspectionUntil=0;showStory(clue.title,'','閉じる');$('#story').dataset.kind='newspaper';const image=document.createElement('img');image.src=clue.image;image.alt=clue.title+'\n'+clue.text;image.draggable=false;$('#storyDetail').append(image);$('#storyDetail').scrollTop=0;$('#storyDetail').scrollLeft=0;}else{showInspection(clue.text);}return;}
+ if(t==='well'){recordClue('well');showInspection(story.rain?'蓋が、開いている。\n二本の縄が、暗闇の中へ続いている。':'板の隙間から、二本の縄が垂れている。\n先は暗くて見えない。');}
  else if(t==='door'){doorOpen=!doorOpen;footstep();}
 }
 function setupLocalStoryQA(){

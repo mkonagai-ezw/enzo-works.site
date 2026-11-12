@@ -3,7 +3,7 @@ import {EndingState,ENDING_TIMING} from './ending-state.js?v=family-collapse-1';
 import {createEndingRitual} from './ending-ritual.js?v=family-collapse-1';
 import {createEndingRitualAudio,loadEndingCollapseAudio} from './ending-ritual-audio.js?v=auto-epilogue-1';
 import {createFarewellHandhold} from './farewell-handhold.js';
-import {createEndingPresentation} from './ending-presentation.js?v=story-wording-1';
+import {createEndingPresentation} from './ending-presentation.js?v=reading-credits-1';
 import {createFarewellPose} from './farewell-pose.js';
 import {createSoftFarewellShadow} from './soft-farewell-shadow.js?v=handhold-1';
 import {createEndingMemory} from './ending-memory.js';
