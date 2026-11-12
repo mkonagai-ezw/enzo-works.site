@@ -1,0 +1,9 @@
+Unity Labs / Thomas ICHÉ — Flame03 / FireBall01 (CC0)
+https://unity.com/blog/engine-platform/free-vfx-image-sequences-flipbooks
+https://creativecommons.org/publicdomain/zero/1.0/
+https://unity3d.com/files/labs/downloads/vfx/assets01/Flame03/Flame03-sequence-tga.zip
+https://unity3d.com/files/labs/downloads/vfx/assets01/FireBall01/FireBall01-flipbooks.zip
+Flame03: raw TGA sequence sampled to 128 frames, WebP 2048x1920.
+FireBall01: 64 frames, WebP 1024x1024.
+Approved fire-study B settings: strength 1.6, speed 1.4, ember density 1.6.
+Local game integration, 2026-11-12. Original archive and build scripts retained in fire-study.

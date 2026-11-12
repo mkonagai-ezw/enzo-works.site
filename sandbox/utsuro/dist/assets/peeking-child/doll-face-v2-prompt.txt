@@ -1,0 +1,17 @@
+Generated with OpenAI built-in image_gen, 2026-11-12.
+Edit target: doll-face-v1.png. Transparent PNG; game placement not yet implemented.
+Original doll reference attribution and links are recorded in doll-face-v1-prompt.txt (Wyoming State Museum / Zanna Wright, CC BY 4.0).
+
+Final generation prompt:
+Use case: precise-object-edit.
+Edit target: the attached transparent image of a physical antique Ichimatsu DOLL.
+Make this same inanimate doll much more frightening for an adult Japanese psychological horror game. Preserve the costume, silhouette, centered upright frontal pose, and transparent alpha.
+
+The current doll looks too friendly. Change the sculpted expression markedly:
+- Open its glass eyes much wider, with rigid raised upper lids and exposed off-white glass around the entire iris. Reduce the grey-brown iris to about half the current size; tiny black pupils, a fixed direct stare. Keep both eyes pointed directly toward the viewer, with no cheerful eye expression. Only small dull eye reflections, no sparkling cute catchlights.
+- Sculpt an unnaturally elongated thin crescent grin, extending further across the cheeks with steeply raised corners and slight left/right asymmetry. The cheeks should stay rigid and flat rather than bunch into a happy smile. Inside the slightly open mouth is a narrow deep black cavity, not a big cartoon mouth. No exaggerated teeth or fangs.
+- Make the gofun face cold chalk-white with subtle grey-violet discoloration around the eye sockets, beneath the lips, and at the temples. Fine irregular age cracks in the dry painted gofun surface, especially from one eye toward the cheek and near the mouth corners. Restrained dust and uneven weathering, not zombie decay. The craftsmanship must visibly read as a molded antique doll with painted features, not living human skin.
+- Keep its straight black bob and fringe, but make the surface less groomed, with a few stray doll-hair strands. Both eyes remain exposed.
+Preserve exactly the aged ivory-grey floral kimono, pale peach/yellow/sage pattern, faded vermilion collar edges and cord, and dark floral obi from the reference.
+Photographic realism of an actual horror-film prop; low, cool frontal reflected light, slightly deeper shadows around the eyes, face clearly readable even in a narrow doorway slit. Realistic gofun, glass, aged fabric and black hair. One head-and-shoulders portrait, entire face and hair visible. Strong unsettling stillness and maliciously fixed smile.
+Actual transparent background, no black background baked in, no cabinet/door/slit, no added scene, no writing/watermark, no blood, no wounds. Do not change the framing or clothing; only the doll's expression, surface aging and subtle lighting.

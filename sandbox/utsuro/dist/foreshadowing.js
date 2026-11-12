@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {createNewspaper} from './newspaper.js?v=layout-2';
+import {createCupboardHaunting} from './cupboard-haunting.js';
 
 export const NOTE_TEXT='オワッタ\nスベテシッパイ\nスベテウシナッタ\nスベテスベテスベテスベテダ';
 export const NOTE_POSITION=[6.45,0,-4.75];
@@ -13,7 +14,7 @@ export const CLUE_VIEWS={
  portrait:{eye:[.65,2.29,-4.3],target:[.65,1.83,-5.78]},
  shoes:{eye:[7.4,1.62,3.3],target:[9.05,.18,2.35]}
 };
-export async function createForeshadowing({loader,scene,navigation,surfaceHeight}){
+export async function createForeshadowing({loader,scene,navigation,surfaceHeight,onCupboardClose}){
  const [a,b,c,noteAsset,artAsset]=await Promise.all(['clues-initial.glb','clues-reveal.glb','clue-child-shoe.glb','despair-note-v2.glb','scattered-art-supplies.glb'].map(f=>loader.loadAsync('assets/'+f)));
  const newspaper=await createNewspaper(surfaceHeight);b.scene.add(newspaper.paper);
  const note=noteAsset.scene,art=artAsset.scene;note.name='Mysterious note near well';note.position.fromArray(NOTE_POSITION);note.position.y=surfaceHeight(NOTE_POSITION[0],NOTE_POSITION[2])+.012;art.name='Scattered drawing supplies';b.scene.add(note,art);
@@ -26,6 +27,7 @@ export async function createForeshadowing({loader,scene,navigation,surfaceHeight
   if(m.name==='Clue dull worn gold'){m.roughness=.72;m.normalScale.set(.23,.23);}
  }});
  navigation.colliders.push({name:'Old memorial cupboard',min:[-2.03,.672,-4.95],max:[-.60,2.33,-4.38]});
+ const cupboard=await createCupboardHaunting({initial,scene,onClose:onCupboardClose});
  const shoes=new THREE.Group();shoes.name='Discarded child shoes';reveal.add(shoes);
  let seed=992;const rand=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};
  const placements=[];
@@ -48,15 +50,15 @@ export async function createForeshadowing({loader,scene,navigation,surfaceHeight
   {id:'newspaper',label:'古い新聞記事',point:newspaper.paper.position.clone().add(new THREE.Vector3(0,.025,0)),title:newspaper.article.title,text:newspaper.text,image:newspaper.image,reading:true},
   {id:'note',label:'謎のメモ書き',point:note.position.clone().add(new THREE.Vector3(0,.014,0)),text:NOTE_TEXT},
   {id:'chains',label:'錆びた鎖',point:new THREE.Vector3(-3.25,.72,3.5),text:'小さな輪のついた鎖。\n畳には、何度も擦ったような跡がある。',always:true},
-  {id:'tablets',label:'収納の中',point:new THREE.Vector3(-1.5,1.65,-4.39),text:'奥まで、びっしりと位牌が並んでいる。\n名前の部分は擦れて、読み取れない。'},
+  {id:'tablets',label:'収納の中',point:new THREE.Vector3(-.98,1.6,-4.39),text:'奥まで、びっしりと位牌が並んでいる。\n名前の部分は擦れて、読み取れない。'},
   {id:'portrait',label:'古い写真',point:new THREE.Vector3(.65,1.83,-5.795),text:'見知らぬ男の写真。\nこの部屋を、見張っているように見える。'},
   {id:'shoes',label:'藪の中の靴',point:new THREE.Vector3(9.05,.18,2.35),text:'どれも、小さな靴だ。\n対になる片方が見つからない。'}
  ];
  let revealed=false;
- return {initial,reveal,clues,note,art,
-  show(){revealed=true;reveal.visible=true;},reset(){revealed=false;reveal.visible=false;},
-  target(camera,clearLine){const direction=camera.getWorldDirection(new THREE.Vector3());for(const c of clues){if(!c.always&&!revealed)continue;const delta=c.point.clone().sub(camera.position);if(delta.length()<2.6&&delta.normalize().dot(direction)>.9&&clearLine(camera.position,c.point))return 'clue:'+c.id;}return null;},
+ return {initial,reveal,clues,note,art,cupboard,
+  show(){revealed=true;reveal.visible=true;cupboard.show();},reset(){revealed=false;reveal.visible=false;cupboard.reset();},
+  target(camera,clearLine){const direction=camera.getWorldDirection(new THREE.Vector3());for(const c of clues){if(!c.always&&!revealed)continue;if(c.id==='tablets'&&!cupboard.state.open)continue;const delta=c.point.clone().sub(camera.position);if(delta.length()<2.6&&delta.normalize().dot(direction)>.9&&clearLine(camera.position,c.point))return 'clue:'+c.id;}return null;},
   get(id){return clues.find(c=>'clue:'+c.id===id);},
-  diagnostics(){return {ropes:2,chainLinks:84,cabinetVisible:initial.visible,delayedVisible:revealed,shoes:revealed?placements.length:0,tablets:revealed?30:0,portrait:revealed,note:revealed,artSupplies:revealed,notePosition:note.position.toArray()};}
+  diagnostics(){return {ropes:2,chainLinks:84,cabinetVisible:initial.visible,cupboard:cupboard.diagnostics(),delayedVisible:revealed,shoes:revealed?placements.length:0,tablets:revealed?30:0,portrait:revealed,note:revealed,artSupplies:revealed,notePosition:note.position.toArray()};}
  };
 }

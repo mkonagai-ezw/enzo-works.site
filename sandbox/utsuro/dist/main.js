@@ -3,20 +3,21 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from './vendor/meshopt_decoder.mjs';
 import {createDust} from './dust.js';
 import {createDollHaunting} from './doll-haunting.js?v=performance-2';
-import {createForeshadowing,CLUE_VIEWS} from './foreshadowing.js?v=newspaper-layout-2';
-import {HouseStoryState,CLUE_IDS} from './house-story.js?v=newspaper-1';
-import {createMonkFire} from './monk-fire.js?v=performance-2';
+import {createForeshadowing,CLUE_VIEWS} from './foreshadowing.js?v=cupboard-peek-1';
+import {HouseStoryState,CLUE_IDS} from './house-story.js?v=doll-clue-hints-1';
+import {createMonkFire} from './monk-fire.js?v=flipbook-fire-1';
 import {createShadowCouple} from './shadow-couple.js?v=performance-2';
+import {createCorridorCreakAudio} from './corridor-creak-audio.js';
 import {createShadowAudio} from './shadow-audio.js?v=performance-2';
 import {createShadowArms} from './shadow-arms.js';
 import {shadowArmRoom,createShadowArmPlacements} from './shadow-arms-layout.js';
 import {createCorridorEvents} from './corridor-events.js?v=performance-2';
 import {CORRIDOR_COUNT,evaluateCorridorExit} from './corridor-choices.js';
 import {createCorridorHints} from './corridor-hints.js';
-import {createCorridorStage} from './corridor-stage.js?v=performance-2';
+import {createCorridorStage} from './corridor-stage.js?v=atmosphere-1';
 import {createEndingStage} from './ending-stage.js?v=performance-2';
 import {createRain} from './rain.js';
-import {createStoryAudio} from './ritual-audio.js?v=performance-2';
+import {createStoryAudio} from './ritual-audio.js?v=cupboard-peek-1';
 import {cacheShadow,transformKey,AdaptiveResolution,setText,setOpacity} from './performance-runtime.js';
 import {shareGLTFImages} from './shared-textures.js';
 import {createWellShaft} from './well-shaft.js';
@@ -41,11 +42,11 @@ const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);const imageCache
 async function model(file){const g=await loader.loadAsync('assets/'+(mobileMode?'mobile/':'')+file);loaded++;$('#loading i').style.width=Math.round(loaded/total*100)+'%';return g.scene;}
 let house,navigation,layout,door,doorProgress=0,doorOpen=false,playing=false,firstStart=true,inspectionUntil=0;
 let corridorEvents,corridorReading=false,shadowCouple,shadowAudio,shadowAudioLoading=false,monkFire,clues,storyAudio,phone,jizo,higanbana,monk,arms,corridor,wellLid,wellLidRest,armsActive=false,currentStage='house';
-let corridorHints,tatamiScorch,renderingWarmup=false,clueReading=false;
+let corridorCreak,corridorHints,tatamiScorch,renderingWarmup=false,clueReading=false;
 let ending,endingLoading=false,endingDollSource,corridorWins=0,endingQAFreeze=false;
 const story=new HouseStoryState(),monkBase=new THREE.Vector3(...shadowArmRoom.center),monkPoint=monkBase.clone().add(new THREE.Vector3(0,1.15,0));
 async function sharedModel(file){return (await loader.loadAsync('assets/'+file)).scene;}
-const jizoPoint=new THREE.Vector3(3,.60,-7.8),phonePoint=new THREE.Vector3(1.7,1.15,-.83);
+const jizoOffset=new THREE.Vector3(0,0,-.7),jizoPoint=new THREE.Vector3(3,.60,-7.8).add(jizoOffset),phonePoint=new THREE.Vector3(1.7,1.15,-.83);
 function controlsLocked(){return clueReading||!!corridorHints?.state.locked||endingLoading||(currentStage==='ending'&&ending?.state.locked)||corridorReading||story.viewLocked||!!shadowCouple?.state.locked;}
 function movementLocked(){return clueReading||!!corridorHints?.state.locked||endingLoading||(currentStage==='ending'&&ending?.state.locked)||corridorReading||story.movementLocked||!!shadowCouple?.state.locked;}
 function canToggleFlash(){return !corridorHints?.state.locked&&currentStage!=='ending'&&!['ritual','blackout','arrival'].includes(story.phase);}
@@ -105,9 +106,9 @@ async function init(){
   instances(data[2],layout.bambooNear,'bamboo');instances(data[3],layout.bambooFar,'bamboo');instances(data[4],layout.ferns,'fern');
   environmentLight();
   phone=await model('phone.glb');phone.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(phone);
-  jizo=await model('jizo.glb');jizo.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(jizo);
+  jizo=await model('jizo.glb');jizo.position.add(jizoOffset);jizo.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(jizo);
   const [flower,flowerLayout]=await Promise.all([model('higanbana.glb'),fetch('assets/higanbana-layout.json?v=newspaper-1').then(r=>r.json())]);
-  higanbana=new THREE.Group();higanbana.name='Jizo unlock flowers';higanbana.visible=false;
+  higanbana=new THREE.Group();higanbana.name='Jizo unlock flowers';higanbana.position.copy(jizoOffset);higanbana.visible=false;
   for(const p of flowerLayout.placements.slice(0,CLUE_IDS.length)){const stem=flower.clone(true);stem.position.fromArray(p.position);stem.rotation.y=p.rotation;stem.scale.setScalar(p.scale);stem.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;o.material.side=THREE.DoubleSide;}});higanbana.add(stem);}scene.add(higanbana);
   const jizoBounds=new THREE.Box3().setFromObject(jizo);navigation.colliders.push({name:'Jizo',min:jizoBounds.min.toArray(),max:jizoBounds.max.toArray()});
   const doll=await model('doll.glb');doll.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;for(const m of (Array.isArray(o.material)?o.material:[o.material])){m.shadowSide=THREE.BackSide;if(m.map)m.map.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());}}});scene.add(doll);
@@ -118,7 +119,11 @@ async function init(){
   createWellShaft({garden:data[1],well,scene,position:layout.well.position});
   wellLid=well.getObjectByName('StoryWellLid');if(!wellLid)throw Error('井戸の蓋が見つかりません');wellLidRest=wellLid.quaternion.clone();
   const [monkAsset,armAsset,corridorAsset]=await Promise.all([sharedModel('monk-praying.glb'),loader.loadAsync('assets/shadow-arm.glb'),createCorridorStage(loader,mobileMode)]);
-  monk=monkAsset;monk.name='Praying monk';monk.position.copy(monkBase);monk.rotation.y=Math.PI/2;monk.visible=false;monk.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=false;for(const m of (Array.isArray(o.material)?o.material:[o.material]))m.shadowSide=THREE.FrontSide;}});scene.add(monk);
+  monk=monkAsset;monk.name='Praying monk';monk.position.copy(monkBase);monk.rotation.y=Math.PI/2;monk.visible=false;monk.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=false;
+   // The face paper is a cutout, not a translucent overlay on top of the fire.
+   if(/face seal/i.test(o.name)||/face seal/i.test(o.material?.name)){o.material=o.material.clone();Object.assign(o.material,{transparent:false,alphaTest:.35,depthWrite:true,depthTest:true});o.renderOrder=0;}
+   for(const m of (Array.isArray(o.material)?o.material:[o.material]))m.shadowSide=THREE.FrontSide;
+  }});scene.add(monk);
   navigation.colliders.push({name:'Praying monk',min:[monkBase.x-.28,monkBase.y,monkBase.z-.28],max:[monkBase.x+.28,monkBase.y+1.7,monkBase.z+.28],disabled:true});
   arms=createShadowArms({scene,gltf:armAsset,placements:createShadowArmPlacements()});arms.group.visible=false;corridor=corridorAsset;
   const forest=await fetch('assets/forest.json').then(r=>r.json());total=11+forest.assets.length;
@@ -137,7 +142,7 @@ async function init(){
   shadowCouple=await createShadowCouple({loader,scene:corridor.scene,mobile:mobileMode,canStand:corridor.canStand,onStart:()=>corridor.setCandlesLit(true),onReset:()=>corridor.setCandlesLit(true),onContact:()=>{clearInput();$('#touch').hidden=true;$('#prompt').hidden=true;},onGameOver:()=>showStory('とある家','帰る道を、間違えた。','もう一度',true)});
   monkFire=await createMonkFire(scene,monkBase,mobileMode);
   tatamiScorch=await createTatamiScorch({house,scene,mobile:mobileMode,anisotropy:Math.min(8,renderer.capabilities.getMaxAnisotropy())});
-  clues=await createForeshadowing({loader,scene,navigation,surfaceHeight});
+  clues=await createForeshadowing({loader,scene,navigation,surfaceHeight,onCupboardClose:()=>{if(playing&&$('#sound').checked)storyAudio?.playCupboardClose();}});
   haunting=createDollHaunting({scene,camera,doll,navigation,surfaceHeight,obstacles:[house,data[1],phone,well,jizo],door,onFirstMove:playRustle});
   setupLocalStoryQA();
   // Prepare the corridor's flashlight and first shadow appearance during loading.
@@ -164,12 +169,13 @@ function start(){
  if(!touchUI()){try{let p=canvas.requestPointerLock();p?.catch(()=>{});}catch{}}
  startAudio();
 }
-function pause(){playing=false;keys.clear();touchStick.reset();drag=false;lookPointer=null;document.body.classList.remove('playing');$('#reticle').hidden=true;$('#touch').hidden=true;$('#prompt').hidden=true;$('#startText').textContent='探索に戻る';if(document.pointerLockElement)document.exitPointerLock();if(soundGain)soundGain.gain.setTargetAtTime($('#sound').checked?.015:0,audioContext.currentTime,.3);if(rustleSource){rustleSource.stop();rustleSource=null;}}
+function pause(){corridorCreak?.suspend();playing=false;keys.clear();touchStick.reset();drag=false;lookPointer=null;document.body.classList.remove('playing');$('#reticle').hidden=true;$('#touch').hidden=true;$('#prompt').hidden=true;$('#startText').textContent='探索に戻る';if(document.pointerLockElement)document.exitPointerLock();if(soundGain)soundGain.gain.setTargetAtTime($('#sound').checked?.015:0,audioContext.currentTime,.3);if(rustleSource){rustleSource.stop();rustleSource=null;}}
 function startAudio(){
  const firstAudioStart=!audioContext;
  if(!audioContext){audioContext=new (window.AudioContext||window.webkitAudioContext)();soundGain=audioContext.createGain();soundGain.gain.value=$('#sound').checked?.08:0;soundGain.connect(audioContext.destination);const b=audioContext.createBuffer(1,audioContext.sampleRate*5,audioContext.sampleRate),a=b.getChannelData(0);let previous=0;for(let i=0;i<a.length;i++){previous=(previous+(Math.random()*2-1)*.025)/1.025;a[i]=previous*4;}startImpactBuffer=b;const src=audioContext.createBufferSource();src.buffer=b;src.loop=true;const low=audioContext.createBiquadFilter();low.type='lowpass';low.frequency.value=700;src.connect(low);low.connect(soundGain);src.start();}
  audioContext.resume().then(()=>{if(firstAudioStart&&playing&&$('#sound').checked)storyAudio?.playStart(startImpactBuffer);});soundGain.gain.setTargetAtTime($('#sound').checked&&currentStage==='house'?.08:0,audioContext.currentTime,.4);
  if(!shadowAudio&&!shadowAudioLoading){shadowAudioLoading=true;createShadowAudio(audioContext).then(a=>shadowAudio=a).catch(e=>{shadowAudioLoading=false;console.error(e);});}
+ if(!corridorCreak)corridorCreak=createCorridorCreakAudio(audioContext,(x,z)=>corridor.canStand(x,z));
  if(!storyAudio)storyAudio=createStoryAudio(audioContext,phonePoint,monkPoint);
  if(!rustleReady)rustleReady=audioContext.decodeAudioData(rustleData.slice(0)).then(buffer=>{rustleDuration=buffer.duration;return buffer;});
 }
@@ -193,7 +199,9 @@ function interactionTarget(){
   const p=jizoPoint.clone().addScaledVector(camera.position.clone().sub(jizoPoint).normalize(),.24);
   if(aimedAt(p,2.3))return 'jizo';
  }
+ if(story.canReadHint&&haunting.actor.visible&&aimedAt(haunting.actor.position.clone().add(new THREE.Vector3(0,.5,0)),2.3))return 'clue-hint-doll';
  const clue=clues?.target(camera,(a,b)=>haunting.clearLine(a,b));if(clue)return clue;
+ if(clues?.cupboard.target(camera,(a,b)=>haunting.clearLine(a,b)))return 'cupboard';
  const w=layout?.well?.position;
  if(w){const dx=w[0]-position.x,dz=w[2]-position.z,d=Math.hypot(dx,dz);if(d<2.7&&(-Math.sin(yaw)*dx-Math.cos(yaw)*dz)/(d||1)>.5)return 'well';}
  const doorDelta=new THREE.Vector3(3.34,1.6,-.6).sub(camera.position);
@@ -210,7 +218,7 @@ function clearInput(){keys.clear();touchStick.reset();drag=false;lookPointer=nul
 function closeWarning(){
  if(!story.dismiss())return;
  clues.show();
- setJizoPresent(false);haunting.setPose(new THREE.Vector3(3,surfaceHeight(3,-7.8),-7.8),camera.position);haunting.actor.visible=true;
+ setJizoPresent(false);haunting.setPose(new THREE.Vector3(jizoPoint.x,surfaceHeight(jizoPoint.x,jizoPoint.z),jizoPoint.z),camera.position);haunting.actor.visible=true;
  wellLid.quaternion.copy(wellLidRest).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),-1.12));wellLid.updateMatrixWorld(true);
  if($('#sound').checked)storyAudio?.playReveal(startImpactBuffer);
  flashOn=true;camera.lookAt(haunting.actor.position.clone().add(new THREE.Vector3(0,.5,0)));yaw=camera.rotation.y;pitch=camera.rotation.x;camera.updateMatrixWorld(true);
@@ -228,8 +236,8 @@ function beginRitual(){
 function enterCorridor(){
  ending?.reset();
  $('#touchLight').hidden=false;$('footer>span:first-child').textContent='曇天　／　夜';
- corridorHints.reset();corridorHints.prepare(corridorWins+1);currentStage='corridor';corridorEvents.reset(corridorWins+1);corridorReading=false;clearInput();rain.reset();arms.group.visible=false;haunting.setPresent(false);
- corridor.scene.add(flash,flash.target);flash.distance=32;flash.shadow.camera.far=32;flash.shadow.camera.updateProjectionMatrix();position.fromArray(corridor.spawn);yaw=0;pitch=0;camera.position.copy(position);camera.rotation.set(0,0,0);camera.updateMatrixWorld(true);flashOn=true;
+ corridorHints.reset();corridorHints.prepare(corridorWins+1);currentStage='corridor';corridor.setFloor(corridorWins+1);corridorCreak?.reset(corridorWins+1);corridorEvents.reset(corridorWins+1);corridorReading=false;clearInput();rain.reset();arms.group.visible=false;haunting.setPresent(false);
+ corridor.scene.add(flash,flash.target);flash.distance=corridor.lighting.flashReach;flash.shadow.camera.far=corridor.lighting.flashReach;flash.shadow.camera.updateProjectionMatrix();position.fromArray(corridor.spawn);yaw=0;pitch=0;camera.position.copy(position);camera.rotation.set(0,0,0);camera.updateMatrixWorld(true);flashOn=true;
  if(soundGain)soundGain.gain.setTargetAtTime(0,audioContext.currentTime,.1);
  $('#place').textContent='廊下';$('#prompt').hidden=true;$('#inspection').hidden=true;$('#hint').textContent='人形の絵を手がかりに、左右の道を選ぶ';
 }
@@ -238,7 +246,7 @@ function restartGame(autoStart=true){
  corridorHints?.reset();ending?.reset();corridorWins=0;endingQAFreeze=false;
  $('#touchLight').hidden=false;$('footer>span:first-child').textContent='曇天　／　夜';canvas.setAttribute('aria-label','曇天の夜、竹藪に囲まれた日本の廃屋');
  shadowCouple.reset();shadowAudio?.reset();corridorEvents.reset();corridorReading=false;
- clearInput();story.reset();clues.reset();storyAudio?.reset();haunting.reset();rain.reset();currentStage='house';scene.add(flash,flash.target);flash.distance=16;flash.shadow.camera.far=16;flash.shadow.camera.updateProjectionMatrix();
+ clearInput();corridorCreak?.reset();story.reset();clues.reset();storyAudio?.reset();haunting.reset();rain.reset();currentStage='house';scene.add(flash,flash.target);flash.distance=16;flash.shadow.camera.far=16;flash.shadow.camera.updateProjectionMatrix();
  arms.group.visible=false;armsActive=false;monkFire.reset();monk.visible=false;navigation.colliders.find(b=>b.name==='Praying monk').disabled=true;wellLid.quaternion.copy(wellLidRest);wellLid.updateMatrixWorld(true);
  higanbana.visible=false;setJizoPresent(true);if(rustleSource){try{rustleSource.stop();}catch{}rustleSource=null;}
  rustlePlays=0;doorOpen=false;doorProgress=0;door.position.z=0;door.updateMatrixWorld(true);flashOn=true;inspectionUntil=0;firstStart=false;returnToGarden();previousFrame=performance.now();
@@ -251,7 +259,7 @@ export function reportCorridorChoice(correct){if(currentStage!=='corridor'||stor
 export async function enterEndingStage(){
  if(endingLoading||!endingDollSource)return false;corridorHints.reset();endingLoading=true;clearInput();$('#prompt').hidden=true;$('#touch').hidden=true;$('#hint').textContent='光が、見える。';
  try{if(!ending){ending=await createEndingStage({loader,dollSource:endingDollSource,mobile:mobileMode,renderer,soundEnabled:()=>$('#sound').checked});ending.setRestart(restartGame);ending.setExit(()=>restartGame(false));}
-  ending.reset();endingQAFreeze=false;shadowCouple.reset();shadowAudio?.reset();storyAudio?.reset();story.phase='corridor';story.rain=false;rain.reset();haunting.setPresent(false);corridorReading=false;currentStage='ending';
+  ending.reset();corridorCreak?.stop();endingQAFreeze=false;shadowCouple.reset();shadowAudio?.reset();storyAudio?.reset();story.phase='corridor';story.rain=false;rain.reset();haunting.setPresent(false);corridorReading=false;currentStage='ending';
   position.fromArray(ending.spawn);yaw=0;pitch=0;camera.position.copy(position);camera.rotation.set(0,0,0);camera.updateMatrixWorld(true);flashOn=false;$('#story').hidden=true;$('#blackout').style.opacity=0;$('#reticle').hidden=false;$('#inspection').hidden=true;$('#touch').hidden=!touchUI();$('#touchLight').hidden=true;$('footer>span:first-child').textContent='朝の光';canvas.setAttribute('aria-label','朝の光が差す日本家屋の玄関');$('#hint').textContent='E　玄関を開ける';$('#place').textContent='玄関';if(soundGain)soundGain.gain.setTargetAtTime(0,audioContext.currentTime,.3);return true;
  }catch(e){console.error(e);$('#hint').textContent='玄関を読み込めませんでした。もう一度お試しください。';return false;}finally{endingLoading=false;}
 }
@@ -264,7 +272,9 @@ function interact(){
  if(t==='hint-doll'){if(corridorEvents.inspect()){clearInput();corridorHints.begin(corridorEvents.floor);}return;}
  if(t?.startsWith('corridor:')){const message=corridorEvents.message(t);corridorReading=true;showStory(message.title,message.text,'閉じる');$('#story').dataset.kind='corridor';return;}
  if(t==='jizo'&&story.examine()){haunting.setPresent(false);showStory('にげろ','','閉じる');return;}
+ if(t==='clue-hint-doll'){const text=story.nextClueHint();if(text){inspectionUntil=performance.now()+10000;$('#inspection').textContent=text;}return;}
  if(t==='monk'){beginRitual();return;}
+ if(t==='cupboard'){clues.cupboard.interact();return;}
  if(t?.startsWith('clue:')){const clue=clues.get(t);recordClue(t.slice(5));if(clue.reading){clueReading=true;inspectionUntil=0;showStory(clue.title,'','閉じる');$('#story').dataset.kind='newspaper';const image=document.createElement('img');image.src=clue.image;image.alt=clue.title+'\n'+clue.text;image.draggable=false;$('#storyDetail').append(image);$('#storyDetail').scrollTop=0;$('#storyDetail').scrollLeft=0;}else{inspectionUntil=performance.now()+6500;$('#inspection').textContent=clue.text;}return;}
  if(t==='well'){recordClue('well');inspectionUntil=performance.now()+6500;$('#inspection').textContent=story.rain?'蓋が、開いている。\n二本の縄が、暗闇の中へ続いている。':'板の隙間から、二本の縄が垂れている。\n先は暗くて見えない。';}
  else if(t==='door'){doorOpen=!doorOpen;footstep();}
@@ -276,12 +286,21 @@ function setupLocalStoryQA(){
  const actions={
   '人形を見る':()=>place([2.8,2.291,-1.8],[1.86,1.2,-3.62]),
   '視線を外す':()=>{yaw+=2.1;camera.rotation.set(pitch,yaw,0);},
-  'お地蔵さんへ':()=>place([3,1.62,-6.6],jizoPoint.toArray()),
+  'お地蔵さんへ':()=>place([jizoPoint.x,1.62,jizoPoint.z+1.4],jizoPoint.toArray()),
+  'ヒントの人形へ':()=>{restartGame(false);story.noteFirstMove();story.examine();closeWarning();place([jizoPoint.x,1.62,jizoPoint.z+1.4],haunting.actor.position.clone().add(new THREE.Vector3(0,.5,0)).toArray());start();},
   '井戸へ':()=>place([7,1.62,-4.4],[8.4,.8,-6.2]),
   '井戸を覗く':()=>place([8.4,1.62,-5.20],[8.4,-.8,-6.2]),
   '僧の前へ':()=>place([-.93,2.292,2.39],monkPoint.toArray()),
+  '収納の隙間へ':()=>{flashOn=false;place([-.73,2.29,-3.16],[-.705,2.04,-4.455]);},
+  '収納の戸へ':()=>place([-1.0,2.29,-3.16],[-.98,1.6,-4.39]),
+  '収納を照らす':()=>{flashOn=true;},
+  '地蔵後の収納へ':()=>{restartGame(false);story.noteFirstMove();story.examine();closeWarning();place([-1.0,2.29,-3.16],[-.98,1.6,-4.39]);start();},
+  '儀式の直前へ':()=>{restartGame(false);story.noteFirstMove();story.examine();closeWarning();for(const id of CLUE_IDS)recordClue(id);place([-.3,2.292,2.39],monkPoint.toArray());start();},
   '焼けた畳へ':()=>place([-.88,2.292,.98],[-2.3,.67,2.5]),
-  '廊下へ':()=>{shadowCouple.reset();shadowAudio?.reset();story.phase='corridor';story.rain=false;enterCorridor();},
+  '廊下へ':()=>{corridorWins=0;shadowCouple.reset();shadowAudio?.reset();story.phase='corridor';story.rain=false;enterCorridor();},
+  '最終階層の廊下へ':()=>{corridorWins=CORRIDOR_COUNT-1;shadowCouple.reset();shadowAudio?.reset();story.phase='corridor';story.rain=false;enterCorridor();},
+  '床鳴りを試聴':()=>{if(currentStage==='corridor'&&playing&&$('#sound').checked)corridorCreak?.play(camera);},
+  '廊下の中ほどへ':()=>place([0,1.64,-13],[0,1.5,-23]),
   'ヒント5の廊下へ':()=>{corridorWins=4;shadowCouple.reset();shadowAudio?.reset();story.phase='corridor';story.rain=false;enterCorridor();},
   '最終玄関へ':()=>enterEndingStage(),
   '玄関の前へ':()=>{if(currentStage==='ending')place([0,1.64,-10.25],[0,1.25,-12.5]);},
@@ -341,7 +360,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
   const h=currentStage!=='house'?1.64:surfaceHeight(position.x,position.z)+1.62;position.y=THREE.MathUtils.damp(position.y,h,12,dt);
   camera.position.copy(position);camera.rotation.set(pitch,yaw,0);
   if(forward||right){camera.position.y+=Math.sin(elapsed*9)*.009;footTime+=dt;if(footTime>.62){footstep();footTime=0;}}
-  const near=interactionTarget();$('#prompt').hidden=!near;setText($('#prompt'),near==='hint-doll'?(touchUI()?'人形を調べる':'E　人形を調べる'):near==='exit'?(touchUI()?'玄関を開ける':'E　玄関を開ける'):near?.startsWith('corridor:')?'E　僧侶の顔の紙を読む':near?.startsWith('clue:')?'E　'+clues.get(near).label+'を調べる':near==='jizo'?'E　お地蔵さんを調べる':near==='monk'?'E　お坊さんを調べる':near==='well'?'E　井戸を調べる':doorOpen?'E　障子を閉める':'E　障子を開ける');
+  const near=interactionTarget();$('#prompt').hidden=!near;setText($('#prompt'),(near==='hint-doll'||near==='clue-hint-doll')?(touchUI()?'人形を調べる':'E　人形を調べる'):near==='exit'?(touchUI()?'玄関を開ける':'E　玄関を開ける'):near?.startsWith('corridor:')?'E　僧侶の顔の紙を読む':near?.startsWith('clue:')?'E　'+clues.get(near).label+'を調べる':near==='jizo'?'E　お地蔵さんを調べる':near==='monk'?'E　お坊さんを調べる':near==='well'?'E　井戸を調べる':near==='cupboard'?(clues.cupboard.state.open?'E　収納の引き戸を閉める':'E　収納の引き戸を開ける'):doorOpen?'E　障子を閉める':'E　障子を開ける');
  }else if(firstStart){camera.position.set(9.2+Math.sin(elapsed*.05)*.15,2.8,9.8);camera.lookAt(-1.4,1.5,1.5);}
  if(door&&currentStage==='house'){doorProgress=THREE.MathUtils.damp(doorProgress,doorOpen?1:0,4,dt);if(Math.abs(doorProgress-(doorOpen?1:0))<.0001)doorProgress=doorOpen?1:0;door.position.z=-doorProgress*.88;}
  const active=playing&&!document.hidden;
@@ -354,7 +373,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
   if(armsActive&&active&&currentStage==='house')arms.update(storyDt);
   if(oldPhase==='arrival'&&story.phase==='corridor'){$('#touch').hidden=!touchUI();$('#hint').textContent='人形の絵を手がかりに、左右の道を選ぶ';}
   if(story.phase==='ritual'){camera.position.copy(position);camera.rotation.set(pitch,yaw,0);}
-  higanbana.visible=haunting.moves>0&&currentStage==='house';
+  higanbana.visible=(haunting.moves>0||story.rain)&&currentStage==='house';
   higanbana.children.forEach((stem,i)=>{stem.visible=i<story.remainingClues;});
   monkFire.update(story,active?storyDt:0,camera);
   tatamiScorch?.update(story,currentStage);
@@ -364,6 +383,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
   rain.update(active?dt:0,story.rain&&currentStage==='house',camera,flashOn&&playing);
   corridorHints.update(storyDt,active&&currentStage==='corridor');
   if(currentStage==='corridor'){corridorEvents.update(active?dt:0,camera,active&&!corridorReading&&!corridorHints.state.locked);shadowCouple.update(active?storyDt:0,position,camera);corridor.updateEncounter(shadowCouple.state,shadowCouple.actors);corridor.update(active?dt:0,camera);setOpacity($('#blackout'),Math.max(story.darkness,shadowCouple.state.darkness));if(shadowCouple.state.locked){camera.lookAt(shadowCouple.lookTarget());yaw=camera.rotation.y;pitch=camera.rotation.x;}}
+  corridorCreak?.update(dt,{active:active&&currentStage==='corridor',eligible:currentStage==='corridor'&&!controlsLocked()&&story.phase==='corridor'&&shadowCouple.state.phase==='hidden'&&['seen','gone'].includes(corridorEvents.state.phase)&&position.z>-20,sound:$('#sound').checked,camera,position});
   shadowAudio?.update(shadowCouple.state,active&&currentStage==='corridor',$('#sound').checked);
   if(active&&currentStage==='corridor'&&!movementLocked()&&story.phase==='corridor'&&shadowCouple.state.phase==='hidden'){
    const exit=evaluateCorridorExit(corridorEvents.floor,position);
@@ -376,12 +396,13 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
  }
 
  $('#inspection').hidden=!playing||performance.now()>inspectionUntil;
- camera.getWorldDirection(v3);flash.position.copy(camera.position).addScaledVector(v3,.2);flash.position.y-=.16;flash.target.position.copy(camera.position).addScaledVector(v3,10);flash.intensity=(currentStage==='corridor'?50:25)*story.flashlightPower*(currentStage==='corridor'?1-shadowCouple.state.darkness:1);flash.visible=true;if(!playing||!flashOn||story.flashlightPower<=0)flash.intensity=0;
+ camera.getWorldDirection(v3);flash.position.copy(camera.position).addScaledVector(v3,.2);flash.position.y-=.16;flash.target.position.copy(camera.position).addScaledVector(v3,10);flash.intensity=(currentStage==='corridor'?corridor.lighting.flashPower:25)*story.flashlightPower*(currentStage==='corridor'?1-shadowCouple.state.darkness:1);flash.visible=true;if(!playing||!flashOn||story.flashlightPower<=0)flash.intensity=0;
+ if(clues)clues.cupboard.update(active?Math.min(frameDt,.1):0,{active:active&&currentStage==='house'&&!controlsLocked(),beforeJizo:!story.rain,camera,flash,clearLine:(a,b)=>haunting.clearLine(a,b)});
  if(currentStage==='house')dust.update(elapsed,flash.position,v3,flash.intensity>0,renderer.getPixelRatio());
  const overlayOnly=currentStage==='ending'&&ending.state.phase==='epilogue';
  if(!overlayOnly){
   if(currentStage==='house'&&elapsed-lastLodTime>.2){lastLodTime=elapsed;for(const lod of forestLods){const distance=Math.hypot(camera.position.x-lod.center.x,camera.position.z-lod.center.z),coarse=distance>(lod.coarse?14:18);if(coarse!==lod.coarse){lod.coarse=coarse;lod.high.visible=!coarse;lod.low.visible=coarse;forestRevision++;}}}
-  const casters=currentStage==='house'?[transformKey(door),transformKey(haunting?.actor),transformKey(jizo),transformKey(monk),transformKey(wellLid),clues?.reveal.visible,higanbana?.visible,story.remainingClues,forestRevision].join('|'):currentStage==='corridor'?[corridorEvents.group.visible,transformKey(corridorEvents.doll)].join('|'):ending?.shadowRevision;
+  const casters=currentStage==='house'?[transformKey(door),transformKey(haunting?.actor),transformKey(jizo),transformKey(monk),transformKey(wellLid),clues?.reveal.visible,clues?.cupboard.shadowKey,higanbana?.visible,story.remainingClues,forestRevision].join('|'):currentStage==='corridor'?[corridorEvents.group.visible,transformKey(corridorEvents.doll)].join('|'):ending?.shadowRevision;
   if(currentStage==='house')moonCache.sync(casters);
   if(flash.intensity>0)flashCache.sync(currentStage+'|'+casters+'|'+transformKey(flash)+'|'+transformKey(flash.target));
   renderer.render(currentStage==='ending'?ending.scene:currentStage==='corridor'?corridor.scene:scene,camera);
@@ -390,7 +411,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
  if(quality!==null){renderer.setPixelRatio(quality);renderer.setSize(innerWidth,innerHeight);}
 
  if(diagnosticMode){frameTimes.push(frameDt);if(frameTimes.length>120)frameTimes.shift();}
- if(diagnosticMode&&elapsed-diagnosticAt>1&&$('#diagnostics')){diagnosticAt=elapsed;$('#diagnostics').textContent=JSON.stringify({loaded:!!house,playing,mobileMode,rendering3D:!overlayOnly,renderFrames:renderer.info.render.frame,pixelRatio:renderer.getPixelRatio(),images:imageCache.diagnostics(),forestLOD:{cells:forestLods.length,coarse:forestLods.filter(l=>l.coarse).length},shadowUpdates:{moon:moonCache.updates,flash:flashCache.updates},touchVisible:!$('#touch').hidden,position:position.toArray().map(x=>+x.toFixed(3)),yaw,pitch,flash:flashOn,door:doorOpen,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps:Math.round(frameTimes.length/frameTimes.reduce((a,b)=>a+b,0)),colliders:navigation.colliders.length,doll:haunting?.diagnostics(),jizoVisible:!!jizo?.visible,flowers:{visible:!!higanbana?.visible,count:higanbana?.children.filter(o=>o.visible).length||0,total:higanbana?.children.length||0},story:story.diagnostics(),clues:clues?.diagnostics(),stage:currentStage,ending:ending?.diagnostics(),corridorWins,corridorHint:corridorHints?.diagnostics(),monkVisible:!!monk?.visible,tatamiScorch:tatamiScorch?.diagnostics(),wellOpen:story.rain,fire:monkFire?.diagnostics(),shadowCouple:shadowCouple?.diagnostics(),candles:corridor?.diagnostics(),corridorEvents:corridorEvents?.diagnostics(),corridorReading,arms:armsActive?arms?.diagnostics():null,storyAudio:storyAudio?.diagnostics(),rustle:{plays:rustlePlays,duration:rustleDuration,state:audioContext?.state}});}
+ if(diagnosticMode&&elapsed-diagnosticAt>1&&$('#diagnostics')){diagnosticAt=elapsed;$('#diagnostics').textContent=JSON.stringify({loaded:!!house,playing,mobileMode,rendering3D:!overlayOnly,renderFrames:renderer.info.render.frame,pixelRatio:renderer.getPixelRatio(),images:imageCache.diagnostics(),forestLOD:{cells:forestLods.length,coarse:forestLods.filter(l=>l.coarse).length},shadowUpdates:{moon:moonCache.updates,flash:flashCache.updates},touchVisible:!$('#touch').hidden,position:position.toArray().map(x=>+x.toFixed(3)),yaw,pitch,flash:flashOn,door:doorOpen,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps:Math.round(frameTimes.length/frameTimes.reduce((a,b)=>a+b,0)),colliders:navigation.colliders.length,doll:haunting?.diagnostics(),jizoVisible:!!jizo?.visible,jizoPosition:jizoPoint.toArray(),clueHint:story.lastHint,flowers:{visible:!!higanbana?.visible,count:higanbana?.children.filter(o=>o.visible).length||0,total:higanbana?.children.length||0},story:story.diagnostics(),clues:clues?.diagnostics(),stage:currentStage,ending:ending?.diagnostics(),corridorWins,corridorHint:corridorHints?.diagnostics(),monkVisible:!!monk?.visible,tatamiScorch:tatamiScorch?.diagnostics(),wellOpen:story.rain,fire:monkFire?.diagnostics(),shadowCouple:shadowCouple?.diagnostics(),candles:corridor?.diagnostics(),corridorCreak:corridorCreak?.diagnostics(),corridorEvents:corridorEvents?.diagnostics(),corridorReading,arms:armsActive?arms?.diagnostics():null,storyAudio:storyAudio?.diagnostics(),rustle:{plays:rustlePlays,duration:rustleDuration,state:audioContext?.state}});}
 }
 $('#fullscreen').hidden=!document.documentElement.requestFullscreen;
 $('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{}};
@@ -399,6 +420,7 @@ window.addEventListener('resize',()=>{document.body.classList.toggle('touch-mode
 document.addEventListener('visibilitychange',()=>{
  previousFrame=performance.now();
  if(document.hidden){
+  corridorCreak?.suspend();
   if(playing&&!controlsLocked())pause();
   storyAudio?.update(story,false,$('#sound').checked,camera);
   if(shadowCouple)shadowAudio?.update(shadowCouple.state,false,$('#sound').checked);

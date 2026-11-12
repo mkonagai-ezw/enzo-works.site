@@ -1,0 +1,18 @@
+Generated with OpenAI built-in image_gen, 2026-11-12.
+Transparent PNG asset, not yet placed in the scene.
+Reference: checks/doll_preview_side.png, screenshot of existing adapted Miss Yamanashi doll (Wyoming State Museum / Zanna Wright, CC BY 4.0), with expression, framing and surface appearance transformed through image generation.
+https://sketchfab.com/3d-models/miss-yamanashi-japanese-friendship-doll-a0cb9d60f14a4434a7ae8d723c4f2e9e
+https://creativecommons.org/licenses/by/4.0/
+
+Final generation prompt:
+Use case: precise-object-edit
+Asset type: transparent portrait cutout of an antique Ichimatsu doll prop for a Japanese horror game.
+Input image: costume, hairstyle and physical doll reference. Transform this existing Ichimatsu DOLL into a straight-on head-and-shoulders portrait with an eerie expression.
+
+Subject: an inanimate traditional Japanese Ichimatsu doll, visibly made of molded gofun-coated material, chalk-white matte painted face with subtle aged surface texture, lacquered glass eyes and black doll hair. Preserve its distinctly crafted doll proportions and artificial painted features. It must read as an antique manufactured doll, not as a photograph of a living person.
+Expression: both glass eyes opened unusually wide with small dark pupils looking straight at the viewer, and a fixed unnatural smile whose mouth corners curve sharply upward. A finely sculpted narrow smiling mouth, slightly parted, with a restrained dark interior. The expression should be uncanny and unsettling, as if the doll's normally placid painted face had changed. No wounds or gore.
+Hair: straight black bob with blunt fringe and shoulder-length sides, like the reference, leaving eyes fully visible.
+Costume: match the reference doll's antique kimono: muted ivory / grey-beige silk with faded peach, pale yellow and sage floral motifs, crossed ivory collar and slender vermilion inner edges. If the lower edge of the portrait reaches the obi, preserve the dark plum-brown floral obi and vermilion braided cord. No added accessories.
+Composition: ONE centered doll, straight-on and upright, entire hair outline and full face visible, upper chest and kimono shoulders visible, close framing with a small transparent margin. Both eyes and smile clear enough to later be glimpsed behind a narrow sliding-door gap.
+Style and lighting: realistic photograph of a physical antique doll prop, cool dim frontal bounced light, detailed gofun finish, glass eyes, silk fibers and doll hair. Subtle temple shadows. Face appreciably whiter than the reference.
+Background: genuine transparent alpha. Do not include the original grey backdrop. No cabinet, no door, no slit or occlusion baked into the asset, no hands, no writing, no watermark, no checkerboard. Preserve transparency around the silhouette.

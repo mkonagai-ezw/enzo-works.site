@@ -191,3 +191,27 @@ https://quaternius.itch.io/universal-animation-library
 Handwritten clue note revision v2: OpenAI built-in image generation, edited from v1. Source: raw/foreshadowing/despair-note-v2.png. Exact prompt: raw/foreshadowing/despair-note-v2-prompt.txt. Game asset: dist/assets/despair-note-v2.glb.
 
 畳の焼け跡（2026-11-12）: ENZO WORKS監修、OpenAI内蔵Image Generationで新規生成した透過テクスチャ。炭化したい草・灰・煤を、僧侶が出現する和室の畳上面へ投影。お地蔵さん発動前のみ表示。生成指示・加工記録: dist/assets/scorched-tatami/provenance.txt。
+
+
+僧侶の炎・爆炎（2026-11-12、承認済み試作をローカル統合）:
+Unity Labs / Thomas ICHÉ — Flame03 / FireBall01、CC0。
+https://unity.com/blog/engine-platform/free-vfx-image-sequences-flipbooks
+Flame03 TGA連番を128フレームWebPアトラスへ、FireBall01を64フレームWebPへ加工。
+煙: 既存Kenney Particle Pack（CC0）。火の粉: 本作用にGPU粒子を実装。
+Explosion04-1(Short).mp3、engyclick-firewood-burning-sound-179862.mp3: ユーザー指定の既存ローカル音源をそのまま複製。
+炎1.6・速度1.4・火の粉1.6。着火音は1回、燃焼音は位置減衰・暗転フェード付きループ。
+
+収納の引き戸・覗く人形（2026-11-12、ローカル実装）:
+既存収納の古材（Poly Haven、CC0）を再利用し、固定戸を2枚の引き戸へ変更。
+覗く顔: assets/peeking-child/doll-face-v2.png、内蔵OpenAI Image Generationで加工した市松人形画像。
+原型参照: Miss Yamanashi — Wyoming State Museum / Zanna Wright（CC BY 4.0、上記参照）。
+白い胡粉・眼球・表情・構図を変更。生成指示: assets/peeking-child/doll-face-v2-prompt.txt。
+閉鎖音: ふすま・閉める02.mp3（ユーザー指定の既存ローカル音源を原音のまま使用）。
+
+廊下の床鳴り（2026-11-12、ローカル実装）:
+Wood Creak Single V1 — Rudmer_Rotteveel / Freesound、CC0。
+https://freesound.org/people/Rudmer_Rotteveel/sounds/502505/
+https://creativecommons.org/publicdomain/zero/1.0/
+公開HQプレビューを assets/audio/corridor-wood-creak.mp3 に保存。
+https://cdn.freesound.org/previews/502/502505_4921277-hq.mp3
+再生速度0.94・小音量・プレイヤー背後の床上に空間定位。
