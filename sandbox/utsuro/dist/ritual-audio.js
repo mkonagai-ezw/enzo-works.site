@@ -20,7 +20,7 @@ export function createStoryAudio(context,phonePosition,monkPosition){
   const source=context.createBufferSource(),gain=context.createGain(),low=context.createBiquadFilter();source.buffer=buffer;low.type='lowpass';low.frequency.value=700;gain.gain.value=.92;source.connect(low);low.connect(gain);gain.connect(context.destination);gain.gain.setTargetAtTime(0,context.currentTime,.4);effects.add(source);source.onended=()=>{effects.delete(source);source.disconnect();low.disconnect();gain.disconnect();};source.start();source.stop(context.currentTime+2.4);return true;
  }
  const direction=new THREE.Vector3();let listenerKey='';
- return {ready,
+ return {ready,buffer(name){return tracks[name]?.buffer;},
   playStart(buffer){if(impact(buffer))startPlays++;},playReveal(buffer){if(impact(buffer))revealPlays++;},
   playCupboardClose(){
    const t=tracks.cupboardClose;if(!t.buffer||context.state!=='running')return false;

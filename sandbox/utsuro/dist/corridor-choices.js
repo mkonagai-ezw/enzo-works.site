@@ -1,14 +1,10 @@
 // Each pair refers only to what the corresponding drawing can show.
 // The identity of the player is reserved for the ending.
 export const CORRIDOR_CHOICES=Object.freeze([
- {question:'あの子は、どこへ。',left:'遠くへ出かけた。',right:'もう、帰らない。',correct:'right'},
- {question:'あの男が求めたもの。',left:'代わりになる子。',right:'新しい人形。',correct:'left'},
- {question:'あの部屋は。',left:'守るための部屋。',right:'逃がさないための部屋。',correct:'right'},
- {question:'あの戸口に来たのは。',left:'いつも、同じ子。',right:'そのたび、違う子。',correct:'right'},
- {question:'あの子が消えたあと。',left:'二人も、戻らなかった。',right:'二人は、待ち続けた。',correct:'left'},
- {question:'あの人が塞いだのは。',left:'外へ逃げる道。',right:'奥から伸びる手。',correct:'right'},
- {question:'あの手が伸びるのは。',left:'帰さないため。',right:'見送るため。',correct:'left'},
- {question:'戸の向こうにいたのは。',left:'赤い服と、青い服の二人。',right:'黒い帽子の男。',correct:'left'}
+ {question:'あの男が求めたもの。',left:'新しい人形。',right:'代わりになる子。',correct:'right'},
+ {question:'あの戸口に来たのは。',left:'そのたび、違う子。',right:'いつも、同じ子。',correct:'left'},
+ {question:'最後に、井戸へ向かったのは。',left:'飾りの帽子の男。',right:'赤と青の服の二人。',correct:'right'},
+ {question:'あの人が止めていたのは。',left:'後を追う手。',right:'外へ出る子。',correct:'left'}
 ].map(Object.freeze));
 export const CORRIDOR_COUNT=CORRIDOR_CHOICES.length;
 

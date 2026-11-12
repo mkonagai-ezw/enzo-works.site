@@ -1,0 +1,4 @@
+Created with built-in imagegen for ENZO WORKS / とある家, 2026-11-12.
+References: corridor-hints/hint-01-v1.webp (child's crayon style and parents), ending/morning-house-v1.webp (house architecture).
+Prompt: Happy smiling parents sit closely on their Japanese house's engawa, with their smiling young daughter between them holding her Ichimatsu doll. Five-year-old's awkward wax crayon drawing on aged cream paper, 3:2 landscape. Mother: black bob, grey top, red skirt. Father: black hair, blue top, grey trousers. Daughter holds bob-haired doll in red/cream kimono. No text or horror imagery. Uneven strokes, scribbled fills and imperfect proportions.
+Generated original: exec-9d77300c-9c02-4c55-92ef-b8289d772d6e.png. WebP encoded at quality 88; no image alteration.

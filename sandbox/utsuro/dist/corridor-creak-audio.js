@@ -1,5 +1,5 @@
 import * as THREE from './vendor/three.module.js';
-import {CorridorCreakState} from './corridor-atmosphere.js';
+import {CorridorCreakState} from './corridor-atmosphere.js?v=four-dark-1';
 
 export function createCorridorCreakAudio(context,canStand){
  const state=new CorridorCreakState(),forward=new THREE.Vector3();let buffer=null,voice=null,error=null,plays=0,lastPosition=null;

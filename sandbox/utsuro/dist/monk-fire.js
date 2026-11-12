@@ -4,22 +4,22 @@ import {createEmbers} from './monk-fire-embers.js';
 import {createIgnition} from './monk-fire-ignition.js';
 
 // Approved B: Unity Labs CC0 Flame03, repacked as a 16 x 8 atlas.
-function flameBatch(texture,items){
+export function flameBatch(texture,items){
  const plane=new THREE.PlaneGeometry(1,1),geo=new THREE.InstancedBufferGeometry();geo.index=plane.index;
  geo.setAttribute('position',plane.attributes.position);geo.setAttribute('uv',plane.attributes.uv);geo.instanceCount=items.length;
- for(const [name,size,get] of [['anchor',3,p=>p.at],['scale',2,p=>p.size],['phase',1,p=>[p.phase]],['rate',1,p=>[p.rate]],['gain',1,p=>[p.gain]]])geo.setAttribute(name,new THREE.InstancedBufferAttribute(new Float32Array(items.flatMap(get)),size));
+ for(const [name,size,get] of [['anchor',3,p=>p.at],['scale',2,p=>p.size],['phase',1,p=>[p.phase]],['rate',1,p=>[p.rate]],['gain',1,p=>[p.gain]],['birth',1,p=>[p.birth??-100]],['angle',1,p=>[p.angle??0]]])geo.setAttribute(name,new THREE.InstancedBufferAttribute(new Float32Array(items.flatMap(get)),size));
  const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,toneMapped:true,uniforms:{atlas:{value:texture},clock:{value:0},strength:{value:1},grid:{value:new THREE.Vector2(16,8)},fps:{value:16},atlasSize:{value:new THREE.Vector2(texture.image.width,texture.image.height)}},vertexShader:`
- attribute vec3 anchor;attribute vec2 scale;attribute float phase,rate,gain;
- varying vec2 vUv;varying float vPhase,vRate,vGain;
- void main(){vec4 p=modelViewMatrix*vec4(anchor,1.);p.xy+=vec2(position.x*scale.x,(position.y+.5)*scale.y);gl_Position=projectionMatrix*p;vUv=uv;vPhase=phase;vRate=rate;vGain=gain;}`,
+ attribute vec3 anchor;attribute vec2 scale;attribute float phase,rate,gain,birth,angle;uniform float clock;
+ varying vec2 vUv;varying float vPhase,vRate,vGain,vAge;
+ void main(){vec4 p=modelViewMatrix*vec4(anchor,1.);vec2 q=vec2(position.x*scale.x,(position.y+.5)*scale.y);p.xy+=mat2(cos(angle),sin(angle),-sin(angle),cos(angle))*q;gl_Position=projectionMatrix*p;vUv=uv;vPhase=phase;vRate=rate;vGain=gain;vAge=clock-birth;}`,
  fragmentShader:`
  uniform sampler2D atlas;uniform float clock,strength,fps;uniform vec2 atlasSize,grid;
- varying vec2 vUv;varying float vPhase,vRate,vGain;
+ varying vec2 vUv;varying float vPhase,vRate,vGain,vAge;
  vec3 frame(float f){vec2 tile=vec2(mod(f,grid.x),grid.y-1.-floor(f/grid.x));vec2 margin=.5/atlasSize;vec2 p=(tile+vUv)/grid;p=clamp(p,tile/grid+margin,(tile+1.)/grid-margin);return texture2D(atlas,p).rgb;}
  vec3 interpolated(float f){float count=grid.x*grid.y;return mix(frame(floor(f)),frame(mod(floor(f)+1.,count)),fract(f));}
- void main(){float count=grid.x*grid.y;float t=mod(clock*fps*vRate+vPhase,count-8.);vec3 color=interpolated(t+8.);if(t>count-16.)color=mix(color,interpolated(t-(count-16.)),smoothstep(count-16.,count-8.,t));
+ void main(){if(vAge<0.)discard;float count=grid.x*grid.y;float t=mod(clock*fps*vRate+vPhase,count-8.);vec3 color=interpolated(t+8.);if(t>count-16.)color=mix(color,interpolated(t-(count-16.)),smoothstep(count-16.,count-8.,t));
  float edge=smoothstep(0.,.06,vUv.x)*smoothstep(0.,.06,1.-vUv.x)*smoothstep(0.,.20,vUv.y)*smoothstep(0.,.04,1.-vUv.y);
- gl_FragColor=vec4(color*vGain*strength*1.25,edge*.8);
+ gl_FragColor=vec4(color*vGain*strength*1.25,edge*.8*smoothstep(0.,.85,vAge));
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
  }`});

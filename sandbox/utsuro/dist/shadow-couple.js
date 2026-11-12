@@ -40,6 +40,7 @@ export async function createShadowCouple({loader,scene,mobile,canStand,onStart=(
   }a.particles.geometry.attributes.position.needsUpdate=true;a.particleMaterial.uniforms.clock.value=t;if(camera)a.particleMaterial.uniforms.pixelScale.value=innerHeight/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
  }
  return {state,group,actors,
+  glimpse(){if(state.phase!=='hidden')return false;state.phase='glimpse';state.time=0;group.visible=true;actors.forEach((a,i)=>{a.shell.position.set(i?.58:-.57,0,i?-22.8:-22.2);a.shell.rotation.set(0,0,i?.06:-.04);a.run.stop();a.idle.reset().play();a.pose(0,shadowMotion(0,i),false);a.started=false;particles(a,0);});return true;},
   showcase(run=false){state.reset();onReset();state.phase='preview';group.visible=true;actors.forEach((a,i)=>{a.shell.position.set(i?.68:-.68,0,i?-6.1:-5.7);a.shell.rotation.set(0,0,0);a.run.stop();a.idle.stop();(run?a.run:a.idle).reset().play();a.run.timeScale=i?1.55:1.38;a.started=run;});},
   trigger(player,spawns=[[-.57,0,-22.3],[.58,0,-23.2]]){if(!state.start())return false;onStart();shown=false;actors.forEach((a,i)=>{a.shell.position.fromArray(spawns[i]);a.shell.rotation.set(0,0,0);a.started=true;a.idle.stop();a.run.reset().play();const motion=shadowMotion(0,i);a.run.timeScale=motion.stride;a.pose(0,motion,false);particles(a,0);});buildFlow(player);flowTime=0;group.visible=true;return true;},
   async warmup(renderer,camera){
@@ -50,7 +51,7 @@ export async function createShadowCouple({loader,scene,mobile,canStand,onStart=(
    finally{renderer.setRenderTarget(renderTarget);scratch.dispose();group.visible=wasVisible;actors.forEach(a=>{a.run.stop();a.idle.reset().play();a.pose(0,shadowMotion(0,a.index),false);a.started=false;});}
   },
   reset(){state.reset();onReset();shown=false;group.visible=false;actors.forEach(a=>{a.run.stop();a.idle.reset().play();a.started=false;});},
-  update(dt,player,camera){if(state.phase==='hidden'||state.phase==='gameover')return;dt=shadowFrameDelta(dt);state.tick(dt);flowTime+=dt;if(flowTime>.35){buildFlow(player);flowTime=0;}
+  update(dt,player,camera){if(state.phase==='glimpse'){state.time+=Math.max(0,dt);if(state.time>=.85){state.reset();group.visible=false;}return;}if(state.phase==='hidden'||state.phase==='gameover')return;dt=shadowFrameDelta(dt);state.tick(dt);flowTime+=dt;if(flowTime>.35){buildFlow(player);flowTime=0;}
    actors.forEach((a,i)=>{
     const go=state.phase==='rush',motion=shadowMotion(state.time,i);
     if(go&&!a.started){a.idle.stop();a.run.reset().play();a.run.timeScale=i?1.55:1.38;a.started=true;}

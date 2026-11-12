@@ -1,8 +1,8 @@
-import {CORRIDOR_COUNT} from './corridor-choices.js';
+import {CORRIDOR_COUNT} from './corridor-choices.js?v=four-memories-1';
 
 export function corridorLightProfile(floor=1){
  const level=Math.max(1,Math.min(CORRIDOR_COUNT,floor)),t=(level-1)/(CORRIDOR_COUNT-1);
- return {floor:level,ambient:.026-.017*t,candlePower:2.9-.9*t,candleReach:4.4-.7*t,fog:.036+.012*t,flashPower:30-5*t,flashReach:17-3*t};
+ return {floor:level,ambient:.009-.006*t,candlePower:.65-.30*t,candleReach:2.6-.4*t,fog:.045+.015*t,flashPower:27-3*t,flashReach:16-2*t};
 }
 
 // Only real walking can arm a creak. Reading, pausing and teleports discard it.

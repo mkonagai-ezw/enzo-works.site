@@ -1,0 +1,10 @@
+祈祷師の回想絵の改訂 / 2026-11-12
+OpenAI built-in image_genによる既存絵の編集。
+編集対象: raw/corridor-hints/hint-02-v1.png
+衣装参照: raw/foreshadowing/ritualist-photo-v2.png（本作用に生成した架空の人物）
+原画: raw/corridor-hints/hint-02-v2.png
+配信版: hint-02-v2.webp（WebPへの形式変換のみ）
+変更: 帽子形状、くすんだ金色と赤の装飾、垂れ布と数珠。構図と子供のクレヨン画のタッチは維持。
+
+Generation prompt:
+Use case: precise-object-edit. Edit image 1, an existing crayon drawing used as a brief memory hint in a Japanese horror game. Image 2 is ONLY a costume and palette reference for the ritualist. Preserve the entire landscape 3:2 composition of image 1, aged yellow paper, rough wax crayon texture, naive five-year-old drawing style, tatami room, faceless long-haired doll at lower left, parents in red and blue at right holding paper with the outline of a CHILD, and the ritualist's pointing gesture. Change ONLY the ritualist's costume and hat to resemble the fictional man in image 2, interpreted through a five-year-old's very simple irregular crayon marks: replace the very tall solid-black rectangular hat with a SHORT WIDE crown-like ceremonial cap with three pointed/angular panels, dark brown-charcoal base, dull ochre/gold band and small faded red markings, narrow cream/ochre strips hanging at either side of the face. Robe should be dark brown-charcoal with a few ochre/gold edges and muted rusty red circles/diamonds, two broad cream/ochre vertical stole strips, a simple string of large dark prayer beads. Retain the original face, body proportions and position, oversized pointing hand and other storytelling clues. Decoration must remain extremely simple scribbled crayon, not intricate professional drawing; do not import photorealism, sepia photography, realistic adult anatomy or rendered shading. Keep the parents' red and blue colors, the child's silhouette on their paper, all other elements unchanged. No added characters, words, captions or readable lettering. Output only the edited landscape drawing, no reference photo or comparison panel.

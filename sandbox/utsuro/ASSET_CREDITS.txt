@@ -215,3 +215,11 @@ https://creativecommons.org/publicdomain/zero/1.0/
 公開HQプレビューを assets/audio/corridor-wood-creak.mp3 に保存。
 https://cdn.freesound.org/previews/502/502505_4921277-hq.mp3
 再生速度0.94・小音量・プレイヤー背後の床上に空間定位。
+
+祈祷師の回想絵（2026-11-12、ローカル修正）:
+既存の第2階層の絵をOpenAI内蔵Image Generationで編集。家の写真に合わせ、帽子と衣装の色・装飾・数珠を変更。
+制作記録と生成指示: dist/assets/corridor-hints/hint-02-v2-provenance.txt。
+
+最終回想（2026-11-12）: 幸せな家族が縁側に座る子供のクレヨン画を内蔵imagegenで生成。既存回想と家屋外観を参照。dist/assets/ending/family-memory-v1-provenance.txt に生成記録。延焼は既出Unity Labs CC0 Flame03、煙はKenney CC0、崩落木材は既存古材マテリアルの再利用。
+
+最終崩落音（2026-11-12）: dragon-studio-falling-tree-356127.mp3 / Dragon Studio。ユーザー指定の取得済み音源を使用。崩落開始に同期、黒暗転でフェードアウト。

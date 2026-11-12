@@ -26,7 +26,7 @@ export const CREDIT_SECTIONS=[
  ['煙・その他の粒子',['Particle Pack','Kenney','CC0']],
  ['樹木・植生・石・布・木材・各種テクスチャ',['Poly Haven','CC0']],
  ['アセットについて',['各素材は本作向けに形状・材質・配置・動作等を加工しています。','出典リンクとライセンスの詳細は、タイトル画面の「使用アセット」に記載しています。']],
- ['SOUND',['かごめかごめ','お化け屋敷・お経','黒電話：効果音SE','rain_light_3','バサ','部屋に駆け込んでくる','Explosion04-1(Short)','firewood-burning-sound — engyclick','ふすま・閉める02']],
+ ['SOUND',['かごめかごめ','お化け屋敷・お経','黒電話：効果音SE','rain_light_3','バサ','部屋に駆け込んでくる','Explosion04-1(Short)','firewood-burning-sound — engyclick','ふすま・閉める02','Falling Tree — Dragon Studio']],
  ['廊下の床鳴り',['Wood Creak Single V1','Rudmer_Rotteveel / Freesound','CC0']],
  ['TOOLS & TECHNOLOGY',[]],
  ['OpenAI Codex',['コーディング・モデル制作／加工・制作支援']],

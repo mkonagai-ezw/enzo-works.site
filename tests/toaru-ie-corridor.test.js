@@ -4,12 +4,12 @@ import fs from 'node:fs/promises';
 import {CORRIDOR_COUNT,corridorMessage,evaluateCorridorExit} from '../sandbox/utsuro/dist/corridor-choices.js';
 import {canStand} from '../sandbox/utsuro/dist/corridor-navigation.js';
 
-const truth=['right','left','right','right','left','right','left','left'];
+const truth=['right','left','right','left'];
 const position=side=>({x:side==='left'?-6:6,z:-33.1});
 
-test('all eight drawings have distinct paired text and exactly one correct exit',async()=>{
- const manifest=JSON.parse(await fs.readFile(new URL('../sandbox/utsuro/dist/assets/corridor-hints/manifest-v2.json',import.meta.url)));
- assert.equal(CORRIDOR_COUNT,manifest.images.length);
+test('four choices cover all eight drawings and exactly one four-answer route wins',async()=>{
+ const manifest=JSON.parse(await fs.readFile(new URL('../sandbox/utsuro/dist/assets/corridor-hints/manifest-v3.json',import.meta.url)));
+ assert.equal(CORRIDOR_COUNT,4);assert.equal(manifest.images.length,8);
  const messages=[];
  for(let floor=1;floor<=CORRIDOR_COUNT;floor++){
   for(const side of ['left','right']){
@@ -17,17 +17,17 @@ test('all eight drawings have distinct paired text and exactly one correct exit'
    assert.deepEqual(evaluateCorridorExit(floor,position(side)),{side,correct:side===truth[floor-1]});
   }
  }
- assert.equal(new Set(messages).size,16);
- // Of all 256 full routes, only the story's complete sequence reaches eight wins.
+ assert.equal(new Set(messages).size,8);
+ // Of all 16 routes, only the story's complete sequence reaches four wins.
  let completed=0;
- for(let mask=0;mask<256;mask++){
+ for(let mask=0;mask<16;mask++){
   let wins=0;
-  for(let floor=1;floor<=8;floor++){
+  for(let floor=1;floor<=4;floor++){
    const side=mask&(1<<(floor-1))?'right':'left';
    if(!evaluateCorridorExit(floor,position(side)).correct)break;
    wins++;
   }
-  if(wins===8)completed++;
+  if(wins===4)completed++;
  }
  assert.equal(completed,1);
 });
@@ -43,7 +43,7 @@ test('walking across the junction cannot accidentally select an answer',async()=
   }
  }
  for(const p of [{x:0,z:-33},{x:3,z:-33},{x:8.1,z:-33},{x:-8.1,z:-33},{x:6,z:-34.2},{x:NaN,z:-33},{x:6,z:-Infinity}])assert.equal(evaluateCorridorExit(1,p),null);
- for(const floor of [0,9,1.5,NaN]){
+ for(const floor of [0,5,9,1.5,NaN]){
   assert.equal(evaluateCorridorExit(floor,position('left')),null);assert.equal(corridorMessage(floor,'left'),null);
  }
  assert.equal(corridorMessage(1,'forward'),null);
