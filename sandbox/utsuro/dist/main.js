@@ -19,6 +19,7 @@ import {createRain} from './rain.js';
 import {createStoryAudio} from './ritual-audio.js?v=performance-2';
 import {cacheShadow,transformKey,AdaptiveResolution,setText,setOpacity} from './performance-runtime.js';
 import {shareGLTFImages} from './shared-textures.js';
+import {createWellShaft} from './well-shaft.js';
 import {createTouchStick} from './touch-controls.js';
 const elements=new Map(),$=s=>{if(!elements.has(s)){const e=document.querySelector(s);if(e)elements.set(s,e);return e;}return elements.get(s);},canvas=$('#world');
 const diagnosticMode=['127.0.0.1','localhost'].includes(location.hostname)&&new URLSearchParams(location.search).has('qa');
@@ -113,6 +114,7 @@ async function init(){
   const [weather,well]=await Promise.all([model('weather.glb'),sharedModel('well-story.glb')]);
   weather.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=true;for(const m of (Array.isArray(o.material)?o.material:[o.material])){m.transparent=true;m.depthWrite=false;m.alphaTest=.01;m.polygonOffset=true;m.polygonOffsetFactor=-1;m.polygonOffsetUnits=-1;m.side=THREE.DoubleSide;}}});scene.add(weather);
   well.traverse(o=>{if(/Frayed[ _]rope[ _]over[ _]cover/i.test(o.name))o.visible=false;if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(well);
+  createWellShaft({garden:data[1],well,scene,position:layout.well.position});
   wellLid=well.getObjectByName('StoryWellLid');if(!wellLid)throw Error('井戸の蓋が見つかりません');wellLidRest=wellLid.quaternion.clone();
   const [monkAsset,armAsset,corridorAsset]=await Promise.all([sharedModel('monk-praying.glb'),loader.loadAsync('assets/shadow-arm.glb'),createCorridorStage(loader,mobileMode)]);
   monk=monkAsset;monk.name='Praying monk';monk.position.copy(monkBase);monk.rotation.y=Math.PI/2;monk.visible=false;monk.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=false;for(const m of (Array.isArray(o.material)?o.material:[o.material]))m.shadowSide=THREE.FrontSide;}});scene.add(monk);
@@ -273,6 +275,7 @@ function setupLocalStoryQA(){
   '視線を外す':()=>{yaw+=2.1;camera.rotation.set(pitch,yaw,0);},
   'お地蔵さんへ':()=>place([3,1.62,-6.6],jizoPoint.toArray()),
   '井戸へ':()=>place([7,1.62,-4.4],[8.4,.8,-6.2]),
+  '井戸を覗く':()=>place([8.4,1.62,-5.20],[8.4,-.8,-6.2]),
   '僧の前へ':()=>place([-.93,2.292,2.39],monkPoint.toArray()),
   '廊下へ':()=>{shadowCouple.reset();shadowAudio?.reset();story.phase='corridor';story.rain=false;enterCorridor();},
   'ヒント5の廊下へ':()=>{corridorWins=4;shadowCouple.reset();shadowAudio?.reset();story.phase='corridor';story.rain=false;enterCorridor();},
