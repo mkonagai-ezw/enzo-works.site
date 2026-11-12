@@ -5,6 +5,9 @@ export class SpatialBoxes {
  query(minX,maxX,minZ,maxZ){const result=new Set(this.large),s=this.size;for(let x=Math.floor(minX/s);x<=Math.floor(maxX/s);x++)for(let z=Math.floor(minZ/s);z<=Math.floor(maxZ/s);z++)for(const box of this.cells.get(x+','+z)||[])result.add(box);return result;}
 }
 
+// Visual sequences must not consume unseen frames after a stall.
+export function cinematicFrameDelta(dt){return Number.isFinite(dt)?Math.max(0,Math.min(dt,1/30)):0;}
+
 export function cacheShadow(light){
  light.shadow.autoUpdate=false;let previous=null,updates=0;
  return {sync(key){if(!light.castShadow)return false;if(key!==previous||!light.shadow.map){light.shadow.needsUpdate=true;previous=key;updates++;return true;}return false;},invalidate(){previous=null;},get updates(){return updates;}};

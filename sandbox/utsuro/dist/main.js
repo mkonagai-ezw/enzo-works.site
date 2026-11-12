@@ -5,20 +5,20 @@ import {createDust} from './dust.js';
 import {createDollHaunting} from './doll-haunting.js?v=performance-2';
 import {createForeshadowing,CLUE_VIEWS} from './foreshadowing.js?v=cupboard-peek-1';
 import {HouseStoryState,CLUE_IDS} from './house-story.js?v=doll-clue-hints-1';
-import {createMonkFire} from './monk-fire.js?v=ending-ritual-1';
-import {createShadowCouple} from './shadow-couple.js?v=memory-glimpse-1';
+import {createMonkFire} from './monk-fire.js?v=mobile-scares-1';
+import {createShadowCouple} from './shadow-couple.js?v=mobile-scares-1';
 import {createCorridorCreakAudio} from './corridor-creak-audio.js?v=four-dark-1';
 import {createShadowAudio} from './shadow-audio.js?v=memory-pass-1';
-import {createShadowArms} from './shadow-arms.js';
+import {createShadowArms} from './shadow-arms.js?v=mobile-scares-1';
 import {shadowArmRoom,createShadowArmPlacements} from './shadow-arms-layout.js';
 import {createCorridorEvents} from './corridor-events.js?v=four-memories-1';
 import {CORRIDOR_COUNT,evaluateCorridorExit} from './corridor-choices.js?v=four-memories-1';
 import {createCorridorHints} from './corridor-hints.js?v=four-memories-1';
-import {createCorridorStage} from './corridor-stage.js?v=four-dark-1';
+import {createCorridorStage} from './corridor-stage.js?v=mobile-scares-1';
 import {createEndingStage} from './ending-stage.js?v=auto-epilogue-1';
 import {createRain} from './rain.js';
 import {createStoryAudio} from './ritual-audio.js?v=ending-buffers-1';
-import {cacheShadow,transformKey,AdaptiveResolution,setText,setOpacity} from './performance-runtime.js';
+import {cacheShadow,transformKey,AdaptiveResolution,cinematicFrameDelta,setText,setOpacity} from './performance-runtime.js?v=mobile-scares-1';
 import {shareGLTFImages} from './shared-textures.js';
 import {createWellShaft} from './well-shaft.js';
 import {createTatamiScorch} from './tatami-scorch.js';
@@ -30,16 +30,16 @@ const mobileMode=matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoint
 const touchUI=()=>mobileMode||innerWidth<900;
 const titleScreen=createTitleScreen();
 const renderer=new THREE.WebGLRenderer({canvas,antialias:!mobileMode,powerPreference:'high-performance'});
-const resolution=new AdaptiveResolution(Math.min(devicePixelRatio,mobileMode?1:1.6),mobileMode?.8:1);
+const resolution=new AdaptiveResolution(Math.min(devicePixelRatio,mobileMode?.85:1.6),mobileMode?.65:1);
 renderer.setPixelRatio(resolution.value);renderer.setSize(innerWidth,innerHeight);
 renderer.localClippingEnabled=true;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;
 const scene=new THREE.Scene();scene.background=new THREE.Color('#080e15');scene.fog=new THREE.FogExp2('#080e15',.043);
 const camera=new THREE.PerspectiveCamera(64,innerWidth/innerHeight,.07,140);camera.rotation.order='YXZ';
-const hemi=new THREE.HemisphereLight('#91a7ba','#20261f',.18);scene.add(hemi);
-const moon=new THREE.DirectionalLight('#91a5be',.28);moon.position.set(12,22,4);moon.castShadow=!mobileMode;moon.shadow.mapSize.set(2048,2048);Object.assign(moon.shadow.camera,{left:-18,right:18,top:18,bottom:-18,near:1,far:60});moon.shadow.bias=-.0002;moon.shadow.normalBias=.035;moon.shadow.radius=3;scene.add(moon);
-const fill=new THREE.PointLight('#72858f',.25,8,2);fill.position.set(1,2,-1);scene.add(fill);
-const flash=new THREE.SpotLight('#edeee0',25,16,.48,.65,1.7);flash.castShadow=true;flash.shadow.mapSize.set(mobileMode?1024:2048,mobileMode?1024:2048);flash.shadow.camera.near=.08;flash.shadow.camera.far=16;flash.shadow.bias=-.0004;flash.shadow.normalBias=.012;scene.add(flash,flash.target);
+const hemi=new THREE.HemisphereLight('#91a7ba','#20261f',.28);scene.add(hemi);
+const moon=new THREE.DirectionalLight('#91a5be',.36);moon.position.set(12,22,4);moon.castShadow=!mobileMode;moon.shadow.mapSize.set(2048,2048);Object.assign(moon.shadow.camera,{left:-18,right:18,top:18,bottom:-18,near:1,far:60});moon.shadow.bias=-.0002;moon.shadow.normalBias=.035;moon.shadow.radius=3;scene.add(moon);
+const fill=new THREE.PointLight('#72858f',.4,8,2);fill.position.set(1,2,-1);scene.add(fill);
+const flash=new THREE.SpotLight('#edeee0',25,16,.48,.65,1.7);flash.castShadow=true;flash.shadow.mapSize.set(mobileMode?512:2048,mobileMode?512:2048);flash.shadow.camera.near=.08;flash.shadow.camera.far=16;flash.shadow.bias=-.0004;flash.shadow.normalBias=.012;scene.add(flash,flash.target);
 const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);const imageCache=shareGLTFImages(loader),moonCache=cacheShadow(moon),flashCache=cacheShadow(flash);let loaded=0;let total=18;
 async function model(file){const g=await loader.loadAsync('assets/'+(mobileMode?'mobile/':'')+file);loaded++;$('#loading i').style.width=Math.round(loaded/total*100)+'%';return g.scene;}
 let house,navigation,layout,door,doorProgress=0,doorOpen=false,playing=false,firstStart=true,inspectionUntil=0;
@@ -127,7 +127,7 @@ async function init(){
    for(const m of (Array.isArray(o.material)?o.material:[o.material]))m.shadowSide=THREE.FrontSide;
   }});scene.add(monk);
   navigation.colliders.push({name:'Praying monk',min:[monkBase.x-.28,monkBase.y,monkBase.z-.28],max:[monkBase.x+.28,monkBase.y+1.7,monkBase.z+.28],disabled:true});
-  arms=createShadowArms({scene,gltf:armAsset,placements:createShadowArmPlacements()});arms.group.visible=false;corridor=corridorAsset;
+  arms=createShadowArms({scene,gltf:armAsset,placements:createShadowArmPlacements().filter((_,i)=>!mobileMode||i%3!==2)});arms.group.visible=false;corridor=corridorAsset;
   const forest=await fetch('assets/forest.json').then(r=>r.json());total=11+forest.assets.length;
   await Promise.all(forest.assets.map(async a=>{
    const [root,lowAsset]=await Promise.all([model(a.file),loader.loadAsync('assets/lod/'+a.file)]);const low=lowAsset.scene;
@@ -152,11 +152,11 @@ async function init(){
   corridor.scene.add(flash,flash.target);flash.visible=true;corridor.update(0,camera);
   await shadowCouple.warmup(renderer,camera);
   scene.add(flash,flash.target);
-  const fireVisible=monkFire.group.visible,armVisible=arms.group.visible;
-  monkFire.group.visible=true;arms.group.visible=true;
+  const fireVisible=monkFire.group.visible,armVisible=arms.group.visible,monkVisible=monk.visible;
+  monkFire.group.visible=true;arms.group.visible=true;monk.visible=true;
   await renderer.compileAsync(scene,camera);
   const previousTarget=renderer.getRenderTarget(),warmTarget=new THREE.WebGLRenderTarget(64,64);
-  try{renderer.setRenderTarget(warmTarget);renderer.render(scene,camera);}finally{renderer.setRenderTarget(previousTarget);warmTarget.dispose();monkFire.group.visible=fireVisible;arms.group.visible=armVisible;}
+  try{renderer.setRenderTarget(warmTarget);renderer.render(scene,camera);}finally{renderer.setRenderTarget(previousTarget);warmTarget.dispose();monkFire.group.visible=fireVisible;arms.group.visible=armVisible;monk.visible=monkVisible;}
   moonCache.invalidate();flashCache.invalidate();
   flash.visible=true;flash.intensity=0;renderingWarmup=false;previousFrame=performance.now();
   $('#start').disabled=false;$('#startText').textContent='はじめる';$('#loading').hidden=true;
@@ -378,7 +378,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
  if(house&&haunting&&corridor){
   haunting.update(dt,active&&currentStage==='house'&&!story.rain);
   story.unlock(haunting.moves);
-  const storyDt=Math.min(frameDt,.25),oldPhase=story.phase;story.tick(storyDt,active);
+  const storyDt=story.fireActive?cinematicFrameDelta(frameDt):Math.min(frameDt,.1),oldPhase=story.phase;story.tick(storyDt,active);
   if(story.stage==='corridor'&&currentStage==='house')enterCorridor();
   if(story.armsStarted&&!armsActive){armsActive=true;arms.group.visible=true;arms.setMode('Emerge');}
   if(armsActive&&active&&currentStage==='house')arms.update(storyDt);
@@ -410,7 +410,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
  camera.getWorldDirection(v3);flash.position.copy(camera.position).addScaledVector(v3,.2);flash.position.y-=.16;flash.target.position.copy(camera.position).addScaledVector(v3,10);flash.intensity=(currentStage==='corridor'?corridor.lighting.flashPower:25)*story.flashlightPower*(currentStage==='corridor'?1-shadowCouple.state.darkness:1);flash.visible=true;if(!playing||!flashOn||story.flashlightPower<=0)flash.intensity=0;
  if(clues)clues.cupboard.update(active?Math.min(frameDt,.1):0,{active:active&&currentStage==='house'&&!controlsLocked(),beforeJizo:!story.rain,camera,flash,clearLine:(a,b)=>haunting.clearLine(a,b)});
  if(currentStage==='house')dust.update(elapsed,flash.position,v3,flash.intensity>0,renderer.getPixelRatio());
- const overlayOnly=!playing||(currentStage==='ending'&&ending.state.phase==='epilogue');
+ const overlayOnly=!playing||shadowCouple?.state.phase==='gameover'||(currentStage==='ending'&&ending.state.phase==='epilogue');
  if(!overlayOnly){
   if(currentStage==='house'&&elapsed-lastLodTime>.2){lastLodTime=elapsed;for(const lod of forestLods){const distance=Math.hypot(camera.position.x-lod.center.x,camera.position.z-lod.center.z),coarse=distance>(lod.coarse?14:18);if(coarse!==lod.coarse){lod.coarse=coarse;lod.high.visible=!coarse;lod.low.visible=coarse;forestRevision++;}}}
   const casters=currentStage==='house'?[transformKey(door),transformKey(haunting?.actor),transformKey(jizo),transformKey(monk),transformKey(wellLid),clues?.reveal.visible,clues?.cupboard.shadowKey,higanbana?.visible,story.remainingClues,forestRevision].join('|'):currentStage==='corridor'?[corridorEvents.group.visible,transformKey(corridorEvents.doll)].join('|'):ending?.shadowRevision;
@@ -422,7 +422,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
  if(quality!==null){renderer.setPixelRatio(quality);renderer.setSize(innerWidth,innerHeight);}
 
  if(diagnosticMode){frameTimes.push(frameDt);if(frameTimes.length>120)frameTimes.shift();}
- if(diagnosticMode&&elapsed-diagnosticAt>1&&$('#diagnostics')){diagnosticAt=elapsed;$('#diagnostics').textContent=JSON.stringify({loaded:!!house,playing,mobileMode,rendering3D:!overlayOnly,renderFrames:renderer.info.render.frame,pixelRatio:renderer.getPixelRatio(),images:imageCache.diagnostics(),forestLOD:{cells:forestLods.length,coarse:forestLods.filter(l=>l.coarse).length},shadowUpdates:{moon:moonCache.updates,flash:flashCache.updates},touchVisible:!$('#touch').hidden,position:position.toArray().map(x=>+x.toFixed(3)),yaw,pitch,flash:flashOn,door:doorOpen,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps:Math.round(frameTimes.length/frameTimes.reduce((a,b)=>a+b,0)),colliders:navigation.colliders.length,doll:haunting?.diagnostics(),jizoVisible:!!jizo?.visible,jizoPosition:jizoPoint.toArray(),clueHint:story.lastHint,flowers:{visible:!!higanbana?.visible,count:higanbana?.children.filter(o=>o.visible).length||0,total:higanbana?.children.length||0},story:story.diagnostics(),clues:clues?.diagnostics(),stage:currentStage,ending:ending?.diagnostics(),corridorWins,corridorHint:corridorHints?.diagnostics(),monkVisible:!!monk?.visible,tatamiScorch:tatamiScorch?.diagnostics(),wellOpen:story.rain,fire:monkFire?.diagnostics(),shadowCouple:shadowCouple?.diagnostics(),shadowAudio:shadowAudio?.diagnostics(),candles:corridor?.diagnostics(),corridorCreak:corridorCreak?.diagnostics(),corridorEvents:corridorEvents?.diagnostics(),corridorReading,arms:armsActive?arms?.diagnostics():null,storyAudio:storyAudio?.diagnostics(),rustle:{plays:rustlePlays,duration:rustleDuration,state:audioContext?.state}});}
+ if(diagnosticMode&&elapsed-diagnosticAt>1&&$('#diagnostics')){diagnosticAt=elapsed;$('#diagnostics').textContent=JSON.stringify({loaded:!!house,playing,mobileMode,rendering3D:!overlayOnly,renderFrames:renderer.info.render.frame,pixelRatio:renderer.getPixelRatio(),images:imageCache.diagnostics(),forestLOD:{cells:forestLods.length,coarse:forestLods.filter(l=>l.coarse).length},shadowUpdates:{moon:moonCache.updates,flash:flashCache.updates},touchVisible:!$('#touch').hidden,position:position.toArray().map(x=>+x.toFixed(3)),yaw,pitch,flash:flashOn,door:doorOpen,programs:renderer.info.programs.length,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps:Math.round(frameTimes.length/frameTimes.reduce((a,b)=>a+b,0)),colliders:navigation.colliders.length,doll:haunting?.diagnostics(),jizoVisible:!!jizo?.visible,jizoPosition:jizoPoint.toArray(),clueHint:story.lastHint,flowers:{visible:!!higanbana?.visible,count:higanbana?.children.filter(o=>o.visible).length||0,total:higanbana?.children.length||0},story:story.diagnostics(),clues:clues?.diagnostics(),stage:currentStage,ending:ending?.diagnostics(),corridorWins,corridorHint:corridorHints?.diagnostics(),monkVisible:!!monk?.visible,tatamiScorch:tatamiScorch?.diagnostics(),wellOpen:story.rain,fire:monkFire?.diagnostics(),shadowCouple:shadowCouple?.diagnostics(),shadowAudio:shadowAudio?.diagnostics(),candles:corridor?.diagnostics(),corridorCreak:corridorCreak?.diagnostics(),corridorEvents:corridorEvents?.diagnostics(),corridorReading,arms:armsActive?arms?.diagnostics():null,storyAudio:storyAudio?.diagnostics(),rustle:{plays:rustlePlays,duration:rustleDuration,state:audioContext?.state}});}
 }
 $('#fullscreen').hidden=!document.documentElement.requestFullscreen;
 $('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{}};

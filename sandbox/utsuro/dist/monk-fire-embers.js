@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 
 // Small cooling fragments, plus a short one-shot spray at ignition. One GPU draw.
-export function createEmbers(){
- const count=144,plane=new THREE.PlaneGeometry(1,1),geometry=new THREE.InstancedBufferGeometry();
+export function createEmbers(count=144){
+ const plane=new THREE.PlaneGeometry(1,1),geometry=new THREE.InstancedBufferGeometry();
  geometry.index=plane.index;geometry.setAttribute('position',plane.attributes.position);geometry.setAttribute('uv',plane.attributes.uv);geometry.instanceCount=count;
  let seed=23971;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
  const seeds=new Float32Array(count*4);for(let i=0;i<seeds.length;i++)seeds[i]=random();geometry.setAttribute('seed',new THREE.InstancedBufferAttribute(seeds,4));

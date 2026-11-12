@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {createBillboardBatch} from './billboard-batch.js';
-import {createEmbers} from './monk-fire-embers.js';
-import {createIgnition} from './monk-fire-ignition.js';
+import {createEmbers} from './monk-fire-embers.js?v=mobile-scares-1';
+import {createIgnition} from './monk-fire-ignition.js?v=mobile-scares-1';
 
 // Approved B: Unity Labs CC0 Flame03, repacked as a 16 x 8 atlas.
 export function flameBatch(texture,items){
@@ -26,7 +26,7 @@ export function flameBatch(texture,items){
  const mesh=new THREE.Mesh(geo,mat);mesh.frustumCulled=false;return mesh;
 }
 export async function createMonkFire(scene,base,mobile=false){
- const loader=new THREE.TextureLoader();const [b,smokeMap]=await Promise.all([loader.loadAsync('assets/fire/flame03-hq.webp'),loader.loadAsync('assets/fire/smoke_01.png')]);
+ const loader=new THREE.TextureLoader();const [b,smokeMap]=await Promise.all([loader.loadAsync(mobile?'assets/fire/flame03-mobile-v1.webp':'assets/fire/flame03-hq.webp'),loader.loadAsync('assets/fire/smoke_01.png')]);
  for(const map of [b]){map.colorSpace=THREE.SRGBColorSpace;map.generateMipmaps=false;map.minFilter=THREE.LinearFilter;map.magFilter=THREE.LinearFilter;}
  const group=new THREE.Group();group.name='Monk ritual fire';group.position.copy(base);group.rotation.y=Math.PI/2;group.visible=false;scene.add(group);
  const layers=[
@@ -39,13 +39,15 @@ export async function createMonkFire(scene,base,mobile=false){
   {at:[.18,-.015,.42],size:[.61,1.6],phase:12,rate:.94,gain:.5},
   {at:[.02,.64,.39],size:[.5,1.3],phase:32,rate:1.12,gain:.35},
  ];
- const flames=flameBatch(b,layers);group.add(flames);
- const smoke=createBillboardBatch(smokeMap,7,{alphaOnly:true});group.add(smoke.mesh);
+ const activeLayers=mobile?[layers[0],layers[1],layers[2],layers[5],layers[7]]:layers;
+ const flames=flameBatch(b,activeLayers);group.add(flames);
+ const smoke=createBillboardBatch(smokeMap,mobile?4:7,{alphaOnly:true});group.add(smoke.mesh);
  smoke.sprites.forEach(s=>s.material.color.set('#181a1c'));
- const embers=createEmbers(),ignition=await createIgnition(base.y);group.add(embers.mesh,ignition.mesh);
- const light=new THREE.PointLight('#ff9c43',0,5,2);light.position.set(.12,.68,.5).applyAxisAngle(new THREE.Vector3(0,1,0),Math.PI/2).add(base);light.visible=false;scene.add(light);
+ const embers=createEmbers(mobile?96:144),ignition=await createIgnition(base.y);group.add(embers.mesh,ignition.mesh);
+ // Keep the light in the shader layout even while off; ignition must only change uniforms.
+ const light=new THREE.PointLight('#ff9c43',0,5,2);light.position.set(.12,.68,.5).applyAxisAngle(new THREE.Vector3(0,1,0),Math.PI/2).add(base);scene.add(light);
  let time=0;
- function reset(){time=0;group.visible=false;light.visible=false;light.intensity=0;ignition.mesh.visible=true;}
+ function reset(){time=0;group.visible=false;light.intensity=0;ignition.mesh.visible=true;}
  return {group,light,reset,update(state,dt){
   if(!state.fireActive){if(time||group.visible)reset();return;}
   const strength=1.6,speed=1.4,emberDensity=1.6,burst=true;
@@ -56,5 +58,5 @@ export async function createMonkFire(scene,base,mobile=false){
   smoke.sync();embers.update(time,strength,emberDensity,burst);ignition.update(time,strength,burst);
   const pulse=burst?THREE.MathUtils.smoothstep(time,0,.065)*(1.-THREE.MathUtils.smoothstep(time,.14,.85))*9:0;
   light.intensity=gain*(2.1+Math.sin(time*13.1)*.14+Math.sin(time*23.4)*.09)+pulse*strength;
- },diagnostics(){return {visible:group.visible,seconds:+(time/1.4).toFixed(2),time:+time.toFixed(2),strength:1.6,speed:1.4,emberDensity:1.6,flames:layers.length,emberSlots:embers.count,ignitionVisible:group.visible&&ignition.mesh.visible,batches:group.visible?(ignition.mesh.visible?4:3):0};}};
+ },diagnostics(){return {visible:group.visible,seconds:+(time/1.4).toFixed(2),time:+time.toFixed(2),strength:1.6,speed:1.4,emberDensity:1.6,flames:activeLayers.length,emberSlots:embers.count,ignitionVisible:group.visible&&ignition.mesh.visible,batches:group.visible?(ignition.mesh.visible?4:3):0};}};
 }

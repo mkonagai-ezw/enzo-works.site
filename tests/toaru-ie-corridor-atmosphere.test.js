@@ -6,10 +6,10 @@ import {createCorridorCreakAudio} from '../sandbox/utsuro/dist/corridor-creak-au
 import {Vector3} from '../sandbox/utsuro/dist/vendor/three.module.js';
 
 test('each floor darkens gradually while keeping usable flashlight reach',()=>{
- let previous=corridorLightProfile(1);assert(previous.ambient<=.01);assert(previous.candlePower<1);assert(previous.candleReach<3);
+ let previous=corridorLightProfile(1);assert(previous.ambient>=.025&&previous.ambient<=.06);assert(previous.candlePower<1);assert(previous.candleReach<3);
  for(let i=2;i<=CORRIDOR_COUNT;i++){
   const next=corridorLightProfile(i);for(const key of ['ambient','candlePower','candleReach','flashPower','flashReach'])assert(next[key]<previous[key]);
-  assert(next.fog>previous.fog);assert(next.flashReach>=14);previous=next;
+  assert(next.fog>previous.fog);assert(next.flashReach>=14);assert(next.ambient>=.02,'peripheral detail remains readable');previous=next;
  }
  assert.deepEqual(corridorLightProfile(0),corridorLightProfile(1));
  assert.deepEqual(corridorLightProfile(999),corridorLightProfile(CORRIDOR_COUNT));
