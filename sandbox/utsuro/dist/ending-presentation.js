@@ -1,5 +1,5 @@
 import {setText,setOpacity} from './performance-runtime.js';
-import {EpilogueState} from './epilogue-state.js?v=auto-epilogue-1';
+import {EpilogueState} from './epilogue-state.js?v=story-wording-1';
 import {CREDIT_SECTIONS} from './ending-credits.js?v=collapse-audio-1';
 export function createEndingPresentation({photo,onRestart,onExit,soundEnabled}){
  const state=new EpilogueState();let generation=0,pending=false,blocked=false,wantsAudio=false,creditsHeight=0,viewportHeight=0;

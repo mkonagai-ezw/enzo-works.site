@@ -15,7 +15,7 @@ import {createCorridorEvents} from './corridor-events.js?v=four-memories-1';
 import {CORRIDOR_COUNT,evaluateCorridorExit} from './corridor-choices.js?v=four-memories-1';
 import {createCorridorHints} from './corridor-hints.js?v=four-memories-1';
 import {createCorridorStage} from './corridor-stage.js?v=corridor-readable-1';
-import {createEndingStage} from './ending-stage.js?v=auto-epilogue-1';
+import {createEndingStage} from './ending-stage.js?v=story-wording-1';
 import {createRain} from './rain.js';
 import {createStoryAudio} from './ritual-audio.js?v=ending-buffers-1';
 import {cacheShadow,transformKey,AdaptiveResolution,cinematicFrameDelta,setText,setOpacity} from './performance-runtime.js?v=mobile-scares-1';
@@ -274,7 +274,7 @@ function interact(){
  if(t==='exit'){if(ending.begin(position,yaw,pitch)){clearInput();$('#touch').hidden=true;$('#prompt').hidden=true;$('#reticle').hidden=true;if(document.pointerLockElement)document.exitPointerLock();}return;}
  if(t==='hint-doll'){if(corridorEvents.inspect()){clearInput();$('#touch').hidden=true;$('#prompt').hidden=true;corridorHints.begin(corridorEvents.floor,corridorEvents.state.steps);}return;}
  if(t?.startsWith('corridor:')){const message=corridorEvents.message(t);corridorReading=true;showStory(message.title,message.text,'閉じる');$('#story').dataset.kind='corridor';return;}
- if(t==='jizo'&&story.examine()){haunting.setPresent(false);showStory('にげろ','','閉じる');return;}
+ if(t==='jizo'&&story.examine()){haunting.setPresent(false);showStory('真実に向き合って','','閉じる');$('#story').dataset.kind='jizo';return;}
  if(t==='clue-hint-doll'){const text=story.nextClueHint();if(text){inspectionUntil=performance.now()+10000;$('#inspection').textContent=text;}return;}
  if(t==='monk'){beginRitual();return;}
  if(t==='cupboard'){clues.cupboard.interact();return;}

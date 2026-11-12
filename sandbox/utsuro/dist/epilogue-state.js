@@ -1,4 +1,4 @@
-import {ENDING_TEXT} from './ending-state.js';
+import {ENDING_TEXT} from './ending-state.js?v=story-wording-1';
 export const ENDING_LINES=ENDING_TEXT.flatMap(p=>p.split('\n'));
 export const EPILOGUE_PACING=Object.freeze({charactersPerSecond:9,hold:4,lastHold:6,lineFade:1.2,gap:.6});
 export class EpilogueState{
