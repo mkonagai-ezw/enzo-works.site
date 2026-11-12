@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {createNewspaper} from './newspaper.js';
+import {createNewspaper} from './newspaper.js?v=layout-2';
 
 export const NOTE_TEXT='オワッタ\nスベテシッパイ\nスベテウシナッタ\nスベテスベテスベテスベテダ';
 export const NOTE_POSITION=[6.45,0,-4.75];
@@ -45,7 +45,7 @@ export async function createForeshadowing({loader,scene,navigation,surfaceHeight
   placements.forEach((p,i)=>{dummy.position.set(0,0,0);dummy.rotation.set(0,p.yaw,p.tilt);dummy.scale.setScalar(p.s);dummy.updateMatrix();const low=bounds.clone().applyMatrix4(dummy.matrix).min.y;dummy.position.set(p.x,surfaceHeight(p.x,p.z)+.006-low,p.z);dummy.updateMatrix();batch.setMatrixAt(i,dummy.matrix);batch.setColorAt(i,p.color);});batch.computeBoundingSphere();shoes.add(batch);
  });
  const clues=[
-  {id:'newspaper',label:'古い新聞記事',point:newspaper.paper.position.clone().add(new THREE.Vector3(0,.025,0)),title:newspaper.article.title,text:newspaper.text,reading:true},
+  {id:'newspaper',label:'古い新聞記事',point:newspaper.paper.position.clone().add(new THREE.Vector3(0,.025,0)),title:newspaper.article.title,text:newspaper.text,image:newspaper.image,reading:true},
   {id:'note',label:'謎のメモ書き',point:note.position.clone().add(new THREE.Vector3(0,.014,0)),text:NOTE_TEXT},
   {id:'chains',label:'錆びた鎖',point:new THREE.Vector3(-3.25,.72,3.5),text:'小さな輪のついた鎖。\n畳には、何度も擦ったような跡がある。',always:true},
   {id:'tablets',label:'収納の中',point:new THREE.Vector3(-1.5,1.65,-4.39),text:'奥まで、びっしりと位牌が並んでいる。\n名前の部分は擦れて、読み取れない。'},

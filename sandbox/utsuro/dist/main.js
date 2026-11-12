@@ -3,7 +3,7 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from './vendor/meshopt_decoder.mjs';
 import {createDust} from './dust.js';
 import {createDollHaunting} from './doll-haunting.js?v=performance-2';
-import {createForeshadowing,CLUE_VIEWS} from './foreshadowing.js?v=newspaper-1';
+import {createForeshadowing,CLUE_VIEWS} from './foreshadowing.js?v=newspaper-layout-2';
 import {HouseStoryState,CLUE_IDS} from './house-story.js?v=newspaper-1';
 import {createMonkFire} from './monk-fire.js?v=performance-2';
 import {createShadowCouple} from './shadow-couple.js?v=performance-2';
@@ -263,7 +263,7 @@ function interact(){
  if(t?.startsWith('corridor:')){const message=corridorEvents.message(t);corridorReading=true;showStory(message.title,message.text,'閉じる');$('#story').dataset.kind='corridor';return;}
  if(t==='jizo'&&story.examine()){haunting.setPresent(false);showStory('にげろ','','閉じる');return;}
  if(t==='monk'){beginRitual();return;}
- if(t?.startsWith('clue:')){const clue=clues.get(t);recordClue(t.slice(5));if(clue.reading){clueReading=true;inspectionUntil=0;showStory(clue.title,clue.text,'閉じる');$('#story').dataset.kind='newspaper';$('#storyDetail').scrollTop=0;}else{inspectionUntil=performance.now()+6500;$('#inspection').textContent=clue.text;}return;}
+ if(t?.startsWith('clue:')){const clue=clues.get(t);recordClue(t.slice(5));if(clue.reading){clueReading=true;inspectionUntil=0;showStory(clue.title,'','閉じる');$('#story').dataset.kind='newspaper';const image=document.createElement('img');image.src=clue.image;image.alt=clue.title+'\n'+clue.text;image.draggable=false;$('#storyDetail').append(image);$('#storyDetail').scrollTop=0;$('#storyDetail').scrollLeft=0;}else{inspectionUntil=performance.now()+6500;$('#inspection').textContent=clue.text;}return;}
  if(t==='well'){recordClue('well');inspectionUntil=performance.now()+6500;$('#inspection').textContent=story.rain?'蓋が、開いている。\n二本の縄が、暗闇の中へ続いている。':'板の隙間から、二本の縄が垂れている。\n先は暗くて見えない。';}
  else if(t==='door'){doorOpen=!doorOpen;footstep();}
 }
