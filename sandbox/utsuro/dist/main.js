@@ -11,9 +11,9 @@ import {createCorridorCreakAudio} from './corridor-creak-audio.js?v=four-dark-1'
 import {createShadowAudio} from './shadow-audio.js?v=memory-pass-1';
 import {createShadowArms} from './shadow-arms.js?v=mobile-scares-1';
 import {shadowArmRoom,createShadowArmPlacements} from './shadow-arms-layout.js';
-import {createCorridorEvents} from './corridor-events.js?v=four-memories-1';
+import {createCorridorEvents} from './corridor-events.js?v=girl-memory-1';
 import {CORRIDOR_COUNT,evaluateCorridorExit} from './corridor-choices.js?v=four-memories-1';
-import {createCorridorHints} from './corridor-hints.js?v=four-memories-1';
+import {createCorridorHints} from './corridor-hints.js?v=girl-memory-1';
 import {createCorridorStage} from './corridor-stage.js?v=corridor-readable-1';
 import {createEndingStage} from './ending-stage.js?v=reading-credits-1';
 import {createRain} from './rain.js';

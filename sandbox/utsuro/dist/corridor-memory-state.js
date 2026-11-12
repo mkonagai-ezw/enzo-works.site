@@ -1,4 +1,4 @@
-export const HINT_IMAGES=Object.freeze(Array.from({length:8},(_,i)=>`assets/corridor-hints/hint-${String(i+1).padStart(2,'0')}-v${(i===1||i===4)?2:1}.webp`));
+export const HINT_IMAGES=Object.freeze(Array.from({length:8},(_,i)=>`assets/corridor-hints/hint-${String(i+1).padStart(2,'0')}-v${(i===1||i===2||i===4)?2:1}.webp`));
 export const CORRIDOR_MEMORIES=Object.freeze([[0,1],[2,3],[7,4],[5,6]].map(Object.freeze));
 export const HINT_DURATION=4.8;
 export class CorridorHintState{

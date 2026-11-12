@@ -1,0 +1,61 @@
+{
+  "version": 4,
+  "images": [
+    {
+      "id": 1,
+      "file": "hint-01-v1.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 521164
+    },
+    {
+      "id": 2,
+      "file": "hint-02-v2.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 449796
+    },
+    {
+      "id": 3,
+      "file": "hint-03-v2.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 276940
+    },
+    {
+      "id": 4,
+      "file": "hint-04-v1.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 451036
+    },
+    {
+      "id": 5,
+      "file": "hint-05-v2.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 558352
+    },
+    {
+      "id": 6,
+      "file": "hint-06-v1.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 664738
+    },
+    {
+      "id": 7,
+      "file": "hint-07-v1.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 565228
+    },
+    {
+      "id": 8,
+      "file": "hint-08-v1.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 480856
+    }
+  ]
+}

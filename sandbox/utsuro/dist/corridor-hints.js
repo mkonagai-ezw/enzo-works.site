@@ -1,5 +1,5 @@
-import {CorridorHintState,CORRIDOR_MEMORIES,HINT_IMAGES,HINT_DURATION} from './corridor-memory-state.js';
-export {CorridorHintState,HINT_IMAGES} from './corridor-memory-state.js';
+import {CorridorHintState,CORRIDOR_MEMORIES,HINT_IMAGES,HINT_DURATION} from './corridor-memory-state.js?v=girl-memory-1';
+export {CorridorHintState,HINT_IMAGES} from './corridor-memory-state.js?v=girl-memory-1';
 export function createCorridorHints({onComplete,onError}){
  const state=new CorridorHintState(),cache=new Map(),reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');let generation=0,currentImage=null;
  const overlay=document.createElement('section');overlay.id='corridorHint';overlay.hidden=true;overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','人形が見せた絵');

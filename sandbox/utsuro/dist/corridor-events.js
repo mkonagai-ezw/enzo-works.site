@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 
 import {CORRIDOR_COUNT,corridorMessage} from './corridor-choices.js?v=four-memories-1';
-import {CorridorDollState} from './corridor-memory-state.js';
-export {CorridorDollState} from './corridor-memory-state.js';
+import {CorridorDollState} from './corridor-memory-state.js?v=girl-memory-1';
+export {CorridorDollState} from './corridor-memory-state.js?v=girl-memory-1';
 export async function createCorridorEvents({loader,scene,dollSource,architecture}){
  const group=new THREE.Group();group.name='Corridor pointing monks';scene.add(group);
  const assets=await Promise.all(['left','right'].map(s=>loader.loadAsync('assets/monk-pointing-'+s+'.glb')));

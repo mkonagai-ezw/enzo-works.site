@@ -1,0 +1,9 @@
+鎖につながれた子供の回想絵の改訂 / 2026-11-12
+OpenAI built-in image_genによる既存絵の編集。
+編集対象: hint-03-v1.webp
+原画: raw/corridor-hints/hint-03-v2.png
+配信版: hint-03-v2.webp（WebPへの形式変換のみ）
+変更: 手前の子供を、肩までの黒髪と緑のワンピースを着た女の子に変更。構図・鎖・畳・両親の足・子供のクレヨン画のタッチは維持。
+
+Generation prompt:
+Use case: precise-object-edit. Edit the supplied existing landscape crayon memory illustration for a fictional Japanese horror game. Change ONLY the child sitting in the foreground from a boy to a young girl. Give her shoulder-length straight black hair with a simple fringe, and a plain green short-sleeved knee-length dress instead of the green shirt and black shorts, drawn with the exact same naive irregular wax-crayon strokes of a five-year-old. Keep her face extremely simple with two dot eyes, same young age and small proportions, same seated position, same reaching arm and hand toward the doorway, and same visible bare feet. Preserve the existing gray chain from her ankle to the right wooden post exactly as a non-graphic narrative clue. Preserve all other elements: original 3:2 landscape framing, yellowed paper texture and rough edges, tatami grid, post, open sliding doorway, cropped adult legs in red skirt and blue pants, muted color palette, sparse childlike composition, and overall lighting. Do not add objects or people, text, wounds, realistic detail, polished illustration or shading. Return just the edited drawing.
