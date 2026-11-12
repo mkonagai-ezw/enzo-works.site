@@ -6,7 +6,7 @@ import {createDollHaunting} from './doll-haunting.js?v=performance-2';
 import {createForeshadowing,CLUE_VIEWS} from './foreshadowing.js?v=cupboard-peek-1';
 import {HouseStoryState,CLUE_IDS} from './house-story.js?v=doll-clue-hints-1';
 import {createMonkFire} from './monk-fire.js?v=mobile-scares-1';
-import {createShadowCouple} from './shadow-couple.js?v=mobile-scares-1';
+import {createShadowCouple} from './shadow-couple.js?v=corridor-readable-1';
 import {createCorridorCreakAudio} from './corridor-creak-audio.js?v=four-dark-1';
 import {createShadowAudio} from './shadow-audio.js?v=memory-pass-1';
 import {createShadowArms} from './shadow-arms.js?v=mobile-scares-1';
@@ -14,7 +14,7 @@ import {shadowArmRoom,createShadowArmPlacements} from './shadow-arms-layout.js';
 import {createCorridorEvents} from './corridor-events.js?v=four-memories-1';
 import {CORRIDOR_COUNT,evaluateCorridorExit} from './corridor-choices.js?v=four-memories-1';
 import {createCorridorHints} from './corridor-hints.js?v=four-memories-1';
-import {createCorridorStage} from './corridor-stage.js?v=mobile-scares-1';
+import {createCorridorStage} from './corridor-stage.js?v=corridor-readable-1';
 import {createEndingStage} from './ending-stage.js?v=auto-epilogue-1';
 import {createRain} from './rain.js';
 import {createStoryAudio} from './ritual-audio.js?v=ending-buffers-1';
@@ -45,7 +45,7 @@ async function model(file){const g=await loader.loadAsync('assets/'+(mobileMode?
 let house,navigation,layout,door,doorProgress=0,doorOpen=false,playing=false,firstStart=true,inspectionUntil=0;
 let corridorEvents,corridorReading=false,shadowCouple,shadowAudio,shadowAudioLoading=false,monkFire,clues,storyAudio,phone,jizo,higanbana,monk,arms,corridor,wellLid,wellLidRest,armsActive=false,currentStage='house';
 let corridorCreak,corridorHints,tatamiScorch,renderingWarmup=false,clueReading=false;
-let ending,endingLoading=false,endingDollSource,corridorWins=0,endingQAFreeze=false;
+let ending,endingLoading=false,endingDollSource,corridorWins=0,endingQAFreeze=false,shadowQAStopAt=null;
 const story=new HouseStoryState(),monkBase=new THREE.Vector3(...shadowArmRoom.center),monkPoint=monkBase.clone().add(new THREE.Vector3(0,1.15,0));
 async function sharedModel(file){return (await loader.loadAsync('assets/'+file)).scene;}
 const jizoOffset=new THREE.Vector3(0,0,-.7),jizoPoint=new THREE.Vector3(3,.60,-7.8).add(jizoOffset),phonePoint=new THREE.Vector3(1.7,1.15,-.83);
@@ -236,6 +236,7 @@ function beginRitual(){
  clearInput();flashOn=true;inspectionUntil=0;$('#prompt').hidden=true;$('#touch').hidden=true;$('#hint').textContent='足が、動かない。';
 }
 function enterCorridor(){
+ shadowQAStopAt=null;
  canvas.setAttribute('aria-label','懐中電灯で進む、暗い板張りの廊下');shadowAudio?.suspend();ending?.reset();
  $('#touchLight').hidden=false;$('footer>span:first-child').textContent='曇天　／　夜';
  corridorHints.reset();corridorHints.prepare(corridorWins+1);currentStage='corridor';corridor.setFloor(corridorWins+1);corridorCreak?.reset(corridorWins+1);corridorEvents.reset(corridorWins+1);corridorReading=false;clearInput();rain.reset();arms.group.visible=false;haunting.setPresent(false);
@@ -324,6 +325,8 @@ function setupLocalStoryQA(){
   '左の出口へ':()=>place([-6,1.64,-33.1],[-6,1.64,-34]),
   '右の出口へ':()=>place([6,1.64,-33.1],[6,1.64,-34]),
   '誤選択を試す':()=>reportCorridorChoice(false),
+  '影の接近を静止確認':()=>{if(reportCorridorChoice(false))shadowQAStopAt=2.05;},
+  '影の接近を再開':()=>{shadowQAStopAt=null;},
   '正解を試す':()=>reportCorridorChoice(true),
   '分岐の二人へ':()=>place([0,1.64,-20.5],[0,1.1,-23.5]),
   '左の僧侶へ':()=>place([-1.05,1.64,-21.55],[-1.05,1.48,-23.4]),
@@ -393,7 +396,7 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
   storyAudio?.update(story,active,$('#sound').checked,camera);
   rain.update(active?dt:0,story.rain&&currentStage==='house',camera,flashOn&&playing);
   corridorHints.update(storyDt,active&&currentStage==='corridor');
-  if(currentStage==='corridor'){corridorEvents.update(active?dt:0,camera,active&&!corridorReading&&!corridorHints.state.locked);shadowCouple.update(active?storyDt:0,position,camera);corridor.updateEncounter(shadowCouple.state,shadowCouple.actors);corridor.update(active?dt:0,camera);setOpacity($('#blackout'),Math.max(story.darkness,shadowCouple.state.darkness));if(shadowCouple.state.locked){camera.lookAt(shadowCouple.lookTarget());yaw=camera.rotation.y;pitch=camera.rotation.x;}}
+  if(currentStage==='corridor'){corridorEvents.update(active?dt:0,camera,active&&!corridorReading&&!corridorHints.state.locked);shadowCouple.update(active?(diagnosticMode&&shadowQAStopAt!==null?Math.min(storyDt,Math.max(0,shadowQAStopAt-shadowCouple.state.time)):storyDt):0,position,camera);corridor.updateEncounter(shadowCouple.state,shadowCouple.actors);corridor.update(active?dt:0,camera);setOpacity($('#blackout'),Math.max(story.darkness,shadowCouple.state.darkness));if(shadowCouple.state.locked){camera.lookAt(shadowCouple.lookTarget());yaw=camera.rotation.y;pitch=camera.rotation.x;}}
   corridorCreak?.update(dt,{active:active&&currentStage==='corridor',eligible:currentStage==='corridor'&&!controlsLocked()&&story.phase==='corridor'&&shadowCouple.state.phase==='hidden'&&corridorEvents.state.count>0&&position.z>-20,sound:$('#sound').checked,camera,position});
   shadowAudio?.update(shadowCouple.state,active&&currentStage==='corridor',$('#sound').checked,camera,corridorReading||corridorHints.state.locked);
   if(active&&currentStage==='corridor'&&!movementLocked()&&story.phase==='corridor'&&shadowCouple.state.phase==='hidden'){

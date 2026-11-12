@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {shadowMotion,createShadowPoseDriver,shadowFrameDelta} from './shadow-motion.js?v=mobile-scares-1';
-import {ShadowEncounterState,sweptDistance} from './shadow-encounter-state.js';
+import {ShadowEncounterState,sweptDistance} from './shadow-encounter-state.js?v=corridor-readable-1';
 export async function createShadowCouple({loader,scene,mobile,canStand,onStart=()=>{},onReset=()=>{},onContact=()=>{},onGameOver=()=>{}}){
  const assets=await Promise.all(['male','female'].map(n=>loader.loadAsync('assets/couple/shadow-'+n+'.glb')));
  const smoke=await new THREE.TextureLoader().loadAsync('assets/fire/smoke_01.png');

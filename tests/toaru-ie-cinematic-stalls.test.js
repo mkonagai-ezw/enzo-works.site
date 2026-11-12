@@ -27,3 +27,11 @@ test('stalls preserve the shadow contact hold and still reach a restartable game
  for(const dt of [NaN,Infinity,-1,0])assert.equal(cinematicFrameDelta(dt),0);
  assert.equal(cinematicFrameDelta(1/60),1/60);
 });
+
+test('the approaching shadows remain visible until the final step before contact',()=>{
+ const state=new ShadowEncounterState();state.start();
+ for(const distance of [22,8,3.4,1.9,1.6]){state.approach(distance);assert.equal(state.darkness,0);}
+ state.approach(1.1);assert(state.darkness>0&&state.darkness<.5);
+ state.approach(.72);assert.equal(state.darkness,.8);
+ state.contact();assert.equal(state.darkness,1);
+});

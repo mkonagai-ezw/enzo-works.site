@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import {corridorLightProfile} from './corridor-atmosphere.js?v=mobile-scares-1';
+import {corridorLightProfile} from './corridor-atmosphere.js?v=corridor-readable-1';
 import {canStand} from './corridor-navigation.js';
 import {cacheShadow,transformKey} from './performance-runtime.js?v=mobile-scares-1';
 export async function createCorridorStage(loader,mobile){
  const [gltf,layout]=await Promise.all([loader.loadAsync('assets/corridor-block-01.glb'),fetch('assets/corridor-layout.json').then(r=>{if(!r.ok)throw Error('廊下の配置を読み込めません');return r.json();})]);
  let profile=corridorLightProfile(1);
- const scene=new THREE.Scene();scene.background=new THREE.Color(0x020202);scene.fog=new THREE.FogExp2(0x030303,profile.fog);const ambient=new THREE.HemisphereLight(0x92959f,0x3b2819,profile.ambient);scene.add(ambient);
+ const scene=new THREE.Scene();scene.background=new THREE.Color(0x101217);scene.fog=new THREE.FogExp2(0x25282e,profile.fog);const ambient=new THREE.HemisphereLight(0xb3b6c2,0x887563,profile.ambient);scene.add(ambient);
  gltf.scene.traverse(o=>{if(o.isMesh){o.receiveShadow=true;o.castShadow=!o.name.startsWith('Candlestick');}});scene.add(gltf.scene);
  const geo=new THREE.SphereGeometry(1,8,6),mat=new THREE.MeshBasicMaterial({color:0xffd49a,toneMapped:false});
  const flames=layout.lights.map(item=>{const flame=new THREE.Mesh(geo,mat);flame.position.fromArray(item.position);flame.position.y-=.028;flame.scale.set(.01,.032,.01);scene.add(flame);return {flame,phase:item.phase,position:new THREE.Vector3(...item.position)};});
