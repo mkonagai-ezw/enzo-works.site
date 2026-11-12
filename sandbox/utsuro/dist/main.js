@@ -428,8 +428,22 @@ function animate(){requestAnimationFrame(animate);let now=performance.now();let 
  if(diagnosticMode){frameTimes.push(frameDt);if(frameTimes.length>120)frameTimes.shift();}
  if(diagnosticMode&&elapsed-diagnosticAt>1&&$('#diagnostics')){diagnosticAt=elapsed;$('#diagnostics').textContent=JSON.stringify({loaded:!!house,playing,mobileMode,rendering3D:!overlayOnly,renderFrames:renderer.info.render.frame,pixelRatio:renderer.getPixelRatio(),images:imageCache.diagnostics(),forestLOD:{cells:forestLods.length,coarse:forestLods.filter(l=>l.coarse).length},shadowUpdates:{moon:moonCache.updates,flash:flashCache.updates},touchVisible:!$('#touch').hidden,position:position.toArray().map(x=>+x.toFixed(3)),yaw,pitch,flash:flashOn,door:doorOpen,programs:renderer.info.programs.length,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,fps:Math.round(frameTimes.length/frameTimes.reduce((a,b)=>a+b,0)),colliders:navigation.colliders.length,doll:haunting?.diagnostics(),jizoVisible:!!jizo?.visible,jizoPosition:jizoPoint.toArray(),clueHint:story.lastHint,flowers:{visible:!!higanbana?.visible,count:higanbana?.children.filter(o=>o.visible).length||0,total:higanbana?.children.length||0},story:story.diagnostics(),clues:clues?.diagnostics(),stage:currentStage,ending:ending?.diagnostics(),corridorWins,corridorHint:corridorHints?.diagnostics(),monkVisible:!!monk?.visible,tatamiScorch:tatamiScorch?.diagnostics(),wellOpen:story.rain,fire:monkFire?.diagnostics(),shadowCouple:shadowCouple?.diagnostics(),shadowAudio:shadowAudio?.diagnostics(),candles:corridor?.diagnostics(),corridorCreak:corridorCreak?.diagnostics(),corridorEvents:corridorEvents?.diagnostics(),corridorReading,arms:armsActive?arms?.diagnostics():null,storyAudio:storyAudio?.diagnostics(),rustle:{plays:rustlePlays,duration:rustleDuration,state:audioContext?.state}});}
 }
-$('#fullscreen').hidden=!document.documentElement.requestFullscreen;
-$('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{}};
+const fullscreenButtons=[$('#fullscreen'),$('#titleFullscreen')];
+function syncFullscreenButtons(){
+ const available=!!document.documentElement.requestFullscreen&&document.fullscreenEnabled!==false;
+ const label=document.fullscreenElement?'全画面を解除':'全画面にする';
+ for(const button of fullscreenButtons){button.hidden=!available;button.setAttribute('aria-label',label);button.title=label;}
+ $('#titleFullscreen').textContent=label;
+}
+async function toggleFullscreen(){
+ for(const button of fullscreenButtons)button.disabled=true;
+ try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();syncFullscreenButtons();}
+ catch{for(const button of fullscreenButtons)button.title='全画面に切り替えられませんでした。もう一度お試しください。';}
+ finally{for(const button of fullscreenButtons)button.disabled=false;}
+}
+for(const button of fullscreenButtons)button.onclick=toggleFullscreen;
+document.addEventListener('fullscreenchange',syncFullscreenButtons);
+syncFullscreenButtons();
 document.body.classList.toggle('touch-mode',touchUI());
 window.addEventListener('resize',()=>{document.body.classList.toggle('touch-mode',touchUI());$('#touch').hidden=!playing||movementLocked()||!touchUI();});
 document.addEventListener('visibilitychange',()=>{

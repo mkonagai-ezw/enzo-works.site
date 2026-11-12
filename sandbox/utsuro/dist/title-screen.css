@@ -69,3 +69,6 @@ body.touch-mode #firstControls{bottom:32%}
  dialog.title-dialog,dialog#credits{max-height:calc(100dvh - 24px);padding:22px}
 }
 @media(prefers-reduced-motion:reduce){#intro button{transition:none}}
+
+#intro #titleFullscreen{position:absolute;top:max(16px,env(safe-area-inset-top));right:max(20px,env(safe-area-inset-right));z-index:1;min-height:44px;padding:8px 14px;border:1px solid #d6c3a35c;background:#08090799;font:13px/1.5 system-ui,sans-serif;letter-spacing:.08em;text-indent:0}
+#intro #titleFullscreen[hidden]{display:none}
