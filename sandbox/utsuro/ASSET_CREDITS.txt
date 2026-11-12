@@ -189,3 +189,5 @@ https://quaternius.itch.io/universal-animation-library
 紙の微細法線には既存Poly Haven fabric_pattern_07（CC0）を再利用。メモの指定文面・制作監修 ENZO WORKS、モデル制作・ゲーム組込支援 Codex。
 
 Handwritten clue note revision v2: OpenAI built-in image generation, edited from v1. Source: raw/foreshadowing/despair-note-v2.png. Exact prompt: raw/foreshadowing/despair-note-v2-prompt.txt. Game asset: dist/assets/despair-note-v2.glb.
+
+畳の焼け跡（2026-11-12）: ENZO WORKS監修、OpenAI内蔵Image Generationで新規生成した透過テクスチャ。炭化したい草・灰・煤を、僧侶が出現する和室の畳上面へ投影。お地蔵さん発動前のみ表示。生成指示・加工記録: dist/assets/scorched-tatami/provenance.txt。
